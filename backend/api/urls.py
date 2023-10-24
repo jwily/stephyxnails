@@ -21,7 +21,7 @@ Including another URLconf
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/orders/', include('orders.urls'))
+    path('', include('orders.urls'))
 ]
 
-# urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns = format_suffix_patterns(urlpatterns)
