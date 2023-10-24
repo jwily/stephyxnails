@@ -18,12 +18,3 @@ class Set(models.Model):
 
   class Meta:
     ordering = ['created']
-
-
-class Tier(models.Model):
-  price = models.IntegerField()
-  description = models.TextField()
-  name = models.CharField(max_length=30)
-
-  class Meta:
-    ordering = ['price']
