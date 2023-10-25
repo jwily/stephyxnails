@@ -1,6 +1,7 @@
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
 from rest_framework import generics
+from django.shortcuts import render
 
 """
 This view associated with "orders/"
@@ -52,3 +53,6 @@ class ExampleImageDetail(generics.RetrieveUpdateDestroyAPIView):
 class SetImageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SetImage.objects.all()
     serializer_class = SetImageSerializer
+
+def render_react(request):
+    return render(request, "index.html")
