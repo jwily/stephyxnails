@@ -54,5 +54,5 @@ class SetImageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SetImage.objects.all()
     serializer_class = SetImageSerializer
 
-def render_react(request):
-    return render(request, "index.html")
+# def render_react(request):
+#     return render(request, "index.html")

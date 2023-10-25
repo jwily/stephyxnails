@@ -24,8 +24,8 @@ Including another URLconf
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('orders.urls')),
-    re_path(r"^$", render_react),
-    re_path(r"^(?:.*)/?$", render_react),
+    # re_path(r"^$", render_react),
+    # re_path(r"^(?:.*)/?$", render_react),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
