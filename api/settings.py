@@ -88,7 +88,7 @@ STATICFILES_DIRS = [
   os.path.join(BASE_DIR, "build/static"),
 ]
 
-WSGI_APPLICATION = 'backend.api.wsgi.application'
+WSGI_APPLICATION = 'api.wsgi.application'
 
 
 # Database
