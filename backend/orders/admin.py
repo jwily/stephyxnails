@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, Set
+from .models import Order, Set, Tier, SetImage, ExampleImage
 
 # Register your models here.
 
