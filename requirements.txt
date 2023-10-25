@@ -6,6 +6,7 @@ django-cors-headers==4.3.0; python_version >= '3.8'
 djangorestframework==3.14.0; python_version >= '3.6'
 gunicorn==21.2.0; python_version >= '3.5'
 packaging==23.2; python_version >= '3.7'
+python-dotenv==1.0.0; python_version >= '3.8'
 pytz==2023.3.post1
 sqlparse==0.4.4; python_version >= '3.5'
 typing-extensions==4.8.0; python_version >= '3.8'
