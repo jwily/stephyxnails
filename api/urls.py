@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from orders.views import render_react
+# from orders.views import render_react
 
 """
 URL configuration for api project.
