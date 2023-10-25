@@ -28,6 +28,7 @@ function App() {
           Learn React
         </a>
         <button onClick={fetchTest}>Test</button>
+        <div className="bg-red-900 p-9 rounded-lg">TESTING TAILWIND CSS</div>
       </header>
     </div>
   );
