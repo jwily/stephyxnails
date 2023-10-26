@@ -92,7 +92,7 @@ WHITENOISE_ROOT = FRONTEND_DIR / 'build' / 'root'
 # ]
 
 # What is this for again?
-# Where did learn this was necessary?
+# Where did we learn this was necessary?
 # CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'api.urls'
