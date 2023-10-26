@@ -43,14 +43,14 @@ const SetForm =  () => {
     }
 
 
-    const ShapeSet = async () => {
-        const response = await fetch('/api/sets/');
-        if (response.ok) {
-          const res = await response.json();
-          console.log(res, 'look here');
-          return res;
-        }
-      }
+    // const ShapeSet = async () => {
+    //     const response = await fetch('/api/sets/');
+    //     if (response.ok) {
+    //       const res = await response.json();
+    //       console.log(res, 'look here');
+    //       return res;
+    //     }
+    //   }
 
 
     // Nail Extra (Charms) - $5 a Charm optional 
@@ -72,7 +72,7 @@ const SetForm =  () => {
         <button 
             type="button" 
             onClick={() => {setPage(page + 1); 
-            setCheckInput(true)}} 
+            setCheckInput(false)}} 
             className="#" 
             disabled={checkInput}>
             Next
@@ -80,8 +80,6 @@ const SetForm =  () => {
         </>
       )
   }
-
-  console.log(page)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -162,14 +160,14 @@ const SetForm =  () => {
         }
         { page >= 3 &&
             <section className={ page === 3 ? "block" : "hidden" }>
-                <div classname="#">
+                <div className="#">
                 <h2>2. Choose your preferred nail shape and length</h2>
-                    <div classname="#">
+                    <div className="#">
                     <label>Select from the following shape options</label>
                     <p>insert disclaimer</p>
                          <div className="#"> 
                             <select 
-                                classname="#"
+                                className="#"
                                 value={shape}
                                 onChange={(e) => { setShape(e.target.value) }}
                                 required
@@ -183,9 +181,9 @@ const SetForm =  () => {
         }
         { page >= 4 &&
             <section className={ page === 4 ? "block" : "hidden" }>
-                <div classname="#">
+                <div className="#">
                 <h2>3. Upload your inspiration pictures!</h2>
-                    <div classname="#">
+                    <div className="#">
                     <label>Share your photos with me</label>
                     <p>insert disclaimer</p>
                         <div>
@@ -198,12 +196,12 @@ const SetForm =  () => {
         }
         { page >= 5 &&
             <section className={ page === 5 ? "block" : "hidden" } >
-                <div classname="#">
+                <div className="#">
                 <h2>4. Nail description</h2>
-                    <div classname="#">
+                    <div className="#">
                     <label>Go into Detail</label>
                     <p>insert disclaimer</p>
-                        <div classname="#">
+                        <div className="#">
                             <textarea
                             className="#"
                             type="text"
@@ -221,19 +219,20 @@ const SetForm =  () => {
         }
         { page >= 6 &&
             <section className={ page === 6 ? "block" : "hidden" }>
-                <div classname="#">
+                <div className="#">
                 <h2>5. Nail Add-ons </h2>
                     <div>
                     <label>Would you like to include charms on to your</label>
                     <p>insert disclaimer</p>
                         <div className="">
-                            <input
+                            {/* <input
                                 className="#"
                                 type="number"
                                 placeholder=""
                                 // value={}
                                 onChange={e => { setExtra(e.target.value); }}>
-                            </input>
+                            
+                            </input> */}
                         </div>
                         <label className="#">Charms ($5 each)</label>
                     </div>
@@ -249,7 +248,7 @@ const SetForm =  () => {
                     <button 
                         type="submit" 
                         className="#"
-                        disabled={checkInput}
+                        // disabled={checkInput}
                     >
                         Submit
                     </button>
@@ -257,8 +256,8 @@ const SetForm =  () => {
             </section>
         }
         </form>
-        <div className="#">
-            {page >= 7 && (
+            {page === 7 && (
+                 <section className={ page === 7 ? "block" : "hidden" }>
             <div className="#">
             <h2>Previous Submissions</h2>
                 <div>
@@ -283,8 +282,8 @@ const SetForm =  () => {
 
                 </div>
             </div>
+            </section>
             )}
-        </div>
       
         </div>
     </div>
