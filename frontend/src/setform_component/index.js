@@ -29,19 +29,23 @@ const SetForm =  () => {
 
   // Wondering if we need this validator
   useEffect(() => {
+
+
     // Nail Tier Selection is a required radio input 
     // Nail Shape & Length is a required selection input 
     // Nail Photo Upload AWS - will this be optional? 
-
+   
     // Nail description must be greater than 10 character length
-    if (page === 5 &&  page) {
+    if (page === 5 ) {
         if (description.trim().length < 10) {
             setCheckInput(true)
         }
     }
 
+
+
     // Nail Extra (Charms) - $5 a Charm optional 
-  }, [description])
+  }, [page,description])
 
   // toggling between page pannels 
   let formButton;
@@ -68,6 +72,8 @@ const SetForm =  () => {
       )
   }
 
+  console.log(page)
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -93,26 +99,23 @@ const SetForm =  () => {
     <>
     <div className="#"> 
         <div className="#"> 
-            // Header/ Navigation Bar 
         </div>
         <div className="#"> 
-        // Set Form Carousel 
         { page === 1 &&
             // If section is === page 1 it will be on visible (block for block-level element) otherwise if it is not on page1, this block-level element is hidden
+            // What happens if they want to to return to order form information 
             <section className={page === 1 ? "block" : "hidden"}>
                 <div className="#">
                 <h2>Let's create your custom nail set!</h2>
                     <button
                         className="#"
                         onClick={() => setPage(2)}
-                    >
+                    > next
                     </button>
-                    // What happens if they want to to return to order form information 
                 </div>
             </section>
         }
         <form onSubmit={handleSubmit} className={page < 6 ? "block" : "hidden"}> 
-        // Nail Tier Selection
         { page >= 2 &&
             <section className={page === 2 ? "block" : "hidden"}>
                 <div className="#">
@@ -121,24 +124,24 @@ const SetForm =  () => {
                     <label>Please choose the Nail Tier that best fits your custom needs</label>
                     <p>insert disclaimer</p>
                         <div className="#"> 
-                        // Mapping through the allTiers array
                         {allTiers.map((nail_tier) => {
+                            // Mapping through the allTiers array
                             return (
                                 <div className="#"> 
                                 <input 
+                                    // key={nail_tier}
                                     className="#"
                                     name={tier}
                                     type="radio"
                                     id={nail_tier}
                                     checked= {tier === nail_tier} 
                                     value={tier}
-                                    onChange={() => { setTier(allTiers) }}
+                                    onChange={(e) => { setTier(nail_tier) }}
                                     required
                                 />
-                                // Above function is creating inputs, below we are labeling every input
-                                // Need help adding each nail tier discription 
+                    
                                     {/* <label for={nail_tier === "Budding Tier"}>{"Description of budding tier"}</label> */}
-                                <label for={nail_tier}> {nail_tier}</label>
+                                <label htmlFor={nail_tier}> {nail_tier}</label>
                                 </div>
                             )
                         })}
@@ -148,7 +151,6 @@ const SetForm =  () => {
                 </div>
             </section>
         }
-        // Nail Shape 
         { page >= 3 &&
             <section className={ page === 3 ? "block" : "hidden" }>
                 <div classname="#">
@@ -170,7 +172,6 @@ const SetForm =  () => {
                 <div className="#">{formButton}</div>
             </section>         
         }
-        // Nail photo upload
         { page >= 4 &&
             <section className={ page === 4 ? "block" : "hidden" }>
                 <div classname="#">
@@ -186,7 +187,6 @@ const SetForm =  () => {
                 <div className="#">{formButton}</div>
             </section>
         }
-        // Nail description 
         { page >= 5 &&
             <section className={ page === 5 ? "block" : "hidden" } >
                 <div classname="#">
@@ -210,7 +210,6 @@ const SetForm =  () => {
                 <div className="#">{formButton}</div>
             </section>
         }
-        // Nail extra (charms)
         { page >= 6 &&
             <section className={ page === 6 ? "block" : "hidden" }>
                 <div classname="#">

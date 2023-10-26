@@ -4,6 +4,7 @@ import SetForm from '../src/setform_component/index'
 
 function App() {
 
+
   const fetchTest = async () => {
     const response = await fetch('/api/tiers/');
     if (response.ok) {
