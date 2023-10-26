@@ -33,14 +33,14 @@ function OrderPage() {
             <input
               type='text'
               placeholder='Name'
-              value={}
+
             />
           </div>
           <div>
             <label>email</label>
           </div>
           <div>
-label><
+            <label/>
           </div>
 
 
