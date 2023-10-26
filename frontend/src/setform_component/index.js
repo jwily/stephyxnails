@@ -25,6 +25,7 @@ const SetForm =  () => {
     // Creating an empty array to add all set order submissions 
     const [submissions, setSubmissions] = useState([]) 
 
+
     const allTiers = ['Budding Tier', 'Petal Tier', 'Sakura Tier', 'Blossom Tier']
 
   // Wondering if we need this validator
@@ -84,14 +85,18 @@ const SetForm =  () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    const submission = { tier, shape, description,extra };
+
     // Add the current form data to the submissions array
-    setSubmissions([...submissions, { tier, shape, description, extra}]);
+
+    setSubmissions([...submissions, { submission}]);
 
     // Clear the individual state variables for the next submission
     setTier('');
     setShape('');
     setDescription('');
     setExtra('')
+
   }
 
 
@@ -122,7 +127,7 @@ const SetForm =  () => {
                 </div>
             </section>
         }
-        <form onSubmit={handleSubmit} className={page < 6 ? "block" : "hidden"}> 
+        <form onSubmit={handleSubmit} className={page < 7 ? "block" : "hidden"}> 
         { page >= 2 &&
             <section className={page === 2 ? "block" : "hidden"}>
                 <div className="#">
@@ -136,14 +141,14 @@ const SetForm =  () => {
                             return (
                                 <div className="#"> 
                                 <input 
-                                    // key={nail_tier}
+                                    key={nail_tier}
                                     className="#"
                                     name={tier}
                                     type="radio"
                                     id={nail_tier}
                                     checked= {tier === nail_tier} 
                                     value={tier}
-                                    onChange={(e) => { setTier(nail_tier) }}
+                                    onChange={() => { setTier(nail_tier) }}
                                     required
                                 />
                     
@@ -166,13 +171,14 @@ const SetForm =  () => {
                     <label>Select from the following shape options</label>
                     <p>insert disclaimer</p>
                          <div className="#"> 
-                            <select 
-                                className="#"
+                            {/* <select 
+
                                 value={shape}
                                 onChange={(e) => { setShape(e.target.value) }}
                                 required
                             >
-                            </select>
+                            </select> */}
+                            //need to fill
                         </div>
                     </div>
                 </div>
@@ -225,16 +231,16 @@ const SetForm =  () => {
                     <label>Would you like to include charms on to your</label>
                     <p>insert disclaimer</p>
                         <div className="">
-                            {/* <input
+                            <textarea
                                 className="#"
-                                type="number"
+                                type="text"
                                 placeholder=""
-                                // value={}
-                                onChange={e => { setExtra(e.target.value); }}>
-                            
-                            </input> */}
+                                value={extra}
+                                onChange={ (e) => { setExtra(e.target.value); }}>
+                        
+                            </textarea>
                         </div>
-                        <label className="#">Charms ($5 each)</label>
+                        <label className="#">Charms</label>
                     </div>
                 </div>
                 <div className="#">
@@ -245,23 +251,29 @@ const SetForm =  () => {
                         className="#">
                         Back
                     </button>
-                    <button 
+
+                </div>   
+                <button 
                         type="submit" 
                         className="#"
                         // disabled={checkInput}
                     >
                         Submit
                     </button>
-                </div>   
             </section>
         }
         </form>
-            {page === 7 && (
+        <form>
+            {page ===7 && (
                  <section className={ page === 7 ? "block" : "hidden" }>
             <div className="#">
+
+        {submissions.length > 0 && (
+             <div>
             <h2>Previous Submissions</h2>
-                <div>
+               
                 <ul>
+                    
                     {submissions.map((submission, index) => (
                     <li key={index}>
                         Tier: {submission.tier}, 
@@ -271,20 +283,25 @@ const SetForm =  () => {
                     </li>
                     ))}
                 </ul>
+             
                 </div>
-                <div>
-                    <button
+                 )}
+                 <button
                         type="button" 
                         onClick={handleReturnToForm}
                         className="#">
                         Add Another Set
                     </button>
 
+                <div>
+              
+
                 </div>
             </div>
             </section>
             )}
-      
+                        </form>
+
         </div>
     </div>
     </>
