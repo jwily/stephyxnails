@@ -17,25 +17,22 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# For ease of use later - deployment
+# For ease of reference in using WhiteNoise
 BACKEND_DIR = BASE_DIR  # rename variable for clarity
 FRONTEND_DIR = BASE_DIR.parent / 'frontend'
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
-# Setting this to True seems to prevent deployment
 DEBUG = 'RENDER' not in os.environ
 
 # For ease of use in development
 ALLOWED_HOSTS = ['localhost']
 
-# Adds Render site name in production
+# Adds Render site name in production to allowed hosts
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -73,7 +70,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 # Added stuff rom here...
 STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
 
@@ -88,11 +84,16 @@ STATIC_ROOT = BACKEND_DIR / 'static'
 WHITENOISE_ROOT = FRONTEND_DIR / 'build' / 'root'
 # ...to here for deployment
 
+# Again, if curious, reference the doc shared above.
+
+# As the React is being served by Django,
+# there is no need to enable resource sharing.
+
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:3000",
 # ]
 
-# What is this for again?
+# Don't know what this is for. - John
 # CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'api.urls'
@@ -100,7 +101,8 @@ ROOT_URLCONF = 'api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Added for deployment
+        # 'DIRS' value added so that Django knows where to find
+        # the index.html file when it tries to serve React
         'DIRS': [FRONTEND_DIR / 'build'],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -119,17 +121,23 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# This will allow us to easily check the env variables
-# to tell Django what databse it should expect
 DATABASES = {
-	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+  # This allows us to use sqlite in development
+  # and postgres in production.
+
+  # The conn_max_age keyword keeps the connection to the
+  # database open for the specified time, good for
+  # successive database requests.
+
+  # The conn_health_checks keyword checks that if a connection
+  # is open in this way, that it is verified before
+  # another request is sent through.
+
+	"default": dj_database_url.parse(
+        os.environ.get("DATABASE_URL"),
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600,
+        conn_health_checks=True)
 }
 
 # Password validation
@@ -150,7 +158,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -161,7 +168,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

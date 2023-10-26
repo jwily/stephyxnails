@@ -82,7 +82,7 @@ def iter_response(response, chunk_size=65536):
 def catchall_dev(request, upstream='http://localhost:3000'):
 
     # This function is meant to kick in during development when
-    # navigating on localhost:8000. Basically, if none of the routes
+    # browsing through localhost:8000. Basically, if none of the routes
     # that we defined with Django REST Framework views are requested,
     # then the assumption is that front-end stuff is being requested
     # and so the application is asked to look at localhost:3000.
@@ -98,7 +98,7 @@ def catchall_dev(request, upstream='http://localhost:3000'):
     # will be broken up into chunks using the function from above.
 
     # StreamingHttpResponse seems to be a nice Django thing
-    # that sends the response bit by bit and not all at once
+    # that sends the response bit by bit and not all at once.
 
     if content_type == 'text/html; charset=UTF-8':
         response_text = response.read().decode()
@@ -123,5 +123,7 @@ def catchall_dev(request, upstream='http://localhost:3000'):
 # to the frontend folder to find the index.html file.
 
 catchall_prod = TemplateView.as_view(template_name='index.html')
+
+# Defines which catchall view will be used based on the environment.
 
 catchall = catchall_dev if settings.DEBUG else catchall_prod
