@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 import ReviewOrderPage from "../ReviewOrderPage";
+import { OrderProvider } from "./context/OrderContext";
+import SetPage from "../SetPage";
+import OrderDetails from "../OrderDetails";
 
 function OrderPage() {
 
-  const data = createContext({})
 
   return (
-
-    <data.Provider>
+    <OrderProvider>
         <div>
           <h1>🌸Custom Nail Form🌸</h1>
-        </div>
         <OrderDetails />
-        <SetPage />
+        {/* <SetPage /> */}
         <ReviewOrderPage />
-    </data.Provider>
-
+        </div>
+        </OrderProvider>
   )
 }
 

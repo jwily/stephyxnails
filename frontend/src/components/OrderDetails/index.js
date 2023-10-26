@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useContext } from "react";
+import { useOrderContext } from "../../context/OrderContext";
+import { useHistory } from "react-router-dom";
     /*
     <OrderPage>
 
@@ -22,22 +23,20 @@ import { useState, useEffect } from "react";
 
 function OrderDetails() {
   const history = useHistory();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [instagram, setInstagram] = useState('');
-  
+
+  const {name, email, instagram, setName, setEmail, setInstagram} = useOrderContext();
 
   const formSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = await new FormData();
+  //   const formData = await new FormData();
 
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('instagram', instagram)
+  //   formData.append('name', name);
+  //   formData.append('email', email);
+  //   formData.append('instagram', instagram)
 
-    history.push('/orders/setpage', {data: formData})
-
+  //   history.push('/orders/setpage', {data: formData})
+   history.push('orders/setpage')
   }
 
   return (
