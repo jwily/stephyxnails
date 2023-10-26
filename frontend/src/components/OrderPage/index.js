@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 
 function OrderPage() {
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [instagram, setInstagram] = useState('');
-  const [contact, setContact] = useState('');
 
   return (
     /*
@@ -27,26 +23,6 @@ function OrderPage() {
 
     <div>
       <h1>🌸Custom Nail Form🌸</h1>
-        <form>
-          <div>
-            <label>name</label>
-            <input
-              type='text'
-              placeholder='Name'
-
-            />
-          </div>
-          <div>
-            <label>email</label>
-          </div>
-          <div>
-            <label/>
-          </div>
-
-
-
-
-        </form>
     </div>
   )
 }
