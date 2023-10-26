@@ -10,3 +10,4 @@ python-dotenv==1.0.0; python_version >= '3.8'
 pytz==2023.3.post1
 sqlparse==0.4.4; python_version >= '3.5'
 typing-extensions==4.8.0; python_version >= '3.8'
+whitenoise==6.6.0; python_version >= '3.8'
