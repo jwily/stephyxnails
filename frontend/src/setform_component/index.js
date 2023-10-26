@@ -148,7 +148,9 @@ const SetForm =  ()=> {
                 <div>
                 <h2>2. Choose your preferred nail shape and length</h2>
                     <div>
+                    <select>
 
+                    </select>
                     </div>
                 </div>
                 <div className="#">{formButton}</div>
