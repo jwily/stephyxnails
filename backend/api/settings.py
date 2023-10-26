@@ -87,7 +87,7 @@ WHITENOISE_ROOT = FRONTEND_DIR / 'build' / 'root'
 # Again, if curious, reference the doc shared above.
 
 # As the React is being served by Django,
-# there is no need to enable resource sharing.
+# there is no longer a need to enable resource sharing.
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:3000",
@@ -95,6 +95,8 @@ WHITENOISE_ROOT = FRONTEND_DIR / 'build' / 'root'
 
 # Don't know what this is for. - John
 # CORS_ALLOW_CREDENTIALS = True
+
+ROOT_URLCONF = 'api.urls'
 
 TEMPLATES = [
     {
