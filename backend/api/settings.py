@@ -69,8 +69,15 @@ MIDDLEWARE = [
 
 STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
 
-STATICFILES_STORAGE = (
-    'whitenoise.storage.CompressedManifestStaticFilesStorage')
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# STATICFILES_STORAGE = (
+#     'whitenoise.storage.CompressedManifestStaticFilesStorage')
 
 STATIC_ROOT = BACKEND_DIR / 'static'
 
