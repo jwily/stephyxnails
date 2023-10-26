@@ -43,6 +43,15 @@ const SetForm =  () => {
     }
 
 
+    const ShapeSet = async () => {
+        const response = await fetch('/api/sets/');
+        if (response.ok) {
+          const res = await response.json();
+          console.log(res, 'look here');
+          return res;
+        }
+      }
+
 
     // Nail Extra (Charms) - $5 a Charm optional 
   }, [page,description])
