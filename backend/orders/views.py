@@ -9,21 +9,19 @@ from django.template import engines
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
 
-"""
-This view associated with "orders/"
-GET orders/
-POST orders/
-"""
+# This view associated with "orders/"
+# GET orders/
+# POST orders/
+
 class OrderList(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-"""
-This view associated with "orders/<int:pk>"
-GET orders/<int:pk>
-PUT or PATCH orders/<int:pk>
-DELETE orders/<int:pk>
-"""
+# This view associated with "orders/<int:pk>"
+# GET orders/<int:pk>
+# PUT or PATCH orders/<int:pk>
+# DELETE orders/<int:pk>
+
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -62,17 +60,15 @@ class SetImageDetail(generics.RetrieveUpdateDestroyAPIView):
 
 def iter_response(response, chunk_size=65536):
 
-    """
-    By default, when a response is read, it attempts
-    to read all of the content at once until the end.
+    # By default, when a response is read, it attempts
+    # to read all of the content at once until the end.
 
-    This function will be used to break up a response
-    into small chunks (64 KB to be precise) for a smoother
-    development experience.
+    # This function will be used to break up a response
+    # into small chunks (64 KB to be precise) for a smoother
+    # development experience.
 
-    It will "yield" data in 64 KB chunks until all of the data is read.
-    "Yield" is cool because it's like return but the function does not end!
-    """
+    # It will "yield" data in 64 KB chunks until all of the data is read.
+    # "yield" is cool because it's like "return" but the function does not end!
 
     try:
         while True:
@@ -85,25 +81,24 @@ def iter_response(response, chunk_size=65536):
 
 def catchall_dev(request, upstream='http://localhost:3000'):
 
-    """
-    This function is meant to kick in during development when
-    navigating localhost:8000. Basically, if none of the routes
-    that we defined with Django REST Framework views are requested,
-    then the assumption is that front-end stuff is being requested
-    and so the application is asked to look at localhost:3000.
-    """
+    # This function is meant to kick in during development when
+    # navigating on localhost:8000. Basically, if none of the routes
+    # that we defined with Django REST Framework views are requested,
+    # then the assumption is that front-end stuff is being requested
+    # and so the application is asked to look at localhost:3000.
 
     upstream_url = upstream + request.path
     response = urllib.request.urlopen(upstream_url)
     content_type = response.getheader('Content-Type')
 
-    """
-    If the content type is HTML, then it will be read and served
-    using Django's templating system.
+    # If the content type is HTML, then it will be read and served
+    # using Django's templating system.
 
-    If it isn't, it must be some other type of static resource, which
-    will be broken up into chunks using the function from above.
-    """
+    # If it isn't, it must be some other type of static resource, which
+    # will be broken up into chunks using the function from above.
+
+    # StreamingHttpResponse seems to be a nice Django thing
+    # that sends the response bit by bit and not all at once
 
     if content_type == 'text/html; charset=UTF-8':
         response_text = response.read().decode()

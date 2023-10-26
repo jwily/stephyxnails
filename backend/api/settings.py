@@ -42,7 +42,10 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 # Application definition
 
-# WhiteNoise placed before static files
+# See https://whitenoise.readthedocs.io/en/latest/django.html
+# for explanations of the values we added here to serve React
+
+# WhiteNoise placed before staticfiles
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -57,6 +60,7 @@ INSTALLED_APPS = [
 ]
 
 # CORS must go before anything that generates responses
+# Whitenoise should be placed right after SecurityMiddleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     # 'corsheaders.middleware.CorsMiddleware',
@@ -70,7 +74,7 @@ MIDDLEWARE = [
 ]
 
 
-# From here...
+# Added stuff rom here...
 STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
 
 STORAGES = {
@@ -89,7 +93,6 @@ WHITENOISE_ROOT = FRONTEND_DIR / 'build' / 'root'
 # ]
 
 # What is this for again?
-# Where did we learn this was necessary?
 # CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'api.urls'
@@ -123,6 +126,8 @@ WSGI_APPLICATION = 'api.wsgi.application'
 #     }
 # }
 
+# This will allow us to easily check the env variables
+# to tell Django what databse it should expect
 DATABASES = {
 	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
