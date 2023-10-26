@@ -25,6 +25,7 @@ function OrderDetails() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [instagram, setInstagram] = useState('');
+  
 
   const formSubmit = async (e) => {
     e.preventDefault();
