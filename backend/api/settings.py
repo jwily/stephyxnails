@@ -74,7 +74,7 @@ MIDDLEWARE = [
 STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
 
 STORAGES = {
-    # ...
+    # Allows WhiteNoise to do its job of compressing and hashing
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
