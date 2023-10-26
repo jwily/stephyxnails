@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = True
 
 # For ease of use in development
 ALLOWED_HOSTS = ['localhost']
@@ -56,7 +56,6 @@ INSTALLED_APPS = [
 ]
 
 # CORS must go before anything that generates responses
-# WhiteNoise placed before
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     # 'corsheaders.middleware.CorsMiddleware',
@@ -79,9 +78,6 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-
-# STATICFILES_STORAGE = (
-#     'whitenoise.storage.CompressedManifestStaticFilesStorage')
 
 STATIC_ROOT = BACKEND_DIR / 'static'
 WHITENOISE_ROOT = FRONTEND_DIR / 'build' / 'root'
