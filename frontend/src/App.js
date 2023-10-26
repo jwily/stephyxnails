@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
-
-import OrderPage from './components/OrderPage'
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import OrderPage from './components/OrderPage';
 
 function App() {
-
   return (
-  <>
-    <Route path='/'>
-      {/* <Header /> */}
-    </Route>
-    <Switch>
-      <Route exact path='/order'>
-        <OrderPage />
-      </Route>
-    <Route>
-        <PageNotFound />
-    </Route>
-    </Switch>
-
-  </>
+    <Router>
+      <NavBar />
+      <Switch>
+        <Route exact path="/order">
+          <OrderPage />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
