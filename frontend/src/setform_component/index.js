@@ -148,8 +148,10 @@ const SetForm =  ()=> {
                 <div>
                 <h2>2. Choose your preferred nail shape and length</h2>
                     <div>
-                    <select>
-
+                    <select 
+                        classname="#"
+                        required
+                    >
                     </select>
                     </div>
                 </div>
@@ -209,7 +211,6 @@ const SetForm =  ()=> {
     </div>
     </>
   )
-  
 
 }
 
