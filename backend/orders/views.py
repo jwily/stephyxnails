@@ -118,6 +118,10 @@ def catchall_dev(request, upstream='http://localhost:3000'):
             reason=response.reason,
         )
 
+# Not 100% sure, but it seems like setting the 'DIRS' attribute
+# of the TEMPLATES value in the settings directs Django
+# to the frontend folder to find the index.html file.
+
 catchall_prod = TemplateView.as_view(template_name='index.html')
 
 catchall = catchall_dev if settings.DEBUG else catchall_prod
