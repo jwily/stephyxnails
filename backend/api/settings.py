@@ -96,8 +96,6 @@ WHITENOISE_ROOT = FRONTEND_DIR / 'build' / 'root'
 # Don't know what this is for. - John
 # CORS_ALLOW_CREDENTIALS = True
 
-ROOT_URLCONF = 'api.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -121,6 +119,8 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DATABASE_URL = os.environ.get("DATABASE_URL") if not DEBUG else 'sqlite:///db.sqlite3'
+
 DATABASES = {
   # This allows us to use sqlite in development
   # and postgres in production.
@@ -134,8 +134,7 @@ DATABASES = {
   # another request is sent through.
 
 	"default": dj_database_url.parse(
-        os.environ.get("DATABASE_URL"),
-        default='sqlite:///db.sqlite3',
+        DATABASE_URL,
         conn_max_age=600,
         conn_health_checks=True)
 }
