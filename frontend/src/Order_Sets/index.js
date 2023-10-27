@@ -153,7 +153,7 @@ const SetForm =  () => {
                                     required
                                 />
                     
-                                    {/* <label for={nail_tier === "Budding Tier"}>{"Description of budding tier"}</label> */}
+                                 {/* <label for={nail_tier === "Budding Tier"}>{"Description of budding tier"}</label> */}
                                 <label htmlFor={nail_tier}> {nail_tier}</label>
                                 </div>
                             )

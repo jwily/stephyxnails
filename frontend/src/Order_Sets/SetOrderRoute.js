@@ -7,8 +7,6 @@ import DescriptionForm from './DescriptionForm'
 import ExtraForm from './ExtraForm'
 import Submissions from './Submissions';
 
-
-
 function Routes() {
     return (
       <Switch>
