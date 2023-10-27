@@ -7,7 +7,7 @@ function ExtraForm() {
   
     const handleNext = () => {
         // Save the "Tier Form" value and navigate to the next step
-        history.push('/step/all');
+        history.push('/order-set/all');
       };
   
     return (

@@ -8,6 +8,7 @@ import AboutPage from './components/AboutPage';
 import FaqPage from './components/FaqPage';
 import LandingPage from './components/LandingPage';
 import OrderDetails from './components/OrderDetails';
+import OrderSetRoutes from './components/OrderSetForm/SetOrderRoute'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={LandingPage}/>
         <Route exact path="/order" component={OrderPage}/>
+        <OrderSetRoutes />
         <Route exact path="/ordersss" component={OrderDetails}/>
         <Route exact path='/sizing' component={SizingPage} />
         <Route exact path='/gallery' component={GalleryPage} />

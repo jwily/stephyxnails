@@ -11,38 +11,39 @@ function TierForm() {
 
   const handleNext = () => {
     // Save the "Tier Form" value and navigate to the next step
-    history.push('/set/shape');
+    history.push('/order-set/shape');
   };
 
   return (
     <>
-    <div> 
-        <h2></h2>
-            <p></p>
-            {allTiers.map((nail_tier) => {
-                            // Mapping through the allTiers array
-                            return (
-                                <div className="#"> 
-                                <input 
-                                    className="#"
-                                    name={tier}
-                                    type="radio"
-                                    id={nail_tier}
-                                    checked= {tier === nail_tier} 
-                                    value={tier}
-                                    onChange={() => { setTier(nail_tier) }}
-                                    required
-                                />
-                    
-                                 {/* <label for={nail_tier === "Budding Tier"}>{"Description of budding tier"}</label> */}
-                                <label htmlFor={nail_tier}> {nail_tier}</label>
-                                </div>
-                            )
-                        })}
-        <div>
-            <button onClick={handleNext}>Next</button>
-        </div>
-    </div>
+    <section> 
+        <h1>1.Choose a Nail Tier</h1>
+          <p>disclaimer</p>
+            <div>
+              {allTiers.map((nail_tier) => {
+                // Mapping through the allTiers array
+                return (
+                  <div className="#"> 
+                    <input 
+                      className="#"
+                      name={tier}
+                      type="radio"
+                      id={nail_tier}
+                      checked= {tier === nail_tier} 
+                      value={tier}
+                      onChange={() => { setTier(nail_tier) }}
+                      required
+                    />
+                    <label htmlFor={nail_tier}> {nail_tier}</label>
+                  </div>
+                  )
+              })}
+            </div>
+            
+            <div>
+              <button onClick={handleNext}>Next</button>
+            </div>
+    </section>
     </>
 
   );

@@ -4,25 +4,28 @@ import { useHistory } from 'react-router-dom';
 
 
 function ShapeForm() {
+  const history = useHistory();
+
     const [shape, setShape] = useState('');
   
     const handleNext = () => {
       // Save the "Shape Form" value and navigate to the next step
-      history.push('/set/photo');
+      history.push('/order-set/photo');
     };
   
     return (
       <>
-      <div> 
+      <section> 
         <h2></h2>
             <p></p>
               <input
               >
               </input>
         <div>
+        <button onClick={() => history.goBack()}>Go Back</button>
           <button onClick={handleNext}>Next</button>
         </div>
-      </div>
+      </section>
       </>
     );
   }

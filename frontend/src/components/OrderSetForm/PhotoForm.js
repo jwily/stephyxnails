@@ -6,10 +6,12 @@ import { useHistory } from 'react-router-dom';
 function PhotoForm() {
 
     const [shape, setShape] = useState('');
+    const history = useHistory();
+
 
     const handleNext = () => {
       // Save the "Photo Form" value and navigate to the next step
-      history.push('/set/description');
+      history.push('/order-set/description');
     };
   
     return (

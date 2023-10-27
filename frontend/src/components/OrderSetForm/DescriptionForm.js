@@ -8,7 +8,7 @@ function DescriptionFrom() {
     const history = useHistory();
   
     const handleNext = () => {
-      history.push('/set/extra');
+      history.push('/order-set/extra');
     };
   
     return (

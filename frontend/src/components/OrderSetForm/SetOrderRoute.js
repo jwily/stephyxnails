@@ -12,12 +12,12 @@ function Routes() {
     return (
       <Router>
         <Switch>
-          <Route path="/set/tier" component={TierForm} />
-          <Route path="/set/shape" component={ShapeForm} />
-          <Route path="/set/photo" component={PhotoForm} />
-          <Route path="/set/description" component={DescriptionForm} />
-          <Route path="/set/extra" component={ExtraForm} />
-          <Route path="/set/all" component={Submissions} />
+          <Route path="/order-set/tier" component={TierForm} />
+          <Route path="/order-set/shape" component={ShapeForm} />
+          <Route path="/order-set/photo" component={PhotoForm} />
+          <Route path="/order-set/description" component={DescriptionForm} />
+          <Route path="/order-set/extra" component={ExtraForm} />
+          <Route path="/order-set/all" component={Submissions} />
         </Switch>
       </Router>
     );
