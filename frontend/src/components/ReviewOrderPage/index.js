@@ -32,7 +32,7 @@ const ReviewOrderPage = (info) => {
 
     return (
         <div>
-            {info.sets.map(set =>
+            {/* {info.sets.map(set =>
                 <div key={set.description.length}>
                     <div>
                         {set.description}
@@ -46,7 +46,7 @@ const ReviewOrderPage = (info) => {
                     <div>
                         {set.tier}
                     </div>
-                </div>)}
+                </div>)} */}
 
                 <button onClick={handleSubmit}>Submit</button>
         </div>
