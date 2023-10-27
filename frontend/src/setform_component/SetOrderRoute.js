@@ -16,11 +16,10 @@ function Routes() {
         <Route path="/shape" component={ShapeForm} />
         <Route path="/photo" component={PhotoForm} />
         <Route path="/description" component={DescriptionForm} />
-        <Route path="/sxtra" component={ExtraForm} />
+        <Route path="/extra" component={ExtraForm} />
         <Route path="/submissions" component={Submissions} />
       </Switch>
     );
   }
   
   export default Routes;
-  
