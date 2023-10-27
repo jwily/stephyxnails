@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 
-function ShapeForm() {
+function Submissions() {
     const [shape, setShape] = useState('');
     const history = useHistory();
   
@@ -13,11 +13,9 @@ function ShapeForm() {
   
     return (
         <form onSubmit={handleSubmit}>
-          <div>
 
-          </div>
         </form>
     );
   }
   
-  export default ShapeForm;
+  export default Submissions;

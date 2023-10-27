@@ -8,7 +8,6 @@ function TierForm() {
 
   const allTiers = ['Budding Tier', 'Petal Tier', 'Sakura Tier', 'Blossom Tier']
 
-
   const handleSubmit = () => {
     e.preventDefault()
 
@@ -42,6 +41,9 @@ function TierForm() {
                             )
                         })}
                     </div>
+                </div>
+                <div>
+                        
                 </div>
         </div>
     </form>

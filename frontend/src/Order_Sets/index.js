@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 const SetForm =  () => {
 
+    // Subject to be delete 
+
     const [page, setPage] = useState(1)
 
     const [tier, setTier] = useState("")  // radio selection 
@@ -302,8 +304,7 @@ const SetForm =  () => {
             </div>
             </section>
             )}
-                        </form>
-
+        </form>
         </div>
     </div>
     </>
