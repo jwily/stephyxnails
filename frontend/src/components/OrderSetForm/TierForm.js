@@ -8,7 +8,7 @@ function TierForm() {
 
   const allTiers = ['Budding Tier', 'Petal Tier', 'Sakura Tier', 'Blossom Tier']
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     history.push('/shape');
@@ -43,7 +43,8 @@ function TierForm() {
                     </div>
                 </div>
                 <div>
-                        
+       
+              
                 </div>
         </div>
     </form>
