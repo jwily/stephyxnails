@@ -7,17 +7,23 @@ function DescriptionFrom() {
     const [description, setDescription] = useState('');
     const history = useHistory();
   
-    const handleSubmit = () => {
-      
-      history.push('/extra');
+    const handleNext = () => {
+      history.push('/set/extra');
     };
   
     return (
-        <form onSubmit={handleSubmit}>
-
-          
-
-        </form>
+      <>
+      <div> 
+        <h2></h2>
+          <p></p>
+              <input
+              >
+              </input>
+        <div>
+            <button onClick={handleNext}>Next</button>
+        </div>
+      </div>
+      </>
     );
   }
   

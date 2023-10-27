@@ -10,6 +10,10 @@ import LandingPage from './components/LandingPage';
 import OrderDetails from './components/OrderDetails';
 
 function App() {
+
+
+
+
   return (
     <Router>
       <NavBar />

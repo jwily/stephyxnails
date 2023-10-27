@@ -5,24 +5,25 @@ function ExtraForm() {
     const [extra, setExtra] = useState('');
     const history = useHistory();
   
-    const handleSubmit = () => {
-      
-      history.push('/submission');
-    };
+    const handleNext = () => {
+        // Save the "Tier Form" value and navigate to the next step
+        history.push('/step/all');
+      };
   
     return (
-        <form onSubmit={handleSubmit}>
-
-            <textarea
-                className="#"
-                type="text"
-                placeholder=""
-                value={extra}
-                onChange={ (e) => { setExtra(e.target.value); }}>
-                        
-            </textarea>
-
-        </form>
+        <>
+        <div> 
+            <h2></h2>
+                <p></p>
+                <input
+                 >
+              </input>
+           
+            <div>
+                <button onClick={handleNext}>Next</button>
+            </div>
+        </div>
+        </>
     );
   }
   

@@ -7,8 +7,8 @@ function Submissions() {
     const history = useHistory();
   
     const handleSubmit = () => {
-      
-      history.push('/photo');
+
+      history.push('/set/all');
     };
   
     return (
