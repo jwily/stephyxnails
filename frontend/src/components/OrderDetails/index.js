@@ -25,7 +25,9 @@ function OrderDetails() {
   const history = useHistory();
 
   const { name, email, instagram, setName, setEmail, setInstagram } = useOrderContext();
-
+  console.log(name,'name');
+  console.log(instagram,'insta');
+  console.log(email,'email');
   const formSubmit = async (e) => {
     e.preventDefault();
 
@@ -41,13 +43,13 @@ function OrderDetails() {
 
   return (
     <div>
-      <section className="bg-gray-2 rounded-xl">
+      <section className="bg-gray-2 rounded-xl bg-primary w-5/12 ">
         <div className="p-8 shadow-lg">
           <form className="space-y-4">
             <div className="w-full">
               <label className="sr-only" htmlFor="name">Name</label>
               <input
-                className="input input-solid max-w-full"
+                className="input input-solid max-w-full bg-secondary"
                 placeholder="Name"
                 type="text"
                 id="name"
@@ -61,7 +63,7 @@ function OrderDetails() {
               <div>
                 <label className="sr-only" htmlFor="email">Email</label>
                 <input
-                  className="input input-solid"
+                  className="input input-solid bg-secondary"
                   placeholder="Email address"
                   type="email"
                   id="email"
@@ -74,7 +76,7 @@ function OrderDetails() {
               <div>
                 <label className="sr-only" htmlFor="phone">Instagram</label>
                 <input
-                  className="input input-solid"
+                  className="input input-solid bg-secondary"
                   placeholder="Phone Number"
                   type="tel"
                   id="phone"
@@ -92,7 +94,7 @@ function OrderDetails() {
             </div> */}
 
             <div className="mt-4">
-              <button type="button" className="rounded-lg btn btn-primary btn-block">Next</button>
+              <button type="button" className="rounded-lg btn btn-primary btn-block bg-primary_blue">Next</button>
             </div>
           </form>
         </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ReviewOrderPage from "../ReviewOrderPage";
-import { useOrderContext } from "../../context/OrderContext";
+import { OrderProvider } from "../../context/OrderContext";
 import SetPage from "../SetPage";
 import OrderDetails from "../OrderDetails";
 
@@ -8,12 +8,11 @@ function OrderPage() {
 
 
   return (
-
-        <div>
-          <h1>🌸Custom Nail Form🌸</h1>
+      <OrderProvider>
+        <h1>🌸Custom Nail Form🌸</h1>
+        <OrderDetails />
         <ReviewOrderPage />
-
-        </div>
+      </OrderProvider>
   )
 }
 
