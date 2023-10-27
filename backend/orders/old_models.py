@@ -1,10 +1,11 @@
 from django.db import models
+from django.template.defaultfilters import truncatechars
 
 STATUS_CHOICES = (
   ('pending', 'Pending'),
   ('in_progress', 'In Progress'),
-  ('canceled', 'Canceled'),
   ('completed', 'Completed'),
+  ('canceled', 'Canceled'),
 )
 
 SHAPE_CHOICES = (
@@ -20,6 +21,7 @@ SHAPE_CHOICES = (
   ('m-stilleto', 'Medium Stiletto'),
 )
 
+
 # Create your models here.
 class Order(models.Model):
   created = models.DateTimeField(auto_now_add=True)
@@ -32,18 +34,26 @@ class Order(models.Model):
   class Meta:
     ordering = ['-created']
 
+  def __str__(self):
+    return self.name + ' ' + self.created.strftime("%b '%y")
+
+
 class Tier(models.Model):
   name = models.CharField(max_length=100)
   price = models.IntegerField()
-  description = models.TextField(max_length=5000)
+  description = models.TextField()
 
   class Meta:
     ordering = ['price']
 
+  def __str__(self):
+    return self.name + ' $' + str(self.price) + '+'
+
+
 class Set(models.Model):
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
-  description = models.TextField(max_length=5000)
+  description = models.TextField()
   shape = models.CharField(max_length=254, choices=SHAPE_CHOICES)
   sizes = models.CharField(max_length=254)
 
@@ -51,7 +61,14 @@ class Set(models.Model):
   tier = models.ForeignKey(Tier, on_delete=models.CASCADE, related_name='sets')
 
   class Meta:
-    ordering = ['created']
+    ordering = ['-created']
+
+  @property
+  def short_description(self):
+    if len(self.description) <= 50:
+      return self.description
+    return truncatechars(self.description, 50)
+
 
 class SetImage(models.Model):
   url = models.URLField()
@@ -60,6 +77,7 @@ class SetImage(models.Model):
 
   class Meta:
     ordering = ['id']
+
 
 class ExampleImage(models.Model):
   created = models.DateTimeField(auto_now_add=True)

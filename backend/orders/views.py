@@ -1,26 +1,24 @@
 import urllib.request
 
-from rest_framework import generics
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.http import HttpResponse, StreamingHttpResponse
 from django.template import engines
 
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
 
-# This view associated with "orders/"
-# GET orders/
-# POST orders/
-
-class OrderList(generics.ListCreateAPIView):
+class OrderList(generics.ListAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-# This view associated with "orders/<int:pk>"
-# GET orders/<int:pk>
-# PUT or PATCH orders/<int:pk>
-# DELETE orders/<int:pk>
+class OrderCreate(generics.CreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [AllowAny]
 
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
