@@ -1,6 +1,7 @@
-import { useOrderContext } from "./OrderContext";
+import { useOrderContext } from "../../context/OrderContext";
 
-const ReviewOrderPage = () => {
+
+const ReviewOrderPage = (info) => {
 
 
     const { state, dispatch } = useOrderContext()
