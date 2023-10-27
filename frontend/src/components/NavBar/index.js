@@ -6,10 +6,9 @@ const NavBar = () => {
     return (
         <div className="navbar bg-primary">
             <div className="navbar-start">
-                <a className="navbar-item" style={{width:"120px"}}>
+                <NavLink className="navbar-item" exact to='/' style={{width:"120px"}}>
                     <img src={logo} alt={logo} />
-                </a>
-
+                </NavLink>
             </div>
             <div className="navbar-end">
                 <NavLink className="navbar-item text-gray-500" exact to='/order'>ORDERING</NavLink>
