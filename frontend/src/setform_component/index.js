@@ -107,6 +107,8 @@ const SetForm =  () => {
 
   };
 
+  console.log(submissions)
+
   return (
     <>
     <div className="#"> 
@@ -141,7 +143,6 @@ const SetForm =  () => {
                             return (
                                 <div className="#"> 
                                 <input 
-                                    key={nail_tier}
                                     className="#"
                                     name={tier}
                                     type="radio"
@@ -257,6 +258,7 @@ const SetForm =  () => {
                         type="submit" 
                         className="#"
                         // disabled={checkInput}
+                        onClick={() => {setPage(page + 1)}}
                     >
                         Submit
                     </button>
