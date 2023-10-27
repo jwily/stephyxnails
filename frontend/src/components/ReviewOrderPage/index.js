@@ -1,10 +1,5 @@
-import { useOrderContext } from "../../context/OrderContext";
-
-
 const ReviewOrderPage = (info) => {
 
-
-    // const { state, dispatch } = useOrderContext()
 
     const handleSubmit = async (e) => {
         e.preventDefault()

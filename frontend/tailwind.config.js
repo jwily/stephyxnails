@@ -4,11 +4,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary' : '#F8F4EB',
+        'primary': '#FFF7e6',
         'secondary': '#fcd3d3',
         'primary_blue': '#e9f4ff'
       }
     },
   },
-  plugins: [require("rippleui")],
+  plugins: [
+    require("rippleui")
+  ],
 }
