@@ -15,8 +15,8 @@ const NavBar = () => {
                 <NavLink className="navbar-item text-gray-500" exact to='/order'>ORDERING</NavLink>
                 <NavLink className="navbar-item text-gray-500" exact to='/sizing'>SIZING</NavLink>
                 <NavLink className="navbar-item text-gray-500" exact to='/gallery'>GALLERY</NavLink>
-                <a className="navbar-item text-gray-500">ABOUT</a>
-                <a className="navbar-item text-gray-500">FAQ</a>
+                <NavLink className="navbar-item text-gray-500" exact to='/about'>ABOUT</NavLink>
+                <NavLink className="navbar-item text-gray-500" exact to='/faq'>FAQ</NavLink>
             </div>
         </div>
     )
