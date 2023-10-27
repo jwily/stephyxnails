@@ -2,8 +2,13 @@
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'primary' : '#F8F4EB',
+        'secondary': '#fcd3d3',
+        'primary_blue': '#e9f4ff'
+      }
+    },
   },
-  plugins: [],
+  plugins: [require("rippleui")],
 }
-
