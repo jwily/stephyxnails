@@ -3,7 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 
 urlpatterns = [
-    path('api/orders/', views.OrderList.as_view()),
+    # path('api/orders/', views.OrderList.as_view()),
     path('api/orders/', views.OrderCreate.as_view()),
     path('api/orders/<int:pk>/', views.OrderDetail.as_view()),
     path('api/sets/', views.SetList.as_view()),

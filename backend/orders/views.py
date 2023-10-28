@@ -5,20 +5,53 @@ from django.conf import settings
 from django.http import HttpResponse, StreamingHttpResponse
 from django.template import engines
 
-from rest_framework import generics
+from django.conf import settings
+from django.core.mail import send_mail
+
+from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
 
-class OrderList(generics.ListAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+# class OrderList(generics.ListAPIView):
+#     queryset = Order.objects.all()
+#     serializer_class = OrderSerializer
 
-class OrderCreate(generics.CreateAPIView):
+# Seems like we ultimately don't need a /orders/ GET route
+class OrderCreate(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+
+        customer_email = {
+            'subject': "Stephy ♥ - I've received your order request!",
+            'message': f"""
+            Thank you for your order request, {serializer.data["name"]}!
+
+            I will reach out to you soon with any further questions, and if everything looks good, I will request your shipping address.
+            """,
+            'from_email': settings.EMAIL_HOST_USER,
+            'recipient_list': [serializer.data['email']]
+        }
+
+        owner_email = {
+            'subject': "New order request received!",
+            'message': f'New order for {serializer.data["name"]}!',
+            'from_email': settings.EMAIL_HOST_USER,
+            'recipient_list': ['johnlee1120@gmail.com']
+        }
+
+        send_mail(**customer_email)
+        send_mail(**owner_email)
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
