@@ -29,7 +29,6 @@ const NavBar = () => {
                         <div htmlFor="drawer-left">
                             <h2 className="text-xl font-medium">Menu</h2>
                             <div className="p-4"><label htmlFor="drawer-left" className="text-2xl btn btn-sm btn-circlze btn-ghost">ORDERING</label></div>
-                            <div className="p-4"><label htmlFor="drawer-left" className="text-2xl btn btn-sm btn-circlze btn-ghost">SIZING</label></div>
                             <div className="p-4"><label htmlFor="drawer-left" className="text-2xl btn btn-sm btn-circlze btn-ghost">GALLERY</label></div>
                             <div className="p-4"><label htmlFor="drawer-left" className="text-2xl btn btn-sm btn-circlze btn-ghost">ABOUT</label></div>
                             <div className="p-4"><label htmlFor="drawer-left" className="text-2xl btn btn-sm btn-circlze btn-ghost">FAQ</label></div>
