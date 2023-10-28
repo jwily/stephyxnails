@@ -15,7 +15,7 @@ const NavBar = () => {
     }, [])
 
     return (
-        <div className="navbar bg-primary">
+        <div className="navbar bg-primary" style={{ position: "sticky", top: 0 }}>
             <div className="navbar-start">
                 <input type="checkbox" id="drawer-left" className="drawer-toggle" />
 
@@ -25,10 +25,10 @@ const NavBar = () => {
                 <label className="overlay" htmlFor="drawer-left"></label>
                 <div className="drawer">
                     <div className="drawer-content pt-10 flex flex-col h-full bg-secondary">
-                        <label htmlFor="drawer-left" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+                        <label htmlFor="drawer-left" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-40">✕</label>
                         <div htmlFor="drawer-left">
                             <h2 className="text-xl font-medium">Menu</h2>
-                            <div className="p-4"><label htmlFor="drawer-left" className="text-2xl btn btn-sm btn-circlze btn-ghost">ORERING</label></div>
+                            <div className="p-4"><label htmlFor="drawer-left" className="text-2xl btn btn-sm btn-circlze btn-ghost">ORDERING</label></div>
                             <div className="p-4"><label htmlFor="drawer-left" className="text-2xl btn btn-sm btn-circlze btn-ghost">SIZING</label></div>
                             <div className="p-4"><label htmlFor="drawer-left" className="text-2xl btn btn-sm btn-circlze btn-ghost">GALLERY</label></div>
                             <div className="p-4"><label htmlFor="drawer-left" className="text-2xl btn btn-sm btn-circlze btn-ghost">ABOUT</label></div>
