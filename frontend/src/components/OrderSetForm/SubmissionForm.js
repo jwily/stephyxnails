@@ -1,16 +1,16 @@
 import React from 'react';
 import { useOrderContext } from '../../context/OrderContext';
-import {  useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 function StepExtra() {
 
-  const history = useHistory() 
+  const history = useHistory()
 
-  const {  saveCurrentDataSet, formDataSets, clearForm} = useOrderContext();
-  
+  const { saveCurrentDataSet, formDataSets, clearForm, formData } = useOrderContext();
+
   const handleSubmit = () => {
-     // Add the data to the current set
+    // Add the data to the current set
     saveCurrentDataSet(); // Start a new set of data
     history.push('/');
   };
@@ -28,37 +28,39 @@ function StepExtra() {
   };
 
   return (
-<>
-<div>
-      <h2>Review and Submit</h2>
+    <>
       <div>
-      {formDataSets.map((data, index) => (
-        <div key={index}>
-          <h3>Set {index + 1}</h3>
-          <p>Tier: {data.tier}</p>
-          <p>Shape: {data.shape}</p>
-          <p>Photo: {data.photo}</p>
-          <p>Description: {data.description}</p>
-          <p>Extra: {data.extra}</p>
-          </div>
-      ))};
-      </div>
-      <div>
+        <h2>Review and Submit</h2>
+        <div>
+          {formDataSets.map((data, index) => (
+            <div key={index}>
+              <h3>Set {index + 1}</h3>
+              <p>Tier: {data.tier}</p>
+              <p>Shape: {data.shape}</p>
+              <p>Photo: {data.photo}</p>
+              <p>Description: {data.description}</p>
+              <p>Extra: {data.extra}</p>
+            </div>
+          ))};
+          <h3>Set {formDataSets.length + 1}</h3>
+          <p>Tier: {formData.tier}</p>
+          <p>Shape: {formData.shape}</p>
+          <p>Photo: {formData.photo}</p>
+          <p>Description: {formData.description}</p>
+          <p>Extra: {formData.extra}</p>
+        </div>
+        <div>
+        </div>
+
+        <button type="button" onClick={handleAddAnotherSet}>Add Another Set</button>
+        <button type="button" onClick={handleSubmit}>Submit</button>
       </div>
 
-      <button type="button" onClick={handleAddAnotherSet}>Add Another Set</button>
-      <button type="button" onClick={handleSubmit}>Submit</button>
-    </div>
+    </>
 
-</>
-    
-    
+
   );
 
 }
 
 export default StepExtra;
-
-
-
-

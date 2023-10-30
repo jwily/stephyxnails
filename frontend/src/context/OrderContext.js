@@ -24,7 +24,6 @@ export const OrderProvider = ({ children }) => {
 
   const saveCurrentDataSet = () => {
     setFormDataSets([...formDataSets, formData]);
-    setCurrentDataSet({});
   };
 
   const clearForm = () => {
@@ -49,7 +48,7 @@ export const OrderProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <OrderContext.Provider value={{ state, dispatch, name, setName, email, setEmail, instagram, setInstagram, formData, updateFormData, formDataSets, saveCurrentDataSet, currentDataSet, clearForm  }}>
+    <OrderContext.Provider value={{ state, dispatch, name, setName, email, setEmail, instagram, setInstagram, formData, updateFormData, formDataSets, saveCurrentDataSet, currentDataSet, clearForm, formData  }}>
       {children}
     </OrderContext.Provider>
   );
