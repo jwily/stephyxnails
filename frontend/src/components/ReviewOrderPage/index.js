@@ -1,5 +1,10 @@
+import { useOrderContext } from "../../context/OrderContext";
+
+
 const ReviewOrderPage = (info) => {
 
+
+    // const { state, dispatch } = useOrderContext()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -32,7 +37,7 @@ const ReviewOrderPage = (info) => {
 
     return (
         <div>
-            {info.sets.map(set =>
+            {/* {info.sets.map(set =>
                 <div key={set.description.length}>
                     <div>
                         {set.description}
@@ -46,7 +51,8 @@ const ReviewOrderPage = (info) => {
                     <div>
                         {set.tier}
                     </div>
-                </div>)}
+                </div>)} */}
+                 <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div>
 
                 <button onClick={handleSubmit}>Submit</button>
         </div>

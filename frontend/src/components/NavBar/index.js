@@ -4,19 +4,18 @@ import logo from "./nav_logo/logo.png"
 const NavBar = () => {
 
     return (
-        <div className="navbar">
+        <div className="navbar bg-primary">
             <div className="navbar-start">
-                <a className="navbar-item">
+                <NavLink className="navbar-item" exact to='/' style={{width:"120px"}}>
                     <img src={logo} alt={logo} />
-                </a>
-
+                </NavLink>
             </div>
             <div className="navbar-end">
-                <a className="navbar-item">ORDERING</a>
-                <a className="navbar-item">SIZING</a>
-                <a className="navbar-item">GALLERY</a>
-                <a className="navbar-item">ABOUT</a>
-                <a className="navbar-item">FAQ</a>
+                <NavLink className="navbar-item text-gray-500" exact to='/order'>ORDERING</NavLink>
+                <NavLink className="navbar-item text-gray-500" exact to='/sizing'>SIZING</NavLink>
+                <NavLink className="navbar-item text-gray-500" exact to='/gallery'>GALLERY</NavLink>
+                <NavLink className="navbar-item text-gray-500" exact to='/about'>ABOUT</NavLink>
+                <NavLink className="navbar-item text-gray-500" exact to='/faq'>FAQ</NavLink>
             </div>
         </div>
     )

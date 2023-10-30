@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     # 'corsheaders',
-    'orders'
+    'orders',
+    'rest_framework_captcha'
 ]
 
 # CORS must go before anything that generates responses
@@ -192,3 +193,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+DRF_RECAPTCHA_SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY")
