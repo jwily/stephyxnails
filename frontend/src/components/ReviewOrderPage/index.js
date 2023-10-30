@@ -4,40 +4,40 @@ import { useOrderContext } from "../../context/OrderContext";
 const ReviewOrderPage = (info) => {
 
 
-    // const { state, dispatch } = useOrderContext()
+  // const { state, dispatch } = useOrderContext()
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-        try {
-            const finalizedInfo = {
-                name: info.name,
-                email: info.email,
-                instagram: info.instagram,
-                contact: info.contact,
-                sets: info.sets
-            }
+    try {
+      const finalizedInfo = {
+        name: info.name,
+        email: info.email,
+        instagram: info.instagram,
+        contact: info.contact,
+        sets: info.sets
+      }
 
-            const res = await fetch('/api/orders/', {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(finalizedInfo)
-            })
+      const res = await fetch('/api/orders/', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(finalizedInfo)
+      })
 
-            if (res.ok) {
-                console.log('it worked');
-                // Eventually pass into email api
-            }
-        } catch (error) {
-            console.error(error);
-        }
+      if (res.ok) {
+        console.log('it worked');
+        // Eventually pass into email api
+      }
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    return (
-        <div>
-            {/* {info.sets.map(set =>
+  return (
+    <div>
+      {/* {info.sets.map(set =>
                 <div key={set.description.length}>
                     <div>
                         {set.description}
@@ -52,11 +52,11 @@ const ReviewOrderPage = (info) => {
                         {set.tier}
                     </div>
                 </div>)} */}
-                 <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div>
-
-                <button onClick={handleSubmit}>Submit</button>
-        </div>
-    )
+      <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div>
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  )
 }
 
 export default ReviewOrderPage
