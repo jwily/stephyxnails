@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useOrderContext } from '../../context/OrderContext';
 
 function ShapeForm() {
-    
+
     const [submissions, setSubmissions] = useState([]);
     const [shape, setShape] = useState('');
     const history = useHistory();
+    const {tier} = useOrderContext()
+
+    console.log(tier);
 
 
 
@@ -13,23 +17,23 @@ function ShapeForm() {
       // Store the data in the submissions array
       console.log('Before update:', submissions);
 
-      setSubmissions([...submissions, shape]); 
+      setSubmissions([...submissions, shape]);
 
       console.log('after update:', submissions);
 
       setShape('');
-      history.push('/order-set/photo'); 
+      history.push('/order-set/photo');
     };
-  
+
 
     const handleBack = () => {
       // Navigate back to the previous step
       history.push('/order-set/tier'); // Replace 'previous-step-url' with the actual URL for the previous step
     };
-  
+
     return (
       <>
-      <section> 
+      <section>
         <h2>2. Choose your perferred nail shape and length</h2>
             <p>disclaimer insert</p>
               <div>
@@ -61,5 +65,5 @@ function ShapeForm() {
       </>
     );
   }
-  
+
   export default ShapeForm;

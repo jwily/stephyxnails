@@ -1,46 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {  useHistory } from 'react-router-dom';
+import { useOrderContext } from '../../context/OrderContext';
 
 
 function TierForm() {
 
     const [submissions, setSubmissions] = useState([]);
-    const [tier, setTier] = useState('');
+    const { tier, setTier } = useOrderContext();
     const history = useHistory();
 
   const allTiers = ['Budding Tier', 'Petal Tier', 'Sakura Tier', 'Blossom Tier']
 
   const handleSubmit = () => {
     // Store the data in the submissions array
-      console.log('Before update:', submissions);
+    console.log('Before update:', submissions);
 
-    setSubmissions([...submissions, tier]); 
+
+    console.log('Updated tier:', tier);
+
+    setSubmissions([...submissions, tier]);
 
     console.log('after update:', submissions);
 
      // Clear the form input
-    setTier('');
 
     // Navigate to the next step
-    history.push('/order-set/shape'); 
+    history.push('/order-set/shape');
   };
 
   return (
     <>
-    <section> 
+    <section>
         <h1>1.Choose a Nail Tier</h1>
           <p>disclaimer</p>
             <div>
               {allTiers.map((nail_tier) => {
                 // Mapping through the allTiers array
                 return (
-                  <div className="#"  key={nail_tier}> 
-                    <input 
+                  <div className="#"  key={nail_tier}>
+                    <input
                       className="#"
                       name="tier"
                       type="radio"
                       id={nail_tier}
-                      checked= {tier === nail_tier} 
                       value={nail_tier}
                       onChange={ () => {setTier(nail_tier)}}
                       required
@@ -52,13 +54,13 @@ function TierForm() {
             </div>
 
 
-            
+
             <div>
               <button onClick={handleSubmit}>Next</button>
             </div>
     </section>
 
-    
+
     </>
 
   );

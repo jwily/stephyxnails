@@ -3,6 +3,7 @@ import ReviewOrderPage from "../ReviewOrderPage";
 import { OrderProvider } from "../../context/OrderContext";
 import SetPage from "../SetPage";
 import OrderDetails from "../OrderDetails";
+import TierForm from "../OrderSetForm/TierForm";
 
 function OrderPage() {
 
