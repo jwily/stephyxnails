@@ -23,7 +23,7 @@ export const OrderProvider = ({ children }) => {
   };
 
   const saveCurrentDataSet = () => {
-    setFormDataSets([...formDataSets, currentDataSet]);
+    setFormDataSets([...formDataSets, formData]);
     setCurrentDataSet({});
   };
 
