@@ -38,7 +38,6 @@ export const OrderProvider = ({ children }) => {
     });
   };
 
-
   const initialState = {
     orderData: {},
   };

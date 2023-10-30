@@ -6,20 +6,14 @@ import { useOrderContext } from '../../context/OrderContext';
 
 function PhotoForm({history}) {
 
-    // const {photo, setPhoto, addData} = useOrderContext();
-    // const history = useHistory();
-
-    // const handleSubmit = (e) => {
-    //   e.preventDefault();
-    //   addData(); // Add the current data to the array
-    //   history.push('/order-set/description'); 
-    // };
-
     const { formData, updateFormData } = useOrderContext();
 
-    const handleNext = () => {
+    const handleNext = (e) => {
+      e.preventDefault()
       // Add the data to the current data set
-      updateFormData(formData.photo);
+      updateFormData({photo : formData.photo});
+      console.log('update', formData)
+
       history.push('/order-set/description'); // Navigate to the next form question
     };
 

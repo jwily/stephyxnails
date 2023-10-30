@@ -6,25 +6,15 @@ import { useOrderContext } from '../../context/OrderContext';
 
 function DescriptionFrom({history}) {
 
-    // const {description, setDescription, addData} = useOrderContext();
-    // const history = useHistory();
-
-
-    // const handleSubmit = (e) => {
-
-    //   e.preventDefault();
-    //   addData(); // Add the current data to the array
-       
-    //    // Navigate to the next step
-    //   history.push('/order-set/extra'); 
-    // };
-
 
     const { formData, updateFormData } = useOrderContext();
 
-    const handleNext = () => {
+    const handleNext = (e) => {
+      e.preventDefault()
       // Add the data to the current data set
-      updateFormData(formData.description);
+      updateFormData({ description: formData.description});
+      console.log('update', formData)
+
       history.push('/order-set/extra'); // Navigate to the next form question
     };
 

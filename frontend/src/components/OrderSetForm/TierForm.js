@@ -6,9 +6,12 @@ function TierForm( {history}) {
 
     const { formData, updateFormData }= useOrderContext();
    
-    const handleNext = () => {
-      // Add the data to the current data set
-      updateFormData(formData.tier);
+    const handleNext = (e) => {
+      e.preventDefault()
+      
+      // Update the formData context with the tier data
+      updateFormData({tier: formData.tier});
+      console.log('update', formData)
       history.push('/order-set/shape');
     };
   

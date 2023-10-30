@@ -5,21 +5,13 @@ import { useOrderContext } from '../../context/OrderContext';
 function ShapeForm( {history}) {
 
    const { formData, updateFormData } = useOrderContext();
-    // const history = useHistory();
 
-    // const handleSubmit = (e) => {
-
-    //   e.preventDefault();
-    //   addData(); // Add the current data to the array
-
-    //     // Navigate to the next step
-    //     history.push('/order-set/photo');
-    // };
-
-
-    const handleNext = () => {
+    const handleNext = (e) => {
+      e.preventDefault()
       // Add the data to the current data set
-      updateFormData(formData.shape);
+      updateFormData({shape: formData.shape});
+      console.log('update', formData)
+
               history.push('/order-set/photo');
     };
 

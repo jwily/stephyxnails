@@ -1,22 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-
 import { useOrderContext } from '../../context/OrderContext';
 
 
 function StepExtra({ history }) 
 {
-  const {currentDataSet, saveCurrentDataSet, formDataSets, clearForm} = useOrderContext();
-
-
-  // const handleSubmit = () => {
-  //   // Save the current data set
-  //   saveCurrentDataSet();
-  //   // Optionally clear form fields or perform other actions
-
-  //   // Navigate to a thank you page or any desired route
-  //   history.push('/');
-  // };
+  const {  saveCurrentDataSet, formDataSets, clearForm} = useOrderContext();
   
   const handleSubmit = () => {
      // Add the data to the current set
@@ -30,6 +18,7 @@ function StepExtra({ history })
 
     // Clear the form fields to start a new set
     clearForm();
+
 
     // Optionally, you can navigate to the first form question or any other desired route
     history.push('/order-set/tier');
@@ -50,6 +39,8 @@ function StepExtra({ history })
           <p>Extra: {data.extra}</p>
           </div>
       ))};
+      </div>
+      <div>
       </div>
 
       <button type="button" onClick={handleAddAnotherSet}>Add Another Set</button>

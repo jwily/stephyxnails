@@ -5,28 +5,21 @@ import { useOrderContext } from '../../context/OrderContext';
 
 function ExtraForm({history}) {
 
-    // const {extra, setExtra, addData} = useOrderContext();
-    // const history = useHistory();
-
-    // const handleSubmit = (e) => {  
-    //     e.preventDefault();
-    //     addData(); // Add the current data to the array    
-      
-    //     // Navigate to the next step 
-    //     history.push('/order-set/all'); 
-    // };
-
     const { formData, updateFormData } = useOrderContext();
 
-    const handleNext = () => {
+    const handleNext = (e) => {
+        e.preventDefault()
       // Add the data to the current data set\
-      updateFormData(formData.extra);
+      updateFormData({ extra: formData.extra});
+      console.log('update', formData)
+
 
       history.push('/order-set/all'); // Navigate to the next form question
     };
 
 
       const handleBack = () => {
+        
         // Navigate back to the previous step
         history.push('/order-set/description'); // Replace 'previous-step-url' with the actual URL for the previous step
       };
