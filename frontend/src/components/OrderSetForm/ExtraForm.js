@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useOrderContext } from '../../context/OrderContext';
+
 
 function ExtraForm() {
 
-    const [extra, setExtra] = useState('');
+    const {extra, setExtra} = useOrderContext();
     const [submissions, setSubmissions] = useState([]);
     const history = useHistory();
+
   
-    const handleSubmit = () => {
-        // Store the data in the submissions array
-        setSubmissions([...submissions, extra]); 
-        setExtra('');
+    const handleSubmit = () => {     
         history.push('/order-set/all'); 
       };
 

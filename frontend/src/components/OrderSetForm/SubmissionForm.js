@@ -1,13 +1,26 @@
 import React from 'react';
-import AllSubmissions from './Submissions';
+// import AllSubmissions from './Submissions';
+import { useOrderContext } from '../../context/OrderContext';
 
-function StepExtra({ submissions }) {
+
+function StepExtra() {
+    const { tier } = useOrderContext();
+    const {shape} = useOrderContext();
+    const {photo} = useOrderContext();
+    const {description} = useOrderContext();
+    const {extra} = useOrderContext();
+
   return (
     <div>
-      <h2>Review and Submit</h2>
-      {/* Render the AllSubmissions component to show the submitted data */}
-      <AllSubmissions submissions={submissions} />
-      {/* Add a submit button or any other finalization logic */}
+    <p>Selected Tier: {tier}</p>
+    <p>Selected Shape: {shape}</p>
+    <p>Selected photo: {photo}</p>
+    <p>Selected description: {description}</p>
+    <p>Selected extra: {extra}</p>
+
+
+
+
     </div>
   );
 }

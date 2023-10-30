@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useOrderContext } from '../../context/OrderContext';
+
 
 
 function DescriptionFrom() {
 
-    const [description, setDescription] = useState('');
-    const [submissions, setSubmissions] = useState([]);
+    const {description, setDescription} = useOrderContext();
+
     const history = useHistory();
-  
+
     const handleSubmit = () => {
-      // Store the data in the submissions array
-      setSubmissions([...submissions, description]); 
-      setDescription('');
       history.push('/order-set/extra'); 
     };
 

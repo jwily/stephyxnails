@@ -4,27 +4,13 @@ import { useOrderContext } from '../../context/OrderContext';
 
 function ShapeForm() {
 
-    const [submissions, setSubmissions] = useState([]);
-    const [shape, setShape] = useState('');
+    const {shape, setShape} = useOrderContext();
     const history = useHistory();
-    const {tier} = useOrderContext()
-
-    console.log(tier);
-
-
 
     const handleSubmit = () => {
-      // Store the data in the submissions array
-      console.log('Before update:', submissions);
 
-      setSubmissions([...submissions, shape]);
-
-      console.log('after update:', submissions);
-
-      setShape('');
       history.push('/order-set/photo');
     };
-
 
     const handleBack = () => {
       // Navigate back to the previous step

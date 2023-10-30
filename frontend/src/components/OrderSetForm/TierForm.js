@@ -1,29 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {  useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
-
 function TierForm() {
 
-    const [submissions, setSubmissions] = useState([]);
     const { tier, setTier } = useOrderContext();
     const history = useHistory();
+    const allTiers = ['Budding Tier', 'Petal Tier', 'Sakura Tier', 'Blossom Tier']
 
-  const allTiers = ['Budding Tier', 'Petal Tier', 'Sakura Tier', 'Blossom Tier']
-
-  const handleSubmit = () => {
-    // Store the data in the submissions array
-    console.log('Before update:', submissions);
-
-
-    console.log('Updated tier:', tier);
-
-    setSubmissions([...submissions, tier]);
-
-    console.log('after update:', submissions);
-
-     // Clear the form input
-
+    const handleSubmit = () => {
     // Navigate to the next step
     history.push('/order-set/shape');
   };
@@ -68,12 +53,3 @@ function TierForm() {
 
 export default TierForm;
 
-
-// <input type='radio' value='BuddingTier'/>
-// <lable for='BuddingTier'>Budding Tier</lable>
-// <input type='radio' value='PetalTier'/>
-// <lable for='PetalTier'>Petal Tier</lable>
-// <input type='radio' value='SakuraTier'/>
-// <lable for='SakuraTier'>Sakura Tier</lable>
-// <input type='radio' value='Blossom ier'/>
-// <lable for='BlossomTuer'>Blossom Tier</lable>

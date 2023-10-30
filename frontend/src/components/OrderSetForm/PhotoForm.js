@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useOrderContext } from '../../context/OrderContext';
 
 
 
 function PhotoForm() {
 
-    const [photo, setPhoto] = useState('');
-    const [submissions, setSubmissions] = useState([]);
+    const {photo, setPhoto} = useOrderContext();
     const history = useHistory();
 
-
     const handleSubmit = () => {
-      // Store the data in the submissions array
-      setSubmissions([...submissions, photo]); 
-      setPhoto('');
       history.push('/order-set/description'); 
     };
 
