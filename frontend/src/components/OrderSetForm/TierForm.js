@@ -2,8 +2,9 @@ import React from 'react';
 import {  useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
-function TierForm( {history}) {
-
+function TierForm( ) {
+  
+    const history = useHistory() 
     const { formData, updateFormData }= useOrderContext();
    
     const handleNext = (e) => {

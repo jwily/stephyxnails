@@ -4,7 +4,8 @@ import { useOrderContext } from '../../context/OrderContext';
 
 
 
-function PhotoForm({history}) {
+function PhotoForm() {
+  const history = useHistory() 
 
     const { formData, updateFormData } = useOrderContext();
 

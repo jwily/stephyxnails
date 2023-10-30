@@ -10,8 +10,6 @@ import Submissions from './SubmissionForm';
 
 function SetRoutes() {
 
-
-
     return (
       <Router>
         <Switch>

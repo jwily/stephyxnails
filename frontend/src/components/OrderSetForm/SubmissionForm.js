@@ -1,9 +1,12 @@
 import React from 'react';
 import { useOrderContext } from '../../context/OrderContext';
+import {  useHistory } from 'react-router-dom';
 
 
-function StepExtra({ history }) 
-{
+function StepExtra() {
+
+  const history = useHistory() 
+
   const {  saveCurrentDataSet, formDataSets, clearForm} = useOrderContext();
   
   const handleSubmit = () => {

@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
-function ShapeForm( {history}) {
+function ShapeForm( ) {
+  const history = useHistory() 
+
 
    const { formData, updateFormData } = useOrderContext();
 

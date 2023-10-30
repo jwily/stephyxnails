@@ -3,7 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 
-function ExtraForm({history}) {
+function ExtraForm() {
+
+    const history = useHistory() 
 
     const { formData, updateFormData } = useOrderContext();
 
