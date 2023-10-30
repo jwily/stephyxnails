@@ -192,3 +192,9 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+BASIC_DISPLAY_ID = os.environ.get('BASIC_DISPLAY_ID')
+
+# LOGIN_REDIRECT_URL = 'https://api.instagram.com/oauth/authorize?client_id=2002859960093832&redirect_uri=https://stephyxnails.onrender.com/&scope=user_profile,user_media&response_type=code'
+
+# REDIRECT_FIELD_NAME = ""

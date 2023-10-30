@@ -10,6 +10,8 @@ dj-database-url = "*"
 gunicorn = "*"
 whitenoise = "*"
 python-dotenv = "*"
+django-liststyle = "==0.2b"
+requests = "*"
 
 [dev-packages]
 

@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from api.admin import admin_site
+from .views import CustomAdminLoginView, instagram_callback
 from orders.views import catchall
 
 """
@@ -22,6 +24,8 @@ Including another URLconf
 """
 
 urlpatterns = [
+    path('admin/login/', CustomAdminLoginView.as_view(), name='custom_admin_login'),
+    path('admin/instagram_callback/', instagram_callback, name='instagram_callback'),
     path('admin/', admin.site.urls),
     path('', include('orders.urls')),
     re_path(r'', catchall)
