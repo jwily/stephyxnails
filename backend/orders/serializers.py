@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from rest_framework import serializers
-from rest_framework_recaptcha.fields import ReCaptchaField
+# from rest_framework_recaptcha.fields import ReCaptchaField
 
 
 class ExampleImageSerializer(serializers.ModelSerializer):
@@ -37,7 +37,7 @@ class SetSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
   sets = SetSerializer(many=True)
-  recaptcha = ReCaptchaField()
+  # recaptcha = ReCaptchaField()
 
   class Meta:
     model = Order
