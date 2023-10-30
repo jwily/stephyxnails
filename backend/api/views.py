@@ -15,7 +15,7 @@ class CustomAdminLoginView(LoginView):
         # Generate the Instagram OAuth URL
         instagram_auth_url = "https://api.instagram.com/oauth/authorize"
         params = {
-            "client_id": settings.BASIC_DISPLAY_ID,
+            "client_id": settings.INSTAGRAM_APP_ID,
             "redirect_uri": self.request.build_absolute_uri(reverse('instagram_callback')),
             "scope": "user_profile,user_media",
             "response_type": "code",
