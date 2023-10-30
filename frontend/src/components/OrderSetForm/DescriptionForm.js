@@ -4,14 +4,28 @@ import { useOrderContext } from '../../context/OrderContext';
 
 
 
-function DescriptionFrom() {
+function DescriptionFrom({history}) {
 
-    const {description, setDescription} = useOrderContext();
+    // const {description, setDescription, addData} = useOrderContext();
+    // const history = useHistory();
 
-    const history = useHistory();
 
-    const handleSubmit = () => {
-      history.push('/order-set/extra'); 
+    // const handleSubmit = (e) => {
+
+    //   e.preventDefault();
+    //   addData(); // Add the current data to the array
+       
+    //    // Navigate to the next step
+    //   history.push('/order-set/extra'); 
+    // };
+
+
+    const { formData, updateFormData } = useOrderContext();
+
+    const handleNext = () => {
+      // Add the data to the current data set
+      updateFormData(formData.description);
+      history.push('/order-set/extra'); // Navigate to the next form question
     };
 
     const handleBack = () => {
@@ -30,8 +44,8 @@ function DescriptionFrom() {
                 className="#"
                 type="text"
                 placeholder="#"
-                value={description}
-                onChange={ (e) => { setDescription(e.target.value)}}
+                value={formData.description}
+                onChange={ (e) => updateFormData({ description: e.target.value })}
                 maxLength={5000}
               >
               </textarea>
@@ -39,7 +53,7 @@ function DescriptionFrom() {
 
           <div>
             <button onClick={handleBack}>Back</button>
-            <button onClick={handleSubmit}>Next</button>
+            <button onClick={handleNext}>Next</button>
           </div>
       </section>
       </>

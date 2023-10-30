@@ -4,13 +4,23 @@ import { useOrderContext } from '../../context/OrderContext';
 
 
 
-function PhotoForm() {
+function PhotoForm({history}) {
 
-    const {photo, setPhoto} = useOrderContext();
-    const history = useHistory();
+    // const {photo, setPhoto, addData} = useOrderContext();
+    // const history = useHistory();
 
-    const handleSubmit = () => {
-      history.push('/order-set/description'); 
+    // const handleSubmit = (e) => {
+    //   e.preventDefault();
+    //   addData(); // Add the current data to the array
+    //   history.push('/order-set/description'); 
+    // };
+
+    const { formData, updateFormData } = useOrderContext();
+
+    const handleNext = () => {
+      // Add the data to the current data set
+      updateFormData(formData.photo);
+      history.push('/order-set/description'); // Navigate to the next form question
     };
 
 
@@ -28,15 +38,15 @@ function PhotoForm() {
             <div>
               <input
                type="text"
-               value={photo}
-               onChange={(e) => setPhoto(e.target.value)}
+               value={formData.photo}
+               onChange={(e) => updateFormData({ photo: e.target.value })}
               >
               </input>
             </div>
 
             <div>
               <button onClick={handleBack}>Back</button>
-               <button onClick={handleSubmit}>Next</button>
+               <button onClick={handleNext}>Next</button>
             </div>
       </section>
       </>

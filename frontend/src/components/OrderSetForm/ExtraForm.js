@@ -3,16 +3,28 @@ import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 
-function ExtraForm() {
+function ExtraForm({history}) {
 
-    const {extra, setExtra} = useOrderContext();
-    const [submissions, setSubmissions] = useState([]);
-    const history = useHistory();
+    // const {extra, setExtra, addData} = useOrderContext();
+    // const history = useHistory();
 
-  
-    const handleSubmit = () => {     
-        history.push('/order-set/all'); 
-      };
+    // const handleSubmit = (e) => {  
+    //     e.preventDefault();
+    //     addData(); // Add the current data to the array    
+      
+    //     // Navigate to the next step 
+    //     history.push('/order-set/all'); 
+    // };
+
+    const { formData, updateFormData } = useOrderContext();
+
+    const handleNext = () => {
+      // Add the data to the current data set\
+      updateFormData(formData.extra);
+
+      history.push('/order-set/all'); // Navigate to the next form question
+    };
+
 
       const handleBack = () => {
         // Navigate back to the previous step
@@ -30,14 +42,14 @@ function ExtraForm() {
                             className="#"
                             type="text"
                             placeholder=""
-                            value={extra}
-                            onChange={ (e) => { setExtra(e.target.value); }}>     
+                            value={formData.extra}
+                            onChange={ (e) =>  updateFormData({ extra: e.target.value })}>     
                         </textarea>
                     </div> 
                 <div>
                     {/* <button onClick={() => history.goBack()}>Go Back</button> */}
                     <button onClick={handleBack}>Back</button>
-                    <button onClick={handleSubmit}>Next</button>
+                    <button onClick={handleNext}>Next</button>
                 </div>
         </section>
         </>

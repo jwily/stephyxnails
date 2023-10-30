@@ -2,14 +2,25 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
-function ShapeForm() {
+function ShapeForm( {history}) {
 
-    const {shape, setShape} = useOrderContext();
-    const history = useHistory();
+   const { formData, updateFormData } = useOrderContext();
+    // const history = useHistory();
 
-    const handleSubmit = () => {
+    // const handleSubmit = (e) => {
 
-      history.push('/order-set/photo');
+    //   e.preventDefault();
+    //   addData(); // Add the current data to the array
+
+    //     // Navigate to the next step
+    //     history.push('/order-set/photo');
+    // };
+
+
+    const handleNext = () => {
+      // Add the data to the current data set
+      updateFormData(formData.shape);
+              history.push('/order-set/photo');
     };
 
     const handleBack = () => {
@@ -19,13 +30,13 @@ function ShapeForm() {
 
     return (
       <>
-      <section>
+      <form>
         <h2>2. Choose your perferred nail shape and length</h2>
             <p>disclaimer insert</p>
               <div>
                 <select
-                  value={shape}
-                  onChange={(e) => { setShape(e.target.value) }}
+                  value={formData.shape}
+                  onChange={(e) => updateFormData({ shape: e.target.value })}
                 >
                   <option>Select A Nail Shape</option>
                   <option>Extra-Short Square</option>
@@ -45,9 +56,10 @@ function ShapeForm() {
 
               <div>
                 <button onClick={handleBack}>Back</button>
-                <button onClick={handleSubmit}>Next</button>
+                <button type="button" onClick={handleNext}>Next</button>
+
               </div>
-      </section>
+      </form>
       </>
     );
   }
