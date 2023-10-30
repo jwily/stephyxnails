@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'orders'
+    'orders',
+    'rest_framework_captcha'
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#RECAPTCHA
+DRF_RECAPTCHA_SECRET_KEY = "6LdxueAoAAAAAAG4UaM3Y8GCUAWDAS06LaeKJybj"

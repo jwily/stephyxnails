@@ -52,6 +52,7 @@ const ReviewOrderPage = (info) => {
                         {set.tier}
                     </div>
                 </div>)} */}
+                 <div className="g-recaptcha" data-sitekey="6LdxueAoAAAAACLOGvj5qEEfAxqXWnvxak4Vu9-R"></div>
 
                 <button onClick={handleSubmit}>Submit</button>
         </div>
