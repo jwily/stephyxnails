@@ -1,9 +1,7 @@
 from rest_framework import serializers
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from rest_framework import serializers
-
-class CaptchaVerificationSerializer(serializers.Serializer):
-    recaptcha = serializers.CharField()
+from rest_framework_recaptcha import ReCaptchaField
 
 
 class ExampleImageSerializer(serializers.ModelSerializer):
@@ -39,6 +37,7 @@ class SetSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
   sets = SetSerializer(many=True)
+  recaptcha = ReCaptchaField()
 
   class Meta:
     model = Order
@@ -50,14 +49,3 @@ class OrderSerializer(serializers.ModelSerializer):
     for set_data in sets_data:
         Set.objects.create(order=order, **set_data)
     return order
-
-from rest_framework import serializers
-from rest_framework_recaptcha import ReCaptchaField
-
-class MyReCaptchaField(ReCaptchaField):
-    default_error_messages = {
-        "invalid-input-response": "reCAPTCHA token is invalid.",
-    }
-
-class MySerializer(serializers.Serializer):
-    recaptcha = ReCaptchaField()
