@@ -10,6 +10,7 @@ dj-database-url = "*"
 gunicorn = "*"
 whitenoise = "*"
 python-dotenv = "*"
+djangorestframework-recaptcha = "*"
 
 [dev-packages]
 

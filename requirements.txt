@@ -2,7 +2,10 @@
 asgiref==3.7.2; python_version >= '3.7'
 dj-database-url==2.1.0
 django==4.2.6; python_version >= '3.8'
+django-appconf==1.0.5; python_version >= '3.6'
+django-ipware==5.0.2; python_version >= '3.8'
 djangorestframework==3.14.0; python_version >= '3.6'
+djangorestframework-recaptcha==0.2.0
 gunicorn==21.2.0; python_version >= '3.5'
 packaging==23.2; python_version >= '3.7'
 python-dotenv==1.0.0; python_version >= '3.8'
@@ -10,4 +13,3 @@ pytz==2023.3.post1
 sqlparse==0.4.4; python_version >= '3.5'
 typing-extensions==4.8.0; python_version >= '3.8'
 whitenoise==6.6.0; python_version >= '3.8'
-django-recaptcha
