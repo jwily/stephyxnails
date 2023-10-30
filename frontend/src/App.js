@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
@@ -11,9 +10,6 @@ import OrderDetails from './components/OrderDetails';
 import OrderSetRoutes from './components/OrderSetForm/SetOrderRoute'
 
 function App() {
-
-
-
 
   return (
     <Router>

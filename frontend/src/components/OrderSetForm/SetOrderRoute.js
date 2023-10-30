@@ -1,14 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import TierForm from './TierForm';
 import ShapeForm from './ShapeForm';
 import PhotoForm from './PhotoForm';
 import DescriptionForm from './DescriptionForm'
 import ExtraForm from './ExtraForm'
-import Submissions from './Submissions';
+import Submissions from './SubmissionForm';
 
-function Routes() {
+function SetRoutes() {
+
+
+
     return (
       <Router>
         <Switch>
@@ -23,4 +26,4 @@ function Routes() {
     );
   }
   
-export default Routes;
+export default SetRoutes;

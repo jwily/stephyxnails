@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 
 
 function TierForm() {
-    
-  const [tier, setTier] = useState('');
-  const history = useHistory();
+
+    const [submissions, setSubmissions] = useState([]);
+    const [tier, setTier] = useState('');
+    const history = useHistory();
 
   const allTiers = ['Budding Tier', 'Petal Tier', 'Sakura Tier', 'Blossom Tier']
 
-  const handleNext = () => {
-    // Save the "Tier Form" value and navigate to the next step
-    history.push('/order-set/shape');
+  const handleSubmit = () => {
+    // Store the data in the submissions array
+      console.log('Before update:', submissions);
+
+    setSubmissions([...submissions, tier]); 
+
+    console.log('after update:', submissions);
+
+     // Clear the form input
+    setTier('');
+
+    // Navigate to the next step
+    history.push('/order-set/shape'); 
   };
 
   return (
@@ -23,15 +34,15 @@ function TierForm() {
               {allTiers.map((nail_tier) => {
                 // Mapping through the allTiers array
                 return (
-                  <div className="#"> 
+                  <div className="#"  key={nail_tier}> 
                     <input 
                       className="#"
-                      name={tier}
+                      name="tier"
                       type="radio"
                       id={nail_tier}
                       checked= {tier === nail_tier} 
-                      value={tier}
-                      onChange={() => { setTier(nail_tier) }}
+                      value={nail_tier}
+                      onChange={ () => {setTier(nail_tier)}}
                       required
                     />
                     <label htmlFor={nail_tier}> {nail_tier}</label>
@@ -39,14 +50,28 @@ function TierForm() {
                   )
               })}
             </div>
+
+
             
             <div>
-              <button onClick={handleNext}>Next</button>
+              <button onClick={handleSubmit}>Next</button>
             </div>
     </section>
+
+    
     </>
 
   );
 }
 
 export default TierForm;
+
+
+// <input type='radio' value='BuddingTier'/>
+// <lable for='BuddingTier'>Budding Tier</lable>
+// <input type='radio' value='PetalTier'/>
+// <lable for='PetalTier'>Petal Tier</lable>
+// <input type='radio' value='SakuraTier'/>
+// <lable for='SakuraTier'>Sakura Tier</lable>
+// <input type='radio' value='Blossom ier'/>
+// <lable for='BlossomTuer'>Blossom Tier</lable>

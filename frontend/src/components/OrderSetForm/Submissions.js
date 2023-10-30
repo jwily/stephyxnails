@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 
+function AllSubmissions({ submissions }) {
 
-function Submissions() {
-    const [shape, setShape] = useState('');
-    const history = useHistory();
-  
-    const handleSubmit = () => {
+  console.log(submissions, 'hello')
+  return (
+    <div>
+      <ul>
+        {submissions.map((data, index) => (
+          <li key={index}>{data}
+          </li>
 
-      history.push('/set/all');
-    };
-  
-    return (
-        <form onSubmit={handleSubmit}>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-        </form>
-    );
-  }
-  
-  export default Submissions;
+export default AllSubmissions;
