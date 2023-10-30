@@ -15,7 +15,7 @@ const NavBar = () => {
     }, [])
 
     return (
-        <div className="navbar bg-primary" style={{ position: "sticky", top: 0 }}>
+        <div className="navbar bg-primary" style={{ position: "sticky", top: 0, zIndex: 1000 }}>
             <div className="navbar-start">
                 <input type="checkbox" id="drawer-left" className="drawer-toggle" />
 

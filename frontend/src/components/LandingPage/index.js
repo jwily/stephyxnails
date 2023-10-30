@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 export default function LandingPage() {
     return (
         <div className="flex flex-col justify-center items-center">
+            <GalleryPage />
             <AboutPage />
             <div className="mt-4"> {/* Add margin top */}
                 <NavLink exact to="/order">
@@ -16,7 +17,6 @@ export default function LandingPage() {
                 </NavLink>
             </div>
             <FaqPage />
-            <GalleryPage />
         </div>
     );
 }

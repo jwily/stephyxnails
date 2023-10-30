@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import OrderPage from './components/OrderPage';
 import LandingPage from './components/LandingPage';
 import OrderDetails from './components/OrderDetails';
+import GalleryPage from './components/GalleryPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/order" component={OrderPage} />
         <Route exact path="/ordersss" component={OrderDetails} />
       </Switch>
+      <GalleryPage />
     </Router>
   );
 }
