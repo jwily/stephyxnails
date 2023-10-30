@@ -195,6 +195,6 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 BASIC_DISPLAY_ID = os.environ.get('BASIC_DISPLAY_ID')
 
-# LOGIN_REDIRECT_URL = 'https://api.instagram.com/oauth/authorize?client_id=2002859960093832&redirect_uri=https://stephyxnails.onrender.com/&scope=user_profile,user_media&response_type=code'
-
-# REDIRECT_FIELD_NAME = ""
+ADMIN_LOGIN_NAME = os.environ.get('ADMIN_LOGIN_NAME')
+ADMIN_LOGIN_EMAIL = os.environ.get('ADMIN_LOGIN_EMAIL')
+ADMIN_LOGIN_PASSWORD = os.environ.get('ADMIN_LOGIN_PASSWORD')
