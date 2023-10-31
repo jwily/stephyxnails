@@ -65,10 +65,10 @@ class ExampleImageAdmin(ExtraButtonsMixin, admin.ModelAdmin):
           "response_type": "code",
       }
       auth_url = f"{instagram_auth_url}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
-      redirect(auth_url)
 
+      return redirect(auth_url)
 
-      return HttpResponse("Done")
+      # return HttpResponse("Done")
 
 
 admin.site.register(Order, OrderAdmin)
