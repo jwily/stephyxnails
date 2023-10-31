@@ -36,7 +36,8 @@ def instagram_callback(request):
         "client_id": settings.INSTAGRAM_APP_ID,
         "client_secret": settings.INSTAGRAM_APP_SECRET,
         "grant_type": "authorization_code",
-        "redirect_uri": request.build_absolute_uri(reverse('instagram_callback')),
+        # "redirect_uri": request.build_absolute_uri(reverse('instagram_callback')),
+        "redirect_uri": "https://stephyxnails.onrender.com/admin/index",
         "code": code,
     }
     print('token_url ---->', token_url)
