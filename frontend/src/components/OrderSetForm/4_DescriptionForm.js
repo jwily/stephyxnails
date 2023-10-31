@@ -14,10 +14,9 @@ function DescriptionFrom() {
       if (formData.description && formData.description.length <= 5000) {
       // Add the data to the current data set
       // updateFormData({ description: formData.description});
-      dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier: formData.description } });
+      dispatch({ type: 'UPDATE_FORM_DATA', payload: { description: formData.description } });
       dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
 
-      console.log('update', formData)
       history.push('/order-set/extra'); // Navigate to the next form question
       errorRef.current.innerText = ''; // Clear any previous error message
 

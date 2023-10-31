@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import React from 'react';
 import { useOrderContext } from "../../context/OrderContext";
 import { useHistory } from "react-router-dom";
 /*
@@ -22,21 +22,19 @@ import { useHistory } from "react-router-dom";
 */
 
 function OrderDetails() {
-  const history = useHistory();
-  const { name, email, instagram, setName, setEmail, setInstagram, dispatch } = useOrderContext();
 
-  console.log(name,'name');
-  console.log(instagram,'insta');
-  console.log(email,'email');
+  const { name, email, instagram, setName, setEmail, setInstagram, dispatch } = useOrderContext();
 
 
   const formSubmit = async (e) => {
     e.preventDefault();
 
+
     dispatch({ type: 'SET_NAME', payload: name });
     dispatch({ type: 'SET_EMAIL', payload: email });
     dispatch({ type: 'SET_INSTAGRAM', payload: instagram });
     dispatch({ type: 'SAVE_FORM_DATA' });
+
     //   const formData = await new FormData();
 
     //   formData.append('name', name);
@@ -44,8 +42,13 @@ function OrderDetails() {
     //   formData.append('instagram', instagram)
 
     //   history.push('/orders/setpage', {data: formData})
+
     window.location.href ='/order-set/start';
   }
+
+
+  console.log('this is dispatch', dispatch)
+
 
   return (
     <div>

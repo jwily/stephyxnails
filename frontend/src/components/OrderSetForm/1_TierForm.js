@@ -17,7 +17,6 @@ function TierForm( ) {
       // Update the formData context with the tier data
       // updateFormData({tier: formData.tier});
       
-      console.log('update', formData)
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier: formData.tier } });
       dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
 

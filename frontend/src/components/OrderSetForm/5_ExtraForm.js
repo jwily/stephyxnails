@@ -14,14 +14,16 @@ function ExtraForm() {
     const handleNext = (e) => {
         e.preventDefault();
         // Calculate the value as number * 3
+     
         const calculated = inputValue * 5;
         // Update the form data with the input value
-        // updateFormData({ extra: inputValue });
-        dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier: formData.extra } });
-        dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
-
+        updateFormData({ extra: inputValue });
+        dispatch({ type: 'UPDATE_FORM_DATA', payload: { extra: inputValue } });
 
         setCalculatedValue(calculated); // Update the calculated value
+ 
+        dispatch({ type: 'SAVE_FORM_DATA' });
+
         history.push('/order-set/all'); // Navigate to the next form question
       };
     

@@ -15,7 +15,6 @@ function ShapeForm() {
 
     if(formData.shape === ''){
       
-      
       // Show an error message or take appropriate action to inform the user about the missing selection
       alert('Please select a Nail Shape before proceeding.');
 
@@ -23,7 +22,7 @@ function ShapeForm() {
 
        // A valid shape is selected
       //  updateFormData({ shape: selectRef.current.value });
-      dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier: formData.shape } });
+      dispatch({ type: 'UPDATE_FORM_DATA', payload: { shape: formData.shape } });
       dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
 
        history.push('/order-set/photo');

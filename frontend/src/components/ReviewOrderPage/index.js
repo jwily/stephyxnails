@@ -5,14 +5,9 @@ import { useOrderContext } from "../../context/OrderContext";
 const ReviewOrderPage = () => {
 
   const { state, formDataSets, } = useOrderContext();
-
-    // const { name } = useContext(useOrderContext); // Access the name from the context
-    // const { email } = useContext(useOrderContext); // Access the name from the context
-    // const { instagram } = useContext(useOrderContext); // Access the name from the context
-
+  
     console.log('Context State:', state); // Log the entire context state
     console.log('formDataSets:', formDataSets); // Log the formDataSets
-  
 
 
     const handleBack = () => {
@@ -67,12 +62,14 @@ const ReviewOrderPage = () => {
       </div>
       <div>
         <h3>Order Sets</h3>
-        {state.formDataSets.map((formData, index) => (
+        {formDataSets.map((formData, index) => (
           <div key={index}>
             <h4>Set {index + 1}</h4>
             <p>Tier: {formData.tier}</p>
             <p>Shape: {formData.shape}</p>
-            {/* Display other form data here */}
+            <p>Photo: {formData.photo}</p>
+            <p>Description: {formData.description}</p>
+            <p>Extra: {formData.extra}</p>
           </div>
         ))}
       </div>
