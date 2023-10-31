@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 function ShapeForm( ) {
 
   const history = useHistory() 
-
    const { formData, updateFormData } = useOrderContext();
+   const shapeSelectRef = useRef(null);
+
 
     const handleNext = (e) => {
       e.preventDefault()
@@ -16,8 +17,9 @@ function ShapeForm( ) {
       console.log('update', formData)
       history.push('/order-set/photo');
       } else {
-        // No valid shape selected; show an error message
-        alert('Please select a Nail Shape before proceeding.');
+         // No valid shape selected; show an error message
+      shapeSelectRef.current.setCustomValidity('Please select a Nail Shape before proceeding.');
+      shapeSelectRef.current.reportValidity();
       }
     };
     const handleBack = () => {
@@ -34,6 +36,7 @@ function ShapeForm( ) {
                 <select
                   value={formData.shape}
                   onChange={(e) => updateFormData({ shape: e.target.value })}
+                  ref={shapeSelectRef} // Assign the ref to the select element
                 >
                   <option>Select A Nail Shape</option>
                   <option>Extra-Short Square</option>

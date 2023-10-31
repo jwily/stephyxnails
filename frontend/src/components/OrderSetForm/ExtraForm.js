@@ -14,7 +14,7 @@ function ExtraForm() {
     const handleNext = (e) => {
         e.preventDefault();
         // Calculate the value as number * 3
-        const calculated = inputValue * 3;
+        const calculated = inputValue * 5;
         // Update the form data with the input value
         updateFormData({ extra: inputValue });
         setCalculatedValue(calculated); // Update the calculated value
@@ -32,7 +32,7 @@ function ExtraForm() {
           // Ensure the input is a valid integer
           setInputValue(newValue);
           // Calculate the new value and update the calculatedValue
-          setCalculatedValue(newValue * 3);
+          setCalculatedValue(newValue * 5);
         }
       };
 
