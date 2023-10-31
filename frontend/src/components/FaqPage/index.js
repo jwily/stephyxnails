@@ -10,6 +10,15 @@ export default function FaqPage() {
           </label>
           <div className="accordion-content">
             <div className="min-h-0 flex flex-col gap-8 pl-2">
+            <div>
+                <p><span className="font-bold">Q:</span> How do I place a custom order?</p>
+                <p>
+                <span className="font-bold">A:</span> Please fill out the custom order form to place your order and I’ll reach out to you via your preferred method (IG or email) to confirm a design with you. Once the design is approved, I’ll send an invoice (via PayPal) and get started on your set as soon as it’s paid (yay!  (ﾉ◕ヮ◕)ﾉ).
+
+                <p>For your privacy, I’ll also collect your shipping address from either IG or email.</p>
+
+                </p>
+              </div>
               <div>
                 <p><span className="font-bold">Q:</span> What does each order include?</p>
                 <ul>
@@ -23,10 +32,9 @@ export default function FaqPage() {
                 </ul>
               </div>
               <div>
-                <p><span className="font-bold">Q:</span> How long will it take to process my order?</p>
+                <p><span className="font-bold">Q:</span> How long will it take to complete my order?</p>
                 <p>
-                <span className="font-bold">A:</span> Processing times are 1-3 weeks, not including shipping times. Processing times can vary
-                  depending on volume of orders and how complex a set is.
+                <span className="font-bold">A:</span> My current processing times are 1-3 weeks, not including the weekends and holidays (gotta take some days off ya’know ╰(▔∀▔)╯ ). Processing times can vary depending on the volume of my orders and how complex a set is.
                 </p>
               </div>
               <div>
@@ -42,6 +50,13 @@ export default function FaqPage() {
                     nail brands are created differently!
                   </p>
                 </div>
+              </div>
+              <div>
+                <p><span className="font-bold">Q:</span> How long will my press-ons last?</p>
+                <p>
+                <span className="font-bold">A:</span> Well, this really all depends on the wearer! But press-ons can last anywhere from 1-2 weeks with nail glue and a few days with adhesive tabs.
+
+                </p>
               </div>
               <div>
                 <p><span className="font-bold">Q:</span> What if I need a nail replaced?</p>
