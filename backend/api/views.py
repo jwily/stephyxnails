@@ -1,9 +1,11 @@
 import requests
 
 from django.conf import settings
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 
 class CustomAdminLoginView(LoginView):
@@ -22,8 +24,10 @@ class CustomAdminLoginView(LoginView):
         }
         auth_url = f"{instagram_auth_url}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
 
+        login(self.request, form.get_user())
         # Return a redirect response to the Instagram OAuth URL
         return redirect(auth_url)
+
 
 def instagram_callback(request):
     code = request.GET.get('code')
