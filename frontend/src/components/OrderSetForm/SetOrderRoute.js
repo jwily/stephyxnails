@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import TierForm from './TierForm';
-import ShapeForm from './ShapeForm';
-import PhotoForm from './PhotoForm';
-import DescriptionForm from './DescriptionForm'
-import ExtraForm from './ExtraForm'
-import Submissions from './SubmissionForm';
+import TierForm from './1_TierForm';
+import ShapeForm from './2_ShapeForm';
+import PhotoForm from './3_PhotoForm';
+import DescriptionForm from './4_DescriptionForm'
+import ExtraForm from './5_ExtraForm'
+import Submissions from './6_SubmissionForm';
 
 function SetRoutes() {
 
