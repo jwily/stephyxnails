@@ -1,13 +1,15 @@
+import React from "react";
 import { useOrderContext } from "../../context/OrderContext";
-
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ReviewOrderPage = (info) => {
-
 
   // const { state, dispatch } = useOrderContext()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const recaptchaValue = recaptchaRef.current.getValue();
+    this.props.handleSubmit(recaptchaValue);
 
     try {
       const finalizedInfo = {
@@ -34,6 +36,7 @@ const ReviewOrderPage = (info) => {
       console.error(error);
     }
   }
+  const recaptchaRef = React.createRef();
 
   return (
     <div>
@@ -52,8 +55,8 @@ const ReviewOrderPage = (info) => {
                         {set.tier}
                     </div>
                 </div>)} */}
-      <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div>
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      {/* <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div> */}
+      <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleSubmit}/>
       <button onClick={handleSubmit}>Submit</button>
     </div>
   )
