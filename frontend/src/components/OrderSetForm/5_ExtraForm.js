@@ -6,7 +6,7 @@ import { useOrderContext } from '../../context/OrderContext';
 function ExtraForm() {
 
     const history = useHistory() 
-    const { formData, updateFormData } = useOrderContext();
+    const { formData, updateFormData, dispatch } = useOrderContext();
     const [inputValue, setInputValue] = useState(formData.extra);
     const [calculatedValue, setCalculatedValue] = useState(0);
 
@@ -16,7 +16,11 @@ function ExtraForm() {
         // Calculate the value as number * 3
         const calculated = inputValue * 5;
         // Update the form data with the input value
-        updateFormData({ extra: inputValue });
+        // updateFormData({ extra: inputValue });
+        dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier: formData.extra } });
+        dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
+
+
         setCalculatedValue(calculated); // Update the calculated value
         history.push('/order-set/all'); // Navigate to the next form question
       };
@@ -36,11 +40,7 @@ function ExtraForm() {
         }
       };
 
-      useEffect(() => {
-        console.log('update', formData);
-      }, [formData]);
-      
-    
+
   
     return (
         <>

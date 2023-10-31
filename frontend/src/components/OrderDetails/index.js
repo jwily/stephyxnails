@@ -23,15 +23,20 @@ import { useHistory } from "react-router-dom";
 
 function OrderDetails() {
   const history = useHistory();
+  const { name, email, instagram, setName, setEmail, setInstagram, dispatch } = useOrderContext();
 
-  const { name, email, instagram, setName, setEmail, setInstagram } = useOrderContext();
   console.log(name,'name');
   console.log(instagram,'insta');
   console.log(email,'email');
 
+
   const formSubmit = async (e) => {
     e.preventDefault();
 
+    dispatch({ type: 'SET_NAME', payload: name });
+    dispatch({ type: 'SET_EMAIL', payload: email });
+    dispatch({ type: 'SET_INSTAGRAM', payload: instagram });
+    dispatch({ type: 'SAVE_FORM_DATA' });
     //   const formData = await new FormData();
 
     //   formData.append('name', name);

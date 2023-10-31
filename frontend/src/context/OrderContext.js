@@ -39,16 +39,33 @@ export const OrderProvider = ({ children }) => {
   };
 
   const initialState = {
-    orderData: {},
+    name: '',
+    email: '',
+    instagram: '',
+    formData: {
+      tier: '',
+      shape: '',
+      photo: [],
+      description: '',
+      extra: '',
+    },
     formDataSets: [],
   };
 
   const reducer = (state, action) => {
     switch (action.type) {
-      case 'SET_ORDER_DATA':
-        return { ...state, orderData: action.payload };
+      case 'SET_NAME':
+        return { ...state, name: action.payload };
+      case 'SET_EMAIL':
+        return { ...state, email: action.payload };
+      case 'SET_INSTAGRAM':
+        return { ...state, instagram: action.payload };
+      case 'UPDATE_FORM_DATA':
+        return { ...state, formData: { ...state.formData, ...action.payload } };
       case 'SAVE_FORM_DATA':
-        return { ...state, formDataSets: [...state.formDataSets, action.payload] };
+        return { ...state, formDataSets: [...state.formDataSets, state.formData] };
+      case 'CLEAR_FORM':
+        return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
       default:
         return state;
     }

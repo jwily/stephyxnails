@@ -4,12 +4,15 @@ import { useOrderContext } from "../../context/OrderContext";
 
 const ReviewOrderPage = () => {
 
-    const history = useHistory();
+  const { state, formDataSets, } = useOrderContext();
 
-    const { formDataSets } = useOrderContext();
     // const { name } = useContext(useOrderContext); // Access the name from the context
     // const { email } = useContext(useOrderContext); // Access the name from the context
     // const { instagram } = useContext(useOrderContext); // Access the name from the context
+
+    console.log('Context State:', state); // Log the entire context state
+    console.log('formDataSets:', formDataSets); // Log the formDataSets
+  
 
 
     const handleBack = () => {
@@ -17,6 +20,10 @@ const ReviewOrderPage = () => {
         window.location.href = '/order-set/all'; // Replace 'previous-step-url' with the actual URL for the previous step
       };
     
+      const handleSubmit = () => {
+
+      }
+
 
     // const { state, dispatch } = useOrderContext()
 
@@ -50,27 +57,28 @@ const ReviewOrderPage = () => {
     // }
 
     return (
-        <div>
-          <div>
+      <div>
       <h2>Review Your Order</h2>
-      {/* <p>{name}</p>
-      <p>{email}</p> */}
-
-      {formDataSets.map((formData, index) => (
-        <div key={index}>
-          <h3>Order #{index + 1}</h3>
-          <p>Name: {formData.name}</p>
-          <p>Email: {formData.email}</p>
-          {/* <p>Instagram: {formData.instagram}</p> */}
-          {/* Display other form data here */}
-        </div>
-      ))}
-    </div>
-
-    <button onClick={handleBack}>Back</button>
-
-
+      <div>
+        <h3>User Information</h3>
+        <p>Name: {state.name}</p>
+        <p>Email: {state.email}</p>
+        <p>Instagram: {state.instagram}</p>
       </div>
+      <div>
+        <h3>Order Sets</h3>
+        {state.formDataSets.map((formData, index) => (
+          <div key={index}>
+            <h4>Set {index + 1}</h4>
+            <p>Tier: {formData.tier}</p>
+            <p>Shape: {formData.shape}</p>
+            {/* Display other form data here */}
+          </div>
+        ))}
+      </div>
+      <button onClick={handleBack}>Back</button>
+      <button onClick={handleSubmit}>Submit Order</button>
+    </div>
 
 
             // {/* {info.sets.map(set =>

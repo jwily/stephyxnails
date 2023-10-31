@@ -5,13 +5,16 @@ import { useOrderContext } from '../../context/OrderContext';
 function PhotoForm() {
 
   const history = useHistory();
-  const { formData, updateFormData } = useOrderContext();
+  const { formData, updateFormData, dispatch } = useOrderContext();
   const fileInputRef = useRef(null);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
 
   const handleNext = (e) => {
     e.preventDefault();
     // Navigate to the next form question
+    dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier: formData.photo } });
+    dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
+
     history.push('/order-set/description');
   };
 

@@ -5,7 +5,7 @@ import { useOrderContext } from '../../context/OrderContext';
 function ShapeForm() {
   
   const history = useHistory() 
-  const { formData, updateFormData} = useOrderContext();
+  const { formData, updateFormData, dispatch} = useOrderContext();
   const selectRef = useRef(null); // Create a ref for the select element
 
 
@@ -22,7 +22,10 @@ function ShapeForm() {
     } else {
 
        // A valid shape is selected
-       updateFormData({ shape: selectRef.current.value });
+      //  updateFormData({ shape: selectRef.current.value });
+      dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier: formData.shape } });
+      dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
+
        history.push('/order-set/photo');
     }
   };
