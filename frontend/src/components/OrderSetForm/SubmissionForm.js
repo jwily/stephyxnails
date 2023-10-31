@@ -2,16 +2,13 @@ import React from 'react';
 import { useOrderContext } from '../../context/OrderContext';
 import { useHistory } from 'react-router-dom';
 
-
-function StepExtra() {
-
-  const history = useHistory()
-
+function SubmissionSetForm() {
+  const history = useHistory();
   const { saveCurrentDataSet, formDataSets, clearForm, formData } = useOrderContext();
 
   const handleSubmit = () => {
     // Add the data to the current set
-    saveCurrentDataSet(); // Start a new set of data
+    saveCurrentDataSet();
     history.push('/');
   };
 
@@ -22,13 +19,12 @@ function StepExtra() {
     // Clear the form fields to start a new set
     clearForm();
 
-
     // Optionally, you can navigate to the first form question or any other desired route
     history.push('/order-set/tier');
   };
 
   return (
-    <>
+    <div>
       <div>
         <h2>Review and Submit</h2>
         <div>
@@ -40,37 +36,40 @@ function StepExtra() {
               {data.photo && (
                 <div>
                   <p>Photo:</p>
-                  <img src={URL.createObjectURL(data.photo)} alt="Selected Image" />
+                  <img
+                    src={URL.createObjectURL(data.photo)}
+                    alt="Selected Image"
+                    style={{ maxWidth: '200px', maxHeight: '200px' }} // Set your desired maximum dimensions
+                  />
                 </div>
               )}
               <p>Description: {data.description}</p>
               <p>Extra: {data.extra}</p>
             </div>
-          ))};
+          ))}
           <h3>Set {formDataSets.length + 1}</h3>
           <p>Tier: {formData.tier}</p>
           <p>Shape: {formData.shape}</p>
           {formData.photo && (
             <div>
               <p>Photo:</p>
-              <img src={URL.createObjectURL(formData.photo)} alt="Selected Image" />
+              <img
+                src={URL.createObjectURL(formData.photo)}
+                alt="Selected Image"
+                style={{ maxWidth: '200px', maxHeight: '200px' }} // Set your desired maximum dimensions
+              />
             </div>
           )}
           <p>Description: {formData.description}</p>
           <p>Extra: {formData.extra}</p>
         </div>
-        <div>
-        </div>
-
+      </div>
+      <div>
         <button type="button" onClick={handleAddAnotherSet}>Add Another Set</button>
         <button type="button" onClick={handleSubmit}>Submit</button>
       </div>
-
-    </>
-
-
+    </div>
   );
-
 }
 
-export default StepExtra;
+export default SubmissionSetForm;

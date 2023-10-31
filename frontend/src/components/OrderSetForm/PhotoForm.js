@@ -33,16 +33,14 @@ function PhotoForm() {
     fileInputRef.current.click();
   };
 
-   // Style for the displayed image
-   const imageStyle = {
-    width: '150px', // Adjust the width to your desired size
-    height: '150px', // Adjust the height to your desired size
-  };
-
-
+    // Style for the displayed image
+    const imageStyle = {
+      width: '150px', // Adjust the width to your desired size
+      height: '150px', // Adjust the height to your desired size
+    };
   
-
-    return (
+  
+  return (
       <>
      
  <section>
@@ -64,12 +62,7 @@ function PhotoForm() {
         {/* Display the selected image if available */}
         {formData.photo && (
           <div>
-            <img 
-            src={URL.createObjectURL(formData.photo)}
-             alt="Selected Image" 
-             style={imageStyle} // Apply the defined imageStyle
-
-             />
+            <img src={URL.createObjectURL(formData.photo)} alt="Selected Image"  style={imageStyle} />
           </div>
         )}
 
