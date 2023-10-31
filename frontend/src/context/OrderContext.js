@@ -24,6 +24,7 @@ export const OrderProvider = ({ children }) => {
 
   const saveCurrentDataSet = () => {
     setFormDataSets([...formDataSets, formData]);
+    console.log("after save", formDataSets)
   };
 
   const clearForm = () => {

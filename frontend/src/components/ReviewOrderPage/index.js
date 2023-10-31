@@ -53,7 +53,7 @@ const ReviewOrderPage = (info) => {
                     </div>
                 </div>)} */}
 
-                <button onClick={handleSubmit}>Submit</button>
+                {/* <button onClick={handleSubmit}>Submit</button> */}
         </div>
     )
 }

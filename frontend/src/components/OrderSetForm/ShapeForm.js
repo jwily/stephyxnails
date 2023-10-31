@@ -5,7 +5,7 @@ import { useOrderContext } from '../../context/OrderContext';
 function ShapeForm() {
   
   const history = useHistory() 
-  const { formData, updateFormData } = useOrderContext();
+  const { formData, updateFormData,  } = useOrderContext();
   const selectRef = useRef(null); // Create a ref for the select element
 
 
@@ -14,6 +14,7 @@ function ShapeForm() {
     e.preventDefault()
 
     if(formData.shape === ''){
+      
       
       // Show an error message or take appropriate action to inform the user about the missing selection
       alert('Please select a Nail Shape before proceeding.');

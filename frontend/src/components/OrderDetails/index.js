@@ -28,6 +28,7 @@ function OrderDetails() {
   console.log(name,'name');
   console.log(instagram,'insta');
   console.log(email,'email');
+
   const formSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,14 +39,14 @@ function OrderDetails() {
     //   formData.append('instagram', instagram)
 
     //   history.push('/orders/setpage', {data: formData})
-    history.push('orders/setpage')
+    history.push('/order-set/tier');
   }
 
   return (
     <div>
       <section className="bg-gray-2 rounded-xl bg-primary w-5/12 ">
         <div className="p-8 shadow-lg">
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={formSubmit}>
             <div className="w-full">
               <label className="sr-only" htmlFor="name">Name</label>
               <input
@@ -94,7 +95,7 @@ function OrderDetails() {
             </div> */}
 
             <div className="mt-4">
-              <button type="button" className="rounded-lg btn btn-primary btn-block bg-primary_blue">Next</button>
+              <button type="submit" className="rounded-lg btn btn-primary btn-block bg-primary_blue">Next</button>
             </div>
           </form>
         </div>
