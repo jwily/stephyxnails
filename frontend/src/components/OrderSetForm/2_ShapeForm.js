@@ -64,7 +64,7 @@ function ShapeForm() {
 
               <div>
                 <button onClick={handleBack}>Back</button>
-                <button type="button" onClick={handleNext}>Next</button>
+                <button type="submit" onClick={handleNext}>Next</button>
               </div>
       </section>
       </>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import StartForm from './0_StartForm';
 import TierForm from './1_TierForm';
 import ShapeForm from './2_ShapeForm';
 import PhotoForm from './3_PhotoForm';
@@ -13,6 +14,7 @@ function SetRoutes() {
     return (
       <Router>
         <Switch>
+        <Route path="/order-set/start" component={StartForm} />
           <Route path="/order-set/tier" component={TierForm} />
           <Route path="/order-set/shape" component={ShapeForm} />
           <Route path="/order-set/photo" component={PhotoForm} />

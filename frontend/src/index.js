@@ -5,7 +5,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 
-import TierForm from "./components/OrderSetForm/TierForm"
 import { OrderProvider } from "./context/OrderContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

@@ -28,6 +28,15 @@ function SubmissionSetForm() {
 
   };
 
+  const handleBack = () => {
+      
+    // Navigate back to the previous step
+    history.push('/order-set/extra'); // Replace 'previous-step-url' with the actual URL for the previous step
+  };
+
+
+
+
   console.log('sets',formDataSets)
   console.log('formdata',formData)
 
@@ -66,6 +75,7 @@ function SubmissionSetForm() {
     )}
   </div>
       <div>
+        <button onClick={handleBack}>Back</button>
         <button type="button" onClick={handleAddAnotherSet}>Add Another Set</button>
         <button type="button" onClick={handleSubmit}>Submit</button>
       </div>

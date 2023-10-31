@@ -39,7 +39,7 @@ function OrderDetails() {
     //   formData.append('instagram', instagram)
 
     //   history.push('/orders/setpage', {data: formData})
-    history.push('/order-set/tier');
+    history.push('/order-set/start');
   }
 
   return (

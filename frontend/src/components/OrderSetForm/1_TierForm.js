@@ -32,6 +32,13 @@ function TierForm( ) {
     }
   };
 
+  const handleBack = () => {
+      
+    // Navigate back to the previous step
+    history.push('/order-set/tier'); // Replace 'previous-step-url' with the actual URL for the previous step
+  };
+
+
 
   return (
   <>
@@ -102,7 +109,8 @@ function TierForm( ) {
           </div>
 
           <div>
-            <button type="button" onClick={handleNext}>Next</button>
+          <button onClick={handleBack}>Back</button>
+            <button type="submit" onClick={handleNext}>Next</button>
           </div>
         </div>
       </section>
