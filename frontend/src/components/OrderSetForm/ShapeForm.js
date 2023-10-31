@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 function ShapeForm( ) {
-  const history = useHistory() 
 
+  const history = useHistory() 
 
    const { formData, updateFormData } = useOrderContext();
 
@@ -23,7 +23,7 @@ function ShapeForm( ) {
 
     return (
       <>
-      <form>
+      <section>
         <h2>2. Choose your perferred nail shape and length</h2>
             <p>disclaimer insert</p>
               <div>
@@ -50,9 +50,8 @@ function ShapeForm( ) {
               <div>
                 <button onClick={handleBack}>Back</button>
                 <button type="button" onClick={handleNext}>Next</button>
-
               </div>
-      </form>
+      </section>
       </>
     );
   }

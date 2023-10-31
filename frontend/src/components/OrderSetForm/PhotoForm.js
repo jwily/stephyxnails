@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
-
-
 function PhotoForm() {
+
   const history = useHistory() 
+  const { formData, updateFormData } = useOrderContext();
 
-    const { formData, updateFormData } = useOrderContext();
-
-    const handleNext = (e) => {
+  const handleNext = (e) => {
       e.preventDefault()
       // Add the data to the current data set
       updateFormData({photo : formData.photo});
@@ -46,6 +44,6 @@ function PhotoForm() {
       </section>
       </>
     );
-  }
+}
   
   export default PhotoForm;
