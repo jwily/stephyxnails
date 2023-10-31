@@ -12,7 +12,7 @@ function SubmissionSetForm() {
     // Add the data to the current set
     saveCurrentDataSet();
 
-    history.push('/');
+    window.location.href = '/review-order'; // Replace 'previous-step-url' with the actual URL for the previous step;
 
   };
 

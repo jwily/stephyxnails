@@ -10,8 +10,8 @@ function OrderPage() {
       <OrderProvider>
         <h1>🌸Custom Nail Form🌸</h1>
         <OrderDetails />
-        <OrderSetForm />
-        <ReviewOrderPage />
+        {/* <OrderSetForm />
+        <ReviewOrderPage /> */}
       </OrderProvider>
   )
 }
