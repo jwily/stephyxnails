@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
@@ -36,6 +36,10 @@ function ExtraForm() {
         }
       };
 
+      useEffect(() => {
+        console.log('update', formData);
+      }, [formData]);
+      
     
   
     return (
@@ -54,7 +58,7 @@ function ExtraForm() {
         </div>
         <div>
           <button onClick={handleBack}>Back</button>
-          <button onClick={handleNext}>Next</button>
+          <button type="submit" onClick={handleNext}>Next</button>
         </div>
         </section>
         </>

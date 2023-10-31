@@ -3,14 +3,14 @@ import React, { createContext, useContext, useReducer, useState } from "react";
 const OrderContext = createContext();
 
 export const OrderProvider = ({ children }) => {
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [instagram, setInstagram] = useState('');
-
   const [formData, setFormData] = useState({
     tier: '',
     shape: '',
-    photo: '',
+    photo: [],
     description: '',
     extra: '',
   });
@@ -40,16 +40,24 @@ export const OrderProvider = ({ children }) => {
 
   const initialState = {
     orderData: {},
+    formDataSets: [],
   };
 
   const reducer = (state, action) => {
-    return state;
+    switch (action.type) {
+      case 'SET_ORDER_DATA':
+        return { ...state, orderData: action.payload };
+      case 'SAVE_FORM_DATA':
+        return { ...state, formDataSets: [...state.formDataSets, action.payload] };
+      default:
+        return state;
+    }
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <OrderContext.Provider value={{ state, dispatch, name, setName, email, setEmail, instagram, setInstagram, formData, updateFormData, formDataSets, saveCurrentDataSet, currentDataSet, clearForm, formData  }}>
+    <OrderContext.Provider value={{ state, dispatch, name, setName, email, setEmail, instagram, setInstagram, formData, updateFormData, formDataSets, saveCurrentDataSet, currentDataSet, clearForm  }}>
       {children}
     </OrderContext.Provider>
   );

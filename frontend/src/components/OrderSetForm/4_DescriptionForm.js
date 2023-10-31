@@ -6,7 +6,7 @@ function DescriptionFrom() {
 
   const history = useHistory() 
 
-    const { formData, updateFormData, } = useOrderContext();
+    const { formData, updateFormData } = useOrderContext();
     const errorRef = useRef(null);
 
     const handleNext = (e) => {
@@ -52,7 +52,7 @@ function DescriptionFrom() {
           <div ref={errorRef} style={{ color: 'red' }}></div>
 
             <button onClick={handleBack}>Back</button>
-            <button onClick={handleNext}>Next</button>
+            <button type="submit" onClick={handleNext}>Next</button>
           </div>
       </section>
       </>

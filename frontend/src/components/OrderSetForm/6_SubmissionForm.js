@@ -9,11 +9,10 @@ function SubmissionSetForm() {
     
 
   const handleSubmit = () => {
+    
     // Add the data to the current set
     saveCurrentDataSet();
-
     window.location.href = '/review-order'; // Replace 'previous-step-url' with the actual URL for the previous step;
-
   };
 
   const handleAddAnotherSet = () => {
@@ -35,6 +34,7 @@ function SubmissionSetForm() {
   };
 
 
+  const mergedData = [...formDataSets, formData]; // Merge the most recent step's data with the accumulated data
 
 
   console.log('sets',formDataSets)
@@ -46,7 +46,7 @@ function SubmissionSetForm() {
       <h2>Review and Submit</h2>
       <div>
         
-    {formDataSets.map((data, index) => (
+    {mergedData.map((data, index) => (
       <div key={index}>
         <h3>Set {index + 1}</h3>
         <p>Tier: {data.tier}</p>
@@ -70,14 +70,14 @@ function SubmissionSetForm() {
     ))}
     
         
-    {formDataSets.length === 0 && (
+    {mergedData.length === 0 && (
       <p>No sets made.</p>
     )}
   </div>
       <div>
         <button onClick={handleBack}>Back</button>
-        <button type="button" onClick={handleAddAnotherSet}>Add Another Set</button>
-        <button type="button" onClick={handleSubmit}>Submit</button>
+        <button type="submit" onClick={handleAddAnotherSet}>Add Another Set  </button>
+        <button type="submit" onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   );

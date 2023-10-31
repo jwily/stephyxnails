@@ -39,8 +39,6 @@ function TierForm( ) {
 
   };
 
-
-
   return (
   <>
     <section>

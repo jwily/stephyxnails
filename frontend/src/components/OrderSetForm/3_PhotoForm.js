@@ -80,7 +80,7 @@ function PhotoForm() {
 
         <div>
           <button onClick={handleBack}>Back</button>
-          <button onClick={handleNext}>Next</button>
+          <button type="submit" onClick={handleNext}>Next</button>
         </div>
         </div>
       </section>
