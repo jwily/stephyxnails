@@ -164,7 +164,7 @@ catchall = catchall_dev if settings.DEBUG else catchall_prod
 def instagram_callback(request):
     code = request.GET.get('code')
     if not code:
-        return redirect('admin:index')
+        return redirect('admin:orders_exampleimage_changelist')
 
     # Exchange the code for an access token
     token_url = "https://api.instagram.com/oauth/access_token"
@@ -194,4 +194,4 @@ def instagram_callback(request):
           image = ExampleImage(url=post['media_url'])
           image.save()
 
-    return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimages_changelist')))
+    return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))

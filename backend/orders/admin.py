@@ -78,7 +78,13 @@ class ExampleImageAdmin(ExtraButtonsMixin, admin.ModelAdmin):
     #   #   image = ExampleImage(url=post['media_url'])
     #   #   image.save()
     #   all_urls = set([obj.url for obj in ExampleImage.objects.all()])
-    #   print(all_urls)
+
+    #   for post in data:
+    #     if post['media_type'] == 'IMAGE' and post['media_url'] not in all_urls:
+    #         image = ExampleImage(url=post['media_url'])
+    #         image.save()
+
+    #   return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Tier, TierAdmin)
