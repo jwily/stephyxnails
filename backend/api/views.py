@@ -28,7 +28,7 @@ class CustomAdminLoginView(LoginView):
 def instagram_callback(request):
     code = request.GET.get('code')
     if not code:
-        return redirect('admin:index')
+        return redirect('admin:login')
 
     # Exchange the code for an access token
     token_url = "https://api.instagram.com/oauth/access_token"
