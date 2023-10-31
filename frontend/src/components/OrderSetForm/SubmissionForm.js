@@ -3,8 +3,10 @@ import { useOrderContext } from '../../context/OrderContext';
 import { useHistory } from 'react-router-dom';
 
 function SubmissionSetForm() {
+
   const history = useHistory();
   const { saveCurrentDataSet, formDataSets, clearForm, formData } = useOrderContext();
+  
   
 
 
@@ -40,7 +42,7 @@ function SubmissionSetForm() {
               <h3>Set {index + 1}</h3>
               <p>Tier: {data.tier}</p>
               <p>Shape: {data.shape}</p>
-              {data.photo && data.photos.length > 0 && (
+              {data.photo && data.photos?.length > 0 && (
                 <div>
                   <p>Photos:</p>
                   {data.photo.map((photo, photoIndex) => (
@@ -67,7 +69,7 @@ function SubmissionSetForm() {
                 <img
                   key={photoIndex}
                   src={URL.createObjectURL(photos)}
-                  alt={`Selected Image Set ${formDataSets.length + 1}, Photo ${photoIndex + 1}`}
+                  alt={`Selected Image Set ${formDataSets?.length + 1}, Photo ${photoIndex + 1}`}
                   style={{ maxWidth: '200px', maxHeight: '200px' }}
                 />
               ))}
