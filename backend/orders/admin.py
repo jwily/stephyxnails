@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.forms import Textarea
 from django.db import models
+from django.http import HttpResponse
+from admin_extra_buttons.api import ExtraButtonsMixin, button
 from .models import Order, Set, Tier, SetImage, ExampleImage, STATUS_CHOICES
 
 # Register your models here.
@@ -44,6 +46,15 @@ class TierAdmin(admin.ModelAdmin):
   list_display = ['name', 'price', 'description']
 
 
+class ExampleImageAdmin(ExtraButtonsMixin, admin.ModelAdmin):
+   list_display = ['id', 'url', 'created']
+
+   @button()
+   def pull_images(self, request):
+      return HttpResponse("Done")
+
+
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Tier, TierAdmin)
 admin.site.register(Set, SetAdmin)
+admin.site.register(ExampleImage, ExampleImageAdmin)

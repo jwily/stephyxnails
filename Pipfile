@@ -10,6 +10,8 @@ dj-database-url = "*"
 gunicorn = "*"
 whitenoise = "*"
 python-dotenv = "*"
+requests = "*"
+django-admin-extra-buttons = "*"
 
 [dev-packages]
 

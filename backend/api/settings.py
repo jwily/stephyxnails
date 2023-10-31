@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     # 'corsheaders',
-    'orders'
+    'orders',
+    'admin_extra_buttons'
 ]
 
 # CORS must go before anything that generates responses
