@@ -50,16 +50,16 @@ def instagram_callback(request):
     access_response_data = access_response.json()
     print(access_response_data)
 
-    # access_token = access_response_data.access_token
+    access_token = access_response_data['access_token']
 
-    # print('access token ---->', access_token)
+    print('access token ---->', access_token)
     # Here, you should handle the access token and any other required actions.
-    # media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
-    # media_response = requests.get(media_request_url)
+    media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
+    media_response = requests.get(media_request_url)
 
-    # print('get media url --->', media_request_url )
+    print('get media url --->', media_request_url )
 
-    # media_data = media_response.json()
-    # print(media_data)
+    media_data = media_response.json()
+    print(media_data)
     # Then redirect the user to the Django admin homepage.
     return redirect('admin:index')
