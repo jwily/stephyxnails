@@ -1,12 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 function PhotoForm() {
 
-  const history = useHistory() 
+  const history = useHistory();
   const { formData, updateFormData } = useOrderContext();
   const fileInputRef = useRef(null);
+  const [selectedPhotos, setSelectedPhotos] = useState([]);
 
   const handleNext = (e) => {
     e.preventDefault();
@@ -22,9 +23,16 @@ function PhotoForm() {
   
   const handleFileChange = () => {
     const file = fileInputRef.current.files[0]; // Get the selected file
+    
     if (file) {
-      // You can process the selected file here or store it in your form data
-      updateFormData({ photo: file });
+      // Check if the maximum limit of three photos is reached
+      if (selectedPhotos.length < 3) {
+        // You can process the selected file here or store it in your form data
+        setSelectedPhotos([...selectedPhotos, file]);
+        updateFormData({ photo: selectedPhotos }); // Store all selected photos
+      } else {
+        alert("You've reached the maximum limit of three photos.");
+      }
     }
   };
 
@@ -41,13 +49,12 @@ function PhotoForm() {
   
   
   return (
-      <>
-     
- <section>
+    
+       <section>
+        <div>
         <h2>3. Photo Upload</h2>
         <p>disclaimer insert</p>
         <div>
-          {/* Input for image upload */}
           <input
             type="file"
             accept="image/*" // Specify the accepted file types (e.g., images)
@@ -58,22 +65,27 @@ function PhotoForm() {
 
           <button onClick={openFileInput}>Upload Photo</button>
         </div>
-
-        {/* Display the selected image if available */}
-        {formData.photo && (
-          <div>
-            <img src={URL.createObjectURL(formData.photo)} alt="Selected Image"  style={imageStyle} />
+      <div>
+      {selectedPhotos.map((photo, index) => (
+          <div key={index}>
+            <img 
+            src={URL.createObjectURL(photo)} 
+            alt={`Selected Image ${index + 1}`}
+            style={imageStyle} 
+            />
           </div>
-        )}
+       ) )}
+      </div>
+    
 
         <div>
           <button onClick={handleBack}>Back</button>
           <button onClick={handleNext}>Next</button>
         </div>
+        </div>
       </section>
-
-      </>
-    );
+  
+  );
 }
   
   export default PhotoForm;

@@ -5,11 +5,16 @@ import { useHistory } from 'react-router-dom';
 function SubmissionSetForm() {
   const history = useHistory();
   const { saveCurrentDataSet, formDataSets, clearForm, formData } = useOrderContext();
+  
+
 
   const handleSubmit = () => {
     // Add the data to the current set
+
     saveCurrentDataSet();
+    
     history.push('/');
+
   };
 
   const handleAddAnotherSet = () => {
@@ -21,7 +26,9 @@ function SubmissionSetForm() {
 
     // Optionally, you can navigate to the first form question or any other desired route
     history.push('/order-set/tier');
+
   };
+
 
   return (
     <div>
@@ -33,14 +40,17 @@ function SubmissionSetForm() {
               <h3>Set {index + 1}</h3>
               <p>Tier: {data.tier}</p>
               <p>Shape: {data.shape}</p>
-              {data.photo && (
+              {data.photo && data.photos.length > 0 && (
                 <div>
-                  <p>Photo:</p>
-                  <img
-                    src={URL.createObjectURL(data.photo)}
-                    alt="Selected Image"
-                    style={{ maxWidth: '200px', maxHeight: '200px' }} // Set your desired maximum dimensions
-                  />
+                  <p>Photos:</p>
+                  {data.photo.map((photo, photoIndex) => (
+                    <img
+                      key={photoIndex}
+                      src={URL.createObjectURL(photo)}
+                      alt={`Selected Image Set ${index + 1}, Photo ${photoIndex + 1}`}
+                      style={{ maxWidth: '200px', maxHeight: '200px' }}
+                    />
+                  ))}
                 </div>
               )}
               <p>Description: {data.description}</p>
@@ -50,14 +60,17 @@ function SubmissionSetForm() {
           <h3>Set {formDataSets.length + 1}</h3>
           <p>Tier: {formData.tier}</p>
           <p>Shape: {formData.shape}</p>
-          {formData.photo && (
+          {formData.photo && formData.photo.length > 0 && (
             <div>
-              <p>Photo:</p>
-              <img
-                src={URL.createObjectURL(formData.photo)}
-                alt="Selected Image"
-                style={{ maxWidth: '200px', maxHeight: '200px' }} // Set your desired maximum dimensions
-              />
+              <p>Photos:</p>
+              {formData.photo.map((photos, photoIndex) => (
+                <img
+                  key={photoIndex}
+                  src={URL.createObjectURL(photos)}
+                  alt={`Selected Image Set ${formDataSets.length + 1}, Photo ${photoIndex + 1}`}
+                  style={{ maxWidth: '200px', maxHeight: '200px' }}
+                />
+              ))}
             </div>
           )}
           <p>Description: {formData.description}</p>
