@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from api.admin import admin_site
+from .views import CustomAdminLoginView, instagram_callback
 from orders.views import catchall
 
 """

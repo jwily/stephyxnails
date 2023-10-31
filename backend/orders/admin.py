@@ -1,4 +1,5 @@
 from django.contrib import admin
+from api.admin import admin_site
 from django.forms import Textarea
 from django.db import models
 from django.http import HttpResponse
