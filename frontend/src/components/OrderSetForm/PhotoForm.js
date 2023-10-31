@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
@@ -6,42 +6,65 @@ function PhotoForm() {
 
   const history = useHistory() 
   const { formData, updateFormData } = useOrderContext();
+  const fileInputRef = useRef(null);
 
   const handleNext = (e) => {
-      e.preventDefault()
-      // Add the data to the current data set
-      updateFormData({photo : formData.photo});
-      console.log('update', formData)
+    e.preventDefault();
+    // Navigate to the next form question
+    history.push('/order-set/description');
+  };
 
-      history.push('/order-set/description'); // Navigate to the next form question
-    };
+  const handleBack = () => {
+    // Navigate back to the previous step
+    history.push('/order-set/shape'); // Replace 'previous-step-url' with the actual URL for the previous step
+  };
 
-
-    const handleBack = () => {
-      // Navigate back to the previous step
-      history.push('/order-set/shape'); // Replace 'previous-step-url' with the actual URL for the previous step
-    };
   
+  const handleFileChange = () => {
+    const file = fileInputRef.current.files[0]; // Get the selected file
+    if (file) {
+      // You can process the selected file here or store it in your form data
+      updateFormData({ photo: file });
+    }
+  };
+
+  const openFileInput = () => {
+    // Trigger the file input dialog
+    fileInputRef.current.click();
+  };
   
-    return (
+  return (
       <>
-      <section> 
-        <h2>3.Photo Upload</h2>
-          <p>disclaimer insert</p>
-            <div>
-              <input
-               type="text"
-               value={formData.photo}
-               onChange={(e) => updateFormData({ photo: e.target.value })}
-              >
-              </input>
-            </div>
+     
+ <section>
+        <h2>3. Photo Upload</h2>
+        <p>disclaimer insert</p>
+        <div>
+          {/* Input for image upload */}
+          <input
+            type="file"
+            accept="image/*" // Specify the accepted file types (e.g., images)
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+          />
 
-            <div>
-              <button onClick={handleBack}>Back</button>
-               <button onClick={handleNext}>Next</button>
-            </div>
+          <button onClick={openFileInput}>Upload Photo</button>
+        </div>
+
+        {/* Display the selected image if available */}
+        {formData.photo && (
+          <div>
+            <img src={URL.createObjectURL(formData.photo)} alt="Selected Image" />
+          </div>
+        )}
+
+        <div>
+          <button onClick={handleBack}>Back</button>
+          <button onClick={handleNext}>Next</button>
+        </div>
       </section>
+
       </>
     );
 }

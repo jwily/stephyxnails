@@ -37,7 +37,13 @@ function StepExtra() {
               <h3>Set {index + 1}</h3>
               <p>Tier: {data.tier}</p>
               <p>Shape: {data.shape}</p>
-              <p>Photo: {data.photo}</p>
+              {/* <p>Photo: {data.photo}</p> */}
+              {data.photo && (
+                <div>
+                  <p>Photo:</p>
+                  <img src={URL.createObjectURL(data.photo)} alt="Selected Image" />
+                </div>
+              )}
               <p>Description: {data.description}</p>
               <p>Extra: {data.extra}</p>
             </div>
@@ -45,7 +51,13 @@ function StepExtra() {
           <h3>Set {formDataSets.length + 1}</h3>
           <p>Tier: {formData.tier}</p>
           <p>Shape: {formData.shape}</p>
-          <p>Photo: {formData.photo}</p>
+          {/* <p>Photo: {formData.photo}</p> */}
+          {formData.photo && (
+            <div>
+              <p>Photo:</p>
+              <img src={URL.createObjectURL(formData.photo)} alt="Selected Image" />
+            </div>
+          )}
           <p>Description: {formData.description}</p>
           <p>Extra: {formData.extra}</p>
         </div>
