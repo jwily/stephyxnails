@@ -175,23 +175,23 @@ def instagram_callback(request):
         "redirect_uri": request.build_absolute_uri(reverse('instagram_callback')),
         "code": code,
     }
-    print('token_url ---->', token_url)
-    print('token_data ------>', token_data)
+
     access_response = requests.post(token_url, data=token_data)
-
     access_response_data = access_response.json()
-    print(access_response_data)
-
     access_token = access_response_data['access_token']
 
-    print('access token ---->', access_token)
-    # Here, you should handle the access token and any other required actions.
     media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
     media_response = requests.get(media_request_url)
-
-    print('get media url --->', media_request_url )
-
     media_data = media_response.json()
-    print(media_data)
-    # Then redirect the user to the Django admin homepage.
-    return redirect('admin:index')
+
+    post_data = media_data['data']
+
+    # Grabs all urls in db currently to for duplicates
+    all_urls = set([obj.url for obj in ExampleImage.objects.all()])
+
+    for post in post_data:
+      if post['media_type'] == 'IMAGE' and post['media_url'] not in all_urls:
+          image = ExampleImage(url=post['media_url'])
+          image.save()
+
+    return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimages_changelist')))
