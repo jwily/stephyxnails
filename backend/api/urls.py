@@ -26,7 +26,7 @@ Including another URLconf
 urlpatterns = [
     path('admin/login/', CustomAdminLoginView.as_view(), name='custom_admin_login'),
     path('admin/instagram_callback/', instagram_callback, name='instagram_callback'),
-    path('admin/', admin.site.urls, name='admin_home'),
+    path('admin/', admin.site.urls),
     path('', include('orders.urls')),
     re_path(r'', catchall)
 ]
