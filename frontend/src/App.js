@@ -15,7 +15,7 @@ function App() {
         <Route exact path="/order" component={OrderPage} />
         <Route exact path="/ordersss" component={OrderDetails} />
       </Switch>
-      <GalleryPage />
+      <Route exact path={['/']} component={GalleryPage} />
     </Router>
   );
 }

@@ -1,3 +1,4 @@
+import { useOrderContext } from "../../context/OrderContext";
 import AboutPage from "../AboutPage"
 import FaqPage from "../FaqPage"
 import GalleryPage from "../GalleryPage"
@@ -5,13 +6,19 @@ import { NavLink } from "react-router-dom";
 
 
 export default function LandingPage() {
+    const {scrollToOrder} = useOrderContext()
     return (
         <div className="flex flex-col justify-center items-center">
-            <GalleryPage />
             <AboutPage />
-            <div className="mt-4"> {/* Add margin top */}
+            <div className="rounded-ex m-4 bg-primary p-4" ref={scrollToOrder}>
+                <div className="text-center font-bold text-lg pb-4">
+                    CUSTOM ORDERING
+                </div>
+                <p className="text-center pb-6 text-xl">
+                    Hand painted custom press-ons, with every order made especially for you!
+                </p>
                 <NavLink exact to="/order">
-                    <button className="btn btn-outline-primary border-primary_blue text-primary_blue z-20">
+                    <button className="btn btn-outline-primary border-none text-xl btn-block underline text-black">
                         START ORDERING NOW
                     </button>
                 </NavLink>
