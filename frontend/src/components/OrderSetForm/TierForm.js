@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useRef}from 'react';
 import {  useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
@@ -6,6 +6,8 @@ function TierForm( ) {
 
     const history = useHistory() 
     const { formData, updateFormData }= useOrderContext();
+    const tierInputRef = useRef(null);
+
 
     const handleNext = (e) => {
       e.preventDefault()
@@ -15,8 +17,10 @@ function TierForm( ) {
       console.log('update', formData)
       history.push('/order-set/shape');
       } else {
-        // Display an error message or take appropriate action to inform the user about the missing selection.
-        alert('Please select a Nail Tier before proceeding.');
+            // Display an error message using the ref
+      tierInputRef.current.setCustomValidity('Please select a Nail Tier before proceeding.');
+      // Trigger form validation
+      tierInputRef.current.reportValidity();
       }
     };
 
@@ -35,6 +39,7 @@ function TierForm( ) {
                       value="Budding Tier"
                       checked={formData.tier === 'Budding Tier'}
                       onChange={(e) => updateFormData({ tier: e.target.value })}
+                      ref={tierInputRef} // Assign the ref to the input element
                       required
                     />
                     Budding Tier

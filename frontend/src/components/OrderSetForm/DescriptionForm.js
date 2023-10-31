@@ -2,8 +2,6 @@ import React , {useRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
-
-
 function DescriptionFrom() {
 
   const history = useHistory() 
@@ -17,7 +15,6 @@ function DescriptionFrom() {
       // Add the data to the current data set
       updateFormData({ description: formData.description});
       console.log('update', formData)
-
       history.push('/order-set/extra'); // Navigate to the next form question
       errorRef.current.innerText = ''; // Clear any previous error message
 
