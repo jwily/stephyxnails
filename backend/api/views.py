@@ -41,9 +41,9 @@ def instagram_callback(request):
     }
     print('token_url ---->', token_url)
     print('token_data ------>', token_data)
-    # response = requests.post(token_url, data=token_data)
-    # response_data = response.json()
-    # print(response_data)
+    response = requests.post(token_url, data=token_data)
+    response_data = response.json()
+    print(response_data)
 
     # Here, you should handle the access token and any other required actions.
     # Then redirect the user to the Django admin homepage.
