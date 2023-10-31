@@ -178,6 +178,7 @@ def instagram_callback(request):
 
     access_response = requests.post(token_url, data=token_data)
     access_response_data = access_response.json()
+    print('>>>', access_response_data)
     access_token = access_response_data['access_token']
 
     media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
@@ -185,11 +186,14 @@ def instagram_callback(request):
     media_data = media_response.json()
 
     post_data = media_data['data']
+    print('>>>', post_data)
 
     # Grabs all urls in db currently to for duplicates
     all_urls = set([obj.url for obj in ExampleImage.objects.all()])
+    print('>>>', all_urls)
 
     for post in post_data:
+      print('>>>', post['caption'])
       if post['media_type'] == 'IMAGE' and post['media_url'] not in all_urls:
           image = ExampleImage(url=post['media_url'])
           image.save()
