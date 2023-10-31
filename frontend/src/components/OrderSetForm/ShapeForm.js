@@ -13,8 +13,7 @@ function ShapeForm( ) {
       // Add the data to the current data set
       updateFormData({shape: formData.shape});
       console.log('update', formData)
-
-              history.push('/order-set/photo');
+      history.push('/order-set/photo');
     };
 
     const handleBack = () => {
