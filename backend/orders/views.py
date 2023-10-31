@@ -14,7 +14,9 @@ from rest_framework.response import Response
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
-
+from django.shortcuts import redirect
+from django.urls import reverse
+import requests
 # class OrderList(generics.ListAPIView):
 #     queryset = Order.objects.all()
 #     serializer_class = OrderSerializer
@@ -158,3 +160,38 @@ catchall_prod = TemplateView.as_view(template_name='index.html')
 # Defines which catchall view will be used based on the environment.
 
 catchall = catchall_dev if settings.DEBUG else catchall_prod
+
+def instagram_callback(request):
+    code = request.GET.get('code')
+    if not code:
+        return redirect('admin:index')
+
+    # Exchange the code for an access token
+    token_url = "https://api.instagram.com/oauth/access_token"
+    token_data = {
+        "client_id": settings.INSTAGRAM_APP_ID,
+        "client_secret": settings.INSTAGRAM_APP_SECRET,
+        "grant_type": "authorization_code",
+        "redirect_uri": request.build_absolute_uri(reverse('instagram_callback')),
+        "code": code,
+    }
+    print('token_url ---->', token_url)
+    print('token_data ------>', token_data)
+    access_response = requests.post(token_url, data=token_data)
+
+    access_response_data = access_response.json()
+    print(access_response_data)
+
+    access_token = access_response_data['access_token']
+
+    print('access token ---->', access_token)
+    # Here, you should handle the access token and any other required actions.
+    media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
+    media_response = requests.get(media_request_url)
+
+    print('get media url --->', media_request_url )
+
+    media_data = media_response.json()
+    print(media_data)
+    # Then redirect the user to the Django admin homepage.
+    return redirect('admin:index')

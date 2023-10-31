@@ -5,6 +5,10 @@ from django.db import models
 from django.http import HttpResponse
 from admin_extra_buttons.api import ExtraButtonsMixin, button
 from .models import Order, Set, Tier, SetImage, ExampleImage, STATUS_CHOICES
+from django.conf import settings
+from django.urls import reverse
+import requests
+from django.shortcuts import redirect
 
 # Register your models here.
 
@@ -52,6 +56,18 @@ class ExampleImageAdmin(ExtraButtonsMixin, admin.ModelAdmin):
 
    @button()
    def pull_images(self, request):
+      # Instagram OAuth
+      instagram_auth_url = "https://api.instagram.com/oauth/authorize"
+      params = {
+          "client_id": settings.INSTAGRAM_APP_ID,
+          "redirect_uri": request.build_absolute_uri(reverse('instagram_callback')),
+          "scope": "user_profile,user_media",
+          "response_type": "code",
+      }
+      auth_url = f"{instagram_auth_url}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
+      redirect(auth_url)
+
+
       return HttpResponse("Done")
 
 
