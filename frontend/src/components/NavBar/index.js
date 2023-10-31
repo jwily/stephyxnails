@@ -18,8 +18,8 @@ const NavBar = () => {
                 <NavLink className="navbar-item text-gray-500" exact to='/faq'>FAQ</NavLink>
             </div>
             <div>
-                <NavLink>
-                    <i className="fa-solid fa-bag-shopping"></i>
+                <NavLink className='navbar-item' exact to='/order'>
+                    <i className="fa-solid fa-bag-shopping" style={{color:'black'}}></i>
                 </NavLink>
             </div>
         </div>
