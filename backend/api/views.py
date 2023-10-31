@@ -28,7 +28,7 @@ class CustomAdminLoginView(LoginView):
 def instagram_callback(request):
     code = request.GET.get('code')
     if not code:
-        return redirect('admin:index')
+        return redirect('admin:login')
 
     # Exchange the code for an access token
     token_url = "https://api.instagram.com/oauth/access_token"
@@ -37,7 +37,7 @@ def instagram_callback(request):
         "client_secret": settings.INSTAGRAM_APP_SECRET,
         "grant_type": "authorization_code",
         # "redirect_uri": request.build_absolute_uri(reverse('instagram_callback')),
-        "redirect_uri": "https://stephyxnails.onrender.com/admin/index",
+        "redirect_uri": "https://stephyxnails.onrender.com/admin/",
         "code": code,
     }
     print('token_url ---->', token_url)
