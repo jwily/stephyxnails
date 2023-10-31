@@ -10,12 +10,16 @@ function ShapeForm( ) {
 
     const handleNext = (e) => {
       e.preventDefault()
+      if(formData.shape !== 'Select A Nail Shape'){
       // Add the data to the current data set
       updateFormData({shape: formData.shape});
       console.log('update', formData)
       history.push('/order-set/photo');
+      } else {
+        // No valid shape selected; show an error message
+        alert('Please select a Nail Shape before proceeding.');
+      }
     };
-
     const handleBack = () => {
       // Navigate back to the previous step
       history.push('/order-set/tier'); // Replace 'previous-step-url' with the actual URL for the previous step

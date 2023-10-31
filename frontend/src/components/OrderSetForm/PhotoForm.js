@@ -32,8 +32,7 @@ function PhotoForm() {
     // Trigger the file input dialog
     fileInputRef.current.click();
   };
-  
-  return (
+    return (
       <>
      
  <section>

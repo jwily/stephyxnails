@@ -7,15 +7,18 @@ function TierForm( ) {
     const history = useHistory() 
     const { formData, updateFormData }= useOrderContext();
 
-
     const handleNext = (e) => {
       e.preventDefault()
+      if (formData.tier) {
       // Update the formData context with the tier data
       updateFormData({tier: formData.tier});
       console.log('update', formData)
       history.push('/order-set/shape');
+      } else {
+        // Display an error message or take appropriate action to inform the user about the missing selection.
+        alert('Please select a Nail Tier before proceeding.');
+      }
     };
-  
 
   return (
     <>
@@ -32,6 +35,7 @@ function TierForm( ) {
                       value="Budding Tier"
                       checked={formData.tier === 'Budding Tier'}
                       onChange={(e) => updateFormData({ tier: e.target.value })}
+                      required
                     />
                     Budding Tier
                     <span> $35 </span>
@@ -46,6 +50,7 @@ function TierForm( ) {
                       value="Petal Tier"
                       checked={formData.tier === 'Petal Tier'}
                       onChange={(e) => updateFormData({ tier: e.target.value })}
+                      required
                     />
                     Petal Tier
                     <span> $50 </span>
@@ -60,6 +65,7 @@ function TierForm( ) {
                       value="Sakura Tier"
                       checked={formData.tier === 'Sakura Tier'}
                       onChange={(e) => updateFormData({ tier: e.target.value })}
+                      required
                     />
                     Sakura Tier
                     <span> $65 </span>
@@ -74,6 +80,7 @@ function TierForm( ) {
                       value="Blossom Tier"
                       checked={formData.tier === 'Blossom Tier'}
                       onChange={(e) => updateFormData({ tier: e.target.value })}
+                      required
                     />
                     Blossom Tier
                     <span> $80 </span>

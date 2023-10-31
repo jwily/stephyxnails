@@ -37,7 +37,6 @@ function StepExtra() {
               <h3>Set {index + 1}</h3>
               <p>Tier: {data.tier}</p>
               <p>Shape: {data.shape}</p>
-              {/* <p>Photo: {data.photo}</p> */}
               {data.photo && (
                 <div>
                   <p>Photo:</p>
@@ -51,7 +50,6 @@ function StepExtra() {
           <h3>Set {formDataSets.length + 1}</h3>
           <p>Tier: {formData.tier}</p>
           <p>Shape: {formData.shape}</p>
-          {/* <p>Photo: {formData.photo}</p> */}
           {formData.photo && (
             <div>
               <p>Photo:</p>
