@@ -1,87 +1,57 @@
-import { useState, useEffect } from "react";
-
-    /*
-    <OrderPage>
-
-      <OrderDetails />
-        <>
-          details
-        <>
-      <SetPage
-        sets = []
-        onSubmit = sets.push({tier, size, etc.})
-      >
-        page 1, page 2, page 3,
-
-      <ReviewOrderPage sets=sets/>
-      return (
-        sets.map(set)
-      )
-    </OrderPage>
-    */
+import { useOrderContext } from "../../context/OrderContext";
 
 function OrderDetails() {
-  // const history = useHistory();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [instagram, setInstagram] = useState('');
 
-
-  // const formSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const formData = await new FormData();
-
-  //   formData.append('name', name);
-  //   formData.append('email', email);
-  //   formData.append('instagram', instagram)
-
-  //   history.push('/orders/setpage', {data: formData})
-
-  // }
+  const { name, email, instagram, setName, setEmail, setInstagram } = useOrderContext()
 
   return (
     <div>
-      <h1>🌸Custom Nail Form🌸</h1>
-        <form>
-          <div>
-            <label> Name
+      <div
+      className="text-center text-2xl mt-5 font-bold">
+        Personal Info</div>
+      <section className="bg-primary rounded-xl m-4">
+        <div className="p-8 shadow-lg">
+          <form className="space-y-4">
+            <div className="w-full">
+              <label className="sr-only" htmlFor="name">Name</label>
               <input
-                type='text'
-                placeholder='Name'
+                className="input input-solid max-w-full bg-white"
+                placeholder="Name"
+                type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </label>
-          </div>
-          <div>
-            <label>email
-            <input
-                type='text'
-                placeholder='Email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </label>
-          </div>
-          <div>
-            <label>Instagram
-            <input
-                type='text'
-                placeholder='Instagram'
-                value={instagram}
-                onChange={(e) => setInstagram(e.target.value)}
-                required
-              />
-            </label>
-          </div>
-          <div>
-            <button
-              type='submit'>Next</button>
-          </div>
-        </form>
+                id="name" />
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label className="sr-only" htmlFor="email">Email</label>
+                <input
+                  className="input input-solid bg-white"
+                  placeholder="Email address"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  id="email" />
+              </div>
+
+              <div>
+                <label className="sr-only" htmlFor="instagram"> </label>
+                <input
+                  className="input input-solid bg-white"
+                  placeholder="Instagram Handle"
+                  type="text"
+                  value={instagram}
+                  onChange={(e) => setInstagram(e.target.value)}
+                  id="instagram" />
+              </div>
+            </div>
+            <div className="mt-4">
+              <button type="button" className="rounded-lg btn btn-primary btn-block bg-secondary">Start</button>
+            </div>
+          </form>
+        </div>
+      </section>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useRef ,useState } from "react";
+import React, { createContext, useContext, useEffect, useReducer, useRef ,useState } from "react";
 
 const OrderContext = createContext();
 
@@ -15,6 +15,11 @@ export const OrderProvider = ({ children }) => {
   const initialState = {
     orderData: {},
   };
+
+  useEffect(() =>{
+    console.log(email,'email');
+    console.log(name, 'name');
+  }, [name, email])
 
   const reducer = (state, action) => {
     return state;

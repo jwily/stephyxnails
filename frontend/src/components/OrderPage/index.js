@@ -9,9 +9,7 @@ function OrderPage() {
 
   return (
       <OrderProvider>
-        <h1>🌸Custom Nail Form🌸</h1>
         <OrderDetails />
-        <ReviewOrderPage />
       </OrderProvider>
   )
 }

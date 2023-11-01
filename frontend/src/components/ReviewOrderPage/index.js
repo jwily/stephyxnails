@@ -1,16 +1,18 @@
-const ReviewOrderPage = (info) => {
+import { useOrderContext } from "../../context/OrderContext"
+
+const ReviewOrderPage = () => {
 
 
+    const {name, email, instagram} = useOrderContext()
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
             const finalizedInfo = {
-                name: info.name,
-                email: info.email,
-                instagram: info.instagram,
-                contact: info.contact,
-                sets: info.sets
+                name: name,
+                email: email,
+                instagram: instagram,
+                // sets: sets
             }
 
             const res = await fetch('/api/orders/', {
