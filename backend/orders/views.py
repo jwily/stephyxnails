@@ -13,7 +13,7 @@ from rest_framework.response import Response
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.urls import reverse
 import requests
 
@@ -164,10 +164,12 @@ def instagram_callback(request):
 
     if not state or state != expected_state:
         # Possible CSRF attack
+        print('>>>', 'State not matching')
         return redirect('admin:orders_exampleimage_changelist')
 
     code = request.GET.get('code')
     if not code:
+        print('>>>', 'No code detected')
         return redirect('admin:orders_exampleimage_changelist')
 
     # Exchange the code for an access token
@@ -190,10 +192,13 @@ def instagram_callback(request):
 
     post_data = media_data['data']
 
-    all_ids = set([obj.id for obj in ExampleImage.objects.all()])
+    all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
 
     for post in post_data:
       if post['media_type'] == 'IMAGE' and post['id'] not in all_ids:
-          ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+          try:
+            ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+          except Exception as e:
+            print(e)
 
     return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
