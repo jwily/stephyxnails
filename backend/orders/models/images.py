@@ -11,7 +11,7 @@ class SetImage(models.Model):
 
 class ExampleImage(models.Model):
   created = models.DateTimeField(auto_now_add=True)
-  url = models.URLField(unique=True)
+  url = models.URLField(max_length=3000)
 
   tier = models.ForeignKey('Tier', on_delete=models.CASCADE, related_name='example_images', null=True, blank=True)
 
