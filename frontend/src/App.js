@@ -1,36 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import OrderPage from './components/OrderPage';
+import LandingPage from './components/LandingPage';
+import OrderDetails from './components/OrderDetails';
+import GalleryPage from './components/GalleryPage';
+import ReviewOrderPage from './components/ReviewOrderPage';
+import OrderSetRoute from './components/OrderSetForm/SetOrderRoute'
+import { OrderProvider } from "./context/OrderContext";
 
 function App() {
 
-  const fetchTest = async () => {
-    const response = await fetch('/api/tiers/');
-    if (response.ok) {
-      const res = await response.json();
-      console.log(res);
-      return res;
-    }
-  }
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button onClick={fetchTest}>Test</button>
-        <div className="bg-red-900 p-9 rounded-lg">TESTING TAILWIND CSS</div>
-      </header>
-    </div>
+    <Router>
+      <NavBar />
+      <Switch>
+        <Route exact path='/' component={LandingPage} />
+        <OrderProvider>
+          <Route exact path="/order" component={OrderPage} />
+          <OrderSetRoute />
+          <Route exact path='/review-order' component={ReviewOrderPage} />
+        </OrderProvider>
+      </Switch>
+      <Route exact path={['/']} component={GalleryPage} />
+    </Router>
   );
 }
 

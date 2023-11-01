@@ -17,60 +17,94 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# For ease of reference in using WhiteNoise
+BACKEND_DIR = BASE_DIR  # rename variable for clarity
+FRONTEND_DIR = BASE_DIR.parent / 'frontend'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', default='supersecretpleasedontsteal')
-
+SECRET_KEY = os.environ.get('SECRET_KEY', default='team5forever')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = []
+# For ease of use in development
+ALLOWED_HOSTS = ['localhost']
 
+# Adds Render site name in production to allowed hosts
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
+# See https://whitenoise.readthedocs.io/en/latest/django.html
+# for explanations of the values we added here to serve React
+
+# WhiteNoise placed before staticfiles
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders',
-    'orders'
+    # 'corsheaders',
+    'orders',
+    'drf_recaptcha'
 ]
 
+# CORS must go before anything that generates responses
+# Whitenoise should be placed right after SecurityMiddleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Update with your frontend URL
-]
+# Added stuff rom here...
+STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
 
-CORS_ALLOW_CREDENTIALS = True
+STORAGES = {
+    # Allows WhiteNoise to do its job of compressing and hashing
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+STATIC_ROOT = BACKEND_DIR / 'static'
+WHITENOISE_ROOT = FRONTEND_DIR / 'build' / 'root'
+# ...to here for deployment
+
+# Again, if curious, reference the doc shared above.
+
+# As the React is being served by Django,
+# there is no longer a need to enable resource sharing.
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+# ]
+
+# Don't know what this is for. - John
+# CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'api.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # 'DIRS' value added so that Django knows where to find
+        # the index.html file when it tries to serve React
+        'DIRS': [FRONTEND_DIR / 'build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,26 +117,29 @@ TEMPLATES = [
     },
 ]
 
-# STATICFILES_DIRS = [
-#   # Tell Django where to look for React's static files (css, js)
-#   os.path.join(BASE_DIR, "build/static"),
-# ]
-
 WSGI_APPLICATION = 'api.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASE_URL = os.environ.get("DATABASE_URL") if not DEBUG else 'sqlite:///db.sqlite3'
 
 DATABASES = {
-	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+  # This allows us to use sqlite in development
+  # and postgres in production.
+
+  # The conn_max_age keyword keeps the connection to the
+  # database open for the specified time, good for
+  # successive database requests.
+
+  # The conn_health_checks keyword checks that if a connection
+  # is open in this way, that it is verified before
+  # another request is sent through.
+
+	"default": dj_database_url.parse(
+        DATABASE_URL,
+        conn_max_age=600,
+        conn_health_checks=True)
 }
 
 # Password validation
@@ -123,18 +160,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated',
+#     ]
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -145,3 +186,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+DRF_RECAPTCHA_SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY")
