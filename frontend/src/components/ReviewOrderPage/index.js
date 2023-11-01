@@ -9,7 +9,7 @@ const ReviewOrderPage = () => {
 
 
     console.log('formDataSets:', mergedData); // Log the formDataSets
-
+    console.log('state', state);
 
     const handleBack = () => {
         // Navigate back to the previous step
@@ -17,41 +17,35 @@ const ReviewOrderPage = () => {
         // Replace 'previous-step-url' with the actual URL for the previous step
     };
 
-    const handleSubmit = () => {
 
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const finalizedInfo = {
+                // name: info.name,
+                // email: info.email,
+                // instagram: info.instagram,
+                // contact: info.contact,
+                // sets: info.sets
+            }
+
+            const res = await fetch('/api/orders/', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(finalizedInfo)
+            })
+
+            if (res.ok) {
+                console.log('it worked');
+                // Eventually pass into email api
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
-
-
-    // const { state, dispatch } = useOrderContext()
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
-
-    //     try {
-    //         const finalizedInfo = {
-    //             name: info.name,
-    //             email: info.email,
-    //             instagram: info.instagram,
-    //             contact: info.contact,
-    //             sets: info.sets
-    //         }
-
-    //         const res = await fetch('/api/orders/', {
-    //             method: "POST",
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(finalizedInfo)
-    //         })
-
-    //         if (res.ok) {
-    //             console.log('it worked');
-    //             // Eventually pass into email api
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
 
     return (
         <div>
