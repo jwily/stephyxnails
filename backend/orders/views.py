@@ -9,17 +9,13 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 from rest_framework import generics, status
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 import requests
-# class OrderList(generics.ListAPIView):
-#     queryset = Order.objects.all()
-#     serializer_class = OrderSerializer
 
 # Seems like we ultimately don't need a /orders/ GET route
 class OrderCreate(generics.ListCreateAPIView):
@@ -162,6 +158,18 @@ catchall_prod = TemplateView.as_view(template_name='index.html')
 catchall = catchall_dev if settings.DEBUG else catchall_prod
 
 def instagram_callback(request):
+
+    state = request.GET.get('state')
+    expected_state = request.session.get('oauth_state')
+
+    print('State >>>', state)
+    print('Expected State >>>', expected_state)
+    print('Request Session >>>', request.session)
+
+    if not state or state != expected_state:
+        # Possible CSRF attack
+        return render(request, 'error_template.html', {"message": "Invalid state parameter."})
+
     code = request.GET.get('code')
     if not code:
         return redirect('admin:orders_exampleimage_changelist')
@@ -178,7 +186,6 @@ def instagram_callback(request):
 
     access_response = requests.post(token_url, data=token_data)
     access_response_data = access_response.json()
-    print('>>>', access_response_data)
     access_token = access_response_data['access_token']
 
     media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
@@ -186,16 +193,12 @@ def instagram_callback(request):
     media_data = media_response.json()
 
     post_data = media_data['data']
-    print('>>>', post_data)
 
     # # Grabs all urls in db currently to for duplicates
-    all_urls = set([obj.url for obj in ExampleImage.objects.all()])
-    print('>>>', all_urls)
+    all_ids = set([obj.id for obj in ExampleImage.objects.all()])
 
     for post in post_data:
-      print('>>>', post['caption'])
-      if post['media_type'] == 'IMAGE' and post['media_url'] not in all_urls:
-          image = ExampleImage(url=post['media_url'])
-          image.save()
+      if post['media_type'] == 'IMAGE' and post['id'] not in all_ids:
+          ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
 
     return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
