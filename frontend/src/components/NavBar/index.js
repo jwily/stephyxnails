@@ -108,6 +108,11 @@ const NavBar = () => {
                     <i className="fa-solid fa-bag-shopping"></i>
                 </NavLink>
             </div>
+            <div>
+                <NavLink className='navbar-item' exact to='/order'>
+                    <i className="fa-solid fa-bag-shopping" style={{color:'black'}}></i>
+                </NavLink>
+            </div>
         </div>
     )
 }

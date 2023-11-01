@@ -7,6 +7,7 @@ const ReviewOrderPage = () => {
 
     const { state, mergedData } = useOrderContext();
 
+    // const { state, dispatch } = useOrderContext()
 
     console.log('formDataSets:', mergedData); // Log the formDataSets
     console.log('state', state);
@@ -17,9 +18,10 @@ const ReviewOrderPage = () => {
         // Replace 'previous-step-url' with the actual URL for the previous step
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault()
+        const recaptchaValue = recaptchaRef.current.getValue();
+        this.props.handleSubmit(recaptchaValue);
 
         try {
             const finalizedInfo = {
@@ -29,7 +31,6 @@ const ReviewOrderPage = () => {
                 // contact: info.contact,
                 // sets: info.sets
             }
-
             const res = await fetch('/api/orders/', {
                 method: "POST",
                 headers: {
@@ -46,6 +47,7 @@ const ReviewOrderPage = () => {
             console.error(error);
         }
     }
+    const recaptchaRef = React.createRef();
 
     return (
         <div>
@@ -116,6 +118,28 @@ const ReviewOrderPage = () => {
         //     {/* <button onClick={handleSubmit}>Submit</button> */}
 
 
+    )
+    return (
+        <div>
+            {/* {info.sets.map(set =>
+                <div key={set.description.length}>
+                    <div>
+                        {set.description}
+                    </div>
+                    <div>
+                        {set.shape}
+                    </div>
+                    <div>
+                        {set.size}
+                    </div>
+                    <div>
+                        {set.tier}
+                    </div>
+                </div>)} */}
+            {/* <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div> */}
+            <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleSubmit} />
+            <button onClick={handleSubmit}>Submit</button>
+        </div>
     )
 }
 
