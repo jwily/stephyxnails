@@ -73,13 +73,10 @@ export const OrderProvider = ({ children }) => {
       setMergedData([...formDataSets, formData]);
     }, [formDataSets, formData]);
 
-    const updateMergedData = (newMergedData) => {
-      setMergedData(newMergedData);
-    };
-
   const saveCurrentDataSet = () => {
     setFormDataSets([...formDataSets, formData]);
- 
+    setMergedData([...formDataSets, formData]); 
+
   };
 
 
