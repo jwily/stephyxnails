@@ -1,14 +1,14 @@
 from django.contrib import admin
-from api.admin import admin_site
 from django.forms import Textarea
 from django.db import models
-from django.http import HttpResponse
 from admin_extra_buttons.api import ExtraButtonsMixin, button
 from .models import Order, Set, Tier, SetImage, ExampleImage, STATUS_CHOICES
 from django.conf import settings
 from django.urls import reverse
-import requests
 from django.shortcuts import redirect
+
+import traceback
+import logging
 
 # Register your models here.
 
@@ -74,15 +74,18 @@ class ExampleImageAdmin(ExtraButtonsMixin, admin.ModelAdmin):
     def seed_images(self, request):
       response = {'data': [{'id': '18100310311203393', 'caption': 'no filter seoul ‘17.', 'media_type': 'IMAGE', 'media_url': 'https://scontent-sea1-1.cdninstagram.com/v/t51.29350-15/135142033_200815868447878_4686391586164446890_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c4dd86&_nc_ohc=uit8OpkVMxAAX_XT25W&_nc_ht=scontent-sea1-1.cdninstagram.com&edm=ANo9K5cEAAAA&oh=00_AfDFe9alLLtzwJhyTRqeFE39rV_RVXwFleQ_GUlTYGl9Ng&oe=6546B326', 'username': 'disorientedlion', 'timestamp': '2021-01-05T04:39:39+0000'}, {'id': '17892470956800527', 'caption': 'popped in some batter and out came a moon!', 'media_type': 'IMAGE', 'media_url': 'https://scontent-sea1-1.cdninstagram.com/v/t51.29350-15/136076559_706471336722415_784687072433290876_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=c4dd86&_nc_ohc=OpucEYbI4qUAX8ZVAXv&_nc_ht=scontent-sea1-1.cdninstagram.com&edm=ANo9K5cEAAAA&oh=00_AfBSAbh-zNg162CglqXdLi73W_P6W6yc27i0DjxlgIbsww&oe=6546D810', 'username': 'disorientedlion', 'timestamp': '2021-01-05T04:33:52+0000'}, {'id': '17875501304121218', 'caption': 'baking is self-care. pair with mint tea.', 'media_type': 'IMAGE', 'media_url': 'https://scontent-sea1-1.cdninstagram.com/v/t51.29350-15/130996667_885282652234311_8123295447269187478_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=c4dd86&_nc_ohc=AsqF6GFr6xYAX-8h2mQ&_nc_oc=AQmwhgJ71oajw142aMXMKTZPADI85KghOYQZ6NdKBupaDtWNe9cPITnTcZvUhnbkm6g&_nc_ht=scontent-sea1-1.cdninstagram.com&edm=ANo9K5cEAAAA&oh=00_AfCpUBwUAWziKofPwgks_UGze4HgWF6GppKCfg2WCvK-NA&oe=6546458C', 'username': 'disorientedlion', 'timestamp': '2021-01-05T04:29:55+0000'}], 'paging': {'cursors': {'before': 'QVFIUnNuNWMyMzFHWnktMjRpbUZAWdkFhZAnZAFdUxPcHBqRnJmay1jOGdkQWctV19iYnM3NXcwNjdBOVdDMzlOWmZAOczVmaU1TTVNQZAEphWl9zMHFNMXZAxYi1R', 'after': 'QVFIUm0yYmNocGlaa2xrSE9INVppV0lyMnVQYkhrbnZAZARENlcDhudUQtUVdBSW5FNlJpNjR1T0RsQVRsSC12V3ZATdFRqRVpSM0RBVXY2TTd5MUZAtb1ZAZAYWN3'}}}
       data = response['data']
-      # for post in data:
-      #   image = ExampleImage(url=post['media_url'])
-      #   image.save()
+
       all_urls = set([obj.url for obj in ExampleImage.objects.all()])
 
       for post in data:
+        print('>>>', 'Inside for loop')
         if post['media_type'] == 'IMAGE' and post['media_url'] not in all_urls:
-            image = ExampleImage(url=post['media_url'])
-            image.save()
+            print('>>>', 'Inside if statement')
+            try:
+              image = ExampleImage(url=post['media_url'])
+              image.save()
+            except Exception as e:
+              logging.error(traceback.format_exc())
 
       return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
 
