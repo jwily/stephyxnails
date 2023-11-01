@@ -1,34 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useOrderContext } from '../../context/OrderContext';
 import { useHistory } from 'react-router-dom';
 
 function SubmissionSetForm() {
 
   const history = useHistory();
-  const { saveCurrentDataSet, clearForm , mergedData, } = useOrderContext();
-    
+  const { state, dispatch } = useOrderContext();
+
+  const { sets } = state;
+
+  console.log(sets, "set")
 
   const handleSubmit = () => {
-    // dispatch({ type: 'SAVE_FORM_DATA' });
-    // saveCurrentDataSet();
+  
 
-    // Update mergedData with the new merged data
-    // const newMergedData = [...formDataSets, formData];
-    // updateMergedData(newMergedData);
-    saveCurrentDataSet()
+    dispatch({ type: 'SAVE_FORM_DATA' });
 
     history.push('/review-order');
     // window.location.href = '/review-order'; // Replace 'previous-step-url' with the actual URL for the previous step;
   };
 
   const handleAddAnotherSet = () => {
-    // Save the current data set
-    saveCurrentDataSet();
-
-    // Clear the form fields to start a new set
-    clearForm();
-
-    // Optionally, you can navigate to the first form question or any other desired route
+  
     history.push('/order-set/tier');
 
   };
@@ -40,49 +33,40 @@ function SubmissionSetForm() {
   };
 
 
-  // const mergedData = [...formDataSets, formData]; // Merge the most recent step's data with the accumulated data
 
 
 
   return (
     <div>
-      <h2>Review and Submit</h2>
+         <h2>Review Your Order</h2>
+
       <div>
-        
-    {mergedData.map((data, index) => (
-      <div key={index}>
-        <h3>Set {index + 1}</h3>
-        <p>Tier: {data.tier}</p>
-        <p>Shape: {data.shape}</p>
-        {data.photo && data.photos?.length > 0 && (
-          <div>
-            <p>Photos:</p>
-            {data.photo.map((photo, photoIndex) => (
-              <img
-                key={photoIndex}
-                src={URL.createObjectURL(photo)}
-                alt={`Selected Image Set ${index + 1}, Photo ${photoIndex + 1}`}
-                style={{ maxWidth: '200px', maxHeight: '200px' }}
-              />
-            ))}
-          </div>
+        <h3>Order Sets</h3>
+        {sets.map((formData, index) => {
+          return(
+          <li key={index}>
+            <h4>Set {index + 1}</h4>
+            <p>Tier: {formData.tier}</p>
+            <p>Shape: {formData.shape}</p>
+            <p>Description: {formData.description}</p>
+            <p>Extra: {formData.extra}</p>
+          </li>
+          )}
         )}
-        <p>Description: {data.description}</p>
-        <p>Extra: {data.extra}</p>
-      </div>
-    ))}
+      </div> 
+   
     
-        
-    {mergedData.length === 0 && (
+      
+    {sets.length === 0 && (
       <p>No sets made.</p>
     )}
-  </div>
       <div>
         <button onClick={handleBack}>Back</button>
         <button type="submit" onClick={handleAddAnotherSet}>Add Another Set  </button>
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </div>
-    </div>
+      </div>
+
   );
   
 }

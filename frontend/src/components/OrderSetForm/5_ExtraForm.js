@@ -6,23 +6,21 @@ import { useOrderContext } from '../../context/OrderContext';
 function ExtraForm() {
 
     const history = useHistory() 
-    const { formData, updateFormData, dispatch } = useOrderContext();
-    const [inputValue, setInputValue] = useState(formData.extra);
+    const { state, dispatch }= useOrderContext();
+
     const [calculatedValue, setCalculatedValue] = useState(0);
+    const [extra, setExtra] = useState(state.formData.extra);
+    // const [inputValue, setInputValue] = useState(extra);
+
 
 
     const handleNext = (e) => {
         e.preventDefault();
-        // Calculate the value as number * 3
-     
-        const calculated = inputValue * 5;
-        // Update the form data with the input value
-        updateFormData({ extra: inputValue });
-        dispatch({ type: 'UPDATE_FORM_DATA', payload: { extra: inputValue } });
 
-        setCalculatedValue(calculated); // Update the calculated value
  
-        // dispatch({ type: 'SAVE_FORM_DATA' });
+        dispatch({ type: 'UPDATE_FORM_DATA', payload: { extra } });
+        dispatch({ type: 'SAVE_FORM_DATA' });
+
 
         history.push('/order-set/all'); // Navigate to the next form question
       };
@@ -36,7 +34,7 @@ function ExtraForm() {
         const newValue = parseInt(e.target.value);
         if (!isNaN(newValue)) {
           // Ensure the input is a valid integer
-          setInputValue(newValue);
+          setExtra(newValue);
           // Calculate the new value and update the calculatedValue
           setCalculatedValue(newValue * 5);
         }
@@ -53,7 +51,7 @@ function ExtraForm() {
           <input
             type="number"
             placeholder=""
-            value={inputValue}
+            value={extra}
             onChange={handleInputChange}
           />
           <p>Calculated: {calculatedValue}</p>

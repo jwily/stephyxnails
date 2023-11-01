@@ -5,16 +5,15 @@ import { useOrderContext } from '../../context/OrderContext';
 function PhotoForm() {
 
   const history = useHistory();
-  const { formData, updateFormData, dispatch } = useOrderContext();
+  const { state, dispatch}= useOrderContext();
   const fileInputRef = useRef(null);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
+  const [photo, setPhoto] = useState(state.formData.photo);
 
   const handleNext = (e) => {
     e.preventDefault();
-    // Navigate to the next form question
-    dispatch({ type: 'UPDATE_FORM_DATA', payload: { photo: formData.photo } });
-    // dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
-
+    // Dispatch an action to update the photos in the context state
+    dispatch({ type: 'UPDATE_FORM_DATA', payload: { photo } });
     history.push('/order-set/description');
   };
 
@@ -32,7 +31,7 @@ function PhotoForm() {
       if (selectedPhotos.length < 3) {
         // You can process the selected file here or store it in your form data
         setSelectedPhotos([...selectedPhotos, file]);
-        updateFormData({ photo: selectedPhotos }); // Store all selected photos
+        setPhoto({ photo: selectedPhotos }); // Store all selected photos
       } else {
         alert("You've reached the maximum limit of three photos.");
       }

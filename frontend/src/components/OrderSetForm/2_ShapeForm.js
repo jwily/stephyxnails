@@ -1,35 +1,27 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 function ShapeForm() {
   
-  const history = useHistory() 
-  const { formData, updateFormData, dispatch} = useOrderContext();
+  const history = useHistory()
+  const { state, dispatch }= useOrderContext();
   const selectRef = useRef(null); // Create a ref for the select element
-
+  const [shape, setShape] = useState(state.formData.shape)
 
   const handleNext = (e) => {
-
     e.preventDefault()
 
-    if(formData.shape === ''){
-      
+    if(shape === ''){
       // Show an error message or take appropriate action to inform the user about the missing selection
       alert('Please select a Nail Shape before proceeding.');
-
     } else {
-
-       // A valid shape is selected
-      //  updateFormData({ shape: selectRef.current.value });
-      dispatch({ type: 'UPDATE_FORM_DATA', payload: { shape: formData.shape } });
-      // dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
-
-       history.push('/order-set/photo');
+      dispatch({ type: 'UPDATE_FORM_DATA', payload: { shape } });
+      
+      history.push('/order-set/photo');
     }
   };
     const handleBack = () => {
-      
       // Navigate back to the previous step
       history.push('/order-set/tier'); // Replace 'previous-step-url' with the actual URL for the previous step
     };
@@ -41,8 +33,8 @@ function ShapeForm() {
             <p>disclaimer insert</p>
               <div>
                 <select
-                  value={formData.shape}
-                  onChange={(e) => updateFormData({ shape: e.target.value })}
+                  value={shape}
+                  onChange={(e) => setShape({ shape: e.target.value })}
                   ref={selectRef} // Assign the ref to the select element
                   required
                 >

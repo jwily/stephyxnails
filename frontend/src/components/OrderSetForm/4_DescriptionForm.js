@@ -1,21 +1,20 @@
-import React , {useRef} from 'react';
+import React , {useRef, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 function DescriptionFrom() {
 
   const history = useHistory() 
+  const { state, dispatch }= useOrderContext();
+  const errorRef = useRef(null);
+  // Local state to manage the description
+  const [description, setDescription] = useState(state.formData.description);
 
-    const { formData, updateFormData, dispatch } = useOrderContext();
-    const errorRef = useRef(null);
 
     const handleNext = (e) => {
       e.preventDefault()
-      if (formData.description && formData.description.length <= 5000) {
-      // Add the data to the current data set
-      // updateFormData({ description: formData.description});
-      dispatch({ type: 'UPDATE_FORM_DATA', payload: { description: formData.description } });
-      // dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
+      if (description && description.length <= 5000) {
+      dispatch({ type: 'UPDATE_FORM_DATA', payload: { description } });
 
       history.push('/order-set/extra'); // Navigate to the next form question
       errorRef.current.innerText = ''; // Clear any previous error message
@@ -43,8 +42,8 @@ function DescriptionFrom() {
                 className="#"
                 type="text"
                 placeholder="#"
-                value={formData.description}
-                onChange={ (e) => updateFormData({ description: e.target.value })}
+                value={description}
+                onChange={ (e) => setDescription(e.target.value )}
                 maxLength={5000}
               >
               </textarea>
@@ -59,6 +58,6 @@ function DescriptionFrom() {
       </section>
       </>
     );
-  }
+}
   
   export default DescriptionFrom;
