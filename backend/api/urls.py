@@ -23,6 +23,7 @@ Including another URLconf
 
 urlpatterns = [
     path('admin/instagram_callback/', instagram_callback, name='instagram_callback'),
+    # path('admin/sync_images/', sync_images, name='sync_images'),
     path('admin/', admin.site.urls),
     path('', include('orders.urls')),
     re_path(r'', catchall)
