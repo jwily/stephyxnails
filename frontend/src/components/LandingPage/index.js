@@ -14,9 +14,9 @@ export default function LandingPage() {
                 <div className="text-center font-bold text-lg pb-4">
                     CUSTOM ORDERING
                 </div>
-                <p className="text-center pb-6 text-xl">
+                <div className="text-center pb-6 text-xl">
                     Hand painted custom press-ons, with every order made especially for you!
-                </p>
+                </div>
                 <NavLink exact to="/order">
                     <button className="btn btn-outline-primary border-none text-xl btn-block underline text-black">
                         START ORDERING NOW

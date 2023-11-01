@@ -1,7 +1,7 @@
 import { useOrderContext } from "../../context/OrderContext";
 
 export default function FaqPage() {
-  const {scrollToFAQ} = useOrderContext()
+  const { scrollToFAQ } = useOrderContext()
   return (
     <div className="rounded-ex m-4 bg-primary p-4" ref={scrollToFAQ}>
       <h1 style={{ textAlign: "center" }}>Frequently Asked Questions</h1>
@@ -13,19 +13,19 @@ export default function FaqPage() {
           </label>
           <div className="accordion-content">
             <div className="min-h-0 flex flex-col gap-8 pl-2">
-            <div>
+              <div>
                 <p><span className="font-bold">Q:</span> How do I place a custom order?</p>
                 <p>
-                <span className="font-bold">A:</span> Please fill out the custom order form to place your order and I’ll reach out to you via your preferred method (IG or email) to confirm a design with you. Once the design is approved, I’ll send an invoice (via PayPal) and get started on your set as soon as it’s paid (yay!  (ﾉ◕ヮ◕)ﾉ).
+                  <span className="font-bold">A:</span> Please fill out the custom order form to place your order and I’ll reach out to you via your preferred method (IG or email) to confirm a design with you. Once the design is approved, I’ll send an invoice (via PayPal) and get started on your set as soon as it’s paid (yay!  (ﾉ◕ヮ◕)ﾉ).
+                </p>
 
                 <p>For your privacy, I’ll also collect your shipping address from either IG or email.</p>
 
-                </p>
               </div>
               <div>
                 <p><span className="font-bold">Q:</span> What does each order include?</p>
                 <ul>
-                <span className="font-bold">A:</span> Every order will include:
+                  <span className="font-bold">A:</span> Every order will include:
                   <li className="pl-4">•Cuticle pusher</li>
                   <li className="pl-4">•Mini nail file</li>
                   <li className="pl-4">•Mini bluffing block</li>
@@ -37,7 +37,7 @@ export default function FaqPage() {
               <div>
                 <p><span className="font-bold">Q:</span> How long will it take to complete my order?</p>
                 <p>
-                <span className="font-bold">A:</span> My current processing times are 1-3 weeks, not including the weekends and holidays (gotta take some days off ya’know ╰(▔∀▔)╯ ). Processing times can vary depending on the volume of my orders and how complex a set is.
+                  <span className="font-bold">A:</span> My current processing times are 1-3 weeks, not including the weekends and holidays (gotta take some days off ya’know ╰(▔∀▔)╯ ). Processing times can vary depending on the volume of my orders and how complex a set is.
                 </p>
               </div>
               <div>
@@ -57,14 +57,14 @@ export default function FaqPage() {
               <div>
                 <p><span className="font-bold">Q:</span> How long will my press-ons last?</p>
                 <p>
-                <span className="font-bold">A:</span> Well, this really all depends on the wearer! But press-ons can last anywhere from 1-2 weeks with nail glue and a few days with adhesive tabs.
+                  <span className="font-bold">A:</span> Well, this really all depends on the wearer! But press-ons can last anywhere from 1-2 weeks with nail glue and a few days with adhesive tabs.
 
                 </p>
               </div>
               <div>
                 <p><span className="font-bold">Q:</span> What if I need a nail replaced?</p>
                 <p>
-                <span className="font-bold">A:</span> Nail replacements are available for $7 per nail.
+                  <span className="font-bold">A:</span> Nail replacements are available for $7 per nail.
                 </p>
               </div>
             </div>
