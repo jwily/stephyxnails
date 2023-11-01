@@ -4,7 +4,6 @@ import OrderPage from './components/OrderPage';
 import LandingPage from './components/LandingPage';
 import OrderDetails from './components/OrderDetails';
 import GalleryPage from './components/GalleryPage';
-// import OrderDetails from './components/OrderDetails';
 import ReviewOrderPage from './components/ReviewOrderPage';
 import OrderSetRoute from './components/OrderSetForm/SetOrderRoute'
 import { OrderProvider } from "./context/OrderContext";
@@ -16,10 +15,11 @@ function App() {
       <NavBar />
       <Switch>
         <Route exact path='/' component={LandingPage} />
-        <Route exact path="/order" component={OrderPage} />
-        <Route exact path="/order" component={OrderPage} />
-        <OrderSetRoute />
-        <Route exact path='/review-order' component={ReviewOrderPage} />
+        <OrderProvider>
+          <Route exact path="/order" component={OrderPage} />
+          <OrderSetRoute />
+          <Route exact path='/review-order' component={ReviewOrderPage} />
+        </OrderProvider>
       </Switch>
       <Route exact path={['/']} component={GalleryPage} />
     </Router>
