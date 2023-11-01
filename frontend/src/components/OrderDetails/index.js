@@ -1,8 +1,34 @@
+import React from 'react';
 import { useOrderContext } from "../../context/OrderContext";
 
 function OrderDetails() {
 
-  const { name, email, instagram, setName, setEmail, setInstagram } = useOrderContext()
+  const { name, email, instagram, setName, setEmail, setInstagram, dispatch } = useOrderContext();
+
+
+  const formSubmit = async (e) => {
+    e.preventDefault();
+
+
+    dispatch({ type: 'SET_NAME', payload: name });
+    dispatch({ type: 'SET_EMAIL', payload: email });
+    dispatch({ type: 'SET_INSTAGRAM', payload: instagram });
+    dispatch({ type: 'SAVE_FORM_DATA' });
+
+    //   const formData = await new FormData();
+
+    //   formData.append('name', name);
+    //   formData.append('email', email);
+    //   formData.append('instagram', instagram)
+
+    //   history.push('/orders/setpage', {data: formData})
+
+    window.location.href ='/order-set/start';
+  }
+
+
+  console.log('this is dispatch', dispatch)
+
 
   return (
     <div>
@@ -11,7 +37,7 @@ function OrderDetails() {
         Personal Info</div>
       <section className="bg-primary rounded-xl m-4">
         <div className="p-8 shadow-lg">
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={formSubmit}>
             <div className="w-full">
               <label className="sr-only" htmlFor="name">Name</label>
               <input
@@ -47,7 +73,7 @@ function OrderDetails() {
               </div>
             </div>
             <div className="mt-4">
-              <button type="button" className="rounded-lg btn btn-primary btn-block bg-secondary">Start</button>
+              <button type="submit" className="rounded-lg btn btn-primary btn-block bg-primary_blue">Next</button>
             </div>
           </form>
         </div>
