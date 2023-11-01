@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useOrderContext } from "../../context/OrderContext";
 import { useHistory } from "react-router-dom";
+
+
 /*
 <OrderPage>
 
@@ -23,31 +25,49 @@ import { useHistory } from "react-router-dom";
 
 function OrderDetails() {
 
-  const { name, email, instagram, setName, setEmail, setInstagram, dispatch } = useOrderContext();
+  const { dispatch  } = useOrderContext();
 
+  const history = useHistory();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [instagram, setInstagram] = useState('');
+  
 
   const formSubmit = async (e) => {
     e.preventDefault();
 
+  
+    
+// Create a new FormData object
+    // const formData = new FormData();
 
-    dispatch({ type: 'SET_NAME', payload: name });
-    dispatch({ type: 'SET_EMAIL', payload: email });
-    dispatch({ type: 'SET_INSTAGRAM', payload: instagram });
-    dispatch({ type: 'SAVE_FORM_DATA' });
+      // Debugging: Log current name and email values
+      console.log("Current name:", name);
+      console.log("Current email:", email);
+  
 
-    //   const formData = await new FormData();
+        dispatch({ type: 'SET_NAME', payload: name }); // Update name in the context
+    dispatch({ type: 'SET_EMAIL', payload: email }); // Update email in the context
+    dispatch({ type: 'SET_INSTAGRAM', payload: instagram }); // Update instagram in the context
+    // Append form fields to the FormData object
+    // formData.append('name', name);
+    // formData.append('email', email);
+    // formData.append('instagram', instagram);
 
-    //   formData.append('name', name);
-    //   formData.append('email', email);
-    //   formData.append('instagram', instagram)
+    console.log("Name and email after dispatch:", name, email);
 
-    //   history.push('/orders/setpage', {data: formData})
+    // dispatch({ type: 'SAVE_FORM_DATA' });
 
-    window.location.href ='/order-set/start';
+
+
+    // Use history.push to navigate to another page and pass the FormData as data
+    history.push('/order-set/start');
+
+
+    // window.location.href ='/order-set/start';
   }
 
-
-  console.log('this is dispatch', dispatch)
 
 
   return (
@@ -64,6 +84,7 @@ function OrderDetails() {
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+
                 required
               />
             </div>
@@ -102,12 +123,15 @@ function OrderDetails() {
               <textarea className="textarea textarea-solid max-w-full" placeholder="Message" rows="8" id="message"></textarea>
             </div> */}
 
+
             <div className="mt-4">
               <button type="submit" className="rounded-lg btn btn-primary btn-block bg-primary_blue">Next</button>
             </div>
           </form>
         </div>
       </section>
+
+
     </div>
   )
 }

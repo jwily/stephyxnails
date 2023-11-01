@@ -22,7 +22,7 @@ function ExtraForm() {
 
         setCalculatedValue(calculated); // Update the calculated value
  
-        dispatch({ type: 'SAVE_FORM_DATA' });
+        // dispatch({ type: 'SAVE_FORM_DATA' });
 
         history.push('/order-set/all'); // Navigate to the next form question
       };

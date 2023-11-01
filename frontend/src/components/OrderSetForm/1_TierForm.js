@@ -4,9 +4,13 @@ import { useOrderContext } from '../../context/OrderContext';
 
 function TierForm( ) {
   
-  const history = useHistory() 
-  const { formData, updateFormData, state, dispatch }= useOrderContext();
+  const history = useHistory( ) 
+
+  const { formData, updateFormData, dispatch}= useOrderContext();
   const tierInputRef = useRef(null);
+
+
+
   
   const handleNext = (e) => {
 
@@ -17,8 +21,9 @@ function TierForm( ) {
       // Update the formData context with the tier data
       // updateFormData({tier: formData.tier});
       
-      dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier: formData.tier } });
-      dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
+      dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier: formData.tier} });
+
+      // dispatch({ type: 'SAVE_FORM_DATA' }); // Save other step data
 
       history.push('/order-set/shape');
 

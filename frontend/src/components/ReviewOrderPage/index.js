@@ -1,12 +1,14 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 
 const ReviewOrderPage = () => {
   const history = useHistory();
 
-  const { state, mergedData } = useOrderContext();
+  const { state, mergedData} = useOrderContext();
 
+  
+console.log(state, "name")
 
      console.log('formDataSets:', mergedData); // Log the formDataSets
 

@@ -13,7 +13,7 @@ function PhotoForm() {
     e.preventDefault();
     // Navigate to the next form question
     dispatch({ type: 'UPDATE_FORM_DATA', payload: { photo: formData.photo } });
-    dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
+    // dispatch({ type: 'SAVE_FORM_DATA', payload: formData }); // Save other step data
 
     history.push('/order-set/description');
   };
