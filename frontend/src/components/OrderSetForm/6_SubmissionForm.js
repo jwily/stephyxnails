@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 function SubmissionSetForm() {
 
   const history = useHistory();
-  const { saveCurrentDataSet, clearForm, dispatch , mergedData, updateMergedData, formData, formDataSets } = useOrderContext();
+  const { saveCurrentDataSet, clearForm, dispatch , mergedData, } = useOrderContext();
     
 
   const handleSubmit = () => {
