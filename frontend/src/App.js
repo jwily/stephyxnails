@@ -8,7 +8,7 @@ import FaqPage from './components/FaqPage';
 import LandingPage from './components/LandingPage';
 // import OrderDetails from './components/OrderDetails';
 import ReviewOrderPage from './components/ReviewOrderPage';
-import OrderSetRoutes from './components/OrderSetForm/SetOrderRoute'
+import OrderSetRoute from './components/OrderSetForm/SetOrderRoute'
 import { OrderProvider } from "./context/OrderContext";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
         <Route exact path='/' component={LandingPage}/>
         <OrderProvider>
             <Route exact path="/order" component={OrderPage}/>
-            <OrderSetRoutes />
+            <OrderSetRoute />
             {/* <Route exact path="/ordersss" component={OrderDetails}/> */}
             <Route exact path='/review-order' component={ReviewOrderPage} />
         </OrderProvider>

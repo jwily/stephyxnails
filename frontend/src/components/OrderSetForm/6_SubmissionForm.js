@@ -5,18 +5,19 @@ import { useHistory } from 'react-router-dom';
 function SubmissionSetForm() {
 
   const history = useHistory();
-  const { saveCurrentDataSet, formDataSets, clearForm, formData, dispatch , mergedData} = useOrderContext();
+  const { saveCurrentDataSet, clearForm, dispatch , mergedData, updateMergedData, formData, formDataSets } = useOrderContext();
     
 
   const handleSubmit = () => {
-    
-    // Add the data to the current set
-    // saveCurrentDataSet();
-    dispatch({ type: 'UPDATE_FORM_DATA', payload: formData });
-    dispatch({ type: 'SAVE_FORM_DATA' }); // Optionally save the current data set
+    dispatch({ type: 'SAVE_FORM_DATA' });
+    saveCurrentDataSet();
 
+    // Update mergedData with the new merged data
+    // const newMergedData = [...formDataSets, formData];
+    // updateMergedData(newMergedData);
 
-    window.location.href = '/review-order'; // Replace 'previous-step-url' with the actual URL for the previous step;
+    history.push('/review-order');
+    // window.location.href = '/review-order'; // Replace 'previous-step-url' with the actual URL for the previous step;
   };
 
   const handleAddAnotherSet = () => {
@@ -40,8 +41,6 @@ function SubmissionSetForm() {
 
   // const mergedData = [...formDataSets, formData]; // Merge the most recent step's data with the accumulated data
 
-
-  console.log('sets', mergedData)
 
 
   return (

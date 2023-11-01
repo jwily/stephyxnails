@@ -1,18 +1,20 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 
 const ReviewOrderPage = () => {
+  const history = useHistory();
 
-  const { state, formDataSets, } = useOrderContext();
-  
-    console.log('Context State:', state); // Log the entire context state
-    console.log('formDataSets:', formDataSets); // Log the formDataSets
+  const { state, mergedData } = useOrderContext();
+
+
+     console.log('formDataSets:', mergedData); // Log the formDataSets
 
 
     const handleBack = () => {
         // Navigate back to the previous step
-        window.location.href = '/order-set/all'; // Replace 'previous-step-url' with the actual URL for the previous step
+        history.push('/order-set/all');
+        // Replace 'previous-step-url' with the actual URL for the previous step
       };
     
       const handleSubmit = () => {
@@ -62,7 +64,7 @@ const ReviewOrderPage = () => {
       </div>
       <div>
         <h3>Order Sets</h3>
-        {formDataSets.map((formData, index) => (
+        {/* {mergedData.map((formData, index) => (
           <div key={index}>
             <h4>Set {index + 1}</h4>
             <p>Tier: {formData.tier}</p>
@@ -71,7 +73,30 @@ const ReviewOrderPage = () => {
             <p>Description: {formData.description}</p>
             <p>Extra: {formData.extra}</p>
           </div>
-        ))}
+        ))} */}
+
+{mergedData.map((data, index) => (
+      <div key={index}>
+        <h3>Set {index + 1}</h3>
+        <p>Tier: {data.tier}</p>
+        <p>Shape: {data.shape}</p>
+        {data.photo && data.photos?.length > 0 && (
+          <div>
+            <p>Photos:</p>
+            {data.photo.map((photo, photoIndex) => (
+              <img
+                key={photoIndex}
+                src={URL.createObjectURL(photo)}
+                alt={`Selected Image Set ${index + 1}, Photo ${photoIndex + 1}`}
+                style={{ maxWidth: '200px', maxHeight: '200px' }}
+              />
+            ))}
+          </div>
+        )}
+        <p>Description: {data.description}</p>
+        <p>Extra: {data.extra}</p>
+      </div>
+    ))}
       </div>
       <button onClick={handleBack}>Back</button>
       <button onClick={handleSubmit}>Submit Order</button>

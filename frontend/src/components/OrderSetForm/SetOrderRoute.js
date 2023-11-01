@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { OrderProvider } from "../../context/OrderContext";
 
 import StartForm from './0_StartForm';
 import TierForm from './1_TierForm';
@@ -12,7 +13,8 @@ import Submissions from './6_SubmissionForm';
 function SetRoutes() {
 
     return (
-      <Router>
+      
+      <OrderProvider>
         <Switch>
         <Route path="/order-set/start" component={StartForm} />
           <Route path="/order-set/tier" component={TierForm} />
@@ -22,7 +24,8 @@ function SetRoutes() {
           <Route path="/order-set/extra" component={ExtraForm} />
           <Route path="/order-set/all" component={Submissions} />
         </Switch>
-      </Router>
+    </OrderProvider>
+
     );
   }
   

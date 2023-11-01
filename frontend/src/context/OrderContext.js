@@ -14,6 +14,7 @@ const initialState = {
     extra: '',
   },
   formDataSets: [],
+  mergedData: [], // Add mergedData to the initial state
 };
 
 const reducer = (state, action) => {
@@ -30,6 +31,8 @@ const reducer = (state, action) => {
     case 'UPDATE_FORM_DATA':
       console.log("Updating form data with:", action.payload);
       return { ...state, formData: { ...state.formData, ...action.payload } };
+      case 'UPDATE_MERGED_DATA':
+  return { ...state, mergedData: action.payload };
     case 'SAVE_FORM_DATA':
       console.log("Saving form data:", state.formData);
       return { ...state, formDataSets: [...state.formDataSets, state.formData] };
@@ -45,7 +48,6 @@ export const OrderProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [instagram, setInstagram] = useState('');
@@ -58,21 +60,30 @@ export const OrderProvider = ({ children }) => {
   });
 
   const [formDataSets, setFormDataSets] = useState([]);
-  const [currentDataSet, setCurrentDataSet] = useState({});
   const [mergedData, setMergedData] = useState([]); // State to store merged data
 
 
+    
   const updateFormData = (newData) => {
     setFormData({ ...formData, ...newData });
   };
 
+    // Update mergedData whenever formDataSets and formData change
+    useEffect(() => {
+      setMergedData([...formDataSets, formData]);
+    }, [formDataSets, formData]);
+
+    const updateMergedData = (newMergedData) => {
+      setMergedData(newMergedData);
+    };
+
   const saveCurrentDataSet = () => {
     setFormDataSets([...formDataSets, formData]);
-    console.log("after save", formDataSets)
+ 
   };
 
+
   const clearForm = () => {
-    setCurrentDataSet({}); // Reset the current data set
     setFormData({  // Clear the form fields
       tier: '',
       shape: '',
@@ -82,16 +93,11 @@ export const OrderProvider = ({ children }) => {
     });
   };
 
-    // Update mergedData whenever formDataSets and formData change
-    useEffect(() => {
-      setMergedData([...formDataSets, formData]);
-    }, [formDataSets, formData]);
-  
-  
+   
 
 
   return (
-    <OrderContext.Provider value={{ state, dispatch, name, setName, email, setEmail, instagram, setInstagram, formData, updateFormData, formDataSets, saveCurrentDataSet, currentDataSet, clearForm , mergedData }}>
+    <OrderContext.Provider value={{ state, dispatch, name, setName, email, setEmail, instagram, setInstagram, formData, updateFormData, formDataSets, saveCurrentDataSet, clearForm , mergedData }}>
       {children}
     </OrderContext.Provider>
   );
