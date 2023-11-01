@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from orders.views import catchall, instagram_callback, sync_images
+from orders.views import catchall, instagram_callback
 
 """
 URL configuration for api project.
