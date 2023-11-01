@@ -9,6 +9,7 @@ function TierForm( ) {
   const tierInputRef = useRef(null);
   const [tier, setTier] = useState(state.formData.tier)
   
+  
   const handleNext = (e) => {
     e.preventDefault()
 
@@ -45,7 +46,7 @@ function TierForm( ) {
               name="tier"
               value="Budding Tier"
               // checked={tier === 'Budding Tier'}
-              onChange={(e) => setTier({ tier: e.target.value })}
+              onChange={(e) => setTier( e.target.value )}
               ref={tierInputRef} // Assign the ref to the input element
               required
             />
@@ -61,7 +62,7 @@ function TierForm( ) {
               name="tier"
               value="Petal Tier"
               // checked={tier === 'Petal Tier'}
-              onChange={(e) => setTier({ tier: e.target.value })}
+              onChange={(e) => setTier( e.target.value )}
               required
             />
               Petal Tier
@@ -76,7 +77,7 @@ function TierForm( ) {
               name="tier"
               value="Sakura Tier"
               // checked={tier === 'Sakura Tier'}
-              onChange={(e) => setTier({ tier: e.target.value })}
+              onChange={(e) => setTier(e.target.value )}
               required
             />
               Sakura Tier
@@ -91,7 +92,7 @@ function TierForm( ) {
               name="tier"
               value="Blossom Tier"
               // checked={tier === 'Blossom Tier'}
-              onChange={(e) => setTier({ tier: e.target.value })}
+              onChange={(e) => setTier( e.target.value )}
               required
             />
               Blossom Tier

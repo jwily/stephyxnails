@@ -25,13 +25,13 @@ import { useHistory } from "react-router-dom";
 
 function OrderDetails() {
 
-  const { dispatch  } = useOrderContext();
+  const { dispatch, state  } = useOrderContext();
 
   const history = useHistory();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [instagram, setInstagram] = useState('');
+  const [name, setName] = useState(state.name);
+  const [email, setEmail] = useState(state.email);
+  const [instagram, setInstagram] = useState(state.instagram);
   
 
   const formSubmit = async (e) => {
@@ -56,9 +56,6 @@ function OrderDetails() {
     // formData.append('instagram', instagram);
 
     console.log("Name and email after dispatch:", name, email);
-
-    // dispatch({ type: 'SAVE_FORM_DATA' });
-
 
 
     // Use history.push to navigate to another page and pass the FormData as data

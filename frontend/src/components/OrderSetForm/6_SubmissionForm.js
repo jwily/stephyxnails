@@ -7,23 +7,20 @@ function SubmissionSetForm() {
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
 
-  const { sets } = state;
+  const { sets, formData } = state;
 
+  
   console.log(sets, "set")
 
   const handleSubmit = () => {
   
-
     dispatch({ type: 'SAVE_FORM_DATA' });
-
     history.push('/review-order');
-    // window.location.href = '/review-order'; // Replace 'previous-step-url' with the actual URL for the previous step;
   };
 
   const handleAddAnotherSet = () => {
-  
+    dispatch({ type: 'SAVE_FORM_DATA' });
     history.push('/order-set/tier');
-
   };
 
   const handleBack = () => {
@@ -48,18 +45,28 @@ function SubmissionSetForm() {
             <h4>Set {index + 1}</h4>
             <p>Tier: {formData.tier}</p>
             <p>Shape: {formData.shape}</p>
+            <p>photo: {formData.photo}</p>
             <p>Description: {formData.description}</p>
             <p>Extra: {formData.extra}</p>
           </li>
           )}
         )}
+        <div>
+          <p> current set</p>
+          <p>Tier: {formData.tier}</p>
+          <p>shape: {formData.shape}</p>
+          <p>photo: {formData.photo}</p>
+          <p>description: {formData.description}</p>
+          <p>extra: {formData.extra}</p>
+
+
+        </div>
       </div> 
-   
-    
+  
       
-    {sets.length === 0 && (
+    {/* {sets.length === 0 && (
       <p>No sets made.</p>
-    )}
+    )} */}
       <div>
         <button onClick={handleBack}>Back</button>
         <button type="submit" onClick={handleAddAnotherSet}>Add Another Set  </button>

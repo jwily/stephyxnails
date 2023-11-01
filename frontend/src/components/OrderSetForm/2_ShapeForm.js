@@ -8,6 +8,7 @@ function ShapeForm() {
   const { state, dispatch }= useOrderContext();
   const selectRef = useRef(null); // Create a ref for the select element
   const [shape, setShape] = useState(state.formData.shape)
+  
 
   const handleNext = (e) => {
     e.preventDefault()
@@ -34,7 +35,7 @@ function ShapeForm() {
               <div>
                 <select
                   value={shape}
-                  onChange={(e) => setShape({ shape: e.target.value })}
+                  onChange={(e) => setShape(e.target.value )}
                   ref={selectRef} // Assign the ref to the select element
                   required
                 >
