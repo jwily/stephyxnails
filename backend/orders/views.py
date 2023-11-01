@@ -162,13 +162,9 @@ def instagram_callback(request):
     state = request.GET.get('state')
     expected_state = request.session.get('oauth_state')
 
-    print('State >>>', state)
-    print('Expected State >>>', expected_state)
-    print('Request Session >>>', request.session)
-
     if not state or state != expected_state:
         # Possible CSRF attack
-        return render(request, 'error_template.html', {"message": "Invalid state parameter."})
+        return redirect('admin:orders_exampleimage_changelist')
 
     code = request.GET.get('code')
     if not code:
@@ -194,9 +190,6 @@ def instagram_callback(request):
 
     post_data = media_data['data']
 
-    # requests.post(data=post_data)
-
-    # # Grabs all urls in db currently to for duplicates
     all_ids = set([obj.id for obj in ExampleImage.objects.all()])
 
     for post in post_data:
@@ -204,18 +197,3 @@ def instagram_callback(request):
           ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
 
     return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
-
-
-# def sync_images(request):
-#     if request.method == 'POST':
-
-#         all_urls = set([obj.url for obj in ExampleImage.objects.all()])
-#         print('>>>', all_urls)
-
-#         for post in request:
-#             print('>>>', post['caption'])
-#             if post['media_type'] == 'IMAGE' and post['media_url'] not in all_urls:
-#                 image = ExampleImage(url=post['media_url'])
-#                 image.save()
-
-#         return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
