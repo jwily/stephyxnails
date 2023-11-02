@@ -16,7 +16,7 @@ function ExtraForm() {
 
         dispatch({ type: 'UPDATE_FORM_DATA', payload: { extra } });
 
-        history.push('/order-set/all'); // Navigate to the next form question
+        history.push('/order-set/currentset'); // Navigate to the next form question
       };
     
       const handleBack = () => {

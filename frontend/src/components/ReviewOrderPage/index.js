@@ -30,7 +30,7 @@ const ReviewOrderPage = () => {
         // Update the user information in your state
         dispatch({ type: 'UPDATE_USER_INFORMATION', payload: updatedUserInformation });
   
-       
+
         // When isEditingName is true, an input field is displayed for editing the name. 
         // The onChange event handler captures the input changes and updates the editedName stat
         // When isEditingName is false, the name is displayed as plain text, and a "Edit" button allows users to switch to edit mode.
@@ -46,7 +46,10 @@ const ReviewOrderPage = () => {
 
     const handleBack = () => {
         // Navigate back to the previous step
-        history.push('/order-set/all');
+
+
+
+        history.push('/order-set/currentset');
         // Replace 'previous-step-url' with the actual URL for the previous step
     };
 

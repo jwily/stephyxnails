@@ -30,7 +30,7 @@ function App() {
           <Route path="/order-set/photo" component={PhotoForm} />
           <Route path="/order-set/description" component={DescriptionForm} />
           <Route path="/order-set/extra" component={ExtraForm} />
-          <Route path="/order-set/all" component={Submissions} />
+          <Route path="/order-set/currentset" component={Submissions} />
 
             {/* <Route exact path="/ordersss" component={OrderDetails}/> */}
             <Route exact path='/review-order' component={ReviewOrderPage} />
