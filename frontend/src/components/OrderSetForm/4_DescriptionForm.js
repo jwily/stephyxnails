@@ -7,9 +7,9 @@ function DescriptionFrom() {
   const history = useHistory() 
   const { state, dispatch }= useOrderContext();
   const errorRef = useRef(null);
+
   // Local state to manage the description
   const [description, setDescription] = useState(state.formData.description);
-
 
     const handleNext = (e) => {
       e.preventDefault()

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
@@ -10,17 +10,11 @@ function ExtraForm() {
 
     const [calculatedValue, setCalculatedValue] = useState(0);
     const [extra, setExtra] = useState(state.formData.extra);
-    // const [inputValue, setInputValue] = useState(extra);
-
-
 
     const handleNext = (e) => {
         e.preventDefault();
 
- 
         dispatch({ type: 'UPDATE_FORM_DATA', payload: { extra } });
-        // dispatch({ type: 'SAVE_FORM_DATA' });
-
 
         history.push('/order-set/all'); // Navigate to the next form question
       };

@@ -1,15 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha"
 
 const ReviewOrderPage = () => {
-    const history = useHistory();
 
+const history = useHistory();
   const { state} = useOrderContext();
-
   const { sets } = state;
-
 
     const handleBack = () => {
         // Navigate back to the previous step
