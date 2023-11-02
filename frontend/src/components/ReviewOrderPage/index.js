@@ -8,6 +8,13 @@ const ReviewOrderPage = () => {
 const history = useHistory();
   const { state} = useOrderContext();
   const { name, email, instagram, sets } = state;
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+  const recaptchaRef = React.createRef();
+
+    const handleCaptchaChange = (value) => {
+      setIsCaptchaVerified(true);
+
+    }
 
     const handleBack = () => {
         // Navigate back to the previous step
@@ -17,51 +24,52 @@ const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const recaptchaValue = recaptchaRef.current.getValue();
-        this.props.handleSubmit(recaptchaValue);
-
-        try {
+        if(isCaptchaVerified) {
+          try {
             const finalizedInfo = {
-                name: name,
-                email: email,
-                instagram: instagram,
-                sets: [
-                  {
-                    tier: '1',
-                    shape: 's-almond',
-                    left_sizes: '1,2,3,4,5',
-                    right_sizes: '1,2,3,4,5',
-                    description: 'test'
-                  },{
-                    tier: '2',
-                    shape: 'm-square',
-                    left_sizes: '2,2,2,2,2',
-                    right_sizes: '2,2,2,2,2',
-                    description: 'test2'
-                  }
-                ]
+              name: name,
+              email: email,
+              instagram: instagram,
+              sets: [
+                {
+                  tier: '1',
+                  shape: 's-almond',
+                  left_sizes: '1,2,3,4,5',
+                  right_sizes: '1,2,3,4,5',
+                  description: 'test'
+                },{
+                  tier: '2',
+                  shape: 'm-square',
+                  left_sizes: '2,2,2,2,2',
+                  right_sizes: '2,2,2,2,2',
+                  description: 'test2'
+                }
+              ]
             }
             console.log(finalizedInfo)
             const res = await fetch('/api/orders/', {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(finalizedInfo)
+              method: "POST",
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(finalizedInfo)
             })
 
             if (res.ok) {
-                console.log('it worked');
-                // Eventually pass into email api
+              console.log('it worked');
+              // Eventually pass into email api
             }
             else {
-              console.log('could not fetch', res)
-            }
-        } catch (error) {
-            console.error(error);
+                console.log('could not fetch', res)
+              }
+          } catch (error) {
+              console.error(error);
+          }
+        } else {
+          alert('Please complete the reCAPTCHA verification to submit your order.')
         }
     }
-    const recaptchaRef = React.createRef();
+
 
     return (
       <div>
