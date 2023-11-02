@@ -14,6 +14,11 @@ SHAPE_CHOICES = (
   ('m-stilleto', 'Medium Stiletto'),
 )
 
+def shape_name(model_value):
+  for value, name in SHAPE_CHOICES:
+    if value == model_value:
+      return name
+
 class Set(models.Model):
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
@@ -26,6 +31,9 @@ class Set(models.Model):
 
   class Meta:
     ordering = ['-created']
+
+  def __str__(self):
+    return f"{shape_name(self.shape)} {self.tier.name}"
 
   @property
   def short_description(self):

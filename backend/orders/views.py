@@ -9,15 +9,13 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 from rest_framework import generics, status
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
-
-# class OrderList(generics.ListAPIView):
-#     queryset = Order.objects.all()
-#     serializer_class = OrderSerializer
+from django.shortcuts import redirect
+from django.urls import reverse
+import requests
 
 # Seems like we ultimately don't need a /orders/ GET route
 class OrderCreate(generics.ListCreateAPIView):
@@ -158,3 +156,50 @@ catchall_prod = TemplateView.as_view(template_name='index.html')
 # Defines which catchall view will be used based on the environment.
 
 catchall = catchall_dev if settings.DEBUG else catchall_prod
+
+def instagram_callback(request):
+
+    state = request.GET.get('state')
+    expected_state = request.session.get('oauth_state')
+
+    if not state or state != expected_state:
+        # Possible CSRF attack
+        print('>>>', 'State not matching')
+        return redirect('admin:orders_exampleimage_changelist')
+
+    code = request.GET.get('code')
+    if not code:
+        print('>>>', 'No code detected')
+        return redirect('admin:orders_exampleimage_changelist')
+
+    # Exchange the code for an access token
+    token_url = "https://api.instagram.com/oauth/access_token"
+    token_data = {
+        "client_id": settings.INSTAGRAM_APP_ID,
+        "client_secret": settings.INSTAGRAM_APP_SECRET,
+        "grant_type": "authorization_code",
+        "redirect_uri": request.build_absolute_uri(reverse('instagram_callback')),
+        "code": code,
+    }
+
+    access_response = requests.post(token_url, data=token_data)
+    access_response_data = access_response.json()
+    access_token = access_response_data['access_token']
+
+    media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
+    media_response = requests.get(media_request_url)
+    media_data = media_response.json()
+
+    post_data = media_data['data']
+    print('POST DATA ----->', post_data)
+
+    all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
+
+    for post in post_data:
+      if post['media_type'] == 'IMAGE' and post['id'] not in all_ids:
+          try:
+            ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+          except Exception as e:
+            print(e)
+
+    return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))

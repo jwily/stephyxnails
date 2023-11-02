@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # 'corsheaders',
     'orders',
+    'admin_extra_buttons'
     'drf_recaptcha'
 ]
 
@@ -193,5 +194,12 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+INSTAGRAM_APP_ID = os.environ.get('INSTAGRAM_APP_ID')
+INSTAGRAM_APP_SECRET = os.environ.get('INSTAGRAM_APP_SECRET')
+
+ADMIN_LOGIN_NAME = os.environ.get('ADMIN_LOGIN_NAME')
+ADMIN_LOGIN_EMAIL = os.environ.get('ADMIN_LOGIN_EMAIL')
+ADMIN_LOGIN_PASSWORD = os.environ.get('ADMIN_LOGIN_PASSWORD')
 
 DRF_RECAPTCHA_SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY")

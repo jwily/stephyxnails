@@ -7,10 +7,13 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 dj-database-url = "*"
+django-admin-extra-buttons = "*"
+django-cors-headers = "*"
 gunicorn = "*"
 whitenoise = "*"
+requests = "*"
 python-dotenv = "*"
-djangorestframework-recaptcha = "*"
+drf-recaptcha = "*"
 
 [dev-packages]
 

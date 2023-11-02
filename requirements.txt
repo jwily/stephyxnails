@@ -1,15 +1,21 @@
 -i https://pypi.org/simple
 asgiref==3.7.2; python_version >= '3.7'
+certifi==2023.7.22; python_version >= '3.6'
+charset-normalizer==3.3.2; python_full_version >= '3.7.0'
 dj-database-url==2.1.0
-django==4.2.6; python_version >= '3.8'
-django-appconf==1.0.5; python_version >= '3.6'
+django==4.2.7; python_version >= '3.8'
+django-admin-extra-buttons==1.5.6
+django-cors-headers==4.3.0; python_version >= '3.8'
 django-ipware==5.0.2; python_version >= '3.8'
 djangorestframework==3.14.0; python_version >= '3.6'
-djangorestframework-recaptcha==0.2.0
+drf-recaptcha==3.0.0; python_version >= '3.7'
 gunicorn==21.2.0; python_version >= '3.5'
+idna==3.4; python_version >= '3.5'
 packaging==23.2; python_version >= '3.7'
 python-dotenv==1.0.0; python_version >= '3.8'
 pytz==2023.3.post1
+requests==2.31.0; python_version >= '3.7'
 sqlparse==0.4.4; python_version >= '3.5'
 typing-extensions==4.8.0; python_version >= '3.8'
+urllib3==2.0.7; python_version >= '3.7'
 whitenoise==6.6.0; python_version >= '3.8'
