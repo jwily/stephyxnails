@@ -191,6 +191,7 @@ def instagram_callback(request):
     media_data = media_response.json()
 
     post_data = media_data['data']
+    print('POST DATA ----->', post_data)
 
     all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
 
