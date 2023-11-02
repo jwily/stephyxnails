@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function StartForm( ) {
-    
-    const history = useHistory();
-
+        
     const handleBack = () => {
         // Navigate back to the previous step
         window.location.href ='/order'; // Replace 'previous-step-url' with the actual URL for the previous step
@@ -22,7 +20,6 @@ function StartForm( ) {
           </div>
         </div>
       );
-    
 }
 
 export default StartForm;

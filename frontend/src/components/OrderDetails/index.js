@@ -90,8 +90,6 @@ function OrderDetails() {
           </form>
         </div>
       </section>
-
-
     </div>
   )
 }

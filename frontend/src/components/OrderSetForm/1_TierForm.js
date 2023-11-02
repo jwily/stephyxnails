@@ -2,13 +2,12 @@ import React , {useRef, useState} from 'react';
 import {  useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
-function TierForm( ) {
+function TierForm() {
   
   const history = useHistory( ) 
   const { state, dispatch }= useOrderContext();
   const tierInputRef = useRef(null);
   const [tier, setTier] = useState(state.formData.tier)
-  
   
   const handleNext = (e) => {
     e.preventDefault()
@@ -24,7 +23,6 @@ function TierForm( ) {
       tierInputRef.current.setCustomValidity('Please select a Nail Tier before proceeding.');
       // Trigger form validation
       tierInputRef.current.reportValidity();
-
     }
   };
 
