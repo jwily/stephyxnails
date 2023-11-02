@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useOrderContext } from "../../context/OrderContext";
 import { useHistory } from "react-router-dom";
 
@@ -8,6 +8,12 @@ function OrderDetails() {
   const { dispatch, state  } = useOrderContext();
 
   const history = useHistory();
+
+    useEffect(() => {
+    // Dispatch the 'CLEAR_LOCAL_STORAGE' action when the component is loaded
+    dispatch({ type: 'CLEAR_LOCAL_STORAGE' });
+  }, [dispatch]);
+
 
   const [name, setName] = useState(state.name);
   const [email, setEmail] = useState(state.email);

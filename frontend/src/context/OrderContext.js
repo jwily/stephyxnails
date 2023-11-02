@@ -51,7 +51,12 @@ const reducer = (state=initialState, action) => {
       case 'SAVE_STATE':
         // Save the state to localStorage
         localStorage.setItem('orderState', JSON.stringify(state));
-        return state;
+        return state;   
+        case 'CLEAR_LOCAL_STORAGE':
+        // Clear the localStorage
+        localStorage.clear();
+        return { ...initialState }; // Reset state to its initial state
+  
   
   
     // case 'CLEAR_FORM':
