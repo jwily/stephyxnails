@@ -14,6 +14,7 @@ import PhotoForm from './components/OrderSetForm/3_PhotoForm';
 import DescriptionForm from './components/OrderSetForm/4_DescriptionForm'
 import ExtraForm from './components/OrderSetForm/5_ExtraForm'
 import Submissions from './components/OrderSetForm/6_SubmissionForm';
+import EditSetForm from './components/OrderSetForm/EditSetForm'
 
 function App() {
 
@@ -31,9 +32,9 @@ function App() {
           <Route path="/order-set/extra" component={ExtraForm} />
           <Route path="/order-set/all" component={Submissions} />
 
-           
             {/* <Route exact path="/ordersss" component={OrderDetails}/> */}
             <Route exact path='/review-order' component={ReviewOrderPage} />
+            <Route path="/order-set/edit/:index" component={EditSetForm} />
         <Route exact path='/gallery' component={GalleryPage} />
         <Route exact path='/about' component={AboutPage}/>
         <Route exact path='/faq' component={FaqPage}/>

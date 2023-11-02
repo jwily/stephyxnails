@@ -84,6 +84,12 @@ const reducer = (state=initialState, action) => {
         instagram: action.payload.instagram,
       };
 
+    case 'UPDATE_SET':
+      return {
+        ...state,
+        sets: action.payload, // Update the sets array with the new data
+      };
+
   //case 'CLEAR_FORM':
     //return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
     

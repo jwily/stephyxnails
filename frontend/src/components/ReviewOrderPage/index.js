@@ -39,6 +39,10 @@ const ReviewOrderPage = () => {
         setIsEditingInstagram(false);
     };
 
+    const handleEditSet = (index) => {
+        const setToEdit = sets[index]; // Get the set data to pass
+        history.push(`/order-set/edit/${index}`, { set: setToEdit });
+      };
 
     const handleBack = () => {
         // Navigate back to the previous step
@@ -170,6 +174,9 @@ const ReviewOrderPage = () => {
                     <p>Description: {formData.description}</p>
                     <p>Extra: {formData.extra}</p>
                     <button onClick={() => handleDeleteSet(index)}>Delete Set</button>
+                    <div></div>
+                    <button onClick={() => handleEditSet(index)}>Edit Set</button>
+
                 </li>
                 )}
                 )}
