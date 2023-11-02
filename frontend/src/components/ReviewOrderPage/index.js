@@ -63,16 +63,7 @@ const ReviewOrderPage = () => {
       </div>
       <div>
         <h3>Order Sets</h3>
-        {/* {mergedData.map((formData, index) => (
-          <div key={index}>
-            <h4>Set {index + 1}</h4>
-            <p>Tier: {formData.tier}</p>
-            <p>Shape: {formData.shape}</p>
-            <p>Photo: {formData.photo}</p>
-            <p>Description: {formData.description}</p>
-            <p>Extra: {formData.extra}</p>
-          </div>
-        ))} */}
+      
 {sets.map((formData, index) => {
           return(
           <li key={index}>
