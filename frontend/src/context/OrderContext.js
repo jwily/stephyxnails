@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from "react";
 
+// Create a context for managing order-related data
 const OrderContext = createContext();
 
+// Define the initial state for the order context
 const initialState = {
   name: '',
   email: '',
@@ -16,6 +18,7 @@ const initialState = {
   sets: [],
 };
 
+// Define a reducer function to manage state changes
 const reducer = (state=initialState, action) => {
   switch (action.type) {
     case 'SET_NAME':
@@ -39,15 +42,11 @@ const reducer = (state=initialState, action) => {
         photo: [],
         description: '',
         extra: '' }
-        console.log('save data', newState)
-
       return newState;
-
       case 'INITIALIZE_STATE':
         // Load initial state from localStorage if it exists
         const savedState = localStorage.getItem('orderState');
         return savedState ? JSON.parse(savedState) : initialState;
-  
       case 'SAVE_STATE':
         // Save the state to localStorage
         localStorage.setItem('orderState', JSON.stringify(state));
@@ -57,8 +56,6 @@ const reducer = (state=initialState, action) => {
         localStorage.clear();
         return { ...initialState }; // Reset state to its initial state
   
-  
-  
     // case 'CLEAR_FORM':
     //         console.log("Clearing the form");
     //   return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
@@ -67,6 +64,7 @@ const reducer = (state=initialState, action) => {
   }
 };
 
+// Create an OrderProvider component to provide the order context to the application
 export const OrderProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -90,6 +88,7 @@ export const OrderProvider = ({ children }) => {
   );
 };
 
+// Create a custom hook to access the order context
 export const useOrderContext = () => {
   return useContext(OrderContext);
 };
