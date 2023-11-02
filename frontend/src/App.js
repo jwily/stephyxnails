@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import OrderPage from './components/OrderDetails';
-import SizingPage from './components/SizingPage';
-import GalleryPage from './components/GalleryPage';
 import AboutPage from './components/AboutPage';
 import FaqPage from './components/FaqPage';
 import LandingPage from './components/LandingPage';
@@ -36,7 +34,6 @@ function App() {
            
             {/* <Route exact path="/ordersss" component={OrderDetails}/> */}
             <Route exact path='/review-order' component={ReviewOrderPage} />
-        <Route exact path='/sizing' component={SizingPage} />
         <Route exact path='/gallery' component={GalleryPage} />
         <Route exact path='/about' component={AboutPage}/>
         <Route exact path='/faq' component={FaqPage}/>

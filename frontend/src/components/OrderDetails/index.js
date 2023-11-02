@@ -3,26 +3,6 @@ import { useOrderContext } from "../../context/OrderContext";
 import { useHistory } from "react-router-dom";
 
 
-/*
-<OrderPage>
-
-  <OrderDetails />
-    <>
-      details
-    <>
-  <SetPage
-    sets = []
-    onSubmit = sets.push({tier, size, etc.})
-  >
-    page 1, page 2, page 3,
-
-  <ReviewOrderPage sets=sets/>
-  return (
-    sets.map(set)
-  )
-</OrderPage>
-*/
-
 function OrderDetails() {
 
   const { dispatch, state  } = useOrderContext();
