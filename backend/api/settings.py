@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'orders',
     'admin_extra_buttons',
     # 'drf_recaptcha'
+    'storages'
 ]
 
 # CORS must go before anything that generates responses
