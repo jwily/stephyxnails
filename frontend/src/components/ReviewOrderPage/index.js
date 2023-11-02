@@ -57,6 +57,9 @@ const history = useHistory();
                 console.log('it worked');
                 // Eventually pass into email api
             }
+            else {
+              console.log('could not fetch', res)
+            }
         } catch (error) {
             console.error(error);
         }
