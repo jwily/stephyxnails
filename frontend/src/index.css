@@ -9,9 +9,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background-image: linear-gradient(#FFF7e6 , #fcd3d3);
+  color: black;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+html{
+  height: 100%;
+
 }
