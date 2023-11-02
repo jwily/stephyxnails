@@ -24,6 +24,7 @@ const history = useHistory();
     const handleSubmit = async (e) => {
         e.preventDefault()
         if(isCaptchaVerified) {
+          const recaptchaValue = recaptchaRef.current.getValue()
           try {
             const finalizedInfo = {
               name: name,
@@ -43,7 +44,8 @@ const history = useHistory();
                   right_sizes: '2,2,2,2,2',
                   description: 'test2'
                 }
-              ]
+              ],
+              recaptcha: recaptchaValue
             }
             console.log(finalizedInfo)
             const res = await fetch('/api/orders/', {
