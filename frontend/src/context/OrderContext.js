@@ -16,7 +16,7 @@ const initialState = {
   sets: [],
 };
 
-const reducer = (state=initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_NAME':
       console.log("Setting name to:", action.payload);
@@ -31,15 +31,16 @@ const reducer = (state=initialState, action) => {
       console.log("Updating form data with:", action.payload);
       return { ...state, formData: { ...state.formData, ...action.payload } };
     case 'SAVE_FORM_DATA':
-      const newState = {...state};
+      const newState = { ...state };
       newState.sets = [...newState.sets, newState.formData];
-      newState.formData =  {
+      newState.formData = {
         tier: '',
         shape: '',
         photo: [],
         description: '',
-        extra: '' }
-        console.log('save data', newState)
+        extra: ''
+      }
+      console.log('save data', newState)
 
       return newState;
     // case 'CLEAR_FORM':
@@ -54,10 +55,13 @@ export const OrderProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-
+  const scrollToOrder = useRef()
+  const scrollToAbout = useRef()
+  const scrollToGallery = useRef()
+  const scrollToFAQ = useRef()
 
   return (
-    <OrderContext.Provider value={{ state, dispatch }}>
+    <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ }}>
       {children}
     </OrderContext.Provider>
   );
