@@ -42,6 +42,18 @@ const reducer = (state=initialState, action) => {
         console.log('save data', newState)
 
       return newState;
+
+      case 'INITIALIZE_STATE':
+        // Load initial state from localStorage if it exists
+        const savedState = localStorage.getItem('orderState');
+        return savedState ? JSON.parse(savedState) : initialState;
+  
+      case 'SAVE_STATE':
+        // Save the state to localStorage
+        localStorage.setItem('orderState', JSON.stringify(state));
+        return state;
+  
+  
     // case 'CLEAR_FORM':
     //         console.log("Clearing the form");
     //   return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
@@ -53,6 +65,16 @@ const reducer = (state=initialState, action) => {
 export const OrderProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
+
+    // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
+    useEffect(() => {
+      dispatch({ type: 'INITIALIZE_STATE' });
+    }, []);
+  
+  // Save the state to localStorage whenever it changes
+  useEffect(() => {
+    dispatch({ type: 'SAVE_STATE' });
+  }, [state]);
 
 
 
