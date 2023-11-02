@@ -7,7 +7,7 @@ const ReviewOrderPage = () => {
 
 const history = useHistory();
 
-  const { state } = useOrderContext();
+  const { state, dispatch } = useOrderContext();
   const { sets } = state;
 
     const handleBack = () => {
@@ -15,6 +15,11 @@ const history = useHistory();
         history.push('/order-set/all');
         // Replace 'previous-step-url' with the actual URL for the previous step
     };
+
+    const handleDeleteSet = (index) => {
+        // Dispatch an action to delete the set at the specified index
+        dispatch({ type: 'DELETE_SET', payload: index });
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -68,6 +73,7 @@ const history = useHistory();
             <p>photo: {formData.photo}</p>
             <p>Description: {formData.description}</p>
             <p>Extra: {formData.extra}</p>
+            <button onClick={() => handleDeleteSet(index)}>Delete Set</button>
           </li>
           )}
         )}

@@ -34,6 +34,7 @@ const reducer = (state=initialState, action) => {
     case 'UPDATE_FORM_DATA':
       console.log("Updating form data with:", action.payload);
       return { ...state, formData: { ...state.formData, ...action.payload } };
+
     case 'SAVE_FORM_DATA':
       const newState = { ...state };
       newState.sets = [...newState.sets, newState.formData];
@@ -60,6 +61,12 @@ const reducer = (state=initialState, action) => {
         // Clear the localStorage
         localStorage.clear();
         return { ...initialState }; // Reset state to its initial state
+        case 'DELETE_SET':
+      // Remove a set at the specified index
+      const indexToDelete = action.payload;
+      const updatedSets = [...state.sets.slice(0, indexToDelete), ...state.sets.slice(indexToDelete + 1)];
+      return { ...state, sets: updatedSets, setCount: state.setCount - 1 };
+
   
     // case 'CLEAR_FORM':
     //         console.log("Clearing the form");
