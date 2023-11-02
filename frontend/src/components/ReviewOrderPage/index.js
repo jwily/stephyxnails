@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha"
@@ -6,12 +6,10 @@ import ReCAPTCHA from "react-google-recaptcha"
 const ReviewOrderPage = () => {
     const history = useHistory();
 
-    const { state, mergedData } = useOrderContext();
+  const { state} = useOrderContext();
 
-    // const { state, dispatch } = useOrderContext()
+  const { sets } = state;
 
-    console.log('formDataSets:', mergedData); // Log the formDataSets
-    console.log('state', state);
 
     const handleBack = () => {
         // Navigate back to the previous step
@@ -51,53 +49,34 @@ const ReviewOrderPage = () => {
     const recaptchaRef = React.createRef();
 
     return (
-        <div>
-            <h2>Review Your Order</h2>
-            <div>
-                <h3>User Information</h3>
-                <p>Name: {state.name}</p>
-                <p>Email: {state.email}</p>
-                <p>Instagram: {state.instagram}</p>
-            </div>
-            <div>
-                <h3>Order Sets</h3>
-                {/* {mergedData.map((formData, index) => (
-          <div key={index}>
+      <div>
+      <h2>Review Your Order</h2>
+      <div>
+        <h3>User Information</h3>
+        <p>Name: {state.name}</p>
+        <p>Email: {state.email}</p>
+        <p>Instagram: {state.instagram}</p>
+      </div>
+      <div>
+        <h3>Order Sets</h3>
+      
+{sets.map((formData, index) => {
+          return(
+          <li key={index}>
             <h4>Set {index + 1}</h4>
             <p>Tier: {formData.tier}</p>
             <p>Shape: {formData.shape}</p>
-            <p>Photo: {formData.photo}</p>
+            <p>photo: {formData.photo}</p>
             <p>Description: {formData.description}</p>
             <p>Extra: {formData.extra}</p>
-          </div>
-        ))} */}
+          </li>
+          )}
+        )}
 
-                {mergedData.map((data, index) => (
-                    <div key={index}>
-                        <h3>Set {index + 1}</h3>
-                        <p>Tier: {data.tier}</p>
-                        <p>Shape: {data.shape}</p>
-                        {data.photo && data.photos?.length > 0 && (
-                            <div>
-                                <p>Photos:</p>
-                                {data.photo.map((photo, photoIndex) => (
-                                    <img
-                                        key={photoIndex}
-                                        src={URL.createObjectURL(photo)}
-                                        alt={`Selected Image Set ${index + 1}, Photo ${photoIndex + 1}`}
-                                        style={{ maxWidth: '200px', maxHeight: '200px' }}
-                                    />
-                                ))}
-                            </div>
-                        )}
-                        <p>Description: {data.description}</p>
-                        <p>Extra: {data.extra}</p>
-                    </div>
-                ))}
-            </div>
-            <button onClick={handleBack}>Back</button>
-            <button onClick={handleSubmit}>Submit Order</button>
-        </div>
+      </div>
+      <button onClick={handleBack}>Back</button>
+      <button onClick={handleSubmit}>Submit Order</button>
+    </div>
 
 
         // {/* {info.sets.map(set =>
