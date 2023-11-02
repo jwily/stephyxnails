@@ -6,7 +6,8 @@ import GalleryPage from './components/GalleryPage';
 import AboutPage from './components/AboutPage';
 import FaqPage from './components/FaqPage';
 import LandingPage from './components/LandingPage';
-// import OrderDetails from './components/OrderDetails';
+import OrderDetails from './components/OrderDetails';
+import GalleryPage from './components/GalleryPage';
 import ReviewOrderPage from './components/ReviewOrderPage';
 import StartForm from './components/OrderSetForm/0_StartForm';
 import TierForm from './components/OrderSetForm/1_TierForm';
@@ -40,6 +41,7 @@ function App() {
         <Route exact path='/about' component={AboutPage}/>
         <Route exact path='/faq' component={FaqPage}/>
       </Switch>
+      <Route exact path={['/']} component={GalleryPage} />
     </Router>
   );
 }

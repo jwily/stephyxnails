@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.urlpatterns import format_suffix_patterns
 
-# from orders.views import render_react
+from orders.views import catchall
 
 """
 URL configuration for api project.
@@ -24,8 +24,7 @@ Including another URLconf
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('orders.urls')),
-    # re_path(r"^$", render_react),
-    # re_path(r"^(?:.*)/?$", render_react),
+    re_path(r'', catchall)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

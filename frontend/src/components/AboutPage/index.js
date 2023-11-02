@@ -1,7 +1,14 @@
-export default function AboutPage(){
-    return(
+import { useOrderContext } from "../../context/OrderContext"
+
+export default function AboutPage() {
+
+    const { scrollToAbout } = useOrderContext()
+    
+    return (
         <>
-        <h1>About page</h1>
+            <div ref={scrollToAbout}>
+                <h1>About page</h1>
+            </div>
         </>
     )
 }

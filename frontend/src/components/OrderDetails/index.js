@@ -68,16 +68,18 @@ function OrderDetails() {
 
   return (
     <div>
-      <section className="bg-gray-2 rounded-xl bg-primary w-5/12 ">
+      <div
+      className="text-center text-2xl mt-5 font-bold">
+        Personal Info</div>
+      <section className="bg-primary rounded-xl m-4">
         <div className="p-8 shadow-lg">
           <form className="space-y-4" onSubmit={formSubmit}>
             <div className="w-full">
               <label className="sr-only" htmlFor="name">Name</label>
               <input
-                className="input input-solid max-w-full bg-secondary"
+                className="input input-solid max-w-full bg-white"
                 placeholder="Name"
                 type="text"
-                id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
 
@@ -89,27 +91,23 @@ function OrderDetails() {
               <div>
                 <label className="sr-only" htmlFor="email">Email</label>
                 <input
-                  className="input input-solid bg-secondary"
+                  className="input input-solid bg-white"
                   placeholder="Email address"
                   type="email"
-                  id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+                  id="email" />
               </div>
 
               <div>
-                <label className="sr-only" htmlFor="phone">Instagram</label>
+                <label className="sr-only" htmlFor="instagram"> </label>
                 <input
-                  className="input input-solid bg-secondary"
-                  placeholder="Phone Number"
-                  type="tel"
-                  id="phone"
+                  className="input input-solid bg-white"
+                  placeholder="Instagram Handle"
+                  type="text"
                   value={instagram}
                   onChange={(e) => setInstagram(e.target.value)}
-                  required
-                />
+                  id="instagram" />
               </div>
             </div>
             {/*
