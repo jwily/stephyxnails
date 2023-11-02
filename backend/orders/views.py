@@ -19,6 +19,7 @@ import requests
 
 # Seems like we ultimately don't need a /orders/ GET route
 class OrderCreate(generics.ListCreateAPIView):
+    print('in create order')
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     # permission_classes = [AllowAny]
