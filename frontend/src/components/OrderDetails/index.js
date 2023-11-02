@@ -37,7 +37,6 @@ function OrderDetails() {
   const formSubmit = async (e) => {
     e.preventDefault();
 
-  
     
 // Create a new FormData object
     // const formData = new FormData();
@@ -48,8 +47,8 @@ function OrderDetails() {
   
 
         dispatch({ type: 'SET_NAME', payload: name }); // Update name in the context
-    dispatch({ type: 'SET_EMAIL', payload: email }); // Update email in the context
-    dispatch({ type: 'SET_INSTAGRAM', payload: instagram }); // Update instagram in the context
+      dispatch({ type: 'SET_EMAIL', payload: email }); // Update email in the context
+      dispatch({ type: 'SET_INSTAGRAM', payload: instagram }); // Update instagram in the context
     // Append form fields to the FormData object
     // formData.append('name', name);
     // formData.append('email', email);

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
-import OrderPage from './components/OrderPage';
+import OrderPage from './components/OrderDetails';
 import SizingPage from './components/SizingPage';
 import GalleryPage from './components/GalleryPage';
 import AboutPage from './components/AboutPage';

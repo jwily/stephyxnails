@@ -5,7 +5,7 @@ import { useOrderContext } from "../../context/OrderContext";
 const ReviewOrderPage = () => {
   const history = useHistory();
 
-  const { state, dispatch} = useOrderContext();
+  const { state} = useOrderContext();
 
   const { sets } = state;
 

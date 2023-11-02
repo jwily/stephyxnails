@@ -14,7 +14,6 @@ const initialState = {
     extra: '',
   },
   sets: [],
-  // mergedData: [], // Add mergedData to the initial state
 };
 
 const reducer = (state=initialState, action) => {
@@ -31,8 +30,6 @@ const reducer = (state=initialState, action) => {
     case 'UPDATE_FORM_DATA':
       console.log("Updating form data with:", action.payload);
       return { ...state, formData: { ...state.formData, ...action.payload } };
-    // case 'UPDATE_MERGED_DATA':
-    //   return { ...state, mergedData: action.payload };
     case 'SAVE_FORM_DATA':
       const newState = {...state};
       newState.sets = [...newState.sets, newState.formData];
