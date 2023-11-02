@@ -66,6 +66,14 @@ const reducer = (state=initialState, action) => {
       const indexToDelete = action.payload;
       const updatedSets = [...state.sets.slice(0, indexToDelete), ...state.sets.slice(indexToDelete + 1)];
       return { ...state, sets: updatedSets, setCount: state.setCount - 1 };
+      case 'UPDATE_USER_INFORMATION':
+      // Update user information fields based on the payload
+      return {
+        ...state,
+        name: action.payload.name,
+        email: action.payload.email,
+        instagram: action.payload.instagram,
+      };
 
   
     // case 'CLEAR_FORM':

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha"
@@ -9,6 +9,33 @@ const history = useHistory();
 
   const { state, dispatch } = useOrderContext();
   const { sets } = state;
+
+    // Define state variables for edited user information
+    const [editedName, setEditedName] = useState(state.name);
+    const [editedEmail, setEditedEmail] = useState(state.email);
+    const [editedInstagram, setEditedInstagram] = useState(state.instagram);
+  
+      // Define edit mode flags for each field
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
+  const [isEditingInstagram, setIsEditingInstagram] = useState(false);
+  const handleSaveUserInformation = () => {
+    // Create an object with the edited user information
+    const updatedUserInformation = {
+      name: editedName,
+      email: editedEmail,
+      instagram: editedInstagram,
+    };
+  
+    // Update the user information in your state
+    dispatch({ type: 'UPDATE_USER_INFORMATION', payload: updatedUserInformation });
+  
+    // Exit edit mode
+    setIsEditingName(false);
+    setIsEditingEmail(false);
+    setIsEditingInstagram(false);
+  };
+
 
     const handleBack = () => {
         // Navigate back to the previous step
@@ -57,9 +84,59 @@ const history = useHistory();
       <h2>Review Your Order</h2>
       <div>
         <h3>User Information</h3>
-        <p>Name: {state.name}</p>
-        <p>Email: {state.email}</p>
-        <p>Instagram: {state.instagram}</p>
+        {isEditingName ? (
+    <div>
+      <label>Name: </label>
+      <input
+        type="text"
+        value={editedName}
+        onChange={(e) => setEditedName(e.target.value)} // Handle input change
+      />
+      <button onClick={() => setIsEditingName(false)}>Cancel</button>
+      <button onClick={handleSaveUserInformation}>Save</button>
+    </div>
+  ) : (
+    <div>
+      <p>Name: {state.name}</p>
+      <button onClick={() => setIsEditingName(true)}>Edit</button>
+    </div>
+  )}
+
+{isEditingEmail ? (
+    <div>
+      <label>Email: </label>
+      <input
+        type="text"
+        value={editedEmail}
+        onChange={(e) => setEditedEmail(e.target.value)} // Handle input change
+      />
+      <button onClick={() => setIsEditingEmail(false)}>Cancel</button>
+      <button onClick={handleSaveUserInformation}>Save</button>
+    </div>
+  ) : (
+    <div>
+      <p>Email: {state.email}</p>
+      <button onClick={() => setIsEditingEmail(true)}>Edit</button>
+    </div>
+  )}
+
+{isEditingInstagram ? (
+    <div>
+      <label>Instagram: </label>
+      <input
+        type="text"
+        value={editedInstagram}
+        onChange={(e) => setEditedInstagram(e.target.value)} // Handle input change
+      />
+      <button onClick={() => setIsEditingInstagram(false)}>Cancel</button>
+      <button onClick={handleSaveUserInformation}>Save</button>
+    </div>
+  ) : (
+    <div>
+      <p>Insta: {state.instagram}</p>
+      <button onClick={() => setIsEditingInstagram(true)}>Edit</button>
+    </div>
+  )}
       </div>
       <div>
         <h3>Order Sets</h3>
