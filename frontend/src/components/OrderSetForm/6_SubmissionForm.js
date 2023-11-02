@@ -7,7 +7,7 @@ function SubmissionSetForm() {
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
 
-  const { sets, formData } = state;
+  const { sets, formData, setCount } = state;
 
   
   console.log(sets, "set")
@@ -19,6 +19,8 @@ function SubmissionSetForm() {
   };
 
   const handleAddAnotherSet = () => {
+    dispatch({ type: 'ADD_SET', payload: formData });
+
     dispatch({ type: 'SAVE_FORM_DATA' });
     history.push('/order-set/tier');
   };
@@ -35,10 +37,12 @@ function SubmissionSetForm() {
 
   return (
     <div>
-         <h2>Review Your Order</h2>
+         <h2>Sets</h2>
+
+         <p>Number of Sets Made: {setCount}</p> {/* Display the set count */}
 
       <div>
-        <h3>Order Sets</h3>
+        {/* <h3>Order Sets</h3>
         {sets.map((formData, index) => {
           return(
           <li key={index}>
@@ -50,7 +54,7 @@ function SubmissionSetForm() {
             <p>Extra: {formData.extra}</p>
           </li>
           )}
-        )}
+        )} */}
         <div>
           <p> current set</p>
           <p>Tier: {formData.tier}</p>

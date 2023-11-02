@@ -6,7 +6,8 @@ import ReCAPTCHA from "react-google-recaptcha"
 const ReviewOrderPage = () => {
 
 const history = useHistory();
-  const { state} = useOrderContext();
+
+  const { state } = useOrderContext();
   const { sets } = state;
 
     const handleBack = () => {

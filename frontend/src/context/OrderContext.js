@@ -16,6 +16,7 @@ const initialState = {
     extra: '',
   },
   sets: [],
+  setCount: 0, // Initialize setCount to 0
 };
 
 // Define a reducer function to manage state changes
@@ -43,6 +44,10 @@ const reducer = (state=initialState, action) => {
         description: '',
         extra: '' }
       return newState;
+      case 'ADD_SET':
+        // Add a new set and increment setCount
+        const newSets = [...state.sets, action.payload];
+        return { ...state, sets: newSets, setCount: state.setCount + 1 };
       case 'INITIALIZE_STATE':
         // Load initial state from localStorage if it exists
         const savedState = localStorage.getItem('orderState');
