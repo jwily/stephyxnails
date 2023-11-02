@@ -20,7 +20,7 @@ class SetInline(admin.TabularInline):
 
 
 class SetAdmin(admin.ModelAdmin):
-  list_display = ['order', 'short_description', 'shape', 'sizes', 'tier', 'created', 'updated']
+  list_display = ['order', 'short_description', 'shape', 'left_sizes', 'right_sizes', 'tier', 'created', 'updated']
 
 
 class OrderAdmin(admin.ModelAdmin):

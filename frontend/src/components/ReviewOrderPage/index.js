@@ -2,16 +2,12 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha"
-import Cookies from "js-cookie"
 
 const ReviewOrderPage = () => {
 
 const history = useHistory();
   const { state} = useOrderContext();
   const { name, email, instagram, sets } = state;
-
-  const csrfToken = Cookies.get('csrftoken');
-  console.log(csrfToken,'<====== csrf token')
 
     const handleBack = () => {
         // Navigate back to the previous step
@@ -21,8 +17,8 @@ const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // const recaptchaValue = recaptchaRef.current.getValue();
-        // this.props.handleSubmit(recaptchaValue);
+        const recaptchaValue = recaptchaRef.current.getValue();
+        this.props.handleSubmit(recaptchaValue);
 
         try {
             const finalizedInfo = {
@@ -33,12 +29,14 @@ const history = useHistory();
                   {
                     tier: '1',
                     shape: 's-almond',
-                    sizes: '1,2,3,4,5,6,7,8,9,9',
+                    left_sizes: '1,2,3,4,5',
+                    right_sizes: '1,2,3,4,5',
                     description: 'test'
                   },{
                     tier: '2',
                     shape: 'm-square',
-                    sizes: '2,2,2,2,2,2,2,2,2,2',
+                    left_sizes: '2,2,2,2,2',
+                    right_sizes: '2,2,2,2,2',
                     description: 'test2'
                   }
                 ]
@@ -91,10 +89,11 @@ const history = useHistory();
         )}
 
       </div>
+      <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleSubmit} />
       <button onClick={handleBack}>Back</button>
       <button onClick={handleSubmit}>Submit Order</button>
-    </div>
 
+    </div>
 
         // {/* {info.sets.map(set =>
         //     <div key={set.description.length}>
@@ -114,29 +113,28 @@ const history = useHistory();
 
         //     {/* <button onClick={handleSubmit}>Submit</button> */}
 
+    // return (
+    //     <div>
+    //         {/* {info.sets.map(set =>
+    //             <div key={set.description.length}>
+    //                 <div>
+    //                     {set.description}
+    //                 </div>
+    //                 <div>
+    //                     {set.shape}
+    //                 </div>
+    //                 <div>
+    //                     {set.size}
+    //                 </div>
+    //                 <div>
+    //                     {set.tier}
+    //                 </div>
+    //             </div>)} */}
+    //         {/* <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div> */}
 
-    )
-    return (
-        <div>
-            {/* {info.sets.map(set =>
-                <div key={set.description.length}>
-                    <div>
-                        {set.description}
-                    </div>
-                    <div>
-                        {set.shape}
-                    </div>
-                    <div>
-                        {set.size}
-                    </div>
-                    <div>
-                        {set.tier}
-                    </div>
-                </div>)} */}
-            {/* <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div> */}
-            <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleSubmit} />
-            <button onClick={handleSubmit}>Submit</button>
-        </div>
+    //         <button onClick={handleSubmit}>Submit</button>
+    //     </div>
+    // )
     )
 }
 
