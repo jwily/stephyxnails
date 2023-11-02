@@ -20,8 +20,10 @@ function SubmissionSetForm() {
 
   const handleAddAnotherSet = () => {
     dispatch({ type: 'ADD_SET', payload: formData });
+    dispatch({ type: 'CLEAR_FORM', payload: formData });
 
-    dispatch({ type: 'SAVE_FORM_DATA' });
+
+    // dispatch({ type: 'SAVE_FORM_DATA' });
     history.push('/order-set/tier');
   };
 

@@ -90,8 +90,8 @@ const reducer = (state=initialState, action) => {
         sets: action.payload, // Update the sets array with the new data
       };
 
-  //case 'CLEAR_FORM':
-    //return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
+    case 'CLEAR_FORM':
+      return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
     
     default:
       return state;
