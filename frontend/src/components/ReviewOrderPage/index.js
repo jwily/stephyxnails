@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha"
@@ -11,9 +11,8 @@ const history = useHistory();
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
   const recaptchaRef = React.createRef();
 
-    const handleCaptchaChange = (value) => {
+    const handleCaptchaChange = () => {
       setIsCaptchaVerified(true);
-
     }
 
     const handleBack = () => {
@@ -97,7 +96,7 @@ const history = useHistory();
         )}
 
       </div>
-      <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleSubmit} />
+      <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleCaptchaChange} />
       <button onClick={handleBack}>Back</button>
       <button onClick={handleSubmit}>Submit Order</button>
 
