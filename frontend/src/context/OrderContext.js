@@ -34,9 +34,9 @@ const reducer = (state=initialState, action) => {
       console.log("Updating form data with:", action.payload);
       return { ...state, formData: { ...state.formData, ...action.payload } };
     case 'SAVE_FORM_DATA':
-      const newState = {...state};
+      const newState = { ...state };
       newState.sets = [...newState.sets, newState.formData];
-      newState.formData =  {
+      newState.formData = {
         tier: '',
         shape: '',
         photo: [],
@@ -80,9 +80,13 @@ export const OrderProvider = ({ children }) => {
   }, [state]);
 
 
+  const scrollToOrder = useRef()
+  const scrollToAbout = useRef()
+  const scrollToGallery = useRef()
+  const scrollToFAQ = useRef()
 
   return (
-    <OrderContext.Provider value={{ state, dispatch }}>
+    <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ }}>
       {children}
     </OrderContext.Provider>
   );
