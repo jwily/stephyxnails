@@ -44,20 +44,15 @@ class OrderSerializer(serializers.ModelSerializer):
 
   def create(self, validated_data):
     sets_data = validated_data.pop('sets')
-    recaptcha = validated_data.pop('recaptcha')
-    print('validated_data ---->', validated_data)
-    print('recaptcha', recaptcha)
+    validated_data.pop('recaptcha')
 
     valid_data = {key: value for key, value in validated_data.items() if key != 'recaptcha'}
     print('valid_data ----->', valid_data )
-    try:
-      order = Order.objects.create(**valid_data)
-    except Exception as e:
-      print('EXCEPTION ---->', e)
+    order = Order.objects.create(**valid_data)
+
     for set_data in sets_data:
         try:
           Set.objects.create(order=order, **set_data)
-          print('SET DATA ----->', set_data)
         except Exception as e:
           print('EXCEPTION --->', e)
     return order

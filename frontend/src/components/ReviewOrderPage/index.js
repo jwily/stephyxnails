@@ -12,7 +12,7 @@ const history = useHistory();
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
   const recaptchaRef = React.createRef();
   // const csrfToken = Cookie.get('csrftoken');
-  // console.log('CSRF TOKEN ----->',csrfToken)
+  // console.log('CSRF TOKEN ----->',csrfToken);
 
     const handleCaptchaChange = () => {
       setIsCaptchaVerified(true);
@@ -26,7 +26,7 @@ const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // if(isCaptchaVerified) {
+        if(isCaptchaVerified) {
           const recaptchaValue = recaptchaRef.current.getValue()
           try {
             const finalizedInfo = {
@@ -69,9 +69,9 @@ const history = useHistory();
           } catch (error) {
               console.error(error);
           }
-        // } else {
-        //   alert('Please complete the reCAPTCHA verification to submit your order.')
-        // }
+        } else {
+          alert('Please complete the reCAPTCHA verification to submit your order.')
+        }
     }
 
 
