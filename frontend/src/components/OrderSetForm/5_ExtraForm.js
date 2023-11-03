@@ -6,11 +6,11 @@ function ExtraForm() {
 
     const history = useHistory() 
     const { state, dispatch }= useOrderContext();
-    const [calculatedValue, setCalculatedValue] = useState(0);
+    // const [calculatedValue, setCalculatedValue] = useState(0);
     const [extra, setExtra] = useState(state.formData.extra);
     const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
     const isOrderDetailsComplete = state.name && state.email 
- 
+
     const redirectToOrderDetails = () => {
     window.location.href ='/order'
     }
@@ -24,27 +24,25 @@ function ExtraForm() {
     }, []);
 
     const handleNext = (e) => {
-        e.preventDefault();
-
-        dispatch({ type: 'UPDATE_FORM_DATA', payload: { extra } });
-
-        history.push('/order-set/currentset'); // Navigate to the next form question
-      };
+      e.preventDefault();
+      dispatch({ type: 'UPDATE_FORM_DATA', payload: { extra } });
+      history.push('/order-set/currentset'); // Navigate to the next form question
+    };
     
-      const handleBack = () => {
-        // Navigate back to the previous step
-        history.push('/order-set/description');
-      };
+    const handleBack = () => {
+      // Navigate back to the previous step
+      history.push('/order-set/description');
+    };
     
-      const handleInputChange = (e) => {
-        const newValue = parseInt(e.target.value);
-        if (!isNaN(newValue)) {
-          // Ensure the input is a valid integer
-          setExtra(newValue);
-          // Calculate the new value and update the calculatedValue
-          setCalculatedValue(newValue * 5);
-        }
-      };
+    const handleInputChange = (e) => {
+      const newValue = parseInt(e.target.value);
+      if (!isNaN(newValue)) {
+        // Ensure the input is a valid integer
+        setExtra(newValue);
+         // Calculate the new value and update the calculatedValue
+        // setCalculatedValue(newValue * 5);
+      }
+    };
 
     return (
         <>
@@ -62,8 +60,9 @@ function ExtraForm() {
                     placeholder=""
                     value={extra}
                     onChange={handleInputChange}
+                    
                   />
-                  <p>Calculated: {calculatedValue}</p>
+                  {/* <p>Calculated: {calculatedValue}</p> */}
                 </div>
                 <div>
                   <button onClick={handleBack}>Back</button>
@@ -81,6 +80,6 @@ function ExtraForm() {
     )}
   </>
     );
-  }
+}
   
   export default ExtraForm;

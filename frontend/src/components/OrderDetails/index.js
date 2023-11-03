@@ -82,8 +82,6 @@ function OrderDetails() {
 
               <textarea className="textarea textarea-solid max-w-full" placeholder="Message" rows="8" id="message"></textarea>
             </div> */}
-
-
             <div className="mt-4">
               <button type="submit" className="rounded-lg btn btn-primary btn-block bg-primary_blue">Next</button>
             </div>

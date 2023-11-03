@@ -7,7 +7,6 @@ function DescriptionFrom() {
   const history = useHistory() 
   const { state, dispatch }= useOrderContext();
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
-
   // Create a ref to display error messages
   const errorRef = useRef(null);
   // Check if order details are complete
@@ -50,7 +49,6 @@ function DescriptionFrom() {
     // Navigate back to the previous step
     history.push('/order-set/photo');
   };
-  
   
   return (
       <>

@@ -69,11 +69,9 @@ function StartForm( ) {
               <p style={{ color: 'red' }}>
                 Going back will reset your form. Are you sure you want to proceed?
               </p>
-
               <div>
                 <button onClick={handleBack}>Yes, I want to proceed</button>
               </div>
-
               <div>
                 <button onClick={handleCancelReset}>No, I don't want to proceed</button>
               </div>
