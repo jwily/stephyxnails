@@ -18,6 +18,8 @@ class TierSerializer(serializers.ModelSerializer):
 
 class SetImageSerializer(serializers.ModelSerializer):
 
+  set = serializers.PrimaryKeyRelatedField(read_only=True)
+
   class Meta:
     model = SetImage
     fields = ['id', 'url', 'set']
@@ -29,10 +31,11 @@ class SetSerializer(serializers.ModelSerializer):
   # By changing it to this thing, we can pass in just the tier's PK
   tier = serializers.PrimaryKeyRelatedField(queryset=Tier.objects.all())
   order = serializers.PrimaryKeyRelatedField(read_only=True)
+  images = SetImageSerializer(many=True)
 
   class Meta:
     model = Set
-    fields = ['id', 'created', 'updated', 'description', 'shape', 'left_sizes', 'right_sizes', 'tier', 'order']
+    fields = ['id', 'created', 'updated', 'description', 'shape', 'left_sizes', 'right_sizes', 'tier', 'order', 'images']
 
 class OrderSerializer(serializers.ModelSerializer):
   sets = SetSerializer(many=True)

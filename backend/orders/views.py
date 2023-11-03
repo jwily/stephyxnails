@@ -1,4 +1,5 @@
 import urllib.request
+import json
 
 from django.views.generic import TemplateView
 from django.conf import settings
@@ -24,7 +25,15 @@ class OrderCreate(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     # permission_classes = [AllowAny]
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+
+        print('>>>', request.data)
+
+        json_data = request.data['json'].read().decode('utf-8')
+        data = json.loads(json_data)
+
+        data['sets'][0]['images'].append({"description": "Hi"})
+
+        serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
 
