@@ -99,7 +99,7 @@ const NavBar = () => {
                 </NavLink>
             </div>
             <div className="navbar-end">
-                <a className="navbar-item">
+                <a href='/order' className="navbar-item">
                     <i className="fa-solid fa-bag-shopping" style={{ color: "black" }}></i>
                 </a>
             </div>
