@@ -78,6 +78,29 @@ class OrderCreate(generics.ListCreateAPIView):
 
         return data
 
+    @staticmethod
+    def send_emails(data):
+        customer_email = {
+            'subject': "Stephy ♥ - I've received your order request!",
+            'message': f"""
+            Thank you for your order request, {data["name"]}!
+
+            I will reach out to you soon with any further questions, and if everything looks good, I will request your shipping address.
+            """,
+            'from_email': settings.EMAIL_HOST_USER,
+            'recipient_list': [data['email']]
+        }
+
+        owner_email = {
+            'subject': "New order request received!",
+            'message': f'New order for {data["name"]}!',
+            'from_email': settings.EMAIL_HOST_USER,
+            'recipient_list': ['johnlee1120@gmail.com']
+        }
+
+        # send_mail(**customer_email)
+        # send_mail(**owner_email)
+
     def create(self, request, *args, **kwargs):
 
         data = request.data
@@ -89,26 +112,7 @@ class OrderCreate(generics.ListCreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
 
-        customer_email = {
-            'subject': "Stephy ♥ - I've received your order request!",
-            'message': f"""
-            Thank you for your order request, {serializer.data["name"]}!
-
-            I will reach out to you soon with any further questions, and if everything looks good, I will request your shipping address.
-            """,
-            'from_email': settings.EMAIL_HOST_USER,
-            'recipient_list': [serializer.data['email']]
-        }
-
-        owner_email = {
-            'subject': "New order request received!",
-            'message': f'New order for {serializer.data["name"]}!',
-            'from_email': settings.EMAIL_HOST_USER,
-            'recipient_list': ['johnlee1120@gmail.com']
-        }
-
-        # send_mail(**customer_email)
-        # send_mail(**owner_email)
+        OrderCreate.send_emails(serializer.data)
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
