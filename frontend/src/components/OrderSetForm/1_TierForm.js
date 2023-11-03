@@ -44,32 +44,33 @@ function TierForm() {
         <h1>1.Choose a Nail Tier</h1>
         <p>disclaimer</p>
         <div>
+        <form onSubmit={handleNext}>
           <div>
-            {dataResult.map(tier => {
-              return (
-                <div key={tier.id}>
-                  <div>
-
-                    name: {tier.name}
-                  </div>
-                  <div>
-
-                    price: {tier.price}
-                  </div>
-                  <div>
-                    discription: {tier.description}
-
-                  </div>
-                </div>
-              )
-            })}
+            {dataResult.map((tierOption) => (
+              <div key={tierOption.id}>
+                <label>
+                  <input
+                    type="radio"
+                    name="tier"
+                    value={tierOption.name}
+                    checked={tier === tierOption.name}
+                    onChange={() => setTier(tierOption.name)}
+                    required
+                  />
+                  {tierOption.name}
+                  <span> ${tierOption.price} </span>
+                  <p>{tierOption.description}</p>
+                </label>
+              </div>
+            ))}
           </div>
 
           <div>
             <button onClick={handleBack}>Back</button>
-            <button type="submit" onClick={handleNext}>Next</button>
+            <button type="submit">Next</button>
           </div>
-        </div>
+        </form>
+         </div>
       </section>
     </>
   );
