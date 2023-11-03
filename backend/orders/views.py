@@ -31,24 +31,49 @@ import requests
 #         print(f'Number of Queries: {len(connection.queries)}')
 #         return result
 #     return wrapper
+"""
+Seems like we ultimately don't need a /orders/ GET route
+so when ready, we should change this to just a CreateListAPIView
+as otherwise anyone could see all orders!
+"""
 
-# Seems like we ultimately don't need a /orders/ GET route
-# so when ready, we should change this to just a CreateListAPIView
 class OrderCreate(generics.ListCreateAPIView):
 
-    # The "prefetch" method allows for fewer queries
+    # The "prefetch" method allows for fewer queries.
     # Kind of like eager loading I think?
     queryset = Order.objects.prefetch_related('sets__images')
     serializer_class = OrderSerializer
 
     def create(self, request, *args, **kwargs):
 
-        print('>>>', request.data)
+        # print('>>>', request.data)
 
         json_data = request.data['json'].read().decode('utf-8')
         data = json.loads(json_data)
 
-        data['sets'][0]['images'].append({"description": "Hi"})
+        data['sets'][0]['images'].append({"description": "Hi", "url": "https://www.spanishdict.com/"})
+
+        print(data)
+
+        for key in request.data:
+            if 'files' in key:
+
+                split_key = key.split('_')
+                set_idx = split_key[1]
+                image_idx = split_key[2]
+
+                print(set_idx, image_idx)
+
+                image_file = request.data[key]
+                print(image_file)
+
+                # So we get and image file
+                # and indices that help us to identify
+                # which set of the order it belongs to
+
+                # We could now do the AWS thing
+                # then we could fill the "data" dictionary
+                # with the appropriate URLs
 
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
