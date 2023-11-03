@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useOrderContext } from '../../context/OrderContext';
 import { useHistory } from 'react-router-dom';
 
@@ -7,10 +7,18 @@ function SubmissionSetForm() {
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
 
-  const { sets, formData, setCount, isCurrentSetAdded } = state;
+  const { sets, formData, setCount } = state;
   const isOrderDetailsComplete = state.name && state.email && state.instagram;
+  const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
-    
+  useEffect(() => {
+    // Simulate loading for 2 seconds (adjust as needed)
+    setTimeout(() => {
+      setIsLoading(false); // Set loading to false after the delay
+    }, 100); 
+
+    // Add dependencies as needed
+  }, []);
   const redirectToOrderDetails = () => {
     window.location.href ='/order'
   }
@@ -43,8 +51,14 @@ function SubmissionSetForm() {
 
   return (
     <>
+       {isLoading ? ( // Display loading indicator while isLoading is true
+        <div>Loading...</div>
+      ) : (
+        <>
+
       {isOrderDetailsComplete ? (
         <>
+        <div>
          
          <h2>Sets</h2>
 
@@ -85,7 +99,10 @@ function SubmissionSetForm() {
         <button type="submit" onClick={handleAddAnotherSet}>Add Another Set  </button>
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </div>
+
+      </div>
       </>
+                
         
         ) : (
           <div>
@@ -95,9 +112,11 @@ function SubmissionSetForm() {
         )}
      
       </>
+      )
+      }
+     </>
 
   );
-  
 }
 
 export default SubmissionSetForm;
