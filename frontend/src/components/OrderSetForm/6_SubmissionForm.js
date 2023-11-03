@@ -7,24 +7,23 @@ function SubmissionSetForm() {
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
 
-  const { sets, formData, setCount } = state;
+  const { sets, formData, setCount, isCurrentSetAdded } = state;
 
   
   console.log(sets, "set")
 
   const handleSubmit = () => {
-  
+
     dispatch({ type: 'SAVE_FORM_DATA' });
     history.push('/review-order');
   };
 
   const handleAddAnotherSet = () => {
-    dispatch({ type: 'ADD_SET', payload: formData });
-    dispatch({ type: 'CLEAR_FORM', payload: formData });
+  
+      dispatch({ type: 'ADD_SET', payload: formData });
+      dispatch({ type: 'CLEAR_FORM' });
 
-
-    // dispatch({ type: 'SAVE_FORM_DATA' });
-    history.push('/order-set/tier');
+      history.push('/order-set/tier');
   };
 
   const handleBack = () => {

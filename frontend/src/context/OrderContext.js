@@ -17,6 +17,7 @@ const initialState = {
   },
   sets: [],
   setCount: 0, // Initialize setCount to 0
+  isCurrentSetAdded: false,  // Flag to track whether the current set has been added
 };
 
 // Define a reducer function to manage state changes
@@ -40,14 +41,26 @@ const reducer = (state=initialState, action) => {
 
     case 'SAVE_FORM_DATA':
       const newState = { ...state };
-      newState.sets = [...newState.sets, newState.formData];
-      newState.formData = {
-        tier: '',
-        shape: '',
-        photo: [],
-        description: '',
-        extra: '' }
+      // Add the current set to the sets array only if it hasn't been added
+      if (!state.isCurrentSetAdded) {
+        newState.sets = [...newState.sets, newState.formData];
+        newState.isCurrentSetAdded = true; // Mark the current set as added
+      }
+
+      // newState.formData = {
+      //   tier: '',
+      //   shape: '',
+      //   photo: [],
+      //   description: '',
+      //   extra: '',
+      // };
       return newState;
+
+      case 'MARK_CURRENT_SET_ADDED':
+      return {
+        ...state,
+        isCurrentSetAdded: true,  // Mark the current set as added
+      };
 
     case 'ADD_SET':
        // Add a new set and increment setCount
