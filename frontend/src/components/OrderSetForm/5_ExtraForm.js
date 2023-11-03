@@ -7,7 +7,7 @@ function ExtraForm() {
     const history = useHistory() 
     const { state, dispatch }= useOrderContext();
     const [calculatedValue, setCalculatedValue] = useState(0);
-    const [extra, setExtra] = useState(state.formData.extra || 0);
+    const [extra, setExtra] = useState(state.formData.extra || '');
     const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
     const isOrderDetailsComplete = state.name && state.email 
     const [error, setError] = useState(''); // State to hold error message
