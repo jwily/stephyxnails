@@ -47,25 +47,27 @@ class OrderCreate(generics.ListCreateAPIView):
     @staticmethod
     def parse_data(request_data):
 
+        print('Raw request data:', request_data)
+
         json_data = request_data['json'].read().decode('utf-8')
         data = json.loads(json_data)
 
+        # print('JSON as dict:', data)
+
         data['sets'][0]['images'].append({"description": "Hi", "url": "https://www.spanishdict.com/"})
 
-        print(data)
+        # print(data)
 
         for key in request_data:
             if 'files' in key:
 
                 split_key = key.split('_')
-                set_idx = split_key[1]
-                image_idx = split_key[2]
+                set_number = split_key[2]
 
-                print(set_idx, image_idx)
+                image_files = request_data.getlist(key)
 
-                image_file = request_data[key]
-
-                print(image_file)
+                print(set_number, type(image_files))
+                print(image_files)
 
                 # So we get an image file
                 # and indices that help us to identify
@@ -195,10 +197,11 @@ def catchall_dev(request, upstream='http://localhost:3000'):
 # of the TEMPLATES value in the settings directs Django
 # to the frontend folder to find the index.html file.
 
+# As you can see, because of the whole npm build process,
+# it's much less work finding the React stuff to serve.
 catchall_prod = TemplateView.as_view(template_name='index.html')
 
 # Defines which catchall view will be used based on the environment.
-
 catchall = catchall_dev if settings.DEBUG else catchall_prod
 
 def instagram_callback(request):

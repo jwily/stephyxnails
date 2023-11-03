@@ -60,8 +60,8 @@ const DummyComponent = () => {
 
     Object.keys(fileTree).forEach(key => {
       fileTree[key].forEach((file, idx) => {
-        const fieldName = `files_${key}_${idx}`;
-        formData.append(fieldName, file);
+        const keyName = `files_set_${key}`;
+        formData.append(keyName, file);
       })
     })
 
