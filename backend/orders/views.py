@@ -193,14 +193,23 @@ def instagram_callback(request):
 
     post_data = media_data['data']
     print('POST DATA ----->', media_data)
+    post_images = []
 
     all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
 
-    for post in post_data:
-      if post['media_type'] == 'IMAGE' and post['id'] not in all_ids:
-          try:
-            ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
-          except Exception as e:
-            print(e)
+    while(post_data):
+        for post in post_data:
+            post_images.append(post)
+            if(media_data['paging']['next']):
+                post_data = requests.get(media_data['paging']['next'])
+
+    print('post images----->', post_images)
+
+    for post in post_images:
+        if (post['media_type'] == 'IMAGE' or post['media_type'] == 'CAROUSEL_ALBUM')and post['id'] not in all_ids:
+            try:
+                ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+            except Exception as e:
+                print(e)
 
     return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
