@@ -192,7 +192,6 @@ def instagram_callback(request):
     media_data = media_response.json()
 
     post_data = media_data['data']
-    print('POST DATA ----->', media_data)
     post_images = []
 
     all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
@@ -200,12 +199,11 @@ def instagram_callback(request):
     while(post_data):
         for post in post_data:
             post_images.append(post)
-            print('POST_IMAGES------>', post_images)
-            if(media_data['paging']['next']):
-                try:
-                    post_data = requests.get(media_data['paging']['next'])
-                except Exception as e:
-                    print('EXCEPTION --->',e)
+        if(media_data['paging']['next']):
+            try:
+                post_data = requests.get(media_data['paging']['next'])
+            except Exception as e:
+                print('EXCEPTION --->',e)
 
     print('post images----->', post_images)
 
