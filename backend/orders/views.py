@@ -190,36 +190,50 @@ def instagram_callback(request):
     media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
     media_response = requests.get(media_request_url)
     media_data = media_response.json()
-
-    # while media_request_url:
-
-    #     request = requests.get(media_request_url)
-    #     media_data =request.json()
-
     post_images = []
 
-    all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
-    print('NEXT URL ---->', media_data['paging']['next'])
-    while media_data:
-        post_data = media_data['data']
-        print('========= In while loop ===========')
-        for post in post_data:
-            post_images.append(post)
+    while media_request_url:
 
-        exists = 'next' in media_data['paging']
-        # print('media data',media_data)
-        print('next in media data-paging', exists)
-        print('MEDIA_DATA-PAGING-NEXT ---->',media_data['paging']['next'])
-        if(exists):
-            try:
-                next_response = requests.get(media_data['paging']['next'])
-                media_data = next_response.json()
+        print('===== In While Loop =====')
 
-                print('NEXT DATA ---->', media_data)
-            except Exception as e:
-                print('EXCEPTION --->',e)
+        request = requests.get(media_request_url)
+        media_data =request.json()
+
+        post_data = media_data.get('data',[])
+        post_images.extend(post_data)
+
+        next_url = media_data['paging'].get('next')
+
+        if next_url:
+            print('==== Next Url Exist ====')
+            media_request_url = next_url
         else:
-            media_data = False
+            print('==== Next Url Does Not Exist ====')
+            initial_url = None
+
+
+    # all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
+    # print('NEXT URL ---->', media_data['paging']['next'])
+    # while media_data:
+    #     post_data = media_data['data']
+    #     print('========= In while loop ===========')
+    #     for post in post_data:
+    #         post_images.append(post)
+
+    #     exists = 'next' in media_data['paging']
+    #     # print('media data',media_data)
+    #     print('next in media data-paging', exists)
+    #     print('MEDIA_DATA-PAGING-NEXT ---->',media_data['paging']['next'])
+    #     if(exists):
+    #         try:
+    #             next_response = requests.get(media_data['paging']['next'])
+    #             media_data = next_response.json()
+
+    #             print('NEXT DATA ---->', media_data)
+    #         except Exception as e:
+    #             print('EXCEPTION --->',e)
+    #     else:
+    #         media_data = False
 
     print('post images----->', post_images)
 
