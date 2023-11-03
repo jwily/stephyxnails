@@ -8,12 +8,18 @@ const EditSetForm = () => {
     const { sets } = state;
     const { index } = useParams();
     const setIndex = parseInt(index, 10);
+    const isOrderDetailsComplete = state.name && state.email && state.instagram;
 
     const [editedTier, setEditedTier] = useState('');
     const [editedShape, setEditedShape] = useState('');
     const [editedPhoto, setEditedPhoto] = useState('');
     const [editedDescription, setEditedDescription] = useState('');
     const [editedExtra, setEditedExtra] = useState(0);
+
+      
+  const redirectToOrderDetails = () => {
+    window.location.href ='/order'
+  }
 
     // Load existing set data from state when the component mounts
     useEffect(() => {
@@ -42,86 +48,97 @@ const EditSetForm = () => {
     };
 
   return (
-    <div>
-        <div></div>
-        <h2>Edit Set</h2>
-
-        <form>
-            <div> 
-            <label>Tier:</label>
-            <div>
-            {dataResult.map((tierOption) => (
-              <div key={tierOption.id}>
-                <label>
-                  <input
-                    type="radio"
-                    name="tier"
-                    value={tierOption.name}
-                    checked={editedTier === tierOption.name} // Use editedTier for checked state
-                    onChange={() => setEditedTier(tierOption.name)} // Set editedTier on change
-                    required
-                  />
-                  {tierOption.name}
-                  <span> ${tierOption.price} </span>
-                  <p>{tierOption.description}</p>
-                </label>
-              </div>
-            ))}
-          </div>
-            </div>
-     
-            <div>
-            <label>Shape:</label>
-                <select value={editedShape} onChange={(e) => setEditedShape(e.target.value)}>
-                    <option value="Extra-Short Square" >Extra-Short Square</option>
-                    <option value="Short Square">Short Square</option>
-                    <option value="Medium Square">Medium Square</option>
-                    <option value="Short Coffin">Short Coffin</option>
-                    <option value="Medium Coffin">Medium Coffin</option>
-                    <option value="Short Almond">Short Almond</option>
-                    <option value="Medium Round">Medium Round</option>
-                    <option value="Short Round">Short Round</option>
-                    <option value="Medium Round">Medium Round</option>
-                    <option value="Short Almond">Short Almond</option>
-                    <option value="Medium Almond">'Medium Almond</option>
-                    <option value="Medium Stiletto">Medium Stiletto</option>
-                </select>
-            </div>
-
-            <div>
-            <label>Photo:</label>
-                <input
-                    type="text"
-                    value={editedPhoto}
-                    onChange={(e) => setEditedPhoto(e.target.value)}
-                />
-            </div>
-
-            <div>
-            <label>Description:</label>
-                <textarea
-                    value={editedDescription}
-                    onChange={(e) => setEditedDescription(e.target.value)}
-                />
-            </div>
-
-            <div>
-            <label>Extra:</label>
-                <input
-                    type="number"
-                    value={editedExtra}
-                    onChange={(e) => setEditedExtra(e.target.value)}
-                />
-            </div>
-        </form>
-
+    <>
+      {isOrderDetailsComplete ? (
         <div>
-        <button onClick={handleSaveSet}>Save</button>
-        <div></div>
-        <button onClick={() => history.push('/review-order')}>Cancel</button>
-        </div>
-
-  </div>
+          <div></div>
+          <h2>Edit Set</h2>
+  
+          <form>
+              <div> 
+              <label>Tier:</label>
+              <div>
+              {dataResult.map((tierOption) => (
+                <div key={tierOption.id}>
+                  <label>
+                    <input
+                      type="radio"
+                      name="tier"
+                      value={tierOption.name}
+                      checked={editedTier === tierOption.name} // Use editedTier for checked state
+                      onChange={() => setEditedTier(tierOption.name)} // Set editedTier on change
+                      required
+                    />
+                    {tierOption.name}
+                    <span> ${tierOption.price} </span>
+                    <p>{tierOption.description}</p>
+                  </label>
+                </div>
+              ))}
+            </div>
+              </div>
+       
+              <div>
+              <label>Shape:</label>
+                  <select value={editedShape} onChange={(e) => setEditedShape(e.target.value)}>
+                      <option value="Extra-Short Square" >Extra-Short Square</option>
+                      <option value="Short Square">Short Square</option>
+                      <option value="Medium Square">Medium Square</option>
+                      <option value="Short Coffin">Short Coffin</option>
+                      <option value="Medium Coffin">Medium Coffin</option>
+                      <option value="Short Almond">Short Almond</option>
+                      <option value="Medium Round">Medium Round</option>
+                      <option value="Short Round">Short Round</option>
+                      <option value="Medium Round">Medium Round</option>
+                      <option value="Short Almond">Short Almond</option>
+                      <option value="Medium Almond">'Medium Almond</option>
+                      <option value="Medium Stiletto">Medium Stiletto</option>
+                  </select>
+              </div>
+  
+              <div>
+              <label>Photo:</label>
+                  <input
+                      type="text"
+                      value={editedPhoto}
+                      onChange={(e) => setEditedPhoto(e.target.value)}
+                  />
+              </div>
+  
+              <div>
+              <label>Description:</label>
+                  <textarea
+                      value={editedDescription}
+                      onChange={(e) => setEditedDescription(e.target.value)}
+                  />
+              </div>
+  
+              <div>
+              <label>Extra:</label>
+                  <input
+                      type="number"
+                      value={editedExtra}
+                      onChange={(e) => setEditedExtra(e.target.value)}
+                  />
+              </div>
+          </form>
+  
+          <div>
+          <button onClick={handleSaveSet}>Save</button>
+          <div></div>
+          <button onClick={() => history.push('/review-order')}>Cancel</button>
+          </div>
+  
+    </div>
+        
+        ) : (
+          <div>
+            <p>Please complete your order details before proceeding.</p>
+            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+          </div>
+        )}
+      </>
+      
   );
 };
 

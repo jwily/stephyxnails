@@ -9,6 +9,7 @@ const ReviewOrderPage = () => {
     const history = useHistory();
     const { state, dispatch } = useOrderContext();
   const { name, email, instagram, sets } = state;
+  const isOrderDetailsComplete = state.name && state.email && state.instagram;
 
 
     // Define state variables for edited user information
@@ -21,6 +22,11 @@ const ReviewOrderPage = () => {
     const [isEditingEmail, setIsEditingEmail] = useState(false);
     const [isEditingInstagram, setIsEditingInstagram] = useState(false);
     
+      
+  const redirectToOrderDetails = () => {
+    window.location.href ='/order'
+  }
+
     const handleSaveUserInformation = () => {
         // Create an object with the edited user information
         const updatedUserInformation = {
@@ -110,111 +116,122 @@ const ReviewOrderPage = () => {
     const recaptchaRef = React.createRef();
 
     return (
+    <>
+           
+           {isOrderDetailsComplete ? (
+            <>
+            <div>
+            <h2>Review Your Entire Order</h2>
+        </div>
+
     <div>
+        <h3>User Information</h3>
+        <section>
+        {isEditingName ? (
             <div>
-                <h2>Review Your Entire Order</h2>
-            </div>
-
-        <div>
-            <h3>User Information</h3>
-            <section>
-            {isEditingName ? (
+                <label>Name: </label>
+                <input
+                    type="text"
+                    value={editedName}
+                    onChange={(e) => setEditedName(e.target.value)} // Handle input change
+                />
                 <div>
-                    <label>Name: </label>
-                    <input
-                        type="text"
-                        value={editedName}
-                        onChange={(e) => setEditedName(e.target.value)} // Handle input change
-                    />
-                    <div>
-                        <button onClick={() => setIsEditingName(false)}>Cancel</button>
-                        <div></div>
-                        <button onClick={handleSaveUserInformation}>Save</button>
-                    </div>
-                </div>
-            ) : (
-                <div>
-                    <p>Name: {state.name}</p>
-                    <button onClick={() => setIsEditingName(true)}>Edit</button>
-                </div>
-            )}
-            </section>
-            <section>
-            {isEditingEmail ? (
-                <div>
-                    <label>Email: </label>
-                    <input
-                        type="text"
-                        value={editedEmail}
-                        onChange={(e) => setEditedEmail(e.target.value)} // Handle input change
-                    />
-                    <div>
-                        <button onClick={() => setIsEditingEmail(false)}>Cancel</button>
-                        <div></div>
-                        <button onClick={handleSaveUserInformation}>Save</button>
-                    </div>
-                </div>
-            ) : (
-                <div>
-                    <p>Email: {state.email}</p>
-                    <button onClick={() => setIsEditingEmail(true)}>Edit</button>
-                </div>
-            )}
-            </section>
-            <section>
-            {isEditingInstagram ? (
-                <div>
-                    <label>Instagram: </label>
-                    <input
-                        type="text"
-                        value={editedInstagram}
-                        onChange={(e) => setEditedInstagram(e.target.value)} // Handle input change
-                    />
-                    <div>
-                        <button onClick={() => setIsEditingInstagram(false)}>Cancel</button>
-                        <div></div>
-                        <button onClick={handleSaveUserInformation}>Save</button>
-                    </div>
-                </div>
-            ) : (
-                <div>
-                    <p>Instagram: {state.instagram}</p>
-                    <button onClick={() => setIsEditingInstagram(true)}>Edit</button>
-                </div>
-            )}
-            </section>
-        </div>
-
-        <div>
-            <section>
-                {sets.map((formData, index) => {
-                return(
-                    <li key={index}>
-                    <h4>Set {index + 1}</h4>
-                    <p>Tier: {formData.tier}</p>
-                    <p>Shape: {formData.shape}</p>
-                    <p>photo: {formData.photo}</p>
-                    <p>Description: {formData.description}</p>
-                    <p>Extra: {formData.extra}</p>
-                    <button onClick={() => handleDeleteSet(index)}>Delete Set</button>
+                    <button onClick={() => setIsEditingName(false)}>Cancel</button>
                     <div></div>
-                    <button onClick={() => handleEditSet(index)}>Edit Set</button>
+                    <button onClick={handleSaveUserInformation}>Save</button>
+                </div>
+            </div>
+        ) : (
+            <div>
+                <p>Name: {state.name}</p>
+                <button onClick={() => setIsEditingName(true)}>Edit</button>
+            </div>
+        )}
+        </section>
+        <section>
+        {isEditingEmail ? (
+            <div>
+                <label>Email: </label>
+                <input
+                    type="text"
+                    value={editedEmail}
+                    onChange={(e) => setEditedEmail(e.target.value)} // Handle input change
+                />
+                <div>
+                    <button onClick={() => setIsEditingEmail(false)}>Cancel</button>
+                    <div></div>
+                    <button onClick={handleSaveUserInformation}>Save</button>
+                </div>
+            </div>
+        ) : (
+            <div>
+                <p>Email: {state.email}</p>
+                <button onClick={() => setIsEditingEmail(true)}>Edit</button>
+            </div>
+        )}
+        </section>
+        <section>
+        {isEditingInstagram ? (
+            <div>
+                <label>Instagram: </label>
+                <input
+                    type="text"
+                    value={editedInstagram}
+                    onChange={(e) => setEditedInstagram(e.target.value)} // Handle input change
+                />
+                <div>
+                    <button onClick={() => setIsEditingInstagram(false)}>Cancel</button>
+                    <div></div>
+                    <button onClick={handleSaveUserInformation}>Save</button>
+                </div>
+            </div>
+        ) : (
+            <div>
+                <p>Instagram: {state.instagram}</p>
+                <button onClick={() => setIsEditingInstagram(true)}>Edit</button>
+            </div>
+        )}
+        </section>
+    </div>
 
-                </li>
-                )}
-                )}
-            </section>
-        </div>
+    <div>
+        <section>
+            {sets.map((formData, index) => {
+            return(
+                <li key={index}>
+                <h4>Set {index + 1}</h4>
+                <p>Tier: {formData.tier}</p>
+                <p>Shape: {formData.shape}</p>
+                <p>photo: {formData.photo}</p>
+                <p>Description: {formData.description}</p>
+                <p>Extra: {formData.extra}</p>
+                <button onClick={() => handleDeleteSet(index)}>Delete Set</button>
+                <div></div>
+                <button onClick={() => handleEditSet(index)}>Edit Set</button>
 
+            </li>
+            )}
+            )}
+        </section>
+    </div>
+
+    <div>
         <div>
-            <div>
-                <button onClick={handleBack}>Back</button>
-            </div>
-            <div>
-                <button onClick={handleSubmit}>Submit Order</button>
-            </div>
+            <button onClick={handleBack}>Back</button>
+        </div>
+        <div>
+            <button onClick={handleSubmit}>Submit Order</button>
         </div>
     </div>
+        </>
+        ) : (
+          <div>
+            <p>Please complete your order details before proceeding.</p>
+            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+          </div>
+        )}
+    
+    </>
 
         // {/* {info.sets.map(set =>
         //     <div key={set.description.length}>

@@ -8,8 +8,13 @@ function SubmissionSetForm() {
   const { state, dispatch } = useOrderContext();
 
   const { sets, formData, setCount, isCurrentSetAdded } = state;
+  const isOrderDetailsComplete = state.name && state.email && state.instagram;
 
-  
+    
+  const redirectToOrderDetails = () => {
+    window.location.href ='/order'
+  }
+
   console.log(sets, "set")
 
   const handleSubmit = () => {
@@ -37,7 +42,10 @@ function SubmissionSetForm() {
 
 
   return (
-    <div>
+    <>
+      {isOrderDetailsComplete ? (
+        <>
+         
          <h2>Sets</h2>
 
          <p>Number of Sets Made: {setCount}</p> {/* Display the set count */}
@@ -77,7 +85,16 @@ function SubmissionSetForm() {
         <button type="submit" onClick={handleAddAnotherSet}>Add Another Set  </button>
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </div>
-      </div>
+      </>
+        
+        ) : (
+          <div>
+            <p>Please complete your order details before proceeding.</p>
+            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+          </div>
+        )}
+     
+      </>
 
   );
   

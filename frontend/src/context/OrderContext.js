@@ -136,12 +136,6 @@ export const OrderProvider = ({ children }) => {
   }, []);
 
 
-
-  // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
-  useEffect(() => {
-    dispatch({ type: 'INITIALIZE_STATE' });
-  }, []);
-
     // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
     useEffect(() => {
       dispatch({ type: 'INITIALIZE_STATE' });

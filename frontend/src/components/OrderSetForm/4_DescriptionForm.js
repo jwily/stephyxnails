@@ -7,6 +7,12 @@ function DescriptionFrom() {
   const history = useHistory() 
   const { state, dispatch }= useOrderContext();
   const errorRef = useRef(null);
+  const isOrderDetailsComplete = state.name && state.email && state.instagram;
+
+    
+  const redirectToOrderDetails = () => {
+    window.location.href ='/order'
+  }
 
   // Local state to manage the description
   const [description, setDescription] = useState(state.formData.description);
@@ -34,7 +40,8 @@ function DescriptionFrom() {
   
     return (
       <>
-      <section> 
+      {isOrderDetailsComplete ? (
+        <section> 
         <h2>4. Nail Description</h2>
           <p>disclaimer insert</p>
             <div>
@@ -56,6 +63,14 @@ function DescriptionFrom() {
             <button type="submit" onClick={handleNext}>Next</button>
           </div>
       </section>
+        
+        ) : (
+          <div>
+            <p>Please complete your order details before proceeding.</p>
+            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+          </div>
+        )}
+      
       </>
     );
 }

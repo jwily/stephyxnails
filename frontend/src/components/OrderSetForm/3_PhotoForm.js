@@ -9,6 +9,12 @@ function PhotoForm() {
   const fileInputRef = useRef(null);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [photo, setPhoto] = useState(state.formData.photo);
+  const isOrderDetailsComplete = state.name && state.email && state.instagram;
+
+    
+  const redirectToOrderDetails = () => {
+    window.location.href ='/order'
+  }
 
   const handleNext = (e) => {
     e.preventDefault();
@@ -51,41 +57,53 @@ function PhotoForm() {
   
   
   return (
-    
-       <section>
-        <div>
-        <h2>3. Photo Upload</h2>
-        <p>disclaimer insert</p>
-        <div>
-          <input
-            type="file"
-            accept="image/*" // Specify the accepted file types (e.g., images)
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            onChange={handleFileChange}
-          />
+    <>
 
-          <button onClick={openFileInput}>Upload Photo</button>
-        </div>
-      <div>
-      {selectedPhotos.map((photo, index) => (
-          <div key={index}>
-            <img 
-            src={URL.createObjectURL(photo)} 
-            alt={`Selected Image ${index + 1}`}
-            style={imageStyle} 
-            />
+{isOrderDetailsComplete ? (
+  <section>
+  <div>
+  <h2>3. Photo Upload</h2>
+  <p>disclaimer insert</p>
+  <div>
+    <input
+      type="file"
+      accept="image/*" // Specify the accepted file types (e.g., images)
+      ref={fileInputRef}
+      style={{ display: 'none' }}
+      onChange={handleFileChange}
+    />
+
+    <button onClick={openFileInput}>Upload Photo</button>
+  </div>
+<div>
+{selectedPhotos.map((photo, index) => (
+    <div key={index}>
+      <img 
+      src={URL.createObjectURL(photo)} 
+      alt={`Selected Image ${index + 1}`}
+      style={imageStyle} 
+      />
+    </div>
+ ) )}
+</div>
+
+
+  <div>
+    <button onClick={handleBack}>Back</button>
+    <button type="submit" onClick={handleNext}>Next</button>
+  </div>
+  </div>
+</section>
+        
+        ) : (
+          <div>
+            <p>Please complete your order details before proceeding.</p>
+            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
           </div>
-       ) )}
-      </div>
-    
-
-        <div>
-          <button onClick={handleBack}>Back</button>
-          <button type="submit" onClick={handleNext}>Next</button>
-        </div>
-        </div>
-      </section>
+        )}
+      
+    </>
+       
   
   );
 }

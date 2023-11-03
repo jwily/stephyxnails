@@ -10,6 +10,13 @@ function ExtraForm() {
 
     const [calculatedValue, setCalculatedValue] = useState(0);
     const [extra, setExtra] = useState(state.formData.extra);
+    const isOrderDetailsComplete = state.name && state.email && state.instagram;
+
+
+      
+  const redirectToOrderDetails = () => {
+    window.location.href ='/order'
+  }
 
     const handleNext = (e) => {
         e.preventDefault();
@@ -38,23 +45,33 @@ function ExtraForm() {
   
     return (
         <>
-        <section> 
-        <h2>5. Charms</h2>
-        <p>disclaimer insert</p>
-        <div>
-          <input
-            type="number"
-            placeholder=""
-            value={extra}
-            onChange={handleInputChange}
-          />
-          <p>Calculated: {calculatedValue}</p>
-        </div>
-        <div>
-          <button onClick={handleBack}>Back</button>
-          <button type="submit" onClick={handleNext}>Next</button>
-        </div>
-        </section>
+        {isOrderDetailsComplete ? (
+                <section> 
+                <h2>5. Charms</h2>
+                <p>disclaimer insert</p>
+                <div>
+                  <input
+                    type="number"
+                    placeholder=""
+                    value={extra}
+                    onChange={handleInputChange}
+                  />
+                  <p>Calculated: {calculatedValue}</p>
+                </div>
+                <div>
+                  <button onClick={handleBack}>Back</button>
+                  <button type="submit" onClick={handleNext}>Next</button>
+                </div>
+                </section>
+        
+        ) : (
+          <div>
+            <p>Please complete your order details before proceeding.</p>
+            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+          </div>
+        )}
+    
+  
         </>
     );
   }

@@ -8,8 +8,14 @@ function TierForm() {
   const { state, dispatch, dataResult } = useOrderContext();
   const tierInputRef = useRef(null);
   const [tier, setTier] = useState(state.formData.tier)
+  const isOrderDetailsComplete = state.name && state.email && state.instagram;
 
   // console.log(dataResult) // array of 2
+
+  const redirectToOrderDetails = () => {
+    window.location.href ='/order'
+  }
+
 
   const handleNext = (e) => {
     e.preventDefault()
@@ -40,38 +46,47 @@ function TierForm() {
 
   return (
     <>
+     {isOrderDetailsComplete ? (
       <section>
-        <h1>1.Choose a Nail Tier</h1>
-        <p>disclaimer</p>
+      <h1>1.Choose a Nail Tier</h1>
+      <p>disclaimer</p>
+      <div>
+      <form onSubmit={handleNext}>
         <div>
-        <form onSubmit={handleNext}>
-          <div>
-            {dataResult.map((tierOption) => (
-              <div key={tierOption.id}>
-                <label>
-                  <input
-                    type="radio"
-                    name="tier"
-                    value={tierOption.name}
-                    checked={tier === tierOption.name}
-                    onChange={() => setTier(tierOption.name)}
-                    required
-                  />
-                  {tierOption.name}
-                  <span> ${tierOption.price} </span>
-                  <p>{tierOption.description}</p>
-                </label>
-              </div>
-            ))}
-          </div>
+          {dataResult.map((tierOption) => (
+            <div key={tierOption.id}>
+              <label>
+                <input
+                  type="radio"
+                  name="tier"
+                  value={tierOption.name}
+                  checked={tier === tierOption.name}
+                  onChange={() => setTier(tierOption.name)}
+                  required
+                />
+                {tierOption.name}
+                <span> ${tierOption.price} </span>
+                <p>{tierOption.description}</p>
+              </label>
+            </div>
+          ))}
+        </div>
 
+        <div>
+          <button onClick={handleBack}>Back</button>
+          <button type="submit">Next</button>
+        </div>
+      </form>
+       </div>
+    </section>
+         
+        ) : (
           <div>
-            <button onClick={handleBack}>Back</button>
-            <button type="submit">Next</button>
+            <p>Please complete your order details before proceeding.</p>
+            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
           </div>
-        </form>
-         </div>
-      </section>
+        )}
+      
     </>
   );
 }
