@@ -18,28 +18,32 @@ import EditSetForm from './components/OrderSetForm/EditSetForm'
 
 
 
+import SizesForm from './components/OrderSetForm/X_SizesForm';
+
 function App() {
 
   return (
     <Router>
       <NavBar />
       <Switch>
-        <Route exact path='/' component={LandingPage}/>
-            <Route exact path="/order" component={OrderPage}/>
-          <Route path="/order-set/start" component={StartForm} />
-          <Route path="/order-set/tier" component={TierForm} />
-          <Route path="/order-set/shape" component={ShapeForm} />
-          <Route path="/order-set/photo" component={PhotoForm} />
-          <Route path="/order-set/description" component={DescriptionForm} />
-          <Route path="/order-set/extra" component={ExtraForm} />
-          <Route path="/order-set/currentset" component={Submissions} />
+        <Route exact path='/' component={LandingPage} />
+        <Route exact path="/order" component={OrderPage} />
+        <Route path="/order-set/start" component={StartForm} />
+        <Route path="/order-set/tier" component={TierForm} />
+        <Route path="/order-set/shape" component={ShapeForm} />
+        <Route path="/order-set/photo" component={PhotoForm} />
+        <Route path="/order-set/description" component={DescriptionForm} />
+        <Route path="/order-set/extra" component={ExtraForm} />
+        <Route path="/order-set/all" component={Submissions} />
 
-            {/* <Route exact path="/ordersss" component={OrderDetails}/> */}
-            <Route exact path='/review-order' component={ReviewOrderPage} />
-            <Route path="/order-set/edit/:index" component={EditSetForm} />
+        {/* Testing */}
+        <Route path="/order-set/sizes" component={SizesForm} />
+
+        {/* <Route exact path="/ordersss" component={OrderDetails}/> */}
+        <Route exact path='/review-order' component={ReviewOrderPage} />
         <Route exact path='/gallery' component={GalleryPage} />
-        <Route exact path='/about' component={AboutPage}/>
-        <Route exact path='/faq' component={FaqPage}/>
+        <Route exact path='/about' component={AboutPage} />
+        <Route exact path='/faq' component={FaqPage} />
       </Switch>
       <Route exact path={['/']} component={GalleryPage} />
     </Router>
