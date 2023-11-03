@@ -6,10 +6,11 @@ function ExtraForm() {
 
     const history = useHistory() 
     const { state, dispatch }= useOrderContext();
-    // const [calculatedValue, setCalculatedValue] = useState(0);
+    const [calculatedValue, setCalculatedValue] = useState(0); // State for the calculated value
     const [extra, setExtra] = useState(state.formData.extra);
     const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
     const isOrderDetailsComplete = state.name && state.email 
+    const [error, setError] = useState(''); // State to hold error message
 
     const redirectToOrderDetails = () => {
     window.location.href ='/order'
@@ -23,6 +24,21 @@ function ExtraForm() {
       // Add dependencies as needed
     }, []);
 
+    useEffect(() => {
+      // Retrieve the calculatedValue from localStorage when the component loads
+      const savedCalculatedValue = localStorage.getItem('calculatedValue');
+      if (savedCalculatedValue) {
+        setCalculatedValue(parseInt(savedCalculatedValue, 10));
+      }
+    }, []);
+  
+    useEffect(() => {
+      // Calculate the new value and update the calculatedValue
+      setCalculatedValue(extra * 5);
+      // Save the updated calculatedValue to localStorage whenever it changes
+      localStorage.setItem('calculatedValue', calculatedValue.toString());
+    }, [extra, calculatedValue]);
+
     const handleNext = (e) => {
       e.preventDefault();
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { extra } });
@@ -35,12 +51,28 @@ function ExtraForm() {
     };
     
     const handleInputChange = (e) => {
-      const newValue = parseInt(e.target.value);
-      if (!isNaN(newValue)) {
-        // Ensure the input is a valid integer
+      const newValue = parseInt(e.target.value, 10);
+
+    if (!isNaN(newValue)) {
+      // Ensure the input is a valid integer
+
+      // Prevent negative numbers
+      if (newValue < 0) {
+        // If the input is negative, set it to 0
+        setExtra(0);
+        setError('Extra cannot be negative.');
+      } else if (newValue > 25) {
+        // Limit the input to a maximum of 25
+        setExtra(25);
+        setError('Extra cannot exceed 25.');
+      } else {
         setExtra(newValue);
-         // Calculate the new value and update the calculatedValue
-        // setCalculatedValue(newValue * 5);
+        setError(''); // Clear any previous error message
+      }
+    } else {
+      // If the input is not a valid number, show an error message
+      setError('Please enter a valid number.');
+
       }
     };
 
@@ -62,7 +94,9 @@ function ExtraForm() {
                     onChange={handleInputChange}
                     
                   />
-                  {/* <p>Calculated: {calculatedValue}</p> */}
+                     {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
+
+                  <p>$5 per charm = ${calculatedValue}</p>
                 </div>
                 <div>
                   <button onClick={handleBack}>Back</button>
