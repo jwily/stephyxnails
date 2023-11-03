@@ -13,13 +13,13 @@ const EditSetForm = () => {
 
     const [editedTier, setEditedTier] = useState('');
     const [editedShape, setEditedShape] = useState('');
+    const [editedLeftDisplay, setEditedLeftDisplay] = useState('');
+    const [editedRightDisplay, setEditedRightDisplay] = useState('');
     const [editedPhoto, setEditedPhoto] = useState('');
     const [editedDescription, setEditedDescription] = useState('');
     const [editedExtra, setEditedExtra] = useState(0);
     const [editedExtra2, setEditedExtra2] = useState(0);
 
-
-      
   const redirectToOrderDetails = () => {
     window.location.href ='/order'
   }
@@ -36,6 +36,8 @@ const EditSetForm = () => {
     useEffect(() => {
         setEditedTier(sets[setIndex]?.tier);
         setEditedShape(sets[setIndex]?.shape);
+        setEditedLeftDisplay(sets[setIndex]?.leftDisplay);
+        setEditedRightDisplay(sets[setIndex]?.rightDisplay);
         setEditedPhoto(sets[setIndex]?.photo);
         setEditedDescription(sets[setIndex]?.description);
         setEditedExtra(sets[setIndex]?.extra);
@@ -46,10 +48,12 @@ const EditSetForm = () => {
         const updatedSet = {
             tier: editedTier,
             shape: editedShape,
+            leftDisplay: editedLeftDisplay,
+            rightDisplay: editedRightDisplay,
             photo: editedPhoto,
             description: editedDescription,
-             extra: editedExtra,
-             extra2: editedExtra2,
+            extra: editedExtra,
+            extra2: editedExtra2,
 
         };
 
@@ -112,6 +116,24 @@ const EditSetForm = () => {
                       <option value="Medium Almond">'Medium Almond</option>
                       <option value="Medium Stiletto">Medium Stiletto</option>
                   </select>
+              </div>
+              <div>
+                <label>Left Display</label>
+                <input
+                      type="text"
+                      value={editedLeftDisplay}
+                      onChange={(e) => setEditedLeftDisplay(e.target.value)}
+                  />
+                
+              </div>
+
+              <div>
+                <label>Right Display</label>
+                <input
+                      type="text"
+                      value={editedRightDisplay}
+                      onChange={(e) => setEditedRightDisplay(e.target.value)}
+                  />
               </div>
   
               <div>

@@ -16,11 +16,6 @@ function SizesForm() {
   const [errorRightHand, setErrorRightHand] = useState('');
   const [error, setError] = useState('');
 
-  const [leftHandIndexCompletion, setLeftHandIndexCompletion] = useState([false, false, false, false, false]);
-  const [rightHandIndexCompletion, setRightHandIndexCompletion] = useState([false, false, false, false, false]);
-
-
-
   const isOrderDetailsComplete = state.name && state.email 
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
@@ -175,7 +170,6 @@ function SizesForm() {
           />
           {error && <div className="error-message">{error}</div>}
           {errorRightHand && <div className="error-message">{errorRightHand}</div>}
-
 
         </div>
         <div>
