@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory , useLocation} from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 const EditSetForm = () => {
@@ -22,13 +22,21 @@ const EditSetForm = () => {
     window.location.href ='/order'
   }
 
+  useEffect(() => {
+    // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
+    setTimeout(() => {
+      setIsLoading(false); // Set loading to false after the delay
+    }, 100);  
+    // Add dependencies as needed
+  }, []);
+
     // Load existing set data from state when the component mounts
     useEffect(() => {
-        setEditedTier(sets[setIndex].tier);
-        setEditedShape(sets[setIndex].shape);
-        setEditedPhoto(sets[setIndex].photo);
-        setEditedDescription(sets[setIndex].description);
-        setEditedExtra(sets[setIndex].extra);
+        setEditedTier(sets[setIndex]?.tier);
+        setEditedShape(sets[setIndex]?.shape);
+        setEditedPhoto(sets[setIndex]?.photo);
+        setEditedDescription(sets[setIndex]?.description);
+        setEditedExtra(sets[setIndex]?.extra);
     }, [setIndex, sets]);
 
     const handleSaveSet = () => {

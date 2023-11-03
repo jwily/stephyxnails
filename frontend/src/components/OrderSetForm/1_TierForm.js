@@ -10,7 +10,7 @@ function TierForm() {
 
   // Reference for the tier input and local state to manage the selected tier
   const tierInputRef = useRef(null);
-  const [tier, setTier] = useState(state.formData.tier)
+  const [tier, setTier] = useState(state.formData?.tier)
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
   const isOrderDetailsComplete = state.name && state.email 
