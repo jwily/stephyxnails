@@ -80,13 +80,21 @@ class ExampleImageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ExampleImage.objects.all()
     serializer_class = ExampleImageSerializer
 
-# class SetImageList(generics.ListCreateAPIView):
-#     queryset = SetImage.objects.all()
-#     serializer_class = SetImageSerializer
-
-class SetImageDetail(generics.RetrieveUpdateDestroyAPIView):
+class SetImageList(generics.ListCreateAPIView):
     queryset = SetImage.objects.all()
     serializer_class = SetImageSerializer
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        print('request--->', dir(request.data['image']))
+        print('request--->', request.data['image'].file)
+        # <class 'django.core.files.uploadedfile.InMemoryUploadedFile'>
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+# class SetImageDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = SetImage.objects.all()
+#     serializer_class = SetImageSerializer
 
 def iter_response(response, chunk_size=65536):
 

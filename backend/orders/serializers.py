@@ -36,19 +36,19 @@ class SetSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
   sets = SetSerializer(many=True)
-  recaptcha = ReCaptchaV2Field()
+  # recaptcha = ReCaptchaV2Field()
 
   class Meta:
     model = Order
-    fields = ['id', 'name', 'email', 'instagram', 'created', 'updated', 'sets', 'status', 'recaptcha']
+    fields = ['id', 'name', 'email', 'instagram', 'created', 'updated', 'sets', 'status']
 
   def create(self, validated_data):
     sets_data = validated_data.pop('sets')
-    validated_data.pop('recaptcha')
+    # validated_data.pop('recaptcha')
 
-    valid_data = {key: value for key, value in validated_data.items() if key != 'recaptcha'}
-    print('valid_data ----->', valid_data )
-    order = Order.objects.create(**valid_data)
+    # valid_data = {key: value for key, value in validated_data.items() if key != 'recaptcha'}
+    # print('valid_data ----->', valid_data )
+    order = Order.objects.create(**validated_data)
 
     for set_data in sets_data:
         try:
