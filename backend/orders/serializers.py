@@ -14,7 +14,7 @@ class TierSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Tier
-    fields = ['id', 'name', 'price', 'description']
+    fields = ['id', 'name', 'price','description']
 
 class SetImageSerializer(serializers.ModelSerializer):
 
@@ -36,7 +36,7 @@ class SetSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
   sets = SetSerializer(many=True)
-  recaptcha = ReCaptchaV2Field()
+  # recaptcha = ReCaptchaV2Field()
 
   class Meta:
     model = Order

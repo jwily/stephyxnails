@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha"
+import Cookies from "js-cookie"
 
 const ReviewOrderPage = () => {
 
     const history = useHistory();
     const { state, dispatch } = useOrderContext();
-    const { sets } = state;
+  const { name, email, instagram, sets } = state;
+
 
     // Define state variables for edited user information
     const [editedName, setEditedName] = useState(state.name);
@@ -44,6 +46,9 @@ const ReviewOrderPage = () => {
         history.push(`/order-set/edit/${index}`, { set: setToEdit });
       };
 
+  const csrfToken = Cookies.get('csrftoken');
+  console.log(csrfToken,'<====== csrf token')
+
     const handleBack = () => {
         // Navigate back to the previous step
 
@@ -60,21 +65,33 @@ const ReviewOrderPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const recaptchaValue = recaptchaRef.current.getValue();
-        this.props.handleSubmit(recaptchaValue);
+        // const recaptchaValue = recaptchaRef.current.getValue();
+        // this.props.handleSubmit(recaptchaValue);
 
         try {
             const finalizedInfo = {
-                // name: info.name,
-                // email: info.email,
-                // instagram: info.instagram,
-                // contact: info.contact,
-                // sets: info.sets
+                name: name,
+                email: email,
+                instagram: instagram,
+                sets: [
+                  {
+                    tier: '1',
+                    shape: 's-almond',
+                    sizes: '1,2,3,4,5,6,7,8,9,9',
+                    description: 'test'
+                  },{
+                    tier: '2',
+                    shape: 'm-square',
+                    sizes: '2,2,2,2,2,2,2,2,2,2',
+                    description: 'test2'
+                  }
+                ]
             }
+            console.log(finalizedInfo)
             const res = await fetch('/api/orders/', {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(finalizedInfo)
             })
@@ -82,6 +99,9 @@ const ReviewOrderPage = () => {
             if (res.ok) {
                 console.log('it worked');
                 // Eventually pass into email api
+            }
+            else {
+              console.log('could not fetch', res)
             }
         } catch (error) {
             console.error(error);
