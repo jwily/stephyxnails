@@ -24,37 +24,34 @@ function ExtraForm() {
       // Add dependencies as needed
     }, []);
 
+    // Load 'extra' data from localStorage when the component mounts
+    useEffect(() => {
+      const savedExtra = localStorage.getItem('extra');
+      if (savedExtra) {
+        setExtra(parseInt(savedExtra, 10));
+      }
+    }, []);
 
-  // Load 'extra' data from localStorage when the component mounts
-  useEffect(() => {
-    const savedExtra = localStorage.getItem('extra');
-    if (savedExtra) {
-      setExtra(parseInt(savedExtra, 10));
-    }
-  }, []);
+    // Save 'extra' data to localStorage when 'extra' changes
+    useEffect(() => {
+      localStorage.setItem('extra', extra.toString());
+    }, [extra]);
 
-  // Save 'extra' data to localStorage when 'extra' changes
-  useEffect(() => {
-    localStorage.setItem('extra', extra.toString());
-  }, [extra]);
+    // Load 'calculatedValue' from localStorage when the component mounts
+    useEffect(() => {
+      const savedCalculatedValue = localStorage.getItem('calculatedValue');
+      if (savedCalculatedValue) {
+        setCalculatedValue(parseInt(savedCalculatedValue, 10));
+      }
+    }, []);
 
-  // Load 'calculatedValue' from localStorage when the component mounts
-  useEffect(() => {
-    const savedCalculatedValue = localStorage.getItem('calculatedValue');
-    if (savedCalculatedValue) {
-      setCalculatedValue(parseInt(savedCalculatedValue, 10));
-    }
-  }, []);
+    // Calculate the new value and update 'calculatedValue'
+    useEffect(() => {
+      setCalculatedValue(extra * 5);
 
-
-  // Calculate the new value and update 'calculatedValue'
-  useEffect(() => {
-    setCalculatedValue(extra * 5);
-
-    // Save the updated 'calculatedValue' to localStorage whenever it changes
-    localStorage.setItem('calculatedValue', calculatedValue.toString());
-  }, [extra, calculatedValue]);
-
+      // Save the updated 'calculatedValue' to localStorage whenever it changes
+      localStorage.setItem('calculatedValue', calculatedValue.toString());
+    }, [extra, calculatedValue]);
 
     const handleNext = (e) => {
       e.preventDefault();
@@ -67,7 +64,6 @@ function ExtraForm() {
       history.push('/order-set/description');
     };
   
-
     const handleInputChange = (e) => {
       const newValue = parseInt(e.target.value, 10);
   
