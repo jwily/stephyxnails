@@ -25,9 +25,8 @@ function SubmissionSetForm() {
 
   const handleSubmit = () => {
 
-      // Ensure setCount is within bounds
+    // Ensure setCount is within bounds
     const newSetCount = Math.min(setCount, state.sets.length - 1);
-
 
     // Create a copy of the current sets array in the state
     const updatedSets = [...state.sets];

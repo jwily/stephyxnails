@@ -42,7 +42,7 @@ const EditSetForm = () => {
         const updatedSets = [...sets];
         updatedSets[setIndex] = updatedSet;
 
-        dispatch({ type: 'UPDATE_SET', payload: updatedSets });
+        dispatch({ type: 'UPDATE_SETS', payload: updatedSets });
 
         history.push('/review-order');
     };
