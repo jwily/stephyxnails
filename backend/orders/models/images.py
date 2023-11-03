@@ -3,7 +3,7 @@ from django.db import models
 class SetImage(models.Model):
   url = models.URLField()
 
-  set = models.ForeignKey('Set', on_delete=models.CASCADE, related_name='set_images')
+  set = models.ForeignKey('Set', on_delete=models.CASCADE, related_name='images')
 
   class Meta:
     ordering = ['id']

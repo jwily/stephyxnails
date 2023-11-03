@@ -65,8 +65,6 @@ class Set(models.Model):
 
   @property
   def short_description(self):
-    if len(self.description) <= 50:
-      return self.description
     return truncatechars(self.description, 50)
 
 

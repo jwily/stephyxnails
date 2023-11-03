@@ -55,8 +55,7 @@ INSTALLED_APPS = [
     # 'corsheaders',
     'orders',
     'admin_extra_buttons',
-    # 'drf_recaptcha'
-    'storages'
+    'drf_recaptcha'
 ]
 
 # CORS must go before anything that generates responses
@@ -203,4 +202,4 @@ ADMIN_LOGIN_NAME = os.environ.get('ADMIN_LOGIN_NAME')
 ADMIN_LOGIN_EMAIL = os.environ.get('ADMIN_LOGIN_EMAIL')
 ADMIN_LOGIN_PASSWORD = os.environ.get('ADMIN_LOGIN_PASSWORD')
 
-DRF_RECAPTCHA_SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY")
+DRF_RECAPTCHA_SECRET_KEY = os.environ.get("DRF_RECAPTCHA_SECRET_KEY")

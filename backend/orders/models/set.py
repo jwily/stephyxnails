@@ -24,7 +24,8 @@ class Set(models.Model):
   updated = models.DateTimeField(auto_now=True)
   description = models.TextField()
   shape = models.CharField(max_length=254, choices=SHAPE_CHOICES)
-  sizes = models.CharField(max_length=254)
+  left_sizes = models.CharField(max_length=254)
+  right_sizes = models.CharField(max_length=254)
 
   order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='sets')
   tier = models.ForeignKey('Tier', on_delete=models.CASCADE, related_name='sets')
