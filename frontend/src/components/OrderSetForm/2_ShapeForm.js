@@ -36,7 +36,7 @@ function ShapeForm() {
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { shape } });
       // Save the selected 'shape' to local storage
       localStorage.setItem('selectedShape', shape);
-      history.push('/order-set/photo');
+      history.push('/order-set/sizes');
     }
   };
   

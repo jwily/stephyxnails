@@ -11,7 +11,8 @@ const initialState = {
   formData: {
     tier: '',
     shape: '',
-    photo: '',
+    leftDisplay: '',
+    rightDisplay: '',
     description: '',
     extra: '',
     extra2: '',
@@ -97,7 +98,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'CLEAR_FORM':
-      return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '', extra2: ''} };
+      return { ...state, formData: { tier: '', shape: '',  leftDisplay: '', rightDisplay: '', photo: [], description: '', extra: '', extra2: ''} };
     
       case 'INCREMENT_SET_COUNT':
         return {

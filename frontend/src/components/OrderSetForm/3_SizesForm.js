@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
@@ -13,6 +13,22 @@ function SizesForm() {
   const [leftText, setLeftText] = useState('');
   const [rightText, setRightText] = useState('');
 
+  const isOrderDetailsComplete = state.name && state.email 
+  const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
+
+  useEffect(() => {
+    // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
+    setTimeout(() => {
+      setIsLoading(false); // Set loading to false after the delay
+    }, 100);  
+    // Add dependencies as needed
+  }, []);
+
+
+  const redirectToOrderDetails = () => {
+    window.location.href ='/order'
+  }
+
   const handleNext = (e) => {
     e.preventDefault();
 
@@ -21,12 +37,12 @@ function SizesForm() {
 
     dispatch('ACTION_HERE');
 
-    history.push('/order-set/#####'); // Navigate to the next form question
+    history.push('/order-set/photo') // Navigate to the next form question
   };
 
   const handleBack = () => {
     // Navigate back to the previous step
-    history.push('/order-set/#####');
+    history.push('/order-set/shape');
   };
 
   const FingerDisplay = ({ hand, name, idx }) => {
@@ -83,6 +99,11 @@ function SizesForm() {
 
   return (
     <>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+        {isOrderDetailsComplete ? (
       <section>
         <h2>X. Sizes</h2>
         <p>disclaimer insert</p>
@@ -125,6 +146,15 @@ function SizesForm() {
           <button type="submit" onClick={handleNext}>Next</button>
         </div>
       </section>
+       ) : (
+        <div>
+          <p>Please complete your order details before proceeding.</p>
+          <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+        </div>
+      )}
+    </>
+  )}
+
     </>
   );
 }

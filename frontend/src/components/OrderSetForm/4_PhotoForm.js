@@ -33,7 +33,7 @@ function PhotoForm() {
 
   const handleBack = () => {
     // Navigate back to the previous step
-    history.push('/order-set/shape'); 
+    history.push('/order-set/sizes'); 
   };
 
   const handleFileChange = () => {

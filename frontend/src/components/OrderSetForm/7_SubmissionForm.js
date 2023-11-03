@@ -75,6 +75,8 @@ function SubmissionSetForm() {
             <p> your current set</p>
             <p>Tier: {formData.tier}</p>
             <p>shape: {formData.shape}</p>
+            <p>Left Display: {formData.leftDisplay}</p>
+            <p>Right Display: {formData.rightDisplay}</p>
             <p>photo: {formData.photo}</p>
             <p>description: {formData.description}</p>
             <p>charm: {formData.extra}</p>

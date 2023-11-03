@@ -209,6 +209,8 @@ const ReviewOrderPage = () => {
                     <h4>Set {index + 1}</h4>
                     <p>Tier: {formData.tier}</p>
                     <p>Shape: {formData.shape}</p>
+                    <p>Left Display: {formData.leftDisplay}</p>
+                    <p>Right Display: {formData.rightDisplay}</p>
                     <p>photo: {formData.photo}</p>
                     <p>Description: {formData.description}</p>
                     <p>charm: {formData.extra}</p>
