@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha"
-import Cookie from 'js-cookie'
+// import Cookie from 'js-cookie'
 
 const ReviewOrderPage = () => {
 
@@ -11,8 +11,8 @@ const history = useHistory();
   const { name, email, instagram, sets } = state;
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
   const recaptchaRef = React.createRef();
-  const csrfToken = Cookie.get('csrftoken');
-  console.log('CSRF TOKEN ----->',csrfToken)
+  // const csrfToken = Cookie.get('csrftoken');
+  // console.log('CSRF TOKEN ----->',csrfToken)
 
     const handleCaptchaChange = () => {
       setIsCaptchaVerified(true);
@@ -54,8 +54,7 @@ const history = useHistory();
             const res = await fetch('/api/orders/', {
               method: "POST",
               headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
+                'Content-Type': 'application/json'
               },
               body: JSON.stringify(finalizedInfo)
             })
