@@ -200,9 +200,13 @@ def instagram_callback(request):
         print('========= In while loop ===========')
         for post in post_data:
             post_images.append(post)
-        if(media_data['paging']['next']):
+        print('CURRENT POST_IMAGES ARRAY ---->', post_images)
+        exists = media_data['paging']['next'] in media_data
+        print('BOOLEAN OF NEXT EXISTS', exists)
+        if(media_data['paging']['next'] in media_data):
             try:
-                post_data = requests.get(media_data['paging']['next'])
+                next_data = requests.get(media_data['paging']['next'])
+                print('NEXT DATA ---->', next_data)
             except Exception as e:
                 print('EXCEPTION --->',e)
 
