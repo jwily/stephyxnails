@@ -54,7 +54,7 @@ const EditSetForm = () => {
                 type="radio"
                 name="tier"
                 value="Budding Tier"
-                // checked={setEditedTier === 'Budding Tier'}
+                checked={editedTier === 'Budding Tier'}
                 onChange={() => setEditedTier('Budding Tier')}
                 />
                 Budding Tier
@@ -66,8 +66,8 @@ const EditSetForm = () => {
                 type="radio"
                 name="tier"
                 value="Petal Tier"
-                // checked={setEditedTier === 'Petal Tier'}
-                onChange={() => setEditedTier("Budding Tier")}
+                checked={editedTier === 'Petal Tier'}
+                onChange={() => setEditedTier("Petal Tier")}
                 />
               Petal Tier
               <span> $50 </span>
@@ -78,7 +78,7 @@ const EditSetForm = () => {
                 type="radio"
                 name="tier"
                 value="Sakura Tier"
-                // checked={setEditedTier === 'Sakura Tier'}
+                checked={editedTier === 'Sakura Tier'}
                 onChange={() => setEditedTier("Sakura Tier")}
                 />
                 Sakura Tier
@@ -90,7 +90,7 @@ const EditSetForm = () => {
                 type="radio"
                 name="tier"
                 value="Blossom Tier"
-                // checked={setEditedTier === 'Blossom Tier'}
+                checked={editedTier === 'Blossom Tier'}
                 onChange={() => setEditedTier( 'Blossom Tier' )}
                 />
                 Blossom Tier

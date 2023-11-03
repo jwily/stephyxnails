@@ -43,7 +43,7 @@ function TierForm() {
               type="radio"
               name="tier"
               value="Budding Tier"
-              // checked={tier === 'Budding Tier'}
+              checked={tier === 'Budding Tier'}
               onChange={(e) => setTier( e.target.value )}
               ref={tierInputRef} // Assign the ref to the input element
               required
@@ -59,7 +59,7 @@ function TierForm() {
               type="radio"
               name="tier"
               value="Petal Tier"
-              // checked={tier === 'Petal Tier'}
+              checked={tier === 'Petal Tier'}
               onChange={(e) => setTier( e.target.value )}
               required
             />
@@ -74,7 +74,7 @@ function TierForm() {
               type="radio"
               name="tier"
               value="Sakura Tier"
-              // checked={tier === 'Sakura Tier'}
+              checked={tier === 'Sakura Tier'}
               onChange={(e) => setTier(e.target.value )}
               required
             />
@@ -89,7 +89,7 @@ function TierForm() {
               type="radio"
               name="tier"
               value="Blossom Tier"
-              // checked={tier === 'Blossom Tier'}
+              checked={tier === 'Blossom Tier'}
               onChange={(e) => setTier( e.target.value )}
               required
             />
