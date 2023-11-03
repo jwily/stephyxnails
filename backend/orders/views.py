@@ -209,7 +209,7 @@ def instagram_callback(request):
             media_request_url = next_url
         else:
             print('==== Next Url Does Not Exist ====')
-            initial_url = None
+            media_request_url = None
 
 
     # all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
