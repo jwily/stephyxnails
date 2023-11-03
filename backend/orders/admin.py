@@ -16,27 +16,14 @@ from .aws import remove_file_from_s3
 
 class SetImageInline(admin.TabularInline):
   model = SetImage
-  readonly_fields = ('image_preview',)
-
-  def image_preview(self, obj):
-      return format_html('<img src="{}" width="150" height="auto" />', obj.url)
-
-  image_preview.short_description = 'Image Preview'
+  extra = 0
 
 class SetInline(admin.TabularInline):
   model = Set
-  readonly_fields = ('images_list',)
+  extra = 0
   formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={'rows':5, 'cols':60})},
     }
-  def images_list(self, obj):
-        images = obj.image_set.all()  # Adjust this according to your related_name
-        return format_html(
-            "<br>".join(['<img src="{}" width="50" height="auto" />' for image in images]),
-            *(image.url for image in images)
-        )
-
-  images_list.short_description = 'Images'
 
 class SetAdmin(admin.ModelAdmin):
   list_display = ['order', 'short_description', 'shape', 'left_sizes', 'right_sizes', 'tier', 'created', 'updated']
