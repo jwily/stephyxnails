@@ -6,7 +6,7 @@ function StartForm( ) {
         
   const [showResetWarning, setShowResetWarning] = useState(false);
   const { state } = useOrderContext();
-  const isOrderDetailsComplete = state.name && state.email && state.instagram;
+  const isOrderDetailsComplete = state.name && state.email 
 
 
   const handleBack = () => {

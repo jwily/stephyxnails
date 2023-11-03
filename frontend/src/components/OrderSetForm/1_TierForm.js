@@ -8,7 +8,7 @@ function TierForm() {
   const { state, dispatch, dataResult } = useOrderContext();
   const tierInputRef = useRef(null);
   const [tier, setTier] = useState(state.formData.tier)
-  const isOrderDetailsComplete = state.name && state.email && state.instagram;
+  const isOrderDetailsComplete = state.name && state.email 
 
   // console.log(dataResult) // array of 2
 

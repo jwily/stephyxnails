@@ -8,7 +8,7 @@ const EditSetForm = () => {
     const { sets } = state;
     const { index } = useParams();
     const setIndex = parseInt(index, 10);
-    const isOrderDetailsComplete = state.name && state.email && state.instagram;
+    const isOrderDetailsComplete = state.name && state.email 
 
     const [editedTier, setEditedTier] = useState('');
     const [editedShape, setEditedShape] = useState('');

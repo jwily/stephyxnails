@@ -7,7 +7,7 @@ function DescriptionFrom() {
   const history = useHistory() 
   const { state, dispatch }= useOrderContext();
   const errorRef = useRef(null);
-  const isOrderDetailsComplete = state.name && state.email && state.instagram;
+  const isOrderDetailsComplete = state.name && state.email 
 
     
   const redirectToOrderDetails = () => {
@@ -34,7 +34,7 @@ function DescriptionFrom() {
 
     const handleBack = () => {
       // Navigate back to the previous step
-      history.push('/order-set/photo'); 
+      history.push('/order-set/photo');
     };
   
   

@@ -8,7 +8,7 @@ function ShapeForm() {
   const { state, dispatch }= useOrderContext();
   const selectRef = useRef(null); // Create a ref for the select element
   const [shape, setShape] = useState(state.formData.shape)
-  const isOrderDetailsComplete = state.name && state.email && state.instagram;
+  const isOrderDetailsComplete = state.name && state.email 
 
   const redirectToOrderDetails = () => {
     window.location.href ='/order'

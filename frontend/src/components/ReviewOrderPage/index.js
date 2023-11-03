@@ -9,7 +9,7 @@ const ReviewOrderPage = () => {
     const history = useHistory();
     const { state, dispatch } = useOrderContext();
     const { name, email, instagram, sets } = state;
-    const isOrderDetailsComplete = state.name && state.email && state.instagram;
+    const isOrderDetailsComplete = state.name && state.email 
 
     // Define state variables for edited user information
     const [editedName, setEditedName] = useState(state.name);

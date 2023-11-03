@@ -7,7 +7,7 @@ function SubmissionSetForm() {
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
   const { formData, setCount } = state;  // Destructure values from the state
-  const isOrderDetailsComplete = state.name && state.email && state.instagram; // Check if order details are complete
+  const isOrderDetailsComplete = state.name && state.email// Check if order details are complete
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
   
   useEffect(() => {
@@ -25,7 +25,16 @@ function SubmissionSetForm() {
 
   const handleSubmit = () => {
     // Dispatch an action to save the form data and navigate to the '/review-order' page
-    dispatch({ type: 'SAVE_FORM_DATA' });
+
+    const updatedSets = [...state.sets];
+
+    updatedSets[setCount] = formData;
+
+    dispatch({ type: 'UPDATE_SETS', payload: updatedSets });
+
+
+  // Dispatch an action to save the form data
+  dispatch({ type: 'SAVE_FORM_DATA' });
     history.push('/review-order');
   };
 

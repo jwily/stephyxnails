@@ -9,7 +9,7 @@ function PhotoForm() {
   const fileInputRef = useRef(null);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [photo, setPhoto] = useState(state.formData.photo);
-  const isOrderDetailsComplete = state.name && state.email && state.instagram;
+  const isOrderDetailsComplete = state.name && state.email 
 
     
   const redirectToOrderDetails = () => {

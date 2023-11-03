@@ -46,7 +46,6 @@ const reducer = (state = initialState, action) => {
         newState.sets = [...newState.sets, newState.formData];
         newState.isCurrentSetAdded = true; // Mark the current set as added
       }
-
       // newState.formData = {
       //   tier: '',
       //   shape: '',
@@ -97,7 +96,7 @@ const reducer = (state = initialState, action) => {
         instagram: action.payload.instagram,
       };
 
-    case 'UPDATE_SET':
+    case 'UPDATE_SETS':
       return {
         ...state,
         sets: action.payload, // Update the sets array with the new data

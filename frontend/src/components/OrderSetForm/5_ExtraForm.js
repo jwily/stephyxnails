@@ -10,7 +10,7 @@ function ExtraForm() {
 
     const [calculatedValue, setCalculatedValue] = useState(0);
     const [extra, setExtra] = useState(state.formData.extra);
-    const isOrderDetailsComplete = state.name && state.email && state.instagram;
+    const isOrderDetailsComplete = state.name && state.email 
 
 
       
