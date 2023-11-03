@@ -29,6 +29,8 @@ const DummyComponent = () => {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
+    // useEffect may be the solution
+    // to the weird "lag" with pictures
     console.log(files);
   }, [files])
 

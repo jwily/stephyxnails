@@ -31,6 +31,7 @@ import requests
 #         print(f'Number of Queries: {len(connection.queries)}')
 #         return result
 #     return wrapper
+
 """
 Seems like we ultimately don't need a /orders/ GET route
 so when ready, we should change this to just a CreateListAPIView
@@ -46,7 +47,7 @@ class OrderCreate(generics.ListCreateAPIView):
 
     def create(self, request, *args, **kwargs):
 
-        # print('>>>', request.data)
+        print('>>>', request.data)
 
         json_data = request.data['json'].read().decode('utf-8')
         data = json.loads(json_data)
@@ -103,23 +104,7 @@ class OrderCreate(generics.ListCreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
-
-class SetList(generics.ListCreateAPIView):
-    queryset = Set.objects.all()
-    serializer_class = SetSerializer
-
-class SetDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Set.objects.all()
-    serializer_class = SetSerializer
-
-class TierList(generics.ListCreateAPIView):
-    queryset = Tier.objects.all()
-    serializer_class = TierSerializer
-
-class TierDetail(generics.RetrieveUpdateDestroyAPIView):
+class TierList(generics.ListAPIView):
     queryset = Tier.objects.all()
     serializer_class = TierSerializer
 
@@ -127,21 +112,9 @@ class ExampleImageList(generics.ListCreateAPIView):
     queryset = ExampleImage.objects.all()
     serializer_class = ExampleImageSerializer
 
-class ExampleImageDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ExampleImage.objects.all()
-    serializer_class = ExampleImageSerializer
-
 class SetImageList(generics.ListCreateAPIView):
     queryset = SetImage.objects.all()
     serializer_class = SetImageSerializer
-
-class SetImageDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SetImage.objects.all()
-    serializer_class = SetImageSerializer
-
-# class SetImageDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = SetImage.objects.all()
-#     serializer_class = SetImageSerializer
 
 def iter_response(response, chunk_size=65536):
 
@@ -166,7 +139,7 @@ def iter_response(response, chunk_size=65536):
 
 def catchall_dev(request, upstream='http://localhost:3000'):
 
-    # This function is meant to kick in during development when
+    # This function is meant to kick in during development if
     # browsing through localhost:8000. Basically, if none of the routes
     # that we defined with Django REST Framework views are requested,
     # then the assumption is that front-end stuff is being requested
@@ -203,7 +176,7 @@ def catchall_dev(request, upstream='http://localhost:3000'):
             reason=response.reason,
         )
 
-# Not 100% sure, but it seems like setting the 'DIRS' attribute
+# It seems like setting the 'DIRS' attribute
 # of the TEMPLATES value in the settings directs Django
 # to the frontend folder to find the index.html file.
 
@@ -240,7 +213,8 @@ def instagram_callback(request):
     access_response_data = access_response.json()
     access_token = access_response_data['access_token']
 
-    media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
+    media_fields = 'id,caption,media_type,media_url,username,timestamp'
+    media_request_url = f"https://graph.instagram.com/me/media?fields={media_fields}&access_token={access_token}"
     media_response = requests.get(media_request_url)
     media_data = media_response.json()
 

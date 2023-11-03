@@ -13,7 +13,7 @@ class TierSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Tier
-    fields = ['id', 'name', 'price','description']
+    fields = ['id', 'name', 'price', 'description']
 
 class SetImageSerializer(serializers.ModelSerializer):
 

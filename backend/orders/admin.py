@@ -18,7 +18,6 @@ class SetInline(admin.TabularInline):
         models.TextField: {'widget': Textarea(attrs={'rows':5, 'cols':60})},
     }
 
-
 class SetAdmin(admin.ModelAdmin):
   list_display = ['order', 'short_description', 'shape', 'left_sizes', 'right_sizes', 'tier', 'created', 'updated']
 
