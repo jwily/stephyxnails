@@ -14,12 +14,29 @@ from .aws import remove_file_from_s3
 
 # Register your models here.
 
+class SetImageInline(admin.TabularInline):
+  model = SetImage
+  readonly_fields = ('image_preview',)
+
+  def image_preview(self, obj):
+      return format_html('<img src="{}" width="150" height="auto" />', obj.url)
+
+  image_preview.short_description = 'Image Preview'
+
 class SetInline(admin.TabularInline):
   model = Set
-  extra = 1
+  readonly_fields = ('images_list',)
   formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={'rows':5, 'cols':60})},
     }
+  def images_list(self, obj):
+        images = obj.image_set.all()  # Adjust this according to your related_name
+        return format_html(
+            "<br>".join(['<img src="{}" width="50" height="auto" />' for image in images]),
+            *(image.url for image in images)
+        )
+
+  images_list.short_description = 'Images'
 
 class SetAdmin(admin.ModelAdmin):
   list_display = ['order', 'short_description', 'shape', 'left_sizes', 'right_sizes', 'tier', 'created', 'updated']
@@ -28,6 +45,7 @@ class SetAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
   inlines = [SetInline]
   list_display = ['__str__', 'name', 'email', 'instagram', 'emoji_status', 'created', 'updated']
+  list_filter = ('status', 'created')
 
   @admin.action(description="Mark as 🌱 Pending")
   def make_pending(self, request, queryset):
@@ -39,22 +57,22 @@ class OrderAdmin(admin.ModelAdmin):
 
   @admin.action(description="Mark as 🌺 Completed")
   def make_completed(self, request, queryset):
-      for instance in queryset:
-          images = SetImage.objects.filter(set__order=instance)
-          for image in images:
-              response = remove_file_from_s3(image.url)
-              if response:
-                  image.delete()
+      # for instance in queryset:
+      #     images = SetImage.objects.filter(set__order=instance)
+      #     for image in images:
+      #         response = remove_file_from_s3(image.url)
+      #         if response:
+      #             image.delete()
       queryset.update(status="completed")
 
   @admin.action(description="Mark as 🍂 Canceled")
   def make_canceled(self, request, queryset):
-      for instance in queryset:
-          images = SetImage.objects.filter(set__order=instance)
-          for image in images:
-              response = remove_file_from_s3(image.url)
-              if response:
-                  image.delete()
+      # for instance in queryset:
+      #     images = SetImage.objects.filter(set__order=instance)
+      #     for image in images:
+      #         response = remove_file_from_s3(image.url)
+      #         if response:
+      #             image.delete()
       queryset.update(status="canceled")
 
   actions = ['make_pending', 'make_in_progress', 'make_completed', 'make_canceled']
@@ -118,6 +136,6 @@ class ExampleImageAdmin(ExtraButtonsMixin, admin.ModelAdmin):
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Tier, TierAdmin)
-admin.site.register(Set, SetAdmin)
+# admin.site.register(Set, SetAdmin)
 # admin.site.register(ExampleImage, ExampleImageAdmin)
-admin.site.register(SetImage)
+# admin.site.register(SetImage)
