@@ -66,7 +66,7 @@ media_data = {
         'after': 'QVFIUm82LU1sR0dsWEtfSVBCWl92WEVXZA2VaS2FFTktycmE5YmNuU2NBb3VkZA2g0dEFpdTlRa3RzUG11SWpfMFFjcTRwTE1SQWd5SGVhUm04UUt2ZA251UXh3'},
         'next': 'https://graph.instagram.com/v18.0/17841462198148728/media?fields=id,caption,media_type,media_url,username,timestamp&access_token=IGQWRQVE5haDQ4WXVNOTFzYXJhVktEREl3X3duVlJMTzljUEJXQk8tWXUtcXRPTXBFS0RndzF6ZAUtIb0xwM1V4LXYtNmRPZAjRIaHBJQ293Rkk2WEpNWlZASXzY3andIRUtYVFlrU3ltbDZAaSlplNktudkJuWVNmeXlkLW90emtBSkVQUQZDZD&limit=25&after=QVFIUm82LU1sR0dsWEtfSVBCWl92WEVXZA2VaS2FFTktycmE5YmNuU2NBb3VkZA2g0dEFpdTlRa3RzUG11SWpfMFFjcTRwTE1SQWd5SGVhUm04UUt2ZA251UXh3'}}
 
-next = media_data['paging']['next']
-print('next == true', next == True)
-exists = 'next' in media_data['paging']
-print('exists --->', exists)
+# next = media_data['paging']['next']
+# print('next == true', next == True)
+# exists = 'next' in media_data['paging']
+# print('exists --->', exists)

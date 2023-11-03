@@ -219,7 +219,7 @@ def instagram_callback(request):
             except Exception as e:
                 print('EXCEPTION --->',e)
         else:
-            break
+            media_data = None
 
     print('post images----->', post_images)
 
