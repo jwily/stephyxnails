@@ -24,8 +24,6 @@ const isOrderDetailsCompleted = (orderDetails) => {
 };
 
 
-
-
 function App() {
 
 
@@ -43,7 +41,7 @@ const orderDetails = {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/order" component={OrderPage} />
-        <Route path="/order-set/start" component={StartForm} />
+        <Route path="/order-set/start" component={StartForm}    />
 
         {isOrderDetailsCompleted(orderDetails) ? (
           <>
@@ -57,8 +55,10 @@ const orderDetails = {
             <Route path="/order-set/edit/:index" component={EditSetForm} />
           </>
         ) : (
+          <>
           // Redirect to the start route if order details are not completed
           <Redirect to="/order-set/start" />
+          </>
         )}
         <Route exact path="/gallery" component={GalleryPage} />
         <Route exact path="/about" component={AboutPage} />
