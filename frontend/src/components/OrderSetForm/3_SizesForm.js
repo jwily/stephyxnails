@@ -171,7 +171,6 @@ function SizesForm() {
           {error && <div className="error-message">{error}</div>}
           {errorRightHand && <div className="error-message">{errorRightHand}</div>}
 
-
         </div>
         <div>
           <button onClick={handleBack}>Back</button>
