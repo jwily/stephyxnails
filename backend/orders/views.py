@@ -1,22 +1,21 @@
-import urllib.request
 import json
+import requests
+import urllib.request
 
-from django.views.generic import TemplateView
+from django.urls import reverse
 from django.conf import settings
-from django.http import HttpResponse, StreamingHttpResponse
 from django.template import engines
+from django.shortcuts import redirect
+from django.http import HttpResponse, StreamingHttpResponse
 
-from django.conf import settings
 from django.core.mail import send_mail
+from django.views.generic import TemplateView
 
 from rest_framework import generics, status
 from rest_framework.response import Response
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
-from django.shortcuts import redirect
-from django.urls import reverse
-import requests
 
 # The imports and method below
 # can be used to count database queries.
@@ -80,6 +79,9 @@ class OrderCreate(generics.ListCreateAPIView):
 
     @staticmethod
     def send_emails(data):
+
+        # This method likely needs some error handling
+
         customer_email = {
             'subject': "Stephy ♥ - I've received your order request!",
             'message': f"""
