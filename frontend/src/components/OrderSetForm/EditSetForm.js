@@ -4,7 +4,7 @@ import { useOrderContext } from '../../context/OrderContext';
 
 const EditSetForm = () => {
     const history = useHistory();
-    const { state, dispatch } = useOrderContext();
+    const { state, dispatch , dataResult} = useOrderContext();
     const { sets } = state;
     const { index } = useParams();
     const setIndex = parseInt(index, 10);
@@ -49,54 +49,25 @@ const EditSetForm = () => {
         <form>
             <div> 
             <label>Tier:</label>
-            <label>
-                <input
-                type="radio"
-                name="tier"
-                value="Budding Tier"
-                checked={editedTier === 'Budding Tier'}
-                onChange={() => setEditedTier('Budding Tier')}
-                />
-                Budding Tier
-                <span> $35 </span>
-                <p> Solid colors (including solid chrome or glitter nails), a few gems/stickers</p>
-            </label>
-            <label>
-                <input
-                type="radio"
-                name="tier"
-                value="Petal Tier"
-                checked={editedTier === 'Petal Tier'}
-                onChange={() => setEditedTier("Petal Tier")}
-                />
-              Petal Tier
-              <span> $50 </span>
-              <p>Ombre, airbrush, French tips, simple painted designs, 1-2 simple characters, some gems/stickers, 1-2 3D charms</p>
-            </label>
-            <label>
-                <input
-                type="radio"
-                name="tier"
-                value="Sakura Tier"
-                checked={editedTier === 'Sakura Tier'}
-                onChange={() => setEditedTier("Sakura Tier")}
-                />
-                Sakura Tier
-                <span> $65 </span>
-                <p>Intricate/detailed nail art, 1-2 detailed portraits OR hand sculpted charms, more/charms</p>
-            </label>
-            <label>
-                <input
-                type="radio"
-                name="tier"
-                value="Blossom Tier"
-                checked={editedTier === 'Blossom Tier'}
-                onChange={() => setEditedTier( 'Blossom Tier' )}
-                />
-                Blossom Tier
-                <span> $80 </span>
-                <p>Intricate designs across all nails, up to 5 hand sculpted charms, large and complex charm arrangements</p>
-            </label>
+            <div>
+            {dataResult.map((tierOption) => (
+              <div key={tierOption.id}>
+                <label>
+                  <input
+                    type="radio"
+                    name="tier"
+                    value={tierOption.name}
+                    checked={editedTier === tierOption.name} // Use editedTier for checked state
+                    onChange={() => setEditedTier(tierOption.name)} // Set editedTier on change
+                    required
+                  />
+                  {tierOption.name}
+                  <span> ${tierOption.price} </span>
+                  <p>{tierOption.description}</p>
+                </label>
+              </div>
+            ))}
+          </div>
             </div>
      
             <div>

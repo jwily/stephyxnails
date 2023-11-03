@@ -9,7 +9,7 @@ function TierForm() {
   const tierInputRef = useRef(null);
   const [tier, setTier] = useState(state.formData.tier)
 
-  console.log(dataResult) // array of 2
+  // console.log(dataResult) // array of 2
 
   const handleNext = (e) => {
     e.preventDefault()
