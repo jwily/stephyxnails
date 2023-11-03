@@ -203,6 +203,7 @@ def instagram_callback(request):
             post_images.append(post)
 
         exists = media_data['paging']['next'] in media_data['paging']
+        print('media data',media_data)
         print('BOOLEAN OF NEXT EXISTS', exists)
         print('MEDIA_DATA-PAGING-NEXT ---->',media_data['paging']['next'])
         if(media_data['paging'] in media_data and media_data['paging']['next'] in media_data['paging']):
