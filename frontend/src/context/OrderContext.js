@@ -19,7 +19,7 @@ const initialState = {
 };
 
 // Define a reducer function to manage state changes
-const reducer = (state=initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_NAME':
       console.log("Setting name to:", action.payload);
@@ -41,21 +41,22 @@ const reducer = (state=initialState, action) => {
         shape: '',
         photo: [],
         description: '',
-        extra: '' }
+        extra: ''
+      }
       return newState;
-      case 'INITIALIZE_STATE':
-        // Load initial state from localStorage if it exists
-        const savedState = localStorage.getItem('orderState');
-        return savedState ? JSON.parse(savedState) : initialState;
-      case 'SAVE_STATE':
-        // Save the state to localStorage
-        localStorage.setItem('orderState', JSON.stringify(state));
-        return state;   
-        case 'CLEAR_LOCAL_STORAGE':
-        // Clear the localStorage
-        localStorage.clear();
-        return { ...initialState }; // Reset state to its initial state
-  
+    case 'INITIALIZE_STATE':
+      // Load initial state from localStorage if it exists
+      const savedState = localStorage.getItem('orderState');
+      return savedState ? JSON.parse(savedState) : initialState;
+    case 'SAVE_STATE':
+      // Save the state to localStorage
+      localStorage.setItem('orderState', JSON.stringify(state));
+      return state;
+    case 'CLEAR_LOCAL_STORAGE':
+      // Clear the localStorage
+      localStorage.clear();
+      return { ...initialState }; // Reset state to its initial state
+
     // case 'CLEAR_FORM':
     //         console.log("Clearing the form");
     //   return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
@@ -66,14 +67,35 @@ const reducer = (state=initialState, action) => {
 
 // Create an OrderProvider component to provide the order context to the application
 export const OrderProvider = ({ children }) => {
-
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [dataResult, setDataResult] = useState(null)
 
-    // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
-    useEffect(() => {
-      dispatch({ type: 'INITIALIZE_STATE' });
-    }, []);
-  
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch('/api/tiers/');
+        if (response.ok) {
+          const result = await response.json();
+          setDataResult(result)
+          console.log(result);
+        } else {
+          throw new Error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+
+
+  // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
+  useEffect(() => {
+    dispatch({ type: 'INITIALIZE_STATE' });
+  }, []);
+
   // Save the state to localStorage whenever it changes
   useEffect(() => {
     dispatch({ type: 'SAVE_STATE' });
@@ -86,7 +108,7 @@ export const OrderProvider = ({ children }) => {
   const scrollToFAQ = useRef()
 
   return (
-    <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ }}>
+    <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ, dataResult }}>
       {children}
     </OrderContext.Provider>
   );
