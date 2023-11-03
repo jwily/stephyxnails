@@ -196,7 +196,8 @@ def instagram_callback(request):
 
     all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
     print('NEXT URL ---->', media_data['paging']['next'])
-    while(post_data):
+    while len(post_data) > 0:
+        print('========= In while loop ===========')
         for post in post_data:
             post_images.append(post)
         if(media_data['paging']['next']):
