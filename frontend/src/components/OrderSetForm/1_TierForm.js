@@ -1,21 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 function TierForm() {
 
+  // Initialize the history object and retrieve state, dispatch, and dataResult from the order context
   const history = useHistory()
   const { state, dispatch, dataResult } = useOrderContext();
+
+  // Reference for the tier input and local state to manage the selected tier
   const tierInputRef = useRef(null);
   const [tier, setTier] = useState(state.formData.tier)
-  const isOrderDetailsComplete = state.name && state.email 
 
-  // console.log(dataResult) // array of 2
+  const isOrderDetailsComplete = state.name && state.email 
 
   const redirectToOrderDetails = () => {
     window.location.href ='/order'
   }
-
 
   const handleNext = (e) => {
     e.preventDefault()
@@ -25,7 +26,6 @@ function TierForm() {
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier } });
 
       history.push('/order-set/shape');
-
     } else {
       // Display an error message using the ref
       tierInputRef.current.setCustomValidity('Please select a Nail Tier before proceeding.');

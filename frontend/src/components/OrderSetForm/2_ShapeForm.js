@@ -22,16 +22,16 @@ function ShapeForm() {
       alert('Please select a Nail Shape before proceeding.');
     } else {
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { shape } });
-      
       history.push('/order-set/photo');
     }
   };
-    const handleBack = () => {
-      // Navigate back to the previous step
-      history.push('/order-set/tier'); 
-    };
+  
+  const handleBack = () => {
+    // Navigate back to the previous step
+    history.push('/order-set/tier'); 
+  };
 
-    return (
+  return (
       <>
             <div>
         {isOrderDetailsComplete ? (

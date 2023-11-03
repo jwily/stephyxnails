@@ -10,7 +10,6 @@ function PhotoForm() {
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [photo, setPhoto] = useState(state.formData.photo);
   const isOrderDetailsComplete = state.name && state.email 
-
     
   const redirectToOrderDetails = () => {
     window.location.href ='/order'
@@ -28,10 +27,8 @@ function PhotoForm() {
     history.push('/order-set/shape'); 
   };
 
-  
   const handleFileChange = () => {
     const file = fileInputRef.current.files[0]; // Get the selected file
-    
     if (file) {
       // Check if the maximum limit of three photos is reached
       if (selectedPhotos.length < 3) {

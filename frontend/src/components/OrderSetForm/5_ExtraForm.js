@@ -2,21 +2,17 @@ import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
-
 function ExtraForm() {
 
     const history = useHistory() 
     const { state, dispatch }= useOrderContext();
-
     const [calculatedValue, setCalculatedValue] = useState(0);
     const [extra, setExtra] = useState(state.formData.extra);
     const isOrderDetailsComplete = state.name && state.email 
-
-
-      
-  const redirectToOrderDetails = () => {
+ 
+    const redirectToOrderDetails = () => {
     window.location.href ='/order'
-  }
+    }
 
     const handleNext = (e) => {
         e.preventDefault();
@@ -41,8 +37,6 @@ function ExtraForm() {
         }
       };
 
-
-  
     return (
         <>
         {isOrderDetailsComplete ? (

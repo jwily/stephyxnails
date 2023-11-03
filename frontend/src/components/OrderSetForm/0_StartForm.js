@@ -3,25 +3,31 @@ import { Link } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 function StartForm( ) {
-        
+
+  // State to manage whether the reset warning is shown
   const [showResetWarning, setShowResetWarning] = useState(false);
+  
+  // Access the state from the order context
   const { state } = useOrderContext();
-  const isOrderDetailsComplete = state.name && state.email 
 
+  const isOrderDetailsComplete = state.name && state.email  // Check if order details are complete
 
+  // Function to handle going back
   const handleBack = () => {
-      if (showResetWarning) {
-        // Navigate back to the previous step
-        window.location.href ='/order';
-      } else {
-        setShowResetWarning(true);
-      };
+    if (showResetWarning) {
+      // Navigate back to the previous step, resetting the form
+      window.location.href ='/order';
+    } else {
+      // Show the reset warning
+      setShowResetWarning(true);
+    };
   }
 
   const redirectToOrderDetails = () => {
     window.location.href ='/order'
   }
 
+  // Function to cancel the reset and hide the warning
   const handleCancelReset = () => {
     setShowResetWarning(false);
   };

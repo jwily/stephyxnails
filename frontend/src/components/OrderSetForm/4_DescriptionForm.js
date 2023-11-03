@@ -6,10 +6,12 @@ function DescriptionFrom() {
 
   const history = useHistory() 
   const { state, dispatch }= useOrderContext();
+  
+  // Create a ref to display error messages
   const errorRef = useRef(null);
+  // Check if order details are complete
   const isOrderDetailsComplete = state.name && state.email 
 
-    
   const redirectToOrderDetails = () => {
     window.location.href ='/order'
   }
@@ -17,9 +19,12 @@ function DescriptionFrom() {
   // Local state to manage the description
   const [description, setDescription] = useState(state.formData.description);
 
-    const handleNext = (e) => {
-      e.preventDefault()
-      if (description && description.length <= 5000) {
+   // Handle the "Next" button click
+  const handleNext = (e) => {
+    e.preventDefault()
+
+    if (description && description.length <= 5000) {
+      // Update the form data in the context with the description
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { description } });
 
       history.push('/order-set/extra'); // Navigate to the next form question
@@ -32,13 +37,13 @@ function DescriptionFrom() {
     }
   };
 
-    const handleBack = () => {
-      // Navigate back to the previous step
-      history.push('/order-set/photo');
-    };
+  const handleBack = () => {
+    // Navigate back to the previous step
+    history.push('/order-set/photo');
+  };
   
   
-    return (
+  return (
       <>
       {isOrderDetailsComplete ? (
         <section> 

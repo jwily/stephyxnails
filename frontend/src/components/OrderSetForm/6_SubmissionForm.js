@@ -24,17 +24,19 @@ function SubmissionSetForm() {
   }
 
   const handleSubmit = () => {
-    // Dispatch an action to save the form data and navigate to the '/review-order' page
-
+    // Create a copy of the current sets array in the state
     const updatedSets = [...state.sets];
 
+    // Update the set at the current setCount with the formData
     updatedSets[setCount] = formData;
 
+    // Dispatch an action to update the sets array in the state
     dispatch({ type: 'UPDATE_SETS', payload: updatedSets });
 
+    // Dispatch an action to save the form data
+    dispatch({ type: 'SAVE_FORM_DATA' });
 
-  // Dispatch an action to save the form data
-  dispatch({ type: 'SAVE_FORM_DATA' });
+    // Dispatch an action to save the form data
     history.push('/review-order');
   };
 
