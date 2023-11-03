@@ -46,6 +46,11 @@ function SubmissionSetForm() {
       // Dispatch actions to add the current set's data, clear the form, and navigate to '/order-set/tier'
       dispatch({ type: 'ADD_SET', payload: formData });
       dispatch({ type: 'CLEAR_FORM' });
+
+      // Clear the local storage
+    localStorage.clear();
+
+
       history.push('/order-set/tier');
   };
 
