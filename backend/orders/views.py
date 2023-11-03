@@ -206,9 +206,9 @@ def instagram_callback(request):
         for post in post_data:
             post_images.append(post)
 
-        exists = media_data['paging']['next'] in media_data
+        exists = 'next' in media_data['paging']
         # print('media data',media_data)
-        print('MEDIA_DATA-Paging-cursors-next in media data', exists)
+        print('next in media data-paging', exists)
         print('MEDIA_DATA-PAGING-NEXT ---->',media_data['paging']['next'])
         if('paging' in media_data and 'next' in media_data['paging']):
             try:
