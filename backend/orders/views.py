@@ -13,11 +13,12 @@ from django.views.generic import TemplateView
 
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
 
-from aws import upload_file_to_s3
+from .aws import upload_file_to_s3
 
 # The imports and method below
 # can be used to count database queries.
@@ -46,6 +47,8 @@ class OrderCreate(generics.ListCreateAPIView):
     queryset = Order.objects.prefetch_related('sets__images')
     serializer_class = OrderSerializer
 
+    # permission_classes = [AllowAny]
+
     @staticmethod
     def parse_data(request_data):
 
@@ -54,17 +57,11 @@ class OrderCreate(generics.ListCreateAPIView):
         json_data = request_data['json'].read().decode('utf-8')
         data = json.loads(json_data)
 
-        # print('JSON as dict:', data)
-
-        data['sets'][0]['images'].append({"description": "Hi", "url": "https://www.spanishdict.com/"})
-
-        # print(data)
-
         for key in request_data:
             if 'files' in key:
 
                 split_key = key.split('_')
-                set_number = split_key[2]
+                set_number = int(split_key[2])
 
                 image_files = request_data.getlist(key)
 
@@ -72,8 +69,9 @@ class OrderCreate(generics.ListCreateAPIView):
                 # print(image_files)
 
                 for image in image_files:
-                    response = upload_file_to_s3(image)
-                    print(response)
+                    url = upload_file_to_s3(image)
+                    parent_set = data['sets'][set_number]
+                    parent_set['images'].append({'url': url})
 
         return data
 

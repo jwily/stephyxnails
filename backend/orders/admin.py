@@ -10,6 +10,7 @@ from django.utils.crypto import get_random_string
 
 from admin_extra_buttons.api import ExtraButtonsMixin, button
 from .models import Order, Set, Tier, SetImage, ExampleImage, STATUS_CHOICES
+from .aws import remove_file_from_s3
 
 # Register your models here.
 
@@ -28,10 +29,6 @@ class OrderAdmin(admin.ModelAdmin):
   inlines = [SetInline]
   list_display = ['__str__', 'name', 'email', 'instagram', 'emoji_status', 'created', 'updated']
 
-  @admin.action(description="Mark as 🌺 Completed")
-  def make_completed(self, request, queryset):
-      queryset.update(status="completed")
-
   @admin.action(description="Mark as 🌱 Pending")
   def make_pending(self, request, queryset):
       queryset.update(status="pending")
@@ -40,8 +37,24 @@ class OrderAdmin(admin.ModelAdmin):
   def make_in_progress(self, request, queryset):
       queryset.update(status="in_progress")
 
+  @admin.action(description="Mark as 🌺 Completed")
+  def make_completed(self, request, queryset):
+      for instance in queryset:
+          images = SetImage.objects.filter(set__order=instance)
+          for image in images:
+              response = remove_file_from_s3(image.url)
+              if response:
+                  image.delete()
+      queryset.update(status="completed")
+
   @admin.action(description="Mark as 🍂 Canceled")
   def make_canceled(self, request, queryset):
+      for instance in queryset:
+          images = SetImage.objects.filter(set__order=instance)
+          for image in images:
+              response = remove_file_from_s3(image.url)
+              if response:
+                  image.delete()
       queryset.update(status="canceled")
 
   actions = ['make_pending', 'make_in_progress', 'make_completed', 'make_canceled']
@@ -107,4 +120,4 @@ admin.site.register(Order, OrderAdmin)
 admin.site.register(Tier, TierAdmin)
 admin.site.register(Set, SetAdmin)
 # admin.site.register(ExampleImage, ExampleImageAdmin)
-# admin.site.register(SetImage)
+admin.site.register(SetImage)
