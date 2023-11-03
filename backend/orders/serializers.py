@@ -40,7 +40,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Order
-    fields = ['id', 'name', 'email', 'instagram', 'created', 'updated', 'sets', 'status']
+    fields = ['id', 'name', 'email', 'instagram', 'created', 'updated', 'sets', 'status', 'recaptcha']
 
   def create(self, validated_data):
     sets_data = validated_data.pop('sets')
