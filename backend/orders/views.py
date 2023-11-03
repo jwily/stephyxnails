@@ -191,6 +191,10 @@ def instagram_callback(request):
     media_response = requests.get(media_request_url)
     media_data = media_response.json()
 
+    # while media_request_url:
+
+    #     request = requests.get(media_request_url)
+    #     media_data =request.json()
 
     post_images = []
 
@@ -202,13 +206,13 @@ def instagram_callback(request):
         for post in post_data:
             post_images.append(post)
 
-        exists = media_data['paging']['next'] in media_data['paging']
-        print('media data',media_data)
-        print('BOOLEAN OF NEXT EXISTS', exists)
-        print('MEDIA_DATA-PAGING-NEXT ---->',media_data['paging']['next'])
-        if(media_data['paging'] in media_data and media_data['paging']['next'] in media_data['paging']):
+        exists = media_data['paging']['cursors']['next'] in media_data
+        # print('media data',media_data)
+        print('MEDIA_DATA-Paging-cursors-next in media data', exists)
+        print('MEDIA_DATA-PAGING-NEXT ---->',media_data['paging']['cursors']['next'])
+        if(media_data['paging'] in media_data and media_data['paging']['cursors']['next'] in media_data['paging']['cursors']):
             try:
-                next_response = requests.get(media_data['paging']['next'])
+                next_response = requests.get(media_data['paging']['cursors']['next'])
                 media_data = next_response.json()
 
                 print('NEXT DATA ---->', media_data)
