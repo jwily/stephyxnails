@@ -1,4 +1,4 @@
-import urllib.request
+    import urllib.request
 
 from django.views.generic import TemplateView
 from django.conf import settings
@@ -202,9 +202,10 @@ def instagram_callback(request):
         for post in post_data:
             post_images.append(post)
 
-        # exists = media_data['paging']['next'] in media_data
-        # print('BOOLEAN OF NEXT EXISTS', exists)
-        if(media_data['paging']['next'] in media_data):
+        exists = media_data['paging']['next'] in media_data['paging']
+        print('BOOLEAN OF NEXT EXISTS', exists)
+        print('MEDIA_DATA-PAGING-NEXT ---->',media_data['paging']['next'])
+        if(media_data['paging'] in media_data and media_data['paging']['next'] in media_data['paging']):
             try:
                 next_response = requests.get(media_data['paging']['next'])
                 media_data = next_response.json()
