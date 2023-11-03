@@ -18,12 +18,29 @@ from django.shortcuts import redirect
 from django.urls import reverse
 import requests
 
+# The imports and method below
+# can be used to count database queries.
+# Use the method as a decorator on a given function.
+
+# from django.db import connection, reset_queries
+
+# def count_queries(func):
+#     def wrapper(*args, **kwargs):
+#         reset_queries()
+#         result = func(*args, **kwargs)
+#         print(f'Number of Queries: {len(connection.queries)}')
+#         return result
+#     return wrapper
+
 # Seems like we ultimately don't need a /orders/ GET route
+# so when ready, we should change this to just a CreateListAPIView
 class OrderCreate(generics.ListCreateAPIView):
-    print('in create order')
-    queryset = Order.objects.all()
+
+    # The "prefetch" method allows for fewer queries
+    # Kind of like eager loading I think?
+    queryset = Order.objects.prefetch_related('sets__images')
     serializer_class = OrderSerializer
-    # permission_classes = [AllowAny]
+
     def create(self, request, *args, **kwargs):
 
         print('>>>', request.data)
@@ -55,8 +72,8 @@ class OrderCreate(generics.ListCreateAPIView):
             'recipient_list': ['johnlee1120@gmail.com']
         }
 
-        send_mail(**customer_email)
-        send_mail(**owner_email)
+        # send_mail(**customer_email)
+        # send_mail(**owner_email)
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
@@ -65,7 +82,7 @@ class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-class SetList(generics.ListAPIView):
+class SetList(generics.ListCreateAPIView):
     queryset = Set.objects.all()
     serializer_class = SetSerializer
 
@@ -92,14 +109,10 @@ class ExampleImageDetail(generics.RetrieveUpdateDestroyAPIView):
 class SetImageList(generics.ListCreateAPIView):
     queryset = SetImage.objects.all()
     serializer_class = SetImageSerializer
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        print('request--->', dir(request.data['image']))
-        print('request--->', request.data['image'].file)
-        # <class 'django.core.files.uploadedfile.InMemoryUploadedFile'>
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+class SetImageDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SetImage.objects.all()
+    serializer_class = SetImageSerializer
 
 # class SetImageDetail(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = SetImage.objects.all()
@@ -182,12 +195,10 @@ def instagram_callback(request):
 
     if not state or state != expected_state:
         # Possible CSRF attack
-        print('>>>', 'State not matching')
         return redirect('admin:orders_exampleimage_changelist')
 
     code = request.GET.get('code')
     if not code:
-        print('>>>', 'No code detected')
         return redirect('admin:orders_exampleimage_changelist')
 
     # Exchange the code for an access token
@@ -209,12 +220,12 @@ def instagram_callback(request):
     media_data = media_response.json()
 
     post_data = media_data['data']
-    print('POST DATA ----->', post_data)
 
     all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
 
     for post in post_data:
       if post['media_type'] == 'IMAGE' and post['id'] not in all_ids:
+          # Should we get rid of the try catch here?
           try:
             ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
           except Exception as e:

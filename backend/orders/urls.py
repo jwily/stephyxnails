@@ -9,7 +9,7 @@ urlpatterns = [
     path('api/sets/', views.SetList.as_view()),
     path('api/sets/<int:pk>/', views.SetDetail.as_view()),
     path('api/tiers/', views.TierList.as_view()),
-    path('api/setimages/', views.SetImageList.as_view())
+    path('api/set_images/', views.SetImageList.as_view())
 ]
 
 # urlpatterns = format_suffix_patterns(urlpatterns)

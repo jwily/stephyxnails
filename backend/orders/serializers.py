@@ -10,7 +10,6 @@ class ExampleImageSerializer(serializers.ModelSerializer):
     fields = ['id', 'url', 'tier', 'created', 'instagram_id']
 
 class TierSerializer(serializers.ModelSerializer):
-  # tier_images = ExampleImageSerializer(many=True, read_only=True)
 
   class Meta:
     model = Tier
@@ -26,10 +25,7 @@ class SetImageSerializer(serializers.ModelSerializer):
 
 class SetSerializer(serializers.ModelSerializer):
 
-  # We were having trouble when using just the "TierSerializer"
-  # With that, the POST request was expecting a complete tier object
-  # By changing it to this thing, we can pass in just the tier's PK
-  tier = serializers.PrimaryKeyRelatedField(queryset=Tier.objects.all())
+  # tier = serializers.PrimaryKeyRelatedField(queryset=Tier.objects.all())
   order = serializers.PrimaryKeyRelatedField(read_only=True)
   images = SetImageSerializer(many=True)
 
@@ -43,7 +39,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Order
-    fields = ['id', 'name', 'email', 'instagram', 'created', 'updated', 'sets', 'status']
+    fields = ['id', 'name', 'email', 'instagram', 'created', 'updated', 'status', 'sets']
 
   def create(self, validated_data):
     sets_data = validated_data.pop('sets')
@@ -54,8 +50,8 @@ class OrderSerializer(serializers.ModelSerializer):
     order = Order.objects.create(**validated_data)
 
     for set_data in sets_data:
-        try:
-          Set.objects.create(order=order, **set_data)
-        except Exception as e:
-          print('EXCEPTION --->', e)
+        images_data = set_data.pop('images')
+        new_set = Set.objects.create(order=order, **set_data)
+        for image_data in images_data:
+          SetImage.objects.create(set=new_set, **image_data)
     return order
