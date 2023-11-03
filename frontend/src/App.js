@@ -24,7 +24,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={LandingPage}/>
             <Route exact path="/order" component={OrderPage}/>
-            <Route path="/order-set/start" component={StartForm} />
+          <Route path="/order-set/start" component={StartForm} />
           <Route path="/order-set/tier" component={TierForm} />
           <Route path="/order-set/shape" component={ShapeForm} />
           <Route path="/order-set/photo" component={PhotoForm} />

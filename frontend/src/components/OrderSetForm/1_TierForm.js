@@ -28,7 +28,7 @@ function TierForm() {
 
   const handleBack = () => {
     // Navigate back to the previous step
-    window.location.href = '/order-set/tier'; // Replace 'previous-step-url' with the actual URL for the previous step;
+    window.location.href = '/order-set/start'; // Replace 'previous-step-url' with the actual URL for the previous step;
   };
 
   return (
