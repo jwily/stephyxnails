@@ -17,6 +17,8 @@ from rest_framework.response import Response
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
 
+from aws import upload_file_to_s3
+
 # The imports and method below
 # can be used to count database queries.
 # Use the method as a decorator on a given function.
@@ -66,16 +68,12 @@ class OrderCreate(generics.ListCreateAPIView):
 
                 image_files = request_data.getlist(key)
 
-                print(set_number, type(image_files))
-                print(image_files)
+                # print(set_number, type(image_files))
+                # print(image_files)
 
-                # So we get an image file
-                # and indices that help us to identify
-                # which set of the order it belongs to
-
-                # We could now do the AWS thing
-                # then we could fill the "data" dictionary
-                # with the appropriate URLs
+                for image in image_files:
+                    response = upload_file_to_s3(image)
+                    print(response)
 
         return data
 
