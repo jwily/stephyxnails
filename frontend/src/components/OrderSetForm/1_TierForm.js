@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
@@ -11,8 +11,17 @@ function TierForm() {
   // Reference for the tier input and local state to manage the selected tier
   const tierInputRef = useRef(null);
   const [tier, setTier] = useState(state.formData.tier)
+  const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
   const isOrderDetailsComplete = state.name && state.email 
+
+  useEffect(() => {
+    // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
+    setTimeout(() => {
+      setIsLoading(false); // Set loading to false after the delay
+    }, 100);  
+    // Add dependencies as needed
+  }, []);
 
   const redirectToOrderDetails = () => {
     window.location.href ='/order'
@@ -46,6 +55,10 @@ function TierForm() {
 
   return (
     <>
+     {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
      {isOrderDetailsComplete ? (
       <section>
       <h1>1.Choose a Nail Tier</h1>
@@ -79,15 +92,15 @@ function TierForm() {
       </form>
        </div>
     </section>
-         
-        ) : (
-          <div>
-            <p>Please complete your order details before proceeding.</p>
-            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
-          </div>
-        )}
-      
+       ) : (
+        <div>
+          <p>Please complete your order details before proceeding.</p>
+          <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+        </div>
+      )}
     </>
+  )}
+</>
   );
 }
 

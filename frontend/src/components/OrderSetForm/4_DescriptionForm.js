@@ -1,4 +1,4 @@
-import React , {useRef, useState} from 'react';
+import React , {useRef, useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
@@ -6,11 +6,20 @@ function DescriptionFrom() {
 
   const history = useHistory() 
   const { state, dispatch }= useOrderContext();
-  
+  const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
+
   // Create a ref to display error messages
   const errorRef = useRef(null);
   // Check if order details are complete
   const isOrderDetailsComplete = state.name && state.email 
+
+  useEffect(() => {
+    // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
+    setTimeout(() => {
+      setIsLoading(false); // Set loading to false after the delay
+    }, 100);  
+    // Add dependencies as needed
+  }, []);
 
   const redirectToOrderDetails = () => {
     window.location.href ='/order'
@@ -45,6 +54,10 @@ function DescriptionFrom() {
   
   return (
       <>
+         {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
       {isOrderDetailsComplete ? (
         <section> 
         <h2>4. Nail Description</h2>
@@ -75,8 +88,9 @@ function DescriptionFrom() {
             <button onClick={redirectToOrderDetails}>Complete Order Details</button>
           </div>
         )}
-      
       </>
+    )}
+  </>
     );
 }
   

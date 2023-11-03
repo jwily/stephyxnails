@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
@@ -6,11 +6,18 @@ function StartForm( ) {
 
   // State to manage whether the reset warning is shown
   const [showResetWarning, setShowResetWarning] = useState(false);
-  
   // Access the state from the order context
   const { state } = useOrderContext();
-
   const isOrderDetailsComplete = state.name && state.email  // Check if order details are complete
+  const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
+  
+  useEffect(() => {
+    // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
+    setTimeout(() => {
+      setIsLoading(false); // Set loading to false after the delay
+    }, 100);  
+    // Add dependencies as needed
+  }, []);
 
   // Function to handle going back
   const handleBack = () => {
@@ -33,35 +40,31 @@ function StartForm( ) {
   };
 
   return (
-    <div>
-      
-      <div>
-        <h1>It sounds like you're ready to start building custom nail sets!</h1>
-      </div>
-{/* 
-      <div>
-        <h2>Click the button below to start the form:</h2>
-          <Link to="/order-set/tier">
-            <button>Start Form</button>
-          </Link>
-      </div> */}
+    <>
+    {isLoading ? ( // Display loading indicator while isLoading is true
+      <div>Loading...</div>
+    ) : (
+      <>
+        <div>
+          <h1>It sounds like you're ready to start building custom nail sets!</h1>
+        </div>
 
-      <div>
-        <h2>Click the button below to start the form:</h2>
-        {isOrderDetailsComplete ? (
-          <Link to="/order-set/tier">
-            <button>Start Form</button>
-          </Link>
-        ) : (
-          <div>
-            <p>Please complete your order details before proceeding.</p>
-            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
-          </div>
-        )}
-      </div>
+        <div>
+          <h2>Click the button below to start the form:</h2>
+          {isOrderDetailsComplete ? (
+            <Link to="/order-set/tier">
+              <button>Start Form</button>
+            </Link>
+          ) : (
+            <div>
+              <p>Please complete your order details before proceeding.</p>
+              <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+            </div>
+          )}
+        </div>
 
-      <div>
-        {showResetWarning ? (
+        <div>
+          {showResetWarning ? (
             <div>
               <p style={{ color: 'red' }}>
                 Going back will reset your form. Are you sure you want to proceed?
@@ -74,15 +77,18 @@ function StartForm( ) {
               <div>
                 <button onClick={handleCancelReset}>No, I don't want to proceed</button>
               </div>
-          </div>
-        ) : (
-          <div>
-            <button onClick={handleBack}>Back</button>
-          </div>
-        )}
-      </div>
+            </div>
 
-    </div>
+          ) : (
+            <div>
+              <button onClick={handleBack}>Back</button>
+            </div>
+          )}
+        </div>
+      </>
+    )}
+  </>
+
   );
 }
 

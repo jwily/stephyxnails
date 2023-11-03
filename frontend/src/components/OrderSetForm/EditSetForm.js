@@ -8,6 +8,7 @@ const EditSetForm = () => {
     const { sets } = state;
     const { index } = useParams();
     const setIndex = parseInt(index, 10);
+    const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
     const isOrderDetailsComplete = state.name && state.email 
 
     const [editedTier, setEditedTier] = useState('');
@@ -49,6 +50,10 @@ const EditSetForm = () => {
 
   return (
     <>
+       {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
       {isOrderDetailsComplete ? (
         <div>
           <div></div>
@@ -130,7 +135,6 @@ const EditSetForm = () => {
           </div>
   
     </div>
-        
         ) : (
           <div>
             <p>Please complete your order details before proceeding.</p>
@@ -138,6 +142,8 @@ const EditSetForm = () => {
           </div>
         )}
       </>
+    )}
+  </>
       
   );
 };

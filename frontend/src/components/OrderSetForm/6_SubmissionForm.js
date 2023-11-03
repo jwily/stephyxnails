@@ -24,7 +24,6 @@ function SubmissionSetForm() {
   }
 
   const handleSubmit = () => {
-
     // Ensure setCount is within bounds
     const newSetCount = Math.min(setCount, state.sets.length - 1);
 
@@ -38,7 +37,6 @@ function SubmissionSetForm() {
 
     // Dispatch an action to save the form data
     dispatch({ type: 'SAVE_FORM_DATA' });
-
 
     // Dispatch an action to save the form data
     history.push('/review-order');

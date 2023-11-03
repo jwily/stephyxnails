@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
@@ -8,11 +8,20 @@ function ExtraForm() {
     const { state, dispatch }= useOrderContext();
     const [calculatedValue, setCalculatedValue] = useState(0);
     const [extra, setExtra] = useState(state.formData.extra);
+    const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
     const isOrderDetailsComplete = state.name && state.email 
  
     const redirectToOrderDetails = () => {
     window.location.href ='/order'
     }
+
+    useEffect(() => {
+      // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
+      setTimeout(() => {
+        setIsLoading(false); // Set loading to false after the delay
+      }, 100);  
+      // Add dependencies as needed
+    }, []);
 
     const handleNext = (e) => {
         e.preventDefault();
@@ -39,6 +48,10 @@ function ExtraForm() {
 
     return (
         <>
+           {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
         {isOrderDetailsComplete ? (
                 <section> 
                 <h2>5. Charms</h2>
@@ -64,9 +77,9 @@ function ExtraForm() {
             <button onClick={redirectToOrderDetails}>Complete Order Details</button>
           </div>
         )}
-    
-  
-        </>
+      </>
+    )}
+  </>
     );
   }
   

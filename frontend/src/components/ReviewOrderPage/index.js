@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha"
@@ -10,6 +10,7 @@ const ReviewOrderPage = () => {
     const { state, dispatch } = useOrderContext();
     const { name, email, instagram, sets } = state;
     const isOrderDetailsComplete = state.name && state.email 
+    const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
     // Define state variables for edited user information
     const [editedName, setEditedName] = useState(state.name);

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
@@ -9,8 +9,17 @@ function PhotoForm() {
   const fileInputRef = useRef(null);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [photo, setPhoto] = useState(state.formData.photo);
+  const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
   const isOrderDetailsComplete = state.name && state.email 
-    
+
+  useEffect(() => {
+    // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
+    setTimeout(() => {
+      setIsLoading(false); // Set loading to false after the delay
+    }, 100);  
+    // Add dependencies as needed
+  }, []);
+  
   const redirectToOrderDetails = () => {
     window.location.href ='/order'
   }
@@ -55,6 +64,10 @@ function PhotoForm() {
   
   return (
     <>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
 
 {isOrderDetailsComplete ? (
   <section>
@@ -98,9 +111,9 @@ function PhotoForm() {
             <button onClick={redirectToOrderDetails}>Complete Order Details</button>
           </div>
         )}
-      
-    </>
-       
+      </>
+    )}
+  </>
   
   );
 }
