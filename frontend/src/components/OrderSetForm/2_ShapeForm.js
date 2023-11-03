@@ -7,7 +7,10 @@ function ShapeForm() {
   const history = useHistory()
   const { state, dispatch }= useOrderContext();
   const selectRef = useRef(null); // Create a ref for the select element
-  const [shape, setShape] = useState(state.formData.shape)
+  const [shape, setShape] = useState(() => {
+    // Initialize 'shape' with the value from localStorage, or an empty string if not found.
+    return localStorage.getItem('selectedShape') || '';
+  });
   const isOrderDetailsComplete = state.name && state.email 
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
@@ -31,6 +34,8 @@ function ShapeForm() {
       alert('Please select a Nail Shape before proceeding.');
     } else {
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { shape } });
+      // Save the selected 'shape' to local storage
+      localStorage.setItem('selectedShape', shape);
       history.push('/order-set/photo');
     }
   };

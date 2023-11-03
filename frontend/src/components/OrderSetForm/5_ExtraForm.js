@@ -7,7 +7,7 @@ function ExtraForm() {
     const history = useHistory() 
     const { state, dispatch }= useOrderContext();
     const [calculatedValue, setCalculatedValue] = useState(0); // State for the calculated value
-    const [extra, setExtra] = useState(state.formData.extra);
+    const [extra, setExtra] = useState(state.formData.extra || 0);
     const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
     const isOrderDetailsComplete = state.name && state.email 
     const [error, setError] = useState(''); // State to hold error message
@@ -15,6 +15,19 @@ function ExtraForm() {
     const redirectToOrderDetails = () => {
     window.location.href ='/order'
     }
+
+    // Load data from localStorage when the component mounts
+    useEffect(() => {
+      const savedExtra = localStorage.getItem('extra');
+      if (savedExtra) {
+        setExtra(parseInt(savedExtra));
+      }
+    }, []);
+
+    // Save data to localStorage when 'extra' changes
+    useEffect(() => {
+      localStorage.setItem('extra', extra.toString());
+    }, [extra]);
 
     useEffect(() => {
       // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false

@@ -9,6 +9,11 @@ function DescriptionFrom() {
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
   // Create a ref to display error messages
   const errorRef = useRef(null);
+  const [description, setDescription] = useState(() => {
+    // Initialize 'description' with the value from localStorage, or an empty string if not found.
+    return localStorage.getItem('selectedDescription') || '';
+  });
+
   // Check if order details are complete
   const isOrderDetailsComplete = state.name && state.email 
 
@@ -24,9 +29,7 @@ function DescriptionFrom() {
     window.location.href ='/order'
   }
 
-  // Local state to manage the description
-  const [description, setDescription] = useState(state.formData.description);
-
+ 
    // Handle the "Next" button click
   const handleNext = (e) => {
     e.preventDefault()
@@ -37,6 +40,9 @@ function DescriptionFrom() {
 
       history.push('/order-set/extra'); // Navigate to the next form question
       errorRef.current.innerText = ''; // Clear any previous error message
+
+      // Save the entered description to local storage
+      localStorage.setItem('selectedDescription', description);
 
     }  else {
       // Description is empty or too long; show an error message

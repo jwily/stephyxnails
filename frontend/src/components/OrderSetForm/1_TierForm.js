@@ -10,9 +10,9 @@ function TierForm() {
 
   // Reference for the tier input and local state to manage the selected tier
   const tierInputRef = useRef(null);
-  const [tier, setTier] = useState(state.formData?.tier)
+  // Initialize tier state with the value from local storage (if available)
+  const [tier, setTier] = useState(() => localStorage.getItem('selectedTier') || '');
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
-
   const isOrderDetailsComplete = state.name && state.email 
 
   useEffect(() => {
@@ -33,6 +33,9 @@ function TierForm() {
     if (tier) {
       // Dispatch an action to update the tier in the context state
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier } });
+
+      // Save the selected 'tier' to local storage
+      localStorage.setItem('selectedTier', tier);
 
       history.push('/order-set/shape');
     } else {
