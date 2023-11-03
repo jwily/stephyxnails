@@ -48,7 +48,7 @@ class OrderSerializer(serializers.ModelSerializer):
     print('validated_data ---->', validated_data)
     print('recaptcha', recaptcha)
 
-    valid_data: {key: value for key, value in validated_data.items() if key != 'recaptcha'}
+    valid_data = {key: value for key, value in validated_data.items() if key != 'recaptcha'}
     print('valid_data ----->', valid_data )
     try:
       order = Order.objects.create(**valid_data)
