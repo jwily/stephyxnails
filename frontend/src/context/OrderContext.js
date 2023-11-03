@@ -46,13 +46,6 @@ const reducer = (state = initialState, action) => {
         newState.sets = [...newState.sets, newState.formData];
         newState.isCurrentSetAdded = true; // Mark the current set as added
       }
-      // newState.formData = {
-      //   tier: '',
-      //   shape: '',
-      //   photo: [],
-      //   description: '',
-      //   extra: '',
-      // };
       return newState;
 
       case 'MARK_CURRENT_SET_ADDED':
@@ -105,6 +98,22 @@ const reducer = (state = initialState, action) => {
     case 'CLEAR_FORM':
       return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
     
+      case 'INCREMENT_SET_COUNT':
+        return {
+          ...state,
+          setCount: state.setCount + 1,
+        };
+      case 'DECREMENT_SET_COUNT':
+        return {
+          ...state,
+          setCount: state.setCount - 1,
+        };
+      case 'RESET_SET_COUNT':
+        return {
+          ...state,
+          setCount: 0,
+        };
+        
     default:
       return state;
   }

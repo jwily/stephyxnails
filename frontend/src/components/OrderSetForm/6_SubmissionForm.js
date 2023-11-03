@@ -24,17 +24,22 @@ function SubmissionSetForm() {
   }
 
   const handleSubmit = () => {
+
+      // Ensure setCount is within bounds
+    const newSetCount = Math.min(setCount, state.sets.length - 1);
+
+
     // Create a copy of the current sets array in the state
     const updatedSets = [...state.sets];
+    updatedSets[newSetCount] = formData;
 
-    // Update the set at the current setCount with the formData
-    updatedSets[setCount] = formData;
-
+  
     // Dispatch an action to update the sets array in the state
     dispatch({ type: 'UPDATE_SETS', payload: updatedSets });
 
     // Dispatch an action to save the form data
     dispatch({ type: 'SAVE_FORM_DATA' });
+
 
     // Dispatch an action to save the form data
     history.push('/review-order');
