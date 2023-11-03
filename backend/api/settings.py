@@ -75,6 +75,9 @@ MIDDLEWARE = [
 
 # Added stuff rom here...
 STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'mysite/static'),
+]
 
 STORAGES = {
     # Allows WhiteNoise to do its job of compressing and hashing
@@ -189,6 +192,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#EMAIL API
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
@@ -196,6 +200,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
+#INSTAGRAM API
 INSTAGRAM_APP_ID = os.environ.get('INSTAGRAM_APP_ID')
 INSTAGRAM_APP_SECRET = os.environ.get('INSTAGRAM_APP_SECRET')
 
@@ -203,4 +208,21 @@ ADMIN_LOGIN_NAME = os.environ.get('ADMIN_LOGIN_NAME')
 ADMIN_LOGIN_EMAIL = os.environ.get('ADMIN_LOGIN_EMAIL')
 ADMIN_LOGIN_PASSWORD = os.environ.get('ADMIN_LOGIN_PASSWORD')
 
+#RECAPTCHA
 DRF_RECAPTCHA_SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY")
+
+#AWS
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+S3_BUCKET = os.environ.get('stephyxnails')
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+
+# AWS_LOCATION = 'static'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+# DEFAULT_FILE_STORAGE = 'mysite.storage_backends.MediaStorage'
