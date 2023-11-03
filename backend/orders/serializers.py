@@ -50,7 +50,10 @@ class OrderSerializer(serializers.ModelSerializer):
 
     valid_data: {key: value for key, value in validated_data.items() if key != 'recaptcha'}
     print('valid_data ----->', valid_data )
-    order = Order.objects.create(**valid_data)
+    try:
+      order = Order.objects.create(**valid_data)
+    except Exception as e:
+      print('EXCEPTION ---->', e)
     for set_data in sets_data:
         try:
           Set.objects.create(order=order, **set_data)
