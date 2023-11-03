@@ -25,7 +25,7 @@ function PhotoForm() {
 
   const handleBack = () => {
     // Navigate back to the previous step
-    history.push('/order-set/shape'); // Replace 'previous-step-url' with the actual URL for the previous step
+    history.push('/order-set/shape'); 
   };
 
   

@@ -34,7 +34,7 @@ function DescriptionFrom() {
 
     const handleBack = () => {
       // Navigate back to the previous step
-      history.push('/order-set/photo'); // Replace 'previous-step-url' with the actual URL for the previous step
+      history.push('/order-set/photo'); 
     };
   
   

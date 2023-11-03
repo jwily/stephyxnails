@@ -28,7 +28,7 @@ function ShapeForm() {
   };
     const handleBack = () => {
       // Navigate back to the previous step
-      history.push('/order-set/tier'); // Replace 'previous-step-url' with the actual URL for the previous step
+      history.push('/order-set/tier'); 
     };
 
     return (

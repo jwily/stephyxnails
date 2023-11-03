@@ -12,7 +12,7 @@ function StartForm( ) {
   const handleBack = () => {
       if (showResetWarning) {
         // Navigate back to the previous step
-        window.location.href ='/order'; // Replace 'previous-step-url' with the actual URL for the previous step
+        window.location.href ='/order';
       } else {
         setShowResetWarning(true);
       };
