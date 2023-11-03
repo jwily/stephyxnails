@@ -26,7 +26,7 @@ const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if(isCaptchaVerified) {
+        // if(isCaptchaVerified) {
           const recaptchaValue = recaptchaRef.current.getValue()
           try {
             const finalizedInfo = {
@@ -70,9 +70,9 @@ const history = useHistory();
           } catch (error) {
               console.error(error);
           }
-        } else {
-          alert('Please complete the reCAPTCHA verification to submit your order.')
-        }
+        // } else {
+        //   alert('Please complete the reCAPTCHA verification to submit your order.')
+        // }
     }
 
 
