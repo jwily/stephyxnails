@@ -14,6 +14,7 @@ const initialState = {
     photo: '',
     description: '',
     extra: '',
+    extra2: '',
   },
   sets: [],
   setCount: 0, // Initialize setCount to 0
@@ -96,7 +97,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'CLEAR_FORM':
-      return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
+      return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '', extra2: ''} };
     
       case 'INCREMENT_SET_COUNT':
         return {

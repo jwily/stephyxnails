@@ -16,6 +16,8 @@ const EditSetForm = () => {
     const [editedPhoto, setEditedPhoto] = useState('');
     const [editedDescription, setEditedDescription] = useState('');
     const [editedExtra, setEditedExtra] = useState(0);
+    const [editedExtra2, setEditedExtra2] = useState(0);
+
 
       
   const redirectToOrderDetails = () => {
@@ -37,6 +39,7 @@ const EditSetForm = () => {
         setEditedPhoto(sets[setIndex]?.photo);
         setEditedDescription(sets[setIndex]?.description);
         setEditedExtra(sets[setIndex]?.extra);
+        setEditedExtra2(sets[setIndex]?.extra2);
     }, [setIndex, sets]);
 
     const handleSaveSet = () => {
@@ -46,6 +49,8 @@ const EditSetForm = () => {
             photo: editedPhoto,
             description: editedDescription,
              extra: editedExtra,
+             extra2: editedExtra2,
+
         };
 
         const updatedSets = [...sets];
@@ -125,13 +130,21 @@ const EditSetForm = () => {
                       onChange={(e) => setEditedDescription(e.target.value)}
                   />
               </div>
-  
+  2
               <div>
-              <label>Extra:</label>
+              <label>charm:</label>
                   <input
                       type="number"
                       value={editedExtra}
                       onChange={(e) => setEditedExtra(e.target.value)}
+                  />
+              </div>
+              <div>
+              <label>character:</label>
+                  <input
+                      type="number"
+                      value={editedExtra2}
+                      onChange={(e) => setEditedExtra2(e.target.value)}
                   />
               </div>
           </form>

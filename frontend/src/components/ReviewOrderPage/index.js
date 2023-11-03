@@ -211,7 +211,8 @@ const ReviewOrderPage = () => {
                     <p>Shape: {formData.shape}</p>
                     <p>photo: {formData.photo}</p>
                     <p>Description: {formData.description}</p>
-                    <p>Extra: {formData.extra}</p>
+                    <p>charm: {formData.extra}</p>
+                    <p>character: {formData.extra2}</p>
                     <button onClick={() => handleDeleteSet(index)}>Delete Set</button>
                     <div></div>
                     <button onClick={() => handleEditSet(index)}>Edit Set</button>

@@ -48,8 +48,7 @@ function SubmissionSetForm() {
       dispatch({ type: 'CLEAR_FORM' });
 
       // Clear the local storage
-    localStorage.clear();
-
+      localStorage.clear();
 
       history.push('/order-set/tier');
   };
@@ -78,7 +77,9 @@ function SubmissionSetForm() {
             <p>shape: {formData.shape}</p>
             <p>photo: {formData.photo}</p>
             <p>description: {formData.description}</p>
-            <p>extra: {formData.extra}</p>
+            <p>charm: {formData.extra}</p>
+            <p>character: {formData.extra2}</p>
+
           </div>
           
           <div>
