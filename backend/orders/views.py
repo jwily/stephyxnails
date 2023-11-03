@@ -206,13 +206,13 @@ def instagram_callback(request):
         for post in post_data:
             post_images.append(post)
 
-        exists = media_data['paging']['cursors']['next'] in media_data
+        exists = media_data['paging']['next'] in media_data
         # print('media data',media_data)
         print('MEDIA_DATA-Paging-cursors-next in media data', exists)
-        print('MEDIA_DATA-PAGING-NEXT ---->',media_data['paging']['cursors']['next'])
-        if(media_data['paging'] in media_data and media_data['paging']['cursors']['next'] in media_data['paging']['cursors']):
+        print('MEDIA_DATA-PAGING-NEXT ---->',media_data['paging']['next'])
+        if('paging' in media_data and 'next' in media_data['paging']):
             try:
-                next_response = requests.get(media_data['paging']['cursors']['next'])
+                next_response = requests.get(media_data['paging']['next'])
                 media_data = next_response.json()
 
                 print('NEXT DATA ---->', media_data)
