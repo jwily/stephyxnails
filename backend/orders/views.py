@@ -200,7 +200,7 @@ def instagram_callback(request):
 
     all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
     print('NEXT URL ---->', media_data['paging']['next'])
-    while media_data:
+    while media_data is True:
         post_data = media_data['data']
         print('========= In while loop ===========')
         for post in post_data:
@@ -210,7 +210,7 @@ def instagram_callback(request):
         # print('media data',media_data)
         print('next in media data-paging', exists)
         print('MEDIA_DATA-PAGING-NEXT ---->',media_data['paging']['next'])
-        if('paging' in media_data and 'next' in media_data['paging']):
+        if(exists):
             try:
                 next_response = requests.get(media_data['paging']['next'])
                 media_data = next_response.json()
@@ -219,7 +219,7 @@ def instagram_callback(request):
             except Exception as e:
                 print('EXCEPTION --->',e)
         else:
-            media_data = None
+            media_data = False
 
     print('post images----->', post_images)
 
