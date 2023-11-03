@@ -200,7 +200,7 @@ def instagram_callback(request):
 
     all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
     print('NEXT URL ---->', media_data['paging']['next'])
-    while len(media_data['data']) > 0:
+    while media_data:
         post_data = media_data['data']
         print('========= In while loop ===========')
         for post in post_data:
