@@ -16,7 +16,10 @@ function SizesForm() {
   const handleNext = (e) => {
     e.preventDefault();
 
-    dispatch({ type: 'UPDATE_FORM_DATA', payload: { '#####': '#####' } });
+    const left_sizes = leftDisplay.slice(0, 4).join('');
+    const right_sizes = rightDisplay.slice(0, 4).join('');
+
+    dispatch('ACTION_HERE');
 
     history.push('/order-set/#####'); // Navigate to the next form question
   };
@@ -51,6 +54,7 @@ function SizesForm() {
 
     // This allows for variety of input:
     // 2, 7, 6, 7, 9
+    // 2,7,6,7,9
     // 2 7 6 7 9
     // 2-7-5-7-9
 
