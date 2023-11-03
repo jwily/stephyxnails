@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import { useOrderContext } from '../../context/OrderContext';
 
 function StartForm( ) {
         
   const [showResetWarning, setShowResetWarning] = useState(false);
+  const { state } = useOrderContext();
+  const isOrderDetailsComplete = state.name && state.email && state.instagram;
+
 
   const handleBack = () => {
       if (showResetWarning) {
@@ -12,6 +16,10 @@ function StartForm( ) {
       } else {
         setShowResetWarning(true);
       };
+  }
+
+  const redirectToOrderDetails = () => {
+    window.location.href ='/order'
   }
 
   const handleCancelReset = () => {
@@ -24,12 +32,26 @@ function StartForm( ) {
       <div>
         <h1>It sounds like you're ready to start building custom nail sets!</h1>
       </div>
-
+{/* 
       <div>
         <h2>Click the button below to start the form:</h2>
           <Link to="/order-set/tier">
             <button>Start Form</button>
           </Link>
+      </div> */}
+
+      <div>
+        <h2>Click the button below to start the form:</h2>
+        {isOrderDetailsComplete ? (
+          <Link to="/order-set/tier">
+            <button>Start Form</button>
+          </Link>
+        ) : (
+          <div>
+            <p>Please complete your order details before proceeding.</p>
+            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+          </div>
+        )}
       </div>
 
       <div>
