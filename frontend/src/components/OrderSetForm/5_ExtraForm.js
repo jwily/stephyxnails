@@ -6,7 +6,7 @@ function ExtraForm() {
 
     const history = useHistory() 
     const { state, dispatch }= useOrderContext();
-    const [calculatedValue, setCalculatedValue] = useState(0); // State for the calculated value
+    const [calculatedValue, setCalculatedValue] = useState(0);
     const [extra, setExtra] = useState(state.formData.extra || 0);
     const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
     const isOrderDetailsComplete = state.name && state.email 
@@ -16,19 +16,6 @@ function ExtraForm() {
     window.location.href ='/order'
     }
 
-    // Load data from localStorage when the component mounts
-    useEffect(() => {
-      const savedExtra = localStorage.getItem('extra');
-      if (savedExtra) {
-        setExtra(parseInt(savedExtra));
-      }
-    }, []);
-
-    // Save data to localStorage when 'extra' changes
-    useEffect(() => {
-      localStorage.setItem('extra', extra.toString());
-    }, [extra]);
-
     useEffect(() => {
       // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
       setTimeout(() => {
@@ -37,20 +24,37 @@ function ExtraForm() {
       // Add dependencies as needed
     }, []);
 
-    useEffect(() => {
-      // Retrieve the calculatedValue from localStorage when the component loads
-      const savedCalculatedValue = localStorage.getItem('calculatedValue');
-      if (savedCalculatedValue) {
-        setCalculatedValue(parseInt(savedCalculatedValue, 10));
-      }
-    }, []);
-  
-    useEffect(() => {
-      // Calculate the new value and update the calculatedValue
-      setCalculatedValue(extra * 5);
-      // Save the updated calculatedValue to localStorage whenever it changes
-      localStorage.setItem('calculatedValue', calculatedValue.toString());
-    }, [extra, calculatedValue]);
+
+  // Load 'extra' data from localStorage when the component mounts
+  useEffect(() => {
+    const savedExtra = localStorage.getItem('extra');
+    if (savedExtra) {
+      setExtra(parseInt(savedExtra, 10));
+    }
+  }, []);
+
+  // Save 'extra' data to localStorage when 'extra' changes
+  useEffect(() => {
+    localStorage.setItem('extra', extra.toString());
+  }, [extra]);
+
+  // Load 'calculatedValue' from localStorage when the component mounts
+  useEffect(() => {
+    const savedCalculatedValue = localStorage.getItem('calculatedValue');
+    if (savedCalculatedValue) {
+      setCalculatedValue(parseInt(savedCalculatedValue, 10));
+    }
+  }, []);
+
+
+  // Calculate the new value and update 'calculatedValue'
+  useEffect(() => {
+    setCalculatedValue(extra * 5);
+
+    // Save the updated 'calculatedValue' to localStorage whenever it changes
+    localStorage.setItem('calculatedValue', calculatedValue.toString());
+  }, [extra, calculatedValue]);
+
 
     const handleNext = (e) => {
       e.preventDefault();
@@ -62,30 +66,24 @@ function ExtraForm() {
       // Navigate back to the previous step
       history.push('/order-set/description');
     };
-    
+  
+
     const handleInputChange = (e) => {
       const newValue = parseInt(e.target.value, 10);
-
-    if (!isNaN(newValue)) {
-      // Ensure the input is a valid integer
-
-      // Prevent negative numbers
-      if (newValue < 0) {
-        // If the input is negative, set it to 0
-        setExtra(0);
-        setError('Extra cannot be negative.');
-      } else if (newValue > 25) {
-        // Limit the input to a maximum of 25
-        setExtra(25);
-        setError('Extra cannot exceed 25.');
+  
+      if (!isNaN(newValue)) {
+        if (newValue < 0) {
+          setExtra(0);
+          setError('Extra cannot be negative.');
+        } else if (newValue > 25) {
+          setExtra(25);
+          setError('Extra cannot exceed 25.');
+        } else {
+          setExtra(newValue);
+          setError('');
+        }
       } else {
-        setExtra(newValue);
-        setError(''); // Clear any previous error message
-      }
-    } else {
-      // If the input is not a valid number, show an error message
-      setError('Please enter a valid number.');
-
+        setError('Please enter a valid number.');
       }
     };
 
@@ -109,7 +107,7 @@ function ExtraForm() {
                   />
                      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
 
-                  <p>$5 per charm = ${calculatedValue}</p>
+                     <p>$5 per charm = ${calculatedValue}</p>
                 </div>
                 <div>
                   <button onClick={handleBack}>Back</button>
