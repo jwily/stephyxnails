@@ -1,4 +1,4 @@
-    import urllib.request
+import urllib.request
 
 from django.views.generic import TemplateView
 from django.conf import settings
