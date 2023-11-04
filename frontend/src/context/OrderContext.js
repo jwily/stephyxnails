@@ -125,8 +125,7 @@ const reducer = (state = initialState, action) => {
               photo: newPhotos,
             },
           };
-          
-          return state; // Maximum of 3 photos reached, no change needed
+        
           case 'REMOVE_PHOTO':
             return {
               ...state,
@@ -178,24 +177,13 @@ export const OrderProvider = ({ children }) => {
     }, [state]);
 
 
-     // Example of how to use the 'ADD_PHOTO' action
-     const addPhoto = (photoURL) => {
-      dispatch({ type: "ADD_PHOTO", payload: photoURL });
-    };
-
-    // Example of how to use the 'REMOVE_PHOTO' action
-    const removePhoto = (photoURL) => {
-      dispatch({ type: "REMOVE_PHOTO", payload: photoURL });
-    };
-
-
   const scrollToOrder = useRef()
   const scrollToAbout = useRef()
   const scrollToGallery = useRef()
   const scrollToFAQ = useRef()
 
   return (
-    <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ, dataResult, addPhoto, removePhoto}}>
+    <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ, dataResult, }}>
       {children}
     </OrderContext.Provider>
   );

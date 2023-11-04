@@ -5,9 +5,7 @@ import { useOrderContext } from '../../context/OrderContext';
 function PhotoForm() {
 
   const history = useHistory();
-
   const { state, dispatch } = useOrderContext();
-
   const fileInputRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
   const isOrderDetailsComplete = state.name && state.email 
@@ -41,6 +39,7 @@ function PhotoForm() {
     // dispatch({ type: 'UPDATE_FORM_DATA', payload: { photo } });
     history.push('/order-set/description');
   };
+
   const handleFileChange = (e) => {
     const files = e.target.files;
     const uploadedPhotos = [];
@@ -57,14 +56,14 @@ function PhotoForm() {
           // Create a URL for the selected file
           uploadedPhotos.push(URL.createObjectURL(file));
         }
+
+        
   
-                // Update the local state to trigger re-render
-                setLocalPhotos([...localPhotos, ...uploadedPhotos]);
-
-
-
+        // Update the local state to trigger re-render
+        setLocalPhotos(uploadedPhotos);
+                
         // Dispatch an action to add the uploaded photos to the state
-        dispatch({ type: 'ADD_PHOTO', payload: [...state.formData.photo, ...uploadedPhotos] });
+        dispatch({ type: 'ADD_PHOTO', payload: uploadedPhotos });
       } else {
         alert("You can only upload 4 photos");
       }
@@ -77,7 +76,6 @@ function PhotoForm() {
     console.log('Updated Photos:', updatedPhotos); // Log the updated photos
     dispatch({ type: 'REMOVE_PHOTO', payload: updatedPhotos });
   };
-  
 
   const handleBack = () => {
     // Navigate back to the previous step
@@ -88,55 +86,50 @@ function PhotoForm() {
     document.getElementById('fileInput').click();
   };
 
-
-
-    // Style for the displayed image
-    const imageStyle = {
-      width: '150px', // Adjust the width to your desired size
-      height: '150px', // Adjust the height to your desired size
-    };
-  
+  // Style for the displayed image
+  const imageStyle = {
+    width: '150px', // Adjust the width to your desired size
+    height: '150px', // Adjust the height to your desired size
+  };
   
   return (
     <>
-      {isLoading ? (
+    {isLoading ? (
         <div>Loading...</div>
       ) : (
         <>
-
           {isOrderDetailsComplete ? (
             <section>
+              <div>
+                <h2>Photo Upload</h2>
+              <div> 
+            <input
+                type="file"
+                accept="image/*"
+                id="fileInput"
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+                multiple // Allow multiple file selection
+            />
+              <button onClick={openFileInput}>Upload Photo</button>
+            
             <div>
-            <h2>Photo Upload</h2>
-            <div> 
-          <input
-                  type="file"
-                  accept="image/*"
-                  id="fileInput"
-                  style={{ display: 'none' }}
-                  onChange={handleFileChange}
-                  multiple // Allow multiple file selection
-                />
-
-            <button onClick={openFileInput}>Upload Photo</button>
-               <div>
-                {Array.isArray(state.formData.photo) && state.formData.photo.map((photo, index) => (
-            <div key={index}>
-              <img src={photo} alt={`Selected Image ${index + 1}`} />
-              <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+            {Array.isArray(state.formData.photo) && state.formData.photo.map((photo, index) => (
+                <div key={index}>
+                  <img src={photo} 
+                  alt={`Selected Image ${index + 1}`} 
+                  style={imageStyle} />
+                  <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                </div>
+            ))}
             </div>
-        ))}
-
-      </div>
-              </div>
-
+            </div>
             <div>
               <button onClick={handleBack}>Back</button>
               <button type="submit" onClick={handleNext}>Next</button>
             </div>
             </div>
           </section>
-        
         ) : (
           <div>
             <p>Please complete your order details before proceeding.</p>
