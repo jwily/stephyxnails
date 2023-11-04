@@ -13,6 +13,7 @@ const initialState = {
     shape: '',
     leftDisplay: '',
     rightDisplay: '',
+    photo: [],
     description: '',
     extra: '',
     extra2: '',
@@ -115,6 +116,26 @@ const reducer = (state = initialState, action) => {
           ...state,
           setCount: 0,
         };
+        case 'ADD_PHOTO':
+          const newPhotos = [...state.formData.photo, action.payload];
+          return {
+            ...state,
+            formData: {
+              ...state.formData,
+              photo: newPhotos,
+            },
+          };
+          
+          return state; // Maximum of 3 photos reached, no change needed
+          case 'REMOVE_PHOTO':
+            return {
+              ...state,
+              formData: {
+                ...state.formData,
+                photo: action.payload,
+              },
+            };
+          
         
     default:
       return state;
@@ -157,13 +178,24 @@ export const OrderProvider = ({ children }) => {
     }, [state]);
 
 
+     // Example of how to use the 'ADD_PHOTO' action
+     const addPhoto = (photoURL) => {
+      dispatch({ type: "ADD_PHOTO", payload: photoURL });
+    };
+
+    // Example of how to use the 'REMOVE_PHOTO' action
+    const removePhoto = (photoURL) => {
+      dispatch({ type: "REMOVE_PHOTO", payload: photoURL });
+    };
+
+
   const scrollToOrder = useRef()
   const scrollToAbout = useRef()
   const scrollToGallery = useRef()
   const scrollToFAQ = useRef()
 
   return (
-    <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ, dataResult }}>
+    <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ, dataResult, addPhoto, removePhoto}}>
       {children}
     </OrderContext.Provider>
   );
