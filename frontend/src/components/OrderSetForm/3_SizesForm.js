@@ -15,9 +15,9 @@ function SizesForm() {
 
   const [errorLeftHand, setErrorLeftHand] = useState('');
   const [errorRightHand, setErrorRightHand] = useState('');
+  const [errorLeftHand2, setErrorLeftHand2] = useState('');
+  const [errorRightHand2, setErrorRightHand2] = useState('');
   
-  const [error, setError] = useState('');
-
   const isOrderDetailsComplete = state.name && state.email 
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
@@ -33,26 +33,24 @@ function SizesForm() {
     window.location.href ='/order'
   }
 
-  const handleNext = (e) => {
-    e.preventDefault();
 
-    const isLeftHandValid = validateHand(leftDisplay);
-    const isRightHandValid = validateHand(rightDisplay);
-    const isBothHandsValid = isLeftHandValid && isRightHandValid;
-  
-    if (!isBothHandsValid) {
-      setError("Please provide input for all finger display indices in both hands.");
-    } else {
-      setError(""); // Clear the error message if both hands are valid
+  const handleNext = (e) => {
+      e.preventDefault();
+
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { leftDisplay, rightDisplay } });
       history.push('/order-set/photo'); // Navigate to the next form question
-    }
+    
   }
 
-  const validateHand = (handDisplay) => {
-    const pattern = /^\d{5}$/;
-    return pattern.test(handDisplay.join(''));
+
+   const validateHand = (handDisplay) => {
+    const sanitizedInput = handDisplay.join('').replace(/[^0-9,. -]/g, ''); // Remove characters that are not numbers, commas, periods, spaces, or dashes
+    const numbers = sanitizedInput.split(/[,. -]+/); // Split the input by commas, periods, spaces, or dashes
+  
+    return numbers.length === 5 && numbers.every((num) => !isNaN(parseFloat(num.trim())));
   };
+
+
 
   const handleBack = () => {
     // Navigate back to the previous step
@@ -95,9 +93,22 @@ function SizesForm() {
       }
     }
 
-    setLeftDisplay(newDisplay);
-  }
 
+
+    setLeftDisplay(newDisplay);
+
+        // Validate leftDisplay
+        const isLeftHandValid = validateHand(newDisplay);
+
+        if (!isLeftHandValid) {
+          setErrorLeftHand2("Please provide input for all finger display indices in the left hand.");
+        } else {
+          setErrorLeftHand2("");
+        }
+
+    }
+
+  // on change
   const textToRightDisplay = (e, setRightText, setRightDisplay) => {
 
     const value = e.target.value;
@@ -129,7 +140,20 @@ function SizesForm() {
       }
     }
 
-    setRightDisplay(newDisplay);
+
+    setRightDisplay(newDisplay); // Update the rightDisplay
+
+    // Validate rightDisplay
+    const isRightHandValid = validateHand(newDisplay);
+
+    if (!isRightHandValid) {
+      setErrorRightHand2("Please provide input for all finger display indices in the right hand.");
+    } else {
+      setErrorRightHand2(" ");
+    }
+
+   
+
   }
 
   // HTML and CSS here are just a rough draft,
@@ -173,6 +197,8 @@ function SizesForm() {
           />
           <p>
           {errorLeftHand && <div className="error-message">{errorLeftHand}</div>}
+          {errorLeftHand2 && <div className="error-message">{errorLeftHand2}</div>}
+
 
 
             Right Hand
@@ -184,6 +210,8 @@ function SizesForm() {
 
           />
           {errorRightHand && <div className="error-message">{errorRightHand}</div>}
+          {errorRightHand2 && <div className="error-message">{errorRightHand2}</div>}
+
 
         </div>
         <div>
