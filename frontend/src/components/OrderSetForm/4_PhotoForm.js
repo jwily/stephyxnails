@@ -57,8 +57,7 @@ function PhotoForm() {
           uploadedPhotos.push(URL.createObjectURL(file));
         }
 
-        
-  
+    
         // Update the local state to trigger re-render
         setLocalPhotos(uploadedPhotos);
                 
@@ -103,6 +102,21 @@ function PhotoForm() {
               <div>
                 <h2>Photo Upload</h2>
               <div> 
+      
+            {/* <div>
+            {Array.isArray(state.formData.photo) && state.formData.photo.map((photo, index) => (
+              
+                <div key={index}>
+                  <img src={photo} 
+                  alt={`Selected Image ${index + 1}`} 
+                  style={imageStyle} />
+                  <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                </div>
+                
+                
+            ))}
+            </div>
+            <div>
             <input
                 type="file"
                 accept="image/*"
@@ -113,16 +127,30 @@ function PhotoForm() {
             />
               <button onClick={openFileInput}>Upload Photo</button>
             
-            <div>
-            {Array.isArray(state.formData.photo) && state.formData.photo.map((photo, index) => (
-                <div key={index}>
-                  <img src={photo} 
-                  alt={`Selected Image ${index + 1}`} 
-                  style={imageStyle} />
-                  <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
-                </div>
-            ))}
-            </div>
+            </div> */}
+
+<div>
+  {Array.isArray(state.formData.photo) && state.formData.photo.map((photo, index) => (
+    <div key={index}>
+      <img src={photo} alt={`Selected Image ${index + 1}`} style={imageStyle} />
+      <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+    </div>
+  ))}
+
+  {Array.isArray(state.formData.photo) && state.formData.photo.length < 4 && (
+    <div>
+      <input
+        type="file"
+        accept="image/*"
+        id="fileInput"
+        style={{ display: 'none' }}
+        onChange={handleFileChange}
+        multiple // Allow multiple file selection
+      />
+      <button onClick={openFileInput}>Upload Photo</button>
+    </div>
+  )}
+</div>
             </div>
             <div>
               <button onClick={handleBack}>Back</button>
