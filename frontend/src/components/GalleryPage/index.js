@@ -28,7 +28,7 @@ export default function GalleryPage() {
 
     const picture = image.map(pic => (
         <Image
-            imgUrl={pic.media_url}
+            imgUrl={pic.url}
         />
     ))
 
