@@ -249,5 +249,9 @@ def instagram_callback(request):
                 print(e)
     print('finished posting')
 
-    print('redirect url')
+    try:
+        print('redirect url',request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
+    except Exception as e:
+        print('exception',e)
+    # return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
     return HttpResponseRedirect('https://stephyxnails.onrender.com/admin/orders/exampleimage/')
