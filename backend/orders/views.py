@@ -246,5 +246,7 @@ def instagram_callback(request):
                 ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
             except Exception as e:
                 print(e)
+    print('finished posting')
+
     print('redirect url',request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
-    return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
+    return redirect('https://stephyxnails.onrender.com/admin/orders/exampleimage/')
