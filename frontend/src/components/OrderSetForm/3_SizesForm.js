@@ -2,7 +2,6 @@ import React, { useState , useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
-
 function SizesForm() {
 
   const history = useHistory()
@@ -13,9 +12,10 @@ function SizesForm() {
   const [rightText, setRightText] = useState('');
   const [errorLeftHand, setErrorLeftHand] = useState('');
   const [errorRightHand, setErrorRightHand] = useState('');
-  const [error, setError] = useState('');
-
-  const isOrderDetailsComplete = state.name && state.email
+  const [errorLeftHand2, setErrorLeftHand2] = useState('');
+  const [errorRightHand2, setErrorRightHand2] = useState('');
+  
+  const isOrderDetailsComplete = state.name && state.email 
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
   useEffect(() => {
@@ -26,30 +26,20 @@ function SizesForm() {
     // Add dependencies as needed
   }, []);
 
-
   const redirectToOrderDetails = () => {
     window.location.href ='/order'
   }
 
   const handleNext = (e) => {
-    e.preventDefault();
-
-    const isLeftHandValid = validateHand(leftDisplay);
-    const isRightHandValid = validateHand(rightDisplay);
-    const isBothHandsValid = isLeftHandValid && isRightHandValid;
-
-    if (!isBothHandsValid) {
-      setError("Please provide input for all finger display indices in both hands.");
-    } else {
-      setError(""); // Clear the error message if both hands are valid
+      e.preventDefault();
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { leftDisplay, rightDisplay } });
       history.push('/order-set/photo'); // Navigate to the next form question
-    }
   }
 
   const validateHand = (handDisplay) => {
-    const pattern = /^\d{5}$/;
-    return pattern.test(handDisplay.join(''));
+    const sanitizedInput = handDisplay.join('').replace(/[^0-9,. -]/g, ''); // Remove characters that are not numbers, commas, periods, spaces, or dashes
+    const numbers = sanitizedInput.split(/[,. -]+/); // Split the input by commas, periods, spaces, or dashes
+    return numbers.length === 5 && numbers.every((num) => !isNaN(parseFloat(num.trim())));
   };
 
   const handleBack = () => {
@@ -58,44 +48,71 @@ function SizesForm() {
   };
 
   const FingerDisplay = ({ hand, name, value }) => {
-    const valuesArray = hand === 'Left' ? leftDisplay : rightDisplay;
-
     return (
       <div>
-        {`${hand} ${name}: ${valuesArray[value] ? valuesArray[value] : ''}`}
+        {`${hand} ${name}: ${value ? value : ''}`}
       </div>
     );
   };
 
-  const textToDisplay = (e, setText, setDisplay) => {
+  const textToLeftDisplay = (e, setLeftText, setLeftDisplay) => {
 
-    const value = e.target.value;
-
-    const sanitizedValue = value.replace(/[^0-9 ,\-]/g, '');
+      const value = e.target.value;
+      const sanitizedValue = value.replace(/[^0-9 ,\-]/g, '');
 
       // Check if the input contains invalid characters
-  if (sanitizedValue !== value) {
-    setError("Invalid characters detected. Only numbers, spaces, commas, and hyphens are allowed.");
-  } else {
-    setError(""); // Reset the error message if input is valid
+      if (sanitizedValue !== value) {
+        setErrorLeftHand("Invalid characters detected. Only numbers, spaces, commas, and hyphens are allowed.");
+      } else {
+        setErrorLeftHand(""); // Reset the error message if input is valid
+      }
+
+      // Allows input to function correctly
+      setLeftText(sanitizedValue);
+      const string = value + '_';
+      const allowed = '0123456789.';
+      let stack = []
+      const newDisplay = []
+
+      for (let char of string) {
+        if (allowed.includes(char)) {
+          stack.push(char)
+        } else {
+          if (stack.length > 0) {
+            newDisplay.push(stack.join(''));
+            stack = [];
+          }
+        }
+      }
+
+      // setLeftDisplay(newDisplay);
+      // // Validate leftDisplay
+      // const isLeftHandValid = validateHand(newDisplay);
+
+      // if (!isLeftHandValid) {
+      //   setErrorLeftHand2("Please provide input for all finger display indices in the left hand.");
+      // } else {
+      //   setErrorLeftHand2("");
+      // }
   }
 
+  // on change
+  const textToRightDisplay = (e, setRightText, setRightDisplay) => {
+
+    const value = e.target.value;
+    const sanitizedValue = value.replace(/[^0-9 ,\-]/g, '');
+
+    // Check if the input contains invalid characters
+    if (sanitizedValue !== value) {
+      setErrorRightHand("Invalid characters detected. Only numbers, spaces, commas, and hyphens are allowed.");
+    } else {
+      setErrorRightHand(""); // Reset the error message if input is valid
+    }
+
     // Allows input to function correctly
-    setText(sanitizedValue);
-
-
-
-    // Code below parses through the text
-    // and picks out valid numbers.
-
-    // This allows for variety of input:
-    // 2, 7, 6, 7, 9
-    // 2,7,6,7,9
-    // 2 7 6 7 9
-    // 2-7-5-7-9
+    setRightText(sanitizedValue);
 
     const string = value + '_';
-
     const allowed = '0123456789.';
     let stack = []
     const newDisplay = []
@@ -111,14 +128,25 @@ function SizesForm() {
       }
     }
 
-    setDisplay(newDisplay);
-  }
+    setRightDisplay(newDisplay); // Update the rightDisplay
+
+    // // Validate rightDisplay
+    // const isRightHandValid = validateHand(newDisplay);
+
+    // if (!isRightHandValid) {
+    //   setErrorRightHand2("Please provide input for all finger display indices in the right hand.");
+    // } else {
+    //   setErrorRightHand2(" ");
+    // }
+
+}
 
   // HTML and CSS here are just a rough draft,
   // wanted to text out functionality
 
   return (
     <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
+      
       {isLoading ? (
         <div>Loading...</div>
       ) : (
@@ -130,52 +158,48 @@ function SizesForm() {
         <div>
           <p className='flex flex-row space-x-5'>
           <FingerDisplay hand='Left' name='Pinky' value={leftDisplay[4]} />
-  <FingerDisplay hand='Left' name='Ring' value={leftDisplay[3]} />
-  <FingerDisplay hand='Left' name='Middle' value={leftDisplay[2]} />
-  <FingerDisplay hand='Left' name='Index' value={leftDisplay[1]} />
-  <FingerDisplay hand='Left' name='Thumb' value={leftDisplay[0]} />
+          <FingerDisplay hand='Left' name='Ring' value={leftDisplay[3]} />
+          <FingerDisplay hand='Left' name='Middle' value={leftDisplay[2]} />
+          <FingerDisplay hand='Left' name='Index' value={leftDisplay[1]} />
+          <FingerDisplay hand='Left' name='Thumb' value={leftDisplay[0]} />
           </p>
           <p className='flex flex-row space-x-5'>
           <FingerDisplay hand='Right' name='Thumb' value={rightDisplay[0]} />
-  <FingerDisplay hand='Right' name='Middle' value={rightDisplay[2]} />
-  <FingerDisplay hand='Right' name='Index' value={rightDisplay[1]} />
-  <FingerDisplay hand='Right' name='Ring' value={rightDisplay[3]} />
-  <FingerDisplay hand='Right' name='Pinky' value={rightDisplay[4]} />
+          <FingerDisplay hand='Right' name='Index' value={rightDisplay[1]} />th
+          <FingerDisplay hand='Right' name='Middle' value={rightDisplay[2]} />
+          <FingerDisplay hand='Right' name='Ring' value={rightDisplay[3]} />
+          <FingerDisplay hand='Right' name='Pinky' value={rightDisplay[4]} />
           </p>
         </div>
         <div>
-          <p>
-            Left Hand
-          </p>
+          <p>Left Hand</p>
           <input
             type='text'
             value={leftText}
-            onChange={(e) => textToDisplay(e, setLeftText, setLeftDisplay)}
-
+            onChange={(e) => textToLeftDisplay(e, setLeftText, setLeftDisplay)}
           />
           <p>
-          {error && <div className="error-message">{error}</div>}
-          {errorLeftHand && <div className="error-message">{errorLeftHand}</div>}
-
-
-            Right Hand
+            {errorLeftHand && <div className="error-message">{errorLeftHand}</div>}
+            {errorLeftHand2 && <div className="error-message">{errorLeftHand2}</div>}
           </p>
+
+          <p>Right Hand</p>
           <input
             type='text'
             value={rightText}
-            onChange={(e) => textToDisplay(e, setRightText, setRightDisplay)}
-
+            onChange={(e) => textToRightDisplay(e, setRightText, setRightDisplay)}
           />
-          {error && <div className="error-message">{error}</div>}
-          {errorRightHand && <div className="error-message">{errorRightHand}</div>}
-
+          <p>
+            {errorRightHand && <div className="error-message">{errorRightHand}</div>}
+            {errorRightHand2 && <div className="error-message">{errorRightHand2}</div>}
+          </p>
         </div>
         <div>
           <button onClick={handleBack}>Back</button>
           <button type="submit" onClick={handleNext}>Next</button>
         </div>
       </section>
-       ) : (
+      ) : (
         <div>
           <p>Please complete your order details before proceeding.</p>
           <button onClick={redirectToOrderDetails}>Complete Order Details</button>
@@ -183,8 +207,7 @@ function SizesForm() {
       )}
     </>
   )}
-
-    </div>
+  </div>
   );
 }
 

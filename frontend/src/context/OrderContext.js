@@ -13,6 +13,7 @@ const initialState = {
     shape: '',
     leftDisplay: '',
     rightDisplay: '',
+    photo: [],
     description: '',
     extra: '',
     extra2: '',
@@ -98,24 +99,43 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'CLEAR_FORM':
-      return { ...state, formData: { tier: '', shape: '', leftDisplay: '', rightDisplay: '', photo: [], description: '', extra: '', extra2: '' } };
-
-    case 'INCREMENT_SET_COUNT':
-      return {
-        ...state,
-        setCount: state.setCount + 1,
-      };
-    case 'DECREMENT_SET_COUNT':
-      return {
-        ...state,
-        setCount: state.setCount - 1,
-      };
-    case 'RESET_SET_COUNT':
-      return {
-        ...state,
-        setCount: 0,
-      };
-
+      return { ...state, formData: { tier: '', shape: '',  leftDisplay: '', rightDisplay: '', photo: [], description: '', extra: '', extra2: ''} };
+    
+      case 'INCREMENT_SET_COUNT':
+        return {
+          ...state,
+          setCount: state.setCount + 1,
+        };
+      case 'DECREMENT_SET_COUNT':
+        return {
+          ...state,
+          setCount: state.setCount - 1,
+        };
+      case 'RESET_SET_COUNT':
+        return {
+          ...state,
+          setCount: 0,
+        };
+        case 'ADD_PHOTO':
+          const newPhotos = [...state.formData.photo, action.payload];
+          return {
+            ...state,
+            formData: {
+              ...state.formData,
+              photo: newPhotos,
+            },
+          };
+        
+          case 'REMOVE_PHOTO':
+            return {
+              ...state,
+              formData: {
+                ...state.formData,
+                photo: action.payload,
+              },
+            };
+          
+        
     default:
       return state;
   }

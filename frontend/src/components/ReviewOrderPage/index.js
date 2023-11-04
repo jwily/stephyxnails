@@ -223,7 +223,15 @@ const ReviewOrderPage = () => {
                     <p>Shape: {formData.shape}</p>
                     <p>Left Display: {formData.leftDisplay}</p>
                     <p>Right Display: {formData.rightDisplay}</p>
-                    <p>photo: {formData.photo}</p>
+                    {/* <p>photo: {formData.photo}</p> */}
+                    <div>
+          <p>Photos:</p>
+          {formData.photo.map((photo, index) => (
+            <div key={index}>
+              <img src={photo} alt={`Photo ${index + 1}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+            </div>
+          ))}
+        </div>
                     <p>Description: {formData.description}</p>
                     <p>charm: {formData.extra}</p>
                     <p>character: {formData.extra2}</p>
