@@ -1,11 +1,11 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 function ShapeForm() {
 
   const history = useHistory()
-  const { state, dispatch }= useOrderContext();
+  const { state, dispatch } = useOrderContext();
   const selectRef = useRef(null); // Create a ref for the select element
   const [shape, setShape] = useState(() => {
     // Initialize 'shape' with the value from localStorage, or an empty string if not found.
@@ -23,13 +23,13 @@ function ShapeForm() {
   }, []);
 
   const redirectToOrderDetails = () => {
-    window.location.href ='/order'
+    window.location.href = '/order'
   }
 
   const handleNext = (e) => {
     e.preventDefault()
 
-    if(shape === ''){
+    if (shape === '') {
       // Show an error message or take appropriate action to inform the user about the missing selection
       alert('Please select a Nail Shape before proceeding.');
     } else {
@@ -65,19 +65,19 @@ function ShapeForm() {
                    >
                    <option value="" disabled>
                            Select A Nail Shape
-                     </option>
-                     <option value="Extra-Short Square" >Extra-Short Square</option>
-                     <option value="Short Square">Short Square</option>
-                     <option value="Medium Square">Medium Square</option>
-                     <option value="Short Coffin">Short Coffin</option>
-                     <option value="Medium Coffin">Medium Coffin</option>
-                     <option value="Short Almond">Short Almond</option>
-                     <option value="Medium Round">Medium Round</option>
-                     <option value="Short Round">Short Round</option>
-                     <option value="Medium Round">Medium Round</option>
-                     <option value="Short Almond">Short Almond</option>
-                     <option value="Medium Almond">'Medium Almond</option>
-                     <option value="Medium Stiletto">Medium Stiletto</option>
+                    </option>
+                    <option value="xs-square">Extra-Short Square</option>
+                    <option value="s-square">Short Square</option>
+                    <option value="m-square">Medium Square</option>
+                    <option value="s-coffin">Short Coffin</option>
+                    <option value="m-coffin">Medium Coffin</option>
+                    <option value="s-almond">Short Almond</option>
+                    <option value="m-round">Medium Round</option>
+                    <option value="s-round">Short Round</option>
+                    <option value="m-round">Medium Round</option>
+                    <option value="s-almond">Short Almond</option>
+                    <option value="m-almond">'Medium Almond</option>
+                    <option value="m-stiletto">Medium Stiletto</option>
                    </select>
                  </div>
 
@@ -99,4 +99,4 @@ function ShapeForm() {
     );
 }
 
-  export default ShapeForm;
+export default ShapeForm;

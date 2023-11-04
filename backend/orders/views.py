@@ -1,92 +1,133 @@
+import json
+import requests
 import urllib.request
 
-from django.views.generic import TemplateView
+from django.urls import reverse
 from django.conf import settings
-from django.http import HttpResponse, StreamingHttpResponse
 from django.template import engines
+from django.shortcuts import redirect
+from django.http import HttpResponse, StreamingHttpResponse
 
-from django.conf import settings
 from django.core.mail import send_mail
+from django.views.generic import TemplateView
 
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from rest_framework.renderers import JSONRenderer
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
-from django.shortcuts import redirect
-from django.urls import reverse
-import requests
 
-# Seems like we ultimately don't need a /orders/ GET route
-class OrderCreate(generics.ListCreateAPIView):
-    print('in create order')
-    queryset = Order.objects.all()
+from .aws import upload_file_to_s3
+
+# The imports and method below
+# can be used to count database queries.
+# Use the method as a decorator on a given function.
+
+# from django.db import connection, reset_queries
+
+# def count_queries(func):
+#     def wrapper(*args, **kwargs):
+#         reset_queries()
+#         result = func(*args, **kwargs)
+#         print(f'Number of Queries: {len(connection.queries)}')
+#         return result
+#     return wrapper
+
+"""
+Seems like we ultimately don't need a /orders/ GET route
+so when ready, we should change this to just a CreateAPIView
+as otherwise anyone could see all orders!
+"""
+
+class OrderCreate(generics.CreateAPIView):
+
+    # The "prefetch" method allows for fewer queries.
+    # Kind of like eager loading I think?
+    queryset = Order.objects.prefetch_related('sets__images')
     serializer_class = OrderSerializer
+    # renderer_classes = (JSONRenderer,)
+
     # permission_classes = [AllowAny]
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+
+    @staticmethod
+    def parse_data(request_data):
+
+        print('Raw request data:', request_data)
+
+        json_data = request_data['json'].read().decode('utf-8')
+        data = json.loads(json_data)
+
+        for key in request_data:
+            if 'files' in key:
+
+                split_key = key.split('_')
+                set_number = int(split_key[2])
+
+                image_files = request_data.getlist(key)
+
+                # print(set_number, type(image_files))
+                # print(image_files)
+
+                for image in image_files:
+                    url = upload_file_to_s3(image)
+                    parent_set = data['sets'][set_number]
+                    parent_set['images'].append({'url': url})
+
+        return data
+
+    @staticmethod
+    def send_emails(data):
+
+        # This method likely needs some error handling
 
         customer_email = {
             'subject': "Stephy ♥ - I've received your order request!",
             'message': f"""
-            Thank you for your order request, {serializer.data["name"]}!
+            Thank you for your order request, {data["name"]}!
 
             I will reach out to you soon with any further questions, and if everything looks good, I will request your shipping address.
             """,
             'from_email': settings.EMAIL_HOST_USER,
-            'recipient_list': [serializer.data['email']]
+            'recipient_list': [data['email']]
         }
 
         owner_email = {
             'subject': "New order request received!",
-            'message': f'New order for {serializer.data["name"]}!',
+            'message': f'New order for {data["name"]}!',
             'from_email': settings.EMAIL_HOST_USER,
             'recipient_list': ['johnlee1120@gmail.com']
         }
 
-        send_mail(**customer_email)
-        send_mail(**owner_email)
+        # send_mail(**customer_email)
+        # send_mail(**owner_email)
+
+    def create(self, request, *args, **kwargs):
+
+        data = request.data
+
+        if 'multipart/form-data' in request.headers['Content-Type']:
+          data = OrderCreate.parse_data(request.data)
+
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+
+        OrderCreate.send_emails(serializer.data)
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
-
-class SetList(generics.ListAPIView):
-    queryset = Set.objects.all()
-    serializer_class = SetSerializer
-
-class SetDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Set.objects.all()
-    serializer_class = SetSerializer
-
-class TierList(generics.ListCreateAPIView):
+class TierList(generics.ListAPIView):
     queryset = Tier.objects.all()
     serializer_class = TierSerializer
+    # renderer_classes = (JSONRenderer,)
 
-class TierDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Tier.objects.all()
-    serializer_class = TierSerializer
-
-class ExampleImageList(generics.ListCreateAPIView):
+class ExampleImageList(generics.ListAPIView):
     queryset = ExampleImage.objects.all()
     serializer_class = ExampleImageSerializer
-
-class ExampleImageDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ExampleImage.objects.all()
-    serializer_class = ExampleImageSerializer
-
-# class SetImageList(generics.ListCreateAPIView):
-#     queryset = SetImage.objects.all()
-#     serializer_class = SetImageSerializer
-
-class SetImageDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SetImage.objects.all()
-    serializer_class = SetImageSerializer
+    # renderer_classes = (JSONRenderer,)
 
 def iter_response(response, chunk_size=65536):
 
@@ -111,7 +152,7 @@ def iter_response(response, chunk_size=65536):
 
 def catchall_dev(request, upstream='http://localhost:3000'):
 
-    # This function is meant to kick in during development when
+    # This function is meant to kick in during development if
     # browsing through localhost:8000. Basically, if none of the routes
     # that we defined with Django REST Framework views are requested,
     # then the assumption is that front-end stuff is being requested
@@ -148,14 +189,15 @@ def catchall_dev(request, upstream='http://localhost:3000'):
             reason=response.reason,
         )
 
-# Not 100% sure, but it seems like setting the 'DIRS' attribute
+# It seems like setting the 'DIRS' attribute
 # of the TEMPLATES value in the settings directs Django
 # to the frontend folder to find the index.html file.
 
+# As you can see, because of the whole npm build process,
+# it's much less work finding the React stuff to serve.
 catchall_prod = TemplateView.as_view(template_name='index.html')
 
 # Defines which catchall view will be used based on the environment.
-
 catchall = catchall_dev if settings.DEBUG else catchall_prod
 
 def instagram_callback(request):
@@ -165,12 +207,10 @@ def instagram_callback(request):
 
     if not state or state != expected_state:
         # Possible CSRF attack
-        print('>>>', 'State not matching')
         return redirect('admin:orders_exampleimage_changelist')
 
     code = request.GET.get('code')
     if not code:
-        print('>>>', 'No code detected')
         return redirect('admin:orders_exampleimage_changelist')
 
     # Exchange the code for an access token
@@ -188,19 +228,31 @@ def instagram_callback(request):
     access_token = access_response_data['access_token']
 
     media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
-    media_response = requests.get(media_request_url)
-    media_data = media_response.json()
+    post_images = []
 
-    post_data = media_data['data']
-    print('POST DATA ----->', post_data)
+    while media_request_url:
+
+        request = requests.get(media_request_url)
+        media_data = request.json()
+
+        post_data = media_data.get('data',[])
+        post_images.extend(post_data)
+
+        next_url = media_data['paging'].get('next')
+
+        if next_url:
+            media_request_url = next_url
+        else:
+            media_request_url = None
+
 
     all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
 
-    for post in post_data:
-      if post['media_type'] == 'IMAGE' and post['id'] not in all_ids:
-          try:
-            ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
-          except Exception as e:
-            print(e)
+    for post in post_images:
+        if (post['media_type'] == 'IMAGE' or post['media_type'] == 'CAROUSEL_ALBUM') and post['id'] not in all_ids:
+            try:
+                ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+            except Exception as e:
+                print(e)
 
-    return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
+    return redirect(reverse('admin:orders_exampleimage_changelist'))

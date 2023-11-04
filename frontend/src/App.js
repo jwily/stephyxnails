@@ -17,6 +17,8 @@ import ExtraForm from './components/OrderSetForm/6_ExtraForm'
 import Submissions from './components/OrderSetForm/7_SubmissionForm';
 import EditSetForm from './components/OrderSetForm/EditSetForm'
 
+import DummyComponent from './components/Dummy';
+
 function App() {
 
   return (

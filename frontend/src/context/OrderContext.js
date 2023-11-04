@@ -44,39 +44,39 @@ const reducer = (state = initialState, action) => {
 
     case 'SAVE_FORM_DATA':
       const newState = { ...state };
-      // Add the current set to the sets array only if it hasn't been added
-      if (!state.isCurrentSetAdded) {
-        newState.sets = [...newState.sets, newState.formData];
-        newState.isCurrentSetAdded = true; // Mark the current set as added
+      newState.sets = [...newState.sets, newState.formData];
+      newState.formData = {
+        tier: '',
+        shape: '',
+        photo: [],
+        description: '',
+        extra: ''
       }
       return newState;
+    case 'INITIALIZE_STATE':
+      // Load initial state from localStorage if it exists
+      const savedState = localStorage.getItem('orderState');
+      return savedState ? JSON.parse(savedState) : initialState;
+    case 'SAVE_STATE':
+      // Save the state to localStorage
+      localStorage.setItem('orderState', JSON.stringify(state));
+      return state;
+    case 'CLEAR_LOCAL_STORAGE':
+      // Clear the localStorage
+      localStorage.clear();
+      return { ...initialState }; // Reset state to its initial state
 
-      case 'MARK_CURRENT_SET_ADDED':
+    case 'MARK_CURRENT_SET_ADDED':
       return {
         ...state,
         isCurrentSetAdded: true,  // Mark the current set as added
       };
 
     case 'ADD_SET':
-       // Add a new set and increment setCount
+      // Add a new set and increment setCount
       const newSets = [...state.sets, action.payload];
       return { ...state, sets: newSets, setCount: state.setCount + 1 };
 
-    case 'INITIALIZE_STATE':
-      // Load initial state from localStorage if it exists
-      const savedState = localStorage.getItem('orderState');
-      return savedState ? JSON.parse(savedState) : initialState;
-
-    case 'SAVE_STATE':
-      // Save the state to localStorage
-      localStorage.setItem('orderState', JSON.stringify(state));
-      return state;  
-      
-    case 'CLEAR_LOCAL_STORAGE':
-      // Clear the localStorage
-      localStorage.clear();
-      return { ...initialState }; // Reset state to its initial state
-    
     case 'DELETE_SET':
       // Remove a set at the specified index
       const indexToDelete = action.payload;
@@ -145,6 +145,7 @@ const reducer = (state = initialState, action) => {
 export const OrderProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [dataResult, setDataResult] = useState(null)
+  const [image, setImage] = useState([])
 
   useEffect(() => {
     async function fetchData() {
@@ -161,20 +162,33 @@ export const OrderProvider = ({ children }) => {
         console.error(error);
       }
     }
+    const grabImage = async () => {
+      const res = await fetch('/api/exampleimages/')
 
+      if (res.ok) {
+        const pic = await res.json()
+        setImage(pic)
+        console.log('it worked');
+        console.log('from the fetch', pic);
+      }
+      else {
+        console.log('it didnt work');
+      }
+    }
+
+    grabImage()
     fetchData();
   }, []);
 
+  // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
+  useEffect(() => {
+    dispatch({ type: 'INITIALIZE_STATE' });
+  }, []);
 
-    // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
-    useEffect(() => {
-      dispatch({ type: 'INITIALIZE_STATE' });
-    }, []);
-  
-    // Save the state to localStorage whenever it changes
-    useEffect(() => {
-      dispatch({ type: 'SAVE_STATE' });
-    }, [state]);
+  // Save the state to localStorage whenever it changes
+  useEffect(() => {
+    dispatch({ type: 'SAVE_STATE' });
+  }, [state]);
 
 
   const scrollToOrder = useRef()
@@ -183,7 +197,7 @@ export const OrderProvider = ({ children }) => {
   const scrollToFAQ = useRef()
 
   return (
-    <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ, dataResult, }}>
+    <OrderContext.Provider value={{ image, state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ, dataResult }}>
       {children}
     </OrderContext.Provider>
   );
