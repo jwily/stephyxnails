@@ -23,6 +23,14 @@ export default function GalleryPage() {
             items: 1
         }
     };
+    const fetchButton = async() => {
+        const res = await fetch('/api/exampleimages/')
+
+        if (res.ok){
+            const result = res.json()
+            console.log(result);
+        }
+    }
     return (
         <div className="p-4" ref={scrollToGallery}>
             <Carousel
@@ -55,6 +63,10 @@ export default function GalleryPage() {
                     <img src="https://mangterest-pic.s3.amazonaws.com/5a5f64b3924f4990b576557394be0962.jpg" />
                 </div>
             </Carousel>
+
+            <div>
+                <button onClick={fetchButton}>Click Me</button>
+            </div>
         </div>
     )
 }

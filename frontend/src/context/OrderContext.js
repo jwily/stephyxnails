@@ -50,12 +50,12 @@ const reducer = (state=initialState, action) => {
       case 'SAVE_STATE':
         // Save the state to localStorage
         localStorage.setItem('orderState', JSON.stringify(state));
-        return state;   
+        return state;
         case 'CLEAR_LOCAL_STORAGE':
         // Clear the localStorage
         localStorage.clear();
         return { ...initialState }; // Reset state to its initial state
-  
+
     // case 'CLEAR_FORM':
     //         console.log("Clearing the form");
     //   return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
@@ -73,7 +73,23 @@ export const OrderProvider = ({ children }) => {
     useEffect(() => {
       dispatch({ type: 'INITIALIZE_STATE' });
     }, []);
-  
+
+    useEffect(() => {
+      const grabImage = async() => {
+        const res = await fetch('/api/exampleimages/')
+
+        if(res.ok){
+          const image = res.json()
+
+          console.log(image,'image');
+        }
+        else{
+          console.log('it didnt work');
+        }
+      }
+      grabImage()
+    }, [])
+
   // Save the state to localStorage whenever it changes
   useEffect(() => {
     dispatch({ type: 'SAVE_STATE' });
