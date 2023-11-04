@@ -53,14 +53,15 @@ function ShapeForm() {
         <>
         {isOrderDetailsComplete ? (
            <section>
-           <h2>2. Choose your perferred nail shape and length</h2>
-               <p>disclaimer insert</p>
+           <h2 className="font-extrabold text-xl text-center mb-4">2. Choose your perferred nail shape and length</h2>
                  <div>
                    <select
                      value={shape}
                      onChange={(e) => setShape(e.target.value )}
                      ref={selectRef} // Assign the ref to the select element
                      required
+                     className='bg-white select select-error'
+                     style={{color: '#F385AA'}}
                    >
                    <option value="" disabled>
                            Select A Nail Shape
@@ -80,9 +81,9 @@ function ShapeForm() {
                    </select>
                  </div>
 
-                 <div>
-                   <button onClick={handleBack}>Back</button>
-                   <button type="submit" onClick={handleNext}>Next</button>
+                 <div className="flex gap-3 mt-7">
+                   <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>←</button>
+                   <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleNext}>→</button>
                  </div>
          </section>
 
