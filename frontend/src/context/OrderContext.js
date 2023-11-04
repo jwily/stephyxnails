@@ -116,22 +116,6 @@ const reducer = (state = initialState, action) => {
         setCount: 0,
       };
 
-    case 'INITIALIZE_STATE':
-      // Load initial state from localStorage if it exists
-      const savedState = localStorage.getItem('orderState');
-      return savedState ? JSON.parse(savedState) : initialState;
-    case 'SAVE_STATE':
-      // Save the state to localStorage
-      localStorage.setItem('orderState', JSON.stringify(state));
-      return state;
-    case 'CLEAR_LOCAL_STORAGE':
-      // Clear the localStorage
-      localStorage.clear();
-      return { ...initialState }; // Reset state to its initial state
-
-    // case 'CLEAR_FORM':
-    //         console.log("Clearing the form");
-    //   return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
     default:
       return state;
   }
@@ -140,7 +124,6 @@ const reducer = (state = initialState, action) => {
 // Create an OrderProvider component to provide the order context to the application
 export const OrderProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-<<<<<<< HEAD
   const [dataResult, setDataResult] = useState(null)
 
   useEffect(() => {
@@ -163,43 +146,15 @@ export const OrderProvider = ({ children }) => {
   }, []);
 
 
-=======
-  const [image, setImage] = useState([])
->>>>>>> testing-redirect
   // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
   useEffect(() => {
     dispatch({ type: 'INITIALIZE_STATE' });
   }, []);
-<<<<<<< HEAD
 
   // Save the state to localStorage whenever it changes
   useEffect(() => {
     dispatch({ type: 'SAVE_STATE' });
   }, [state]);
-=======
-
-    useEffect(() => {
-      const grabImage = async() => {
-        const res = await fetch('/api/exampleimages/')
-
-        if(res.ok){
-          const pic = await res.json()
-          setImage(pic)
-          console.log('it worked');
-          console.log('from the fetch',pic);
-        }
-        else{
-          console.log('it didnt work');
-        }
-      }
-      grabImage()
-    }, [])
-
-  // Save the state to localStorage whenever it changes
-  useEffect(() => {
-    dispatch({ type: 'SAVE_STATE' });
-  }, [state]);
->>>>>>> testing-redirect
 
 
   const scrollToOrder = useRef()
@@ -208,14 +163,10 @@ export const OrderProvider = ({ children }) => {
   const scrollToFAQ = useRef()
 
   return (
-<<<<<<< HEAD
     <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ, dataResult }}>
-=======
-    <OrderContext.Provider value={{ image, state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ }}>
->>>>>>> testing-redirect
-        {children}
-      </OrderContext.Provider>
-      );
+      {children}
+    </OrderContext.Provider>
+  );
 };
 
 // Create a custom hook to access the order context
