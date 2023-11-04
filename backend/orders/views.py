@@ -40,7 +40,7 @@ so when ready, we should change this to just a CreateAPIView
 as otherwise anyone could see all orders!
 """
 
-class OrderCreate(generics.ListCreateAPIView):
+class OrderCreate(generics.CreateAPIView):
 
     # The "prefetch" method allows for fewer queries.
     # Kind of like eager loading I think?
@@ -121,13 +121,9 @@ class TierList(generics.ListAPIView):
     queryset = Tier.objects.all()
     serializer_class = TierSerializer
 
-class ExampleImageList(generics.ListCreateAPIView):
+class ExampleImageList(generics.ListAPIView):
     queryset = ExampleImage.objects.all()
     serializer_class = ExampleImageSerializer
-
-class SetImageList(generics.ListCreateAPIView):
-    queryset = SetImage.objects.all()
-    serializer_class = SetImageSerializer
 
 def iter_response(response, chunk_size=65536):
 
@@ -227,21 +223,32 @@ def instagram_callback(request):
     access_response_data = access_response.json()
     access_token = access_response_data['access_token']
 
-    media_fields = 'id,caption,media_type,media_url,username,timestamp'
-    media_request_url = f"https://graph.instagram.com/me/media?fields={media_fields}&access_token={access_token}"
-    media_response = requests.get(media_request_url)
-    media_data = media_response.json()
+    media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
+    post_images = []
 
-    post_data = media_data['data']
+    while media_request_url:
+
+        request = requests.get(media_request_url)
+        media_data = request.json()
+
+        post_data = media_data.get('data',[])
+        post_images.extend(post_data)
+
+        next_url = media_data['paging'].get('next')
+
+        if next_url:
+            media_request_url = next_url
+        else:
+            media_request_url = None
+
 
     all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
 
-    for post in post_data:
-      if post['media_type'] == 'IMAGE' and post['id'] not in all_ids:
-          # Should we get rid of the try catch here?
-          try:
-            ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
-          except Exception as e:
-            print(e)
+    for post in post_images:
+        if (post['media_type'] == 'IMAGE' or post['media_type'] == 'CAROUSEL_ALBUM') and post['id'] not in all_ids:
+            try:
+                ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+            except Exception as e:
+                print(e)
 
-    return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
+    return redirect(reverse('admin:orders_exampleimage_changelist'))
