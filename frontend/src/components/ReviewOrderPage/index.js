@@ -213,14 +213,13 @@ const ReviewOrderPage = () => {
                     <p>Right Display: {formData.rightDisplay}</p>
                     {/* <p>photo: {formData.photo}</p> */}
                     <div>
-                    {formData.photo.map((photo, index) => (
-        <div key={index}>
-          <a href={photo} target="_blank" rel="noopener noreferrer">
-            Photo {index + 1}
-          </a>
+          <p>Photos:</p>
+          {formData.photo.map((photo, index) => (
+            <div key={index}>
+              <img src={photo} alt={`Photo ${index + 1}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
                     <p>Description: {formData.description}</p>
                     <p>charm: {formData.extra}</p>
                     <p>character: {formData.extra2}</p>
