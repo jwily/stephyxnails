@@ -1,23 +1,43 @@
-import React , {useRef, useState} from 'react';
-import {  useHistory } from 'react-router-dom';
+import React, { useRef, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 function TierForm() {
-  
-  const history = useHistory( ) 
-  const { state, dispatch }= useOrderContext();
+
+  // Initialize the history object and retrieve state, dispatch, and dataResult from the order context
+  const history = useHistory()
+  const { state, dispatch, dataResult } = useOrderContext();
+
+  // Reference for the tier input and local state to manage the selected tier
   const tierInputRef = useRef(null);
-  const [tier, setTier] = useState(state.formData.tier)
-  
+  // Initialize tier state with the value from local storage (if available)
+  const [tier, setTier] = useState(() => localStorage.getItem('selectedTier') || '');
+  const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
+  const isOrderDetailsComplete = state.name && state.email
+
+  useEffect(() => {
+    // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
+    setTimeout(() => {
+      setIsLoading(false); // Set loading to false after the delay
+    }, 100);
+    // Add dependencies as needed
+  }, []);
+
+  const redirectToOrderDetails = () => {
+    window.location.href = '/order'
+  }
+
   const handleNext = (e) => {
     e.preventDefault()
 
     if (tier) {
       // Dispatch an action to update the tier in the context state
-      dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier} });
+      dispatch({ type: 'UPDATE_FORM_DATA', payload: { tier } });
+
+      // Save the selected 'tier' to local storage
+      localStorage.setItem('selectedTier', tier);
 
       history.push('/order-set/shape');
-
     } else {
       // Display an error message using the ref
       tierInputRef.current.setCustomValidity('Please select a Nail Tier before proceeding.');
@@ -28,86 +48,63 @@ function TierForm() {
 
   const handleBack = () => {
     // Navigate back to the previous step
-    window.location.href = '/order-set/tier'; // Replace 'previous-step-url' with the actual URL for the previous step;
+    window.location.href = '/order-set/start';
   };
 
-  return (
-  <>
-    <section>
-      <h1>1.Choose a Nail Tier</h1>
-      <p>disclaimer</p>
-        <div>
-          <div>
-          <label>
-            <input
-              type="radio"
-              name="tier"
-              value="Budding Tier"
-              // checked={tier === 'Budding Tier'}
-              onChange={(e) => setTier( e.target.value )}
-              ref={tierInputRef} // Assign the ref to the input element
-              required
-            />
-              Budding Tier
-              <span> $35 </span>
-              <p> Solid colors (including solid chrome or glitter nails), a few gems/stickers</p>
-          </label>
-          </div>
-          <div>
-          <label>
-            <input
-              type="radio"
-              name="tier"
-              value="Petal Tier"
-              // checked={tier === 'Petal Tier'}
-              onChange={(e) => setTier( e.target.value )}
-              required
-            />
-              Petal Tier
-              <span> $50 </span>
-              <p>Ombre, airbrush, French tips, simple painted designs, 1-2 simple characters, some gems/stickers, 1-2 3D charms</p>
-          </label>
-          </div>
-          <div>
-          <label>
-            <input
-              type="radio"
-              name="tier"
-              value="Sakura Tier"
-              // checked={tier === 'Sakura Tier'}
-              onChange={(e) => setTier(e.target.value )}
-              required
-            />
-              Sakura Tier
-              <span> $65 </span>
-              <p>Intricate/detailed nail art, 1-2 detailed portraits OR hand sculpted charms, more/charms</p>
-          </label>
-          </div>
-          <div>
-          <label>
-            <input
-              type="radio"
-              name="tier"
-              value="Blossom Tier"
-              // checked={tier === 'Blossom Tier'}
-              onChange={(e) => setTier( e.target.value )}
-              required
-            />
-              Blossom Tier
-              <span> $80 </span>
-              <p>Intricate designs across all nails, up to 5 hand sculpted charms, large and complex charm arrangements</p>
-          </label>
-          </div>
+  if (dataResult === null) {
+    // Display a loading indicator while data is being fetched
+    return <div>Loading...</div>;
+  }
 
-          <div>
-          <button onClick={handleBack}>Back</button>
-            <button type="submit" onClick={handleNext}>Next</button>
-          </div>
-        </div>
-      </section>
-    </>
+  return (
+    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
+     {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          {isOrderDetailsComplete ? (
+            <section>
+              <h1>1.Choose a Nail Tier</h1>
+              <p>disclaimer</p>
+              <div>
+                <form onSubmit={handleNext}>
+                  <div>
+                    {dataResult.map((tierOption) => (
+                      <div key={tierOption.id}>
+                        <label>
+                          <input
+                            type="radio"
+                            name="tier"
+                            value={tierOption.id}
+                            checked={tier === tierOption.id}
+                            onChange={() => setTier(tierOption.id)}
+                            required
+                          />
+                          {tierOption.name}
+                          <span> ${tierOption.price} </span>
+                          <p>{tierOption.description}</p>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div>
+                    <button onClick={handleBack}>Back</button>
+                    <button type="submit">Next</button>
+                  </div>
+                </form>
+              </div>
+            </section>
+          ) : (
+            <div>
+              <p>Please complete your order details before proceeding.</p>
+              <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+            </div>
+          )}
+        </>
+      )}
+    </div>
   );
 }
 
 export default TierForm;
-

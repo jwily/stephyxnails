@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     # 'corsheaders',
     'orders',
     'admin_extra_buttons',
-    # 'drf_recaptcha'
+    'drf_recaptcha'
 ]
 
 # CORS must go before anything that generates responses
@@ -74,6 +74,9 @@ MIDDLEWARE = [
 
 # Added stuff rom here...
 STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'mysite/static'),
+# ]
 
 STORAGES = {
     # Allows WhiteNoise to do its job of compressing and hashing
@@ -161,12 +164,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.IsAuthenticated',
-#     ]
-# }
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -188,6 +185,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#EMAIL API
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
@@ -195,6 +193,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
+#INSTAGRAM API
 INSTAGRAM_APP_ID = os.environ.get('INSTAGRAM_APP_ID')
 INSTAGRAM_APP_SECRET = os.environ.get('INSTAGRAM_APP_SECRET')
 
@@ -202,4 +201,10 @@ ADMIN_LOGIN_NAME = os.environ.get('ADMIN_LOGIN_NAME')
 ADMIN_LOGIN_EMAIL = os.environ.get('ADMIN_LOGIN_EMAIL')
 ADMIN_LOGIN_PASSWORD = os.environ.get('ADMIN_LOGIN_PASSWORD')
 
-DRF_RECAPTCHA_SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY")
+#RECAPTCHA
+DRF_RECAPTCHA_SECRET_KEY = os.environ.get("DRF_RECAPTCHA_SECRET_KEY")
+
+#AWS
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+S3_BUCKET = os.environ.get('S3_BUCKET')
