@@ -5,6 +5,7 @@ import Image from "./image";
 
 export default function GalleryPage() {
     const {scrollToGallery, image} = useOrderContext()
+    console.log(image,'what is bring brought in');
     const responsive = {
         superLargeDesktop: {
             // the naming can be any, depends on you.
