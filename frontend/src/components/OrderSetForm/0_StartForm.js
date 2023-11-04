@@ -10,12 +10,12 @@ function StartForm( ) {
   const { state } = useOrderContext();
   const isOrderDetailsComplete = state.name && state.email  // Check if order details are complete
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
-  
+
   useEffect(() => {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
     setTimeout(() => {
       setIsLoading(false); // Set loading to false after the delay
-    }, 100);  
+    }, 100);
     // Add dependencies as needed
   }, []);
 
@@ -40,20 +40,20 @@ function StartForm( ) {
   };
 
   return (
-    <>
+    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
     {isLoading ? ( // Display loading indicator while isLoading is true
       <div>Loading...</div>
     ) : (
       <>
         <div>
-          <h1>It sounds like you're ready to start building custom nail sets!</h1>
+          <h1 className='text-center'>It sounds like you're ready to start building custom nail sets!</h1>
         </div>
 
         <div>
-          <h2>Click the button below to start the form:</h2>
+          <h2 className='mb-3'>Click the button below to start the form:</h2>
           {isOrderDetailsComplete ? (
             <Link to="/order-set/tier">
-              <button>Start Form</button>
+              <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black">Start Form</button>
             </Link>
           ) : (
             <div>
@@ -66,29 +66,26 @@ function StartForm( ) {
         <div>
           {showResetWarning ? (
             <div>
-              <p style={{ color: 'red' }}>
+              <p className='text-red-600 mb-3'>
                 Going back will reset your form. Are you sure you want to proceed?
               </p>
-              <div>
-                <button onClick={handleBack}>Yes, I want to proceed</button>
-              </div>
-              <div>
-                <button onClick={handleCancelReset}>No, I don't want to proceed</button>
+              <div className='flex gap-3'>
+                <button className='rounded-lg btn btn-primary btn-block bg-red-300 text-black' onClick={handleBack}>Reset</button>
+                <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleCancelReset}>Cancel</button>
               </div>
             </div>
 
           ) : (
             <div>
-              <button onClick={handleBack}>Back</button>
+              <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleBack}>←</button>
             </div>
           )}
         </div>
       </>
     )}
-  </>
+  </div>
 
   );
 }
 
 export default StartForm;
-
