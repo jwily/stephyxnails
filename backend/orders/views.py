@@ -14,6 +14,7 @@ from django.views.generic import TemplateView
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+from rest_framework.renderers import JSONRenderer
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
@@ -46,6 +47,7 @@ class OrderCreate(generics.CreateAPIView):
     # Kind of like eager loading I think?
     queryset = Order.objects.prefetch_related('sets__images')
     serializer_class = OrderSerializer
+    renderer_classes = (JSONRenderer,)
 
     # permission_classes = [AllowAny]
 
@@ -120,10 +122,12 @@ class OrderCreate(generics.CreateAPIView):
 class TierList(generics.ListAPIView):
     queryset = Tier.objects.all()
     serializer_class = TierSerializer
+    renderer_classes = (JSONRenderer,)
 
 class ExampleImageList(generics.ListAPIView):
     queryset = ExampleImage.objects.all()
     serializer_class = ExampleImageSerializer
+    renderer_classes = (JSONRenderer,)
 
 def iter_response(response, chunk_size=65536):
 
