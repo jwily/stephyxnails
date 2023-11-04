@@ -9,12 +9,12 @@ function SubmissionSetForm() {
   const { formData, setCount } = state;  // Destructure values from the state
   const isOrderDetailsComplete = state.name && state.email// Check if order details are complete
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
-  
+
   useEffect(() => {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
     setTimeout(() => {
       setIsLoading(false); // Set loading to false after the delay
-    }, 100);  
+    }, 100);
     // Add dependencies as needed
   }, []);
 
@@ -31,7 +31,7 @@ function SubmissionSetForm() {
     const updatedSets = [...state.sets];
     updatedSets[newSetCount] = formData;
 
-  
+
     // Dispatch an action to update the sets array in the state
     dispatch({ type: 'UPDATE_SETS', payload: updatedSets });
 
@@ -53,13 +53,13 @@ function SubmissionSetForm() {
       history.push('/order-set/tier');
   };
 
-  const handleBack = () => { 
+  const handleBack = () => {
     // Navigate back to the previous step, in this case, '/order-set/extra'
-    history.push('/order-set/extra'); 
+    history.push('/order-set/extra');
   };
 
   return (
-    <>
+    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
     {isLoading ? ( // Display loading indicator while isLoading is true
        <div>Loading...</div>
     ) : (
@@ -95,7 +95,7 @@ function SubmissionSetForm() {
             <p>character: {formData.extra2}</p>
 
           </div>
-          
+
           <div>
             <div>
               <button onClick={handleBack}>Back</button>
@@ -109,17 +109,17 @@ function SubmissionSetForm() {
           </div>
 
         </div>
-        </>           
+        </>
        ) : (
         <div>
             <p>Please complete your order details before proceeding.</p>
             <button onClick={redirectToOrderDetails}>Complete Order Details</button>
         </div>
-      )}  
+      )}
       </>
     )
     }
-    </>
+    </div>
   );
 }
 

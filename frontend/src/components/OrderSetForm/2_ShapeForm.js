@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
 function ShapeForm() {
-  
+
   const history = useHistory()
   const { state, dispatch }= useOrderContext();
   const selectRef = useRef(null); // Create a ref for the select element
@@ -11,14 +11,14 @@ function ShapeForm() {
     // Initialize 'shape' with the value from localStorage, or an empty string if not found.
     return localStorage.getItem('selectedShape') || '';
   });
-  const isOrderDetailsComplete = state.name && state.email 
+  const isOrderDetailsComplete = state.name && state.email
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
   useEffect(() => {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
     setTimeout(() => {
       setIsLoading(false); // Set loading to false after the delay
-    }, 100);  
+    }, 100);
     // Add dependencies as needed
   }, []);
 
@@ -39,32 +39,33 @@ function ShapeForm() {
       history.push('/order-set/sizes');
     }
   };
-  
+
   const handleBack = () => {
     // Navigate back to the previous step
-    history.push('/order-set/tier'); 
+    history.push('/order-set/tier');
   };
 
   return (
-      <>
+      <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
        {isLoading ? (
         <div>Loading...</div>
       ) : (
         <>
         {isOrderDetailsComplete ? (
            <section>
-           <h2>2. Choose your perferred nail shape and length</h2>
-               <p>disclaimer insert</p>
+           <h2 className="font-extrabold text-xl text-center mb-4">2. Choose your perferred nail shape and length</h2>
                  <div>
                    <select
                      value={shape}
                      onChange={(e) => setShape(e.target.value )}
                      ref={selectRef} // Assign the ref to the select element
                      required
+                     className='bg-white select select-error'
+                     style={{color: '#F385AA'}}
                    >
                    <option value="" disabled>
                            Select A Nail Shape
-                     </option>   
+                     </option>
                      <option value="Extra-Short Square" >Extra-Short Square</option>
                      <option value="Short Square">Short Square</option>
                      <option value="Medium Square">Medium Square</option>
@@ -79,13 +80,13 @@ function ShapeForm() {
                      <option value="Medium Stiletto">Medium Stiletto</option>
                    </select>
                  </div>
-   
-                 <div>
-                   <button onClick={handleBack}>Back</button>
-                   <button type="submit" onClick={handleNext}>Next</button>
+
+                 <div className="flex gap-3 mt-7">
+                   <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>←</button>
+                   <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleNext}>→</button>
                  </div>
          </section>
-       
+
        ) : (
         <div>
           <p>Please complete your order details before proceeding.</p>
@@ -94,7 +95,7 @@ function ShapeForm() {
       )}
     </>
   )}
-</>
+</div>
     );
 }
 

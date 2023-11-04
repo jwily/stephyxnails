@@ -22,7 +22,7 @@ function SizesForm() {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
     setTimeout(() => {
       setIsLoading(false); // Set loading to false after the delay
-    }, 100);  
+    }, 100);
     // Add dependencies as needed
   }, []);
 
@@ -145,7 +145,7 @@ function SizesForm() {
   // wanted to text out functionality
 
   return (
-    <>
+    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
       {isLoading ? (
         <div>Loading...</div>
       ) : (

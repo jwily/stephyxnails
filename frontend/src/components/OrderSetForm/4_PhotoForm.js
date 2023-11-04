@@ -16,7 +16,7 @@ function PhotoForm() {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
     setTimeout(() => {
       setIsLoading(false); // Set loading to false after the delay
-    }, 100);  
+    }, 100);
     // Add dependencies as needed
   }, []);
 
@@ -79,22 +79,23 @@ function PhotoForm() {
 
   const handleBack = () => {
     // Navigate back to the previous step
-    history.push('/order-set/sizes'); 
+    history.push('/order-set/sizes');
   };
 
   const openFileInput = () => {
     document.getElementById('fileInput').click();
   };
 
-  // Style for the displayed image
-  const imageStyle = {
-    width: '150px', // Adjust the width to your desired size
-    height: '150px', // Adjust the height to your desired size
-  };
-  
+    // Style for the displayed image
+    const imageStyle = {
+      width: '150px', // Adjust the width to your desired size
+      height: '150px', // Adjust the height to your desired size
+    };
+
+
   return (
-    <>
-    {isLoading ? (
+    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
+      {isLoading ? (
         <div>Loading...</div>
       ) : (
         <>
@@ -168,9 +169,9 @@ function PhotoForm() {
         )}
       </>
     )}
-  </>
-  
+  </div>
+
   );
 }
-  
+
   export default PhotoForm;
