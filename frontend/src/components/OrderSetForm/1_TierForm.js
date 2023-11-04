@@ -57,8 +57,8 @@ function TierForm() {
   }
 
   return (
-    <>
-      {isLoading ? (
+    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
+     {isLoading ? (
         <div>Loading...</div>
       ) : (
         <>
@@ -103,7 +103,7 @@ function TierForm() {
           )}
         </>
       )}
-    </>
+    </div>
   );
 }
 

@@ -46,56 +46,56 @@ function ShapeForm() {
   };
 
   return (
-    <>
-      {isLoading ? (
+      <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
+       {isLoading ? (
         <div>Loading...</div>
       ) : (
         <>
-          {isOrderDetailsComplete ? (
-            <section>
-              <h2>2. Choose your perferred nail shape and length</h2>
-              <p>disclaimer insert</p>
-              <div>
-                <select
-                  value={shape}
-                  onChange={(e) => setShape(e.target.value)}
-                  ref={selectRef} // Assign the ref to the select element
-                  required
-                >
-                  <option value="" disabled>
-                    Select A Nail Shape
-                  </option>
-                  <option value="xs-square">Extra-Short Square</option>
-                  <option value="s-square">Short Square</option>
-                  <option value="m-square">Medium Square</option>
-                  <option value="s-coffin">Short Coffin</option>
-                  <option value="m-coffin">Medium Coffin</option>
-                  <option value="s-almond">Short Almond</option>
-                  <option value="m-round">Medium Round</option>
-                  <option value="s-round">Short Round</option>
-                  <option value="m-round">Medium Round</option>
-                  <option value="s-almond">Short Almond</option>
-                  <option value="m-almond">'Medium Almond</option>
-                  <option value="m-stiletto">Medium Stiletto</option>
-                </select>
-              </div>
+        {isOrderDetailsComplete ? (
+           <section>
+           <h2>2. Choose your perferred nail shape and length</h2>
+               <p>disclaimer insert</p>
+                 <div>
+                   <select
+                     value={shape}
+                     onChange={(e) => setShape(e.target.value )}
+                     ref={selectRef} // Assign the ref to the select element
+                     required
+                   >
+                   <option value="" disabled>
+                           Select A Nail Shape
+                    </option>
+                    <option value="xs-square">Extra-Short Square</option>
+                    <option value="s-square">Short Square</option>
+                    <option value="m-square">Medium Square</option>
+                    <option value="s-coffin">Short Coffin</option>
+                    <option value="m-coffin">Medium Coffin</option>
+                    <option value="s-almond">Short Almond</option>
+                    <option value="m-round">Medium Round</option>
+                    <option value="s-round">Short Round</option>
+                    <option value="m-round">Medium Round</option>
+                    <option value="s-almond">Short Almond</option>
+                    <option value="m-almond">'Medium Almond</option>
+                    <option value="m-stiletto">Medium Stiletto</option>
+                   </select>
+                 </div>
 
-              <div>
-                <button onClick={handleBack}>Back</button>
-                <button type="submit" onClick={handleNext}>Next</button>
-              </div>
-            </section>
+                 <div>
+                   <button onClick={handleBack}>Back</button>
+                   <button type="submit" onClick={handleNext}>Next</button>
+                 </div>
+         </section>
 
-          ) : (
-            <div>
-              <p>Please complete your order details before proceeding.</p>
-              <button onClick={redirectToOrderDetails}>Complete Order Details</button>
-            </div>
-          )}
-        </>
+       ) : (
+        <div>
+          <p>Please complete your order details before proceeding.</p>
+          <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+        </div>
       )}
     </>
-  );
+  )}
+</div>
+    );
 }
 
 export default ShapeForm;
