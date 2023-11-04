@@ -49,16 +49,15 @@ const reducer = (state = initialState, action) => {
         newState.isCurrentSetAdded = true; // Mark the current set as added
       }
       return newState;
-<<<<<<< HEAD
 
-      case 'MARK_CURRENT_SET_ADDED':
+    case 'MARK_CURRENT_SET_ADDED':
       return {
         ...state,
         isCurrentSetAdded: true,  // Mark the current set as added
       };
 
     case 'ADD_SET':
-       // Add a new set and increment setCount
+      // Add a new set and increment setCount
       const newSets = [...state.sets, action.payload];
       return { ...state, sets: newSets, setCount: state.setCount + 1 };
 
@@ -70,13 +69,13 @@ const reducer = (state = initialState, action) => {
     case 'SAVE_STATE':
       // Save the state to localStorage
       localStorage.setItem('orderState', JSON.stringify(state));
-      return state;  
-      
+      return state;
+
     case 'CLEAR_LOCAL_STORAGE':
       // Clear the localStorage
       localStorage.clear();
       return { ...initialState }; // Reset state to its initial state
-    
+
     case 'DELETE_SET':
       // Remove a set at the specified index
       const indexToDelete = action.payload;
@@ -99,42 +98,40 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'CLEAR_FORM':
-      return { ...state, formData: { tier: '', shape: '',  leftDisplay: '', rightDisplay: '', photo: [], description: '', extra: '', extra2: ''} };
-    
-      case 'INCREMENT_SET_COUNT':
-        return {
-          ...state,
-          setCount: state.setCount + 1,
-        };
-      case 'DECREMENT_SET_COUNT':
-        return {
-          ...state,
-          setCount: state.setCount - 1,
-        };
-      case 'RESET_SET_COUNT':
-        return {
-          ...state,
-          setCount: 0,
-        };
-        
-=======
-      case 'INITIALIZE_STATE':
-        // Load initial state from localStorage if it exists
-        const savedState = localStorage.getItem('orderState');
-        return savedState ? JSON.parse(savedState) : initialState;
-      case 'SAVE_STATE':
-        // Save the state to localStorage
-        localStorage.setItem('orderState', JSON.stringify(state));
-        return state;
-        case 'CLEAR_LOCAL_STORAGE':
-        // Clear the localStorage
-        localStorage.clear();
-        return { ...initialState }; // Reset state to its initial state
+      return { ...state, formData: { tier: '', shape: '', leftDisplay: '', rightDisplay: '', photo: [], description: '', extra: '', extra2: '' } };
+
+    case 'INCREMENT_SET_COUNT':
+      return {
+        ...state,
+        setCount: state.setCount + 1,
+      };
+    case 'DECREMENT_SET_COUNT':
+      return {
+        ...state,
+        setCount: state.setCount - 1,
+      };
+    case 'RESET_SET_COUNT':
+      return {
+        ...state,
+        setCount: 0,
+      };
+
+    case 'INITIALIZE_STATE':
+      // Load initial state from localStorage if it exists
+      const savedState = localStorage.getItem('orderState');
+      return savedState ? JSON.parse(savedState) : initialState;
+    case 'SAVE_STATE':
+      // Save the state to localStorage
+      localStorage.setItem('orderState', JSON.stringify(state));
+      return state;
+    case 'CLEAR_LOCAL_STORAGE':
+      // Clear the localStorage
+      localStorage.clear();
+      return { ...initialState }; // Reset state to its initial state
 
     // case 'CLEAR_FORM':
     //         console.log("Clearing the form");
     //   return { ...state, formData: { tier: '', shape: '', photo: [], description: '', extra: '' } };
->>>>>>> testing-redirect
     default:
       return state;
   }
@@ -169,16 +166,16 @@ export const OrderProvider = ({ children }) => {
 =======
   const [image, setImage] = useState([])
 >>>>>>> testing-redirect
-    // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
-    useEffect(() => {
-      dispatch({ type: 'INITIALIZE_STATE' });
-    }, []);
+  // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
+  useEffect(() => {
+    dispatch({ type: 'INITIALIZE_STATE' });
+  }, []);
 <<<<<<< HEAD
-  
-    // Save the state to localStorage whenever it changes
-    useEffect(() => {
-      dispatch({ type: 'SAVE_STATE' });
-    }, [state]);
+
+  // Save the state to localStorage whenever it changes
+  useEffect(() => {
+    dispatch({ type: 'SAVE_STATE' });
+  }, [state]);
 =======
 
     useEffect(() => {
@@ -214,11 +211,11 @@ export const OrderProvider = ({ children }) => {
 <<<<<<< HEAD
     <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ, dataResult }}>
 =======
-    <OrderContext.Provider value={{image, state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ }}>
+    <OrderContext.Provider value={{ image, state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ }}>
 >>>>>>> testing-redirect
-      {children}
-    </OrderContext.Provider>
-  );
+        {children}
+      </OrderContext.Provider>
+      );
 };
 
 // Create a custom hook to access the order context
