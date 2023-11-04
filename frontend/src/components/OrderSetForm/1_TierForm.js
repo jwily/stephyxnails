@@ -13,13 +13,13 @@ function TierForm() {
   // Initialize tier state with the value from local storage (if available)
   const [tier, setTier] = useState(() => localStorage.getItem('selectedTier') || '');
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
-  const isOrderDetailsComplete = state.name && state.email 
+  const isOrderDetailsComplete = state.name && state.email
 
   useEffect(() => {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
     setTimeout(() => {
       setIsLoading(false); // Set loading to false after the delay
-    }, 100);  
+    }, 100);
     // Add dependencies as needed
   }, []);
 
@@ -48,7 +48,7 @@ function TierForm() {
 
   const handleBack = () => {
     // Navigate back to the previous step
-    window.location.href = '/order-set/start'; 
+    window.location.href = '/order-set/start';
   };
 
   if (dataResult === null) {
@@ -57,7 +57,7 @@ function TierForm() {
   }
 
   return (
-    <>
+    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
      {isLoading ? (
         <div>Loading...</div>
       ) : (
@@ -103,7 +103,7 @@ function TierForm() {
       )}
     </>
   )}
-</>
+</div>
   );
 }
 

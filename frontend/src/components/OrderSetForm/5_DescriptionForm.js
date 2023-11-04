@@ -4,7 +4,7 @@ import { useOrderContext } from '../../context/OrderContext';
 
 function DescriptionFrom() {
 
-  const history = useHistory() 
+  const history = useHistory()
   const { state, dispatch }= useOrderContext();
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
   // Create a ref to display error messages
@@ -15,13 +15,13 @@ function DescriptionFrom() {
   });
 
   // Check if order details are complete
-  const isOrderDetailsComplete = state.name && state.email 
+  const isOrderDetailsComplete = state.name && state.email
 
   useEffect(() => {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
     setTimeout(() => {
       setIsLoading(false); // Set loading to false after the delay
-    }, 100);  
+    }, 100);
     // Add dependencies as needed
   }, []);
 
@@ -29,7 +29,7 @@ function DescriptionFrom() {
     window.location.href ='/order'
   }
 
- 
+
    // Handle the "Next" button click
   const handleNext = (e) => {
     e.preventDefault()
@@ -55,15 +55,15 @@ function DescriptionFrom() {
     // Navigate back to the previous step
     history.push('/order-set/photo');
   };
-  
+
   return (
       <>
          {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <>
+      <>
       {isOrderDetailsComplete ? (
-        <section> 
+        <section>
         <h2>4. Nail Description</h2>
           <p>disclaimer insert</p>
             <div>
@@ -85,7 +85,7 @@ function DescriptionFrom() {
             <button type="submit" onClick={handleNext}>Next</button>
           </div>
       </section>
-        
+
         ) : (
           <div>
             <p>Please complete your order details before proceeding.</p>
@@ -97,5 +97,5 @@ function DescriptionFrom() {
   </>
     );
 }
-  
+
   export default DescriptionFrom;
