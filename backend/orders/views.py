@@ -189,8 +189,8 @@ def instagram_callback(request):
     access_token = access_response_data['access_token']
 
     media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
-    media_response = requests.get(media_request_url)
-    media_data = media_response.json()
+    # media_response = requests.get(media_request_url)
+    # media_data = media_response.json()
     post_images = []
 
     while media_request_url:
@@ -250,8 +250,11 @@ def instagram_callback(request):
     print('finished posting')
 
     try:
-        print('redirect url',request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
+        print('redirect url',(reverse('admin:orders_exampleimage_changelist')))
     except Exception as e:
         print('exception',e)
-    # return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
-    return HttpResponseRedirect('https://stephyxnails.onrender.com/admin/orders/exampleimage/')
+    try:
+        return redirect(reverse('admin:orders_exampleimage_changelist'))
+    except Exception as e:
+        print('return exception', e)
+    # return HttpResponseRedirect('https://stephyxnails.onrender.com/admin/orders/exampleimage/')
