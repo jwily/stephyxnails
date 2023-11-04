@@ -73,7 +73,7 @@ MIDDLEWARE = [
 ]
 
 # Added stuff rom here...
-STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
+# STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'mysite/static'),
 ]
