@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.http import HttpResponse, StreamingHttpResponse
 from django.template import engines
+from django.http import HttpResponseRedirect
 
 from django.conf import settings
 from django.core.mail import send_mail
@@ -249,4 +250,4 @@ def instagram_callback(request):
     print('finished posting')
 
     print('redirect url')
-    return redirect('https://stephyxnails.onrender.com/admin/orders/exampleimage/')
+    return HttpResponseRedirect('https://stephyxnails.onrender.com/admin/orders/exampleimage/')
