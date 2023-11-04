@@ -68,7 +68,7 @@ const reducer = (state=initialState, action) => {
 export const OrderProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const [image, setImage] = useState([])
     // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage
     useEffect(() => {
       dispatch({ type: 'INITIALIZE_STATE' });
@@ -79,9 +79,10 @@ export const OrderProvider = ({ children }) => {
         const res = await fetch('/api/exampleimages/')
 
         if(res.ok){
-          const image = await res.json()
-
-          console.log(image,'image');
+          const pic = await res.json()
+          setImage(pic)
+          console.log('it worked');
+          console.log('from the fetch',pic);
         }
         else{
           console.log('it didnt work');
@@ -102,7 +103,7 @@ export const OrderProvider = ({ children }) => {
   const scrollToFAQ = useRef()
 
   return (
-    <OrderContext.Provider value={{ state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ }}>
+    <OrderContext.Provider value={{image, state, dispatch, scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ }}>
       {children}
     </OrderContext.Provider>
   );
