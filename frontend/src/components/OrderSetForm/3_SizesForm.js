@@ -7,7 +7,6 @@ function SizesForm() {
 
   const history = useHistory()
   const { state, dispatch } = useOrderContext();
-
   const [leftDisplay, setLeftDisplay] = useState(['', '', '', '', '']);
   const [rightDisplay, setRightDisplay] = useState(['', '', '', '', '']);
   const [leftText, setLeftText] = useState('');
@@ -60,14 +59,13 @@ function SizesForm() {
 
   const FingerDisplay = ({ hand, name, value }) => {
     const valuesArray = hand === 'Left' ? leftDisplay : rightDisplay;
-
+  
     return (
       <div>
-        {`${hand} ${name}: ${value ? value : ''}`}
-        
+        {`${hand} ${name}: ${valuesArray[value] ? valuesArray[value] : ''}`}
       </div>
-    )
-  }
+    );
+  };
 
   const textToDisplay = (e, setText, setDisplay) => {
 
