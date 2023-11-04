@@ -3,10 +3,10 @@ import { useOrderContext } from "../../context/OrderContext";
 import { useHistory } from "react-router-dom";
 
 function OrderDetails() {
-  
+
   // Access state and dispatch function from the context
   const { dispatch, state  } = useOrderContext();
-  
+
   // Access the history object for navigation
   const history = useHistory();
 
@@ -14,7 +14,7 @@ function OrderDetails() {
   const [name, setName] = useState(state.name);
   const [email, setEmail] = useState(state.email);
   const [instagram, setInstagram] = useState(state.instagram);
-  
+
   useEffect(() => {
     // Dispatch the 'CLEAR_LOCAL_STORAGE' action when the component is loaded
     dispatch({ type: 'CLEAR_LOCAL_STORAGE' });
@@ -27,7 +27,7 @@ function OrderDetails() {
     dispatch({ type: 'SET_NAME', payload: name }); // Update name in the context
     dispatch({ type: 'SET_EMAIL', payload: email }); // Update email in the context
     dispatch({ type: 'SET_INSTAGRAM', payload: instagram }); // Update instagram in the context
-  
+
     // Use history.push to navigate to another page and pass the FormData as data
     history.push('/order-set/start');
   }
@@ -37,18 +37,17 @@ function OrderDetails() {
       <div
       className="text-center text-2xl mt-5 font-bold">
         Personal Info</div>
-      <section className="bg-primary rounded-xl m-4">
+      <section className="bg-primary rounded-2xl m-4">
         <div className="p-8 shadow-lg">
           <form className="space-y-4" onSubmit={formSubmit}>
             <div className="w-full">
               <label className="sr-only" htmlFor="name">Name</label>
               <input
-                className="input input-solid max-w-full bg-white"
+                className="input input-solid max-w-full bg-white text-black"
                 placeholder="Name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-
                 required
               />
             </div>
@@ -57,7 +56,7 @@ function OrderDetails() {
               <div>
                 <label className="sr-only" htmlFor="email">Email</label>
                 <input
-                  className="input input-solid bg-white"
+                  className="input input-solid bg-white text-black"
                   placeholder="Email address"
                   type="email"
                   value={email}
@@ -68,7 +67,7 @@ function OrderDetails() {
               <div>
                 <label className="sr-only" htmlFor="instagram"> </label>
                 <input
-                  className="input input-solid bg-white"
+                  className="input input-solid bg-white text-black"
                   placeholder="Instagram Handle"
                   type="text"
                   value={instagram}
@@ -83,7 +82,7 @@ function OrderDetails() {
               <textarea className="textarea textarea-solid max-w-full" placeholder="Message" rows="8" id="message"></textarea>
             </div> */}
             <div className="mt-4">
-              <button type="submit" className="rounded-lg btn btn-primary btn-block bg-primary_blue">Next</button>
+              <button type="submit" className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black">Next</button>
             </div>
           </form>
         </div>
