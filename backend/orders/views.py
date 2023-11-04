@@ -197,7 +197,7 @@ def instagram_callback(request):
         print('===== In While Loop =====')
 
         request = requests.get(media_request_url)
-        media_data =request.json()
+        media_data = request.json()
 
         post_data = media_data.get('data',[])
         post_images.extend(post_data)
@@ -213,6 +213,8 @@ def instagram_callback(request):
 
 
     all_ids = set([obj.instagram_id for obj in ExampleImage.objects.all()])
+
+    print('ALL_IDS--->', all_ids)
 
     # print('NEXT URL ---->', media_data['paging']['next'])
     # while media_data:
@@ -239,10 +241,10 @@ def instagram_callback(request):
     print('post images----->', post_images)
 
     for post in post_images:
-        if (post['media_type'] == 'IMAGE' or post['media_type'] == 'CAROUSEL_ALBUM')and post['id'] not in all_ids:
+        if (post['media_type'] == 'IMAGE' or post['media_type'] == 'CAROUSEL_ALBUM') and post['id'] not in all_ids:
             try:
                 ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
             except Exception as e:
                 print(e)
-
+    print('redirect url',request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
     return redirect(request.build_absolute_uri(reverse('admin:orders_exampleimage_changelist')))
