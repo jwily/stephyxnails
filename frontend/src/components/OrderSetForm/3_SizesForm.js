@@ -6,13 +6,10 @@ function SizesForm() {
 
   const history = useHistory()
   const { state, dispatch } = useOrderContext();
-
   const [leftDisplay, setLeftDisplay] = useState(['', '', '', '', '']);
   const [rightDisplay, setRightDisplay] = useState(['', '', '', '', '']);
-
   const [leftText, setLeftText] = useState('');
   const [rightText, setRightText] = useState('');
-
   const [errorLeftHand, setErrorLeftHand] = useState('');
   const [errorRightHand, setErrorRightHand] = useState('');
   const [errorLeftHand2, setErrorLeftHand2] = useState('');
@@ -33,24 +30,17 @@ function SizesForm() {
     window.location.href ='/order'
   }
 
-
   const handleNext = (e) => {
       e.preventDefault();
-
       dispatch({ type: 'UPDATE_FORM_DATA', payload: { leftDisplay, rightDisplay } });
       history.push('/order-set/photo'); // Navigate to the next form question
-    
   }
 
-
-   const validateHand = (handDisplay) => {
+  const validateHand = (handDisplay) => {
     const sanitizedInput = handDisplay.join('').replace(/[^0-9,. -]/g, ''); // Remove characters that are not numbers, commas, periods, spaces, or dashes
     const numbers = sanitizedInput.split(/[,. -]+/); // Split the input by commas, periods, spaces, or dashes
-  
     return numbers.length === 5 && numbers.every((num) => !isNaN(parseFloat(num.trim())));
   };
-
-
 
   const handleBack = () => {
     // Navigate back to the previous step
@@ -58,7 +48,6 @@ function SizesForm() {
   };
 
   const FingerDisplay = ({ hand, name, value }) => {
-  
     return (
       <div>
         {`${hand} ${name}: ${value ? value : ''}`}
@@ -67,46 +56,45 @@ function SizesForm() {
   };
 
   const textToLeftDisplay = (e, setLeftText, setLeftDisplay) => {
-    const value = e.target.value;
-    const sanitizedValue = value.replace(/[^0-9 ,\-]/g, '');
-    // Check if the input contains invalid characters
-    if (sanitizedValue !== value) {
-      setErrorLeftHand("Invalid characters detected. Only numbers, spaces, commas, and hyphens are allowed.");
-    } else {
-      setErrorLeftHand(""); // Reset the error message if input is valid
-    }
-    // Allows input to function correctly
-    setLeftText(sanitizedValue);
-    const string = value + '_';
-    const allowed = '0123456789.';
-    let stack = []
-    const newDisplay = []
 
-    for (let char of string) {
-      if (allowed.includes(char)) {
-        stack.push(char)
+      const value = e.target.value;
+      const sanitizedValue = value.replace(/[^0-9 ,\-]/g, '');
+
+      // Check if the input contains invalid characters
+      if (sanitizedValue !== value) {
+        setErrorLeftHand("Invalid characters detected. Only numbers, spaces, commas, and hyphens are allowed.");
       } else {
-        if (stack.length > 0) {
-          newDisplay.push(stack.join(''));
-          stack = [];
+        setErrorLeftHand(""); // Reset the error message if input is valid
+      }
+
+      // Allows input to function correctly
+      setLeftText(sanitizedValue);
+      const string = value + '_';
+      const allowed = '0123456789.';
+      let stack = []
+      const newDisplay = []
+
+      for (let char of string) {
+        if (allowed.includes(char)) {
+          stack.push(char)
+        } else {
+          if (stack.length > 0) {
+            newDisplay.push(stack.join(''));
+            stack = [];
+          }
         }
       }
-    }
 
+      // setLeftDisplay(newDisplay);
+      // // Validate leftDisplay
+      // const isLeftHandValid = validateHand(newDisplay);
 
-
-    setLeftDisplay(newDisplay);
-
-        // Validate leftDisplay
-        const isLeftHandValid = validateHand(newDisplay);
-
-        if (!isLeftHandValid) {
-          setErrorLeftHand2("Please provide input for all finger display indices in the left hand.");
-        } else {
-          setErrorLeftHand2("");
-        }
-
-    }
+      // if (!isLeftHandValid) {
+      //   setErrorLeftHand2("Please provide input for all finger display indices in the left hand.");
+      // } else {
+      //   setErrorLeftHand2("");
+      // }
+  }
 
   // on change
   const textToRightDisplay = (e, setRightText, setRightDisplay) => {
@@ -140,21 +128,18 @@ function SizesForm() {
       }
     }
 
-
     setRightDisplay(newDisplay); // Update the rightDisplay
 
-    // Validate rightDisplay
-    const isRightHandValid = validateHand(newDisplay);
+    // // Validate rightDisplay
+    // const isRightHandValid = validateHand(newDisplay);
 
-    if (!isRightHandValid) {
-      setErrorRightHand2("Please provide input for all finger display indices in the right hand.");
-    } else {
-      setErrorRightHand2(" ");
-    }
+    // if (!isRightHandValid) {
+    //   setErrorRightHand2("Please provide input for all finger display indices in the right hand.");
+    // } else {
+    //   setErrorRightHand2(" ");
+    // }
 
-   
-
-  }
+}
 
   // HTML and CSS here are just a rough draft,
   // wanted to text out functionality
@@ -186,40 +171,34 @@ function SizesForm() {
           </p>
         </div>
         <div>
-          <p>
-            Left Hand
-          </p>
+          <p>Left Hand</p>
           <input
             type='text'
             value={leftText}
             onChange={(e) => textToLeftDisplay(e, setLeftText, setLeftDisplay)}
-
           />
           <p>
-          {errorLeftHand && <div className="error-message">{errorLeftHand}</div>}
-          {errorLeftHand2 && <div className="error-message">{errorLeftHand2}</div>}
-
-
-
-            Right Hand
+            {errorLeftHand && <div className="error-message">{errorLeftHand}</div>}
+            {errorLeftHand2 && <div className="error-message">{errorLeftHand2}</div>}
           </p>
+
+          <p>Right Hand</p>
           <input
             type='text'
             value={rightText}
             onChange={(e) => textToRightDisplay(e, setRightText, setRightDisplay)}
-
           />
-          {errorRightHand && <div className="error-message">{errorRightHand}</div>}
-          {errorRightHand2 && <div className="error-message">{errorRightHand2}</div>}
-
-
+          <p>
+            {errorRightHand && <div className="error-message">{errorRightHand}</div>}
+            {errorRightHand2 && <div className="error-message">{errorRightHand2}</div>}
+          </p>
         </div>
         <div>
           <button onClick={handleBack}>Back</button>
           <button type="submit" onClick={handleNext}>Next</button>
         </div>
       </section>
-       ) : (
+      ) : (
         <div>
           <p>Please complete your order details before proceeding.</p>
           <button onClick={redirectToOrderDetails}>Complete Order Details</button>
@@ -227,8 +206,7 @@ function SizesForm() {
       )}
     </>
   )}
-
-    </>
+  </>
   );
 }
 
