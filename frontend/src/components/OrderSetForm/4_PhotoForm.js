@@ -1,3 +1,4 @@
+
 import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
@@ -130,12 +131,7 @@ function PhotoForm() {
             </div> */}
 
 <div>
-  {Array.isArray(state.formData.photo) && state.formData.photo.map((photo, index) => (
-    <div key={index}>
-      <img src={photo} alt={`Selected Image ${index + 1}`} style={imageStyle} />
-      <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
-    </div>
-  ))}
+
 
   {Array.isArray(state.formData.photo) && state.formData.photo.length < 4 && (
     <div>
@@ -150,6 +146,12 @@ function PhotoForm() {
       <button onClick={openFileInput}>Upload Photo</button>
     </div>
   )}
+    {Array.isArray(state.formData.photo) && state.formData.photo.map((photo, index) => (
+    <div key={index}>
+      <img src={photo} alt={`Selected Image ${index + 1}`} style={imageStyle} />
+      <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+    </div>
+  ))}
 </div>
             </div>
             <div>
