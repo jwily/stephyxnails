@@ -27,7 +27,7 @@ export default function GalleryPage() {
         const res = await fetch('/api/exampleimages/')
 
         if (res.ok){
-            const result = res.json()
+            const result = await res.json()
             console.log(result);
         }
     }

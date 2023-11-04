@@ -79,7 +79,7 @@ export const OrderProvider = ({ children }) => {
         const res = await fetch('/api/exampleimages/')
 
         if(res.ok){
-          const image = res.json()
+          const image = await res.json()
 
           console.log(image,'image');
         }
