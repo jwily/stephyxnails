@@ -54,8 +54,8 @@ INSTALLED_APPS = [
     'rest_framework',
     # 'corsheaders',
     'orders',
-    'admin_extra_buttons'
-    'drf_recaptcha'
+    'admin_extra_buttons',
+    # 'drf_recaptcha'
 ]
 
 # CORS must go before anything that generates responses
