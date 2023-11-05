@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha"
-import Cookie from 'js-cookie'
+import Cookies from 'js-cookie'
 
 const ReviewOrderPage = () => {
   // Access the history object for navigation, order state, and dispatch function from the order context
@@ -51,8 +51,7 @@ const ReviewOrderPage = () => {
     history.push(`/order-set/edit/${index}`, { set: setToEdit });
   };
 
-  const csrfToken = Cookie.get('csrftoken');
-  console.log(csrfToken, '<====== csrf token')
+  const csrfToken = Cookies.get('csrftoken');
 
   const handleBack = () => {
     // Navigate back to the previous step
@@ -77,23 +76,16 @@ const ReviewOrderPage = () => {
     // const recaptchaValue = recaptchaRef.current.getValue();
     // this.props.handleSubmit(recaptchaValue);
 
-    const formData = new FormData();
+    const formData = prepareState(state);
 
-    console.log(state);
-
-    const data = prepareState(state);
-
-    formData.append('json',
-      new Blob([JSON.stringify(data)],
-        { type: 'application/json' }))
-
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value); // 'json', Blob { ... }
-    }
+    console.log(csrfToken);
 
     const res = await fetch('/api/orders/',
       {
         method: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken
+        },
         body: formData
       })
 
@@ -112,7 +104,11 @@ const ReviewOrderPage = () => {
     newState.instagram = state.instagram;
     newState.sets = []
 
-    for (let set of state.sets) {
+    const imageSets = []
+
+    for (let index in state.sets) {
+
+      const set = state.sets[index];
 
       const newSet = {}
       newSet.description = set.description;
@@ -122,12 +118,31 @@ const ReviewOrderPage = () => {
       newSet.right_sizes = set.rightDisplay.join(', ');
       newSet.shape = set.shape;
       newSet.tier = set.tier;
-
       newSet.images = [];
+
       newState.sets.push(newSet);
+
+      imageSets[index] = [];
+
+      for (let photo of set.photos) {
+        imageSets[index].push(photo);
+      }
     }
 
-    return newState;
+    const formData = new FormData();
+
+    formData.append('json',
+      new Blob([JSON.stringify(newState)],
+        { type: 'application/json' }))
+
+    for (let index in imageSets) {
+      const images = imageSets[index];
+      for (let photo of images) {
+        formData.append(`files_set_${index}`, photo);
+      }
+    }
+
+    return formData;
   }
 
   const recaptchaRef = React.createRef();
@@ -225,12 +240,12 @@ const ReviewOrderPage = () => {
                     <p>Shape: {formData.shape}</p>
                     <p>Left Display: {formData.leftDisplay}</p>
                     <p>Right Display: {formData.rightDisplay}</p>
-                    {/* <p>photo: {formData.photo}</p> */}
+                    {/* <p>photo: {formData.photos}</p> */}
                     <div>
                       <p>Photos:</p>
-                      {formData.photo.map((photo, index) => (
+                      {formData.photos.map((photo, index) => (
                         <div key={index}>
-                          <img src={photo} alt={`Photo ${index + 1}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                          <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
                         </div>
                       ))}
                     </div>

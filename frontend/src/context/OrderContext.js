@@ -13,7 +13,7 @@ const initialState = {
     shape: '',
     leftDisplay: '',
     rightDisplay: '',
-    photo: [],
+    photos: [],
     description: '',
     extra: '',
     extra2: '',
@@ -48,7 +48,7 @@ const reducer = (state = initialState, action) => {
       newState.formData = {
         tier: '',
         shape: '',
-        photo: [],
+        photos: [],
         description: '',
         extra: ''
       }
@@ -61,7 +61,15 @@ const reducer = (state = initialState, action) => {
 
     case 'SAVE_STATE':
       // Save the state to localStorage
-      localStorage.setItem('orderState', JSON.stringify(state));
+      const stateNoFiles = { ...state };
+      stateNoFiles.formData = { ...state.formData }
+      stateNoFiles.formData.photos = []
+      stateNoFiles.sets = state.sets.map((set) => {
+        const setNoFiles = { ...set };
+        setNoFiles.photos = []
+        return setNoFiles
+      })
+      localStorage.setItem('orderState', JSON.stringify(stateNoFiles));
       return state;
 
     case 'CLEAR_LOCAL_STORAGE':
@@ -102,7 +110,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'CLEAR_FORM':
-      return { ...state, formData: { tier: '', shape: '', leftDisplay: '', rightDisplay: '', photo: [], description: '', extra: '', extra2: '' } };
+      return { ...state, formData: { tier: '', shape: '', leftDisplay: '', rightDisplay: '', photos: [], description: '', extra: '', extra2: '' } };
 
     case 'INCREMENT_SET_COUNT':
       return {
@@ -120,12 +128,12 @@ const reducer = (state = initialState, action) => {
         setCount: 0,
       };
     case 'ADD_PHOTO':
-      const newPhotos = [...state.formData.photo, action.payload];
+      const newPhotos = [...state.formData.photos, ...action.payload];
       return {
         ...state,
         formData: {
           ...state.formData,
-          photo: newPhotos,
+          photos: newPhotos,
         },
       };
 
@@ -134,7 +142,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         formData: {
           ...state.formData,
-          photo: action.payload,
+          photos: action.payload,
         },
       };
 
