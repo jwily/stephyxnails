@@ -134,8 +134,8 @@ function ExtraForm() {
     const options = [];
     for (let i = 0; i < 26; i++) {
       options.push(
-        <option key={i} value={i + 1}>
-          {i + 1}
+        <option key={i} value={i}>
+          {i}
         </option>
       );
     }
