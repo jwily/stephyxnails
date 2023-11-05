@@ -3,7 +3,7 @@ import { useOrderContext } from "../../context/OrderContext";
 export default function FaqPage() {
   const { scrollToFAQ } = useOrderContext()
   return (
-    <div className="rounded-ex m-4 bg-primary p-4" ref={scrollToFAQ}>
+    <div className="rounded-xl m-4 bg-primary p-4" ref={scrollToFAQ}>
       <h1 className="text-center font-bold">General Info</h1>
       <div className="accordion-group">
         <div className="accordion">
