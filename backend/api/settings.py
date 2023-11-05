@@ -207,7 +207,7 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/', 'https://stephyxnails.onrender.com/']
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
