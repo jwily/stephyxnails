@@ -19,6 +19,7 @@ import EditSetForm from './components/OrderSetForm/EditSetForm'
 
 import DummyComponent from './components/Dummy';
 import LoadingPage from './components/LoadingPage';
+import NotFoundPage from './components/NotFoundPage';
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
         <Route exact path='/faq' component={FaqPage} />
 
         <Route exact path='/dummy' component={DummyComponent} />
+        <Route component={NotFoundPage}/>
       </Switch>
       <Route exact path={['/']} component={GalleryPage} />
     </Router>
