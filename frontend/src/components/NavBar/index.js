@@ -10,14 +10,16 @@ const NavBar = () => {
     const { pathname } = useLocation()
 
     const scrollToSection = (scrollTo) => {
+        const scrollOffsetPercentage = 0.2;
         if (pathname !== '/') {
             history.push('/')
             setTimeout(() => {
-                scrollTo?.current?.scrollIntoView({ behavior: 'smooth' })
+                scrollTo?.current?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
             }, 10);
         }
-        scrollTo?.current?.scrollIntoView({ behavior: 'smooth' })
-    };
+        const currentScrollPosition = window.scrollY;
+        const targetScrollPosition = scrollTo?.current?.getBoundingClientRect().top + currentScrollPosition - (window.innerHeight * scrollOffsetPercentage);
+        window.scrollTo({ top: targetScrollPosition, behavior: "smooth" });    };
 
     const scrollToVeryTop = () => {
         if (pathname !== '/') {

@@ -5,7 +5,7 @@ export default function AboutPage() {
   const { scrollToAbout } = useOrderContext();
 
   return (
-      <div class="card card-image-cover bg-primary">
+      <div class="card card-image-cover bg-primary" ref={scrollToAbout}>
         <img src={aboutMe} alt="steph-avatar" />
         <div class="card-body">
           <h2 class="card-header">About Me</h2>
