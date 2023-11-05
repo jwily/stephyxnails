@@ -7,10 +7,11 @@ function PhotoForm() {
 
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
-  const fileInputRef = useRef(null);
+  // const fileInputRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
-  const isOrderDetailsComplete = state.name && state.email 
-  const [localPhotos, setLocalPhotos] = useState([]); // Local state for photos
+  const isOrderDetailsComplete = state.name && state.email
+  // const [localPhotos, setLocalPhotos] = useState([]); // Local state for photos
+  const [photoURLs, setPhotoURLs] = useState([])
 
   useEffect(() => {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
@@ -29,9 +30,9 @@ function PhotoForm() {
       });
     }
   }, []); // Empty dependency array to run the effect once after the initial render
-  
+
   const redirectToOrderDetails = () => {
-    window.location.href ='/order'
+    window.location.href = '/order'
   }
 
   const handleNext = (e) => {
@@ -47,21 +48,20 @@ function PhotoForm() {
 
     if (files.length > 0) {
       // Check the current count of photos and the limit (adjust the limit as needed)
-      const photoCount = state.formData.photo.length;
+      const photoCount = state.formData.photos.length;
       const photoLimit = 4;
-  
+
       if (photoCount + files.length <= photoLimit) {
         // Loop through the selected files and add them to the uploadedPhotos array
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
           // Create a URL for the selected file
-          uploadedPhotos.push(URL.createObjectURL(file));
+          uploadedPhotos.push(file);
         }
 
-    
         // Update the local state to trigger re-render
-        setLocalPhotos(uploadedPhotos);
-                
+        // setLocalPhotos(uploadedPhotos);
+
         // Dispatch an action to add the uploaded photos to the state
         dispatch({ type: 'ADD_PHOTO', payload: uploadedPhotos });
       } else {
@@ -70,10 +70,9 @@ function PhotoForm() {
     }
   };
 
-  const handleRemovePhoto = (photoURL) => {
+  const handleRemovePhoto = (file) => {
     // Filter out the selected photo URL from the array
-    const updatedPhotos = state.formData.photo.filter((photo) => photo !== photoURL);
-    console.log('Updated Photos:', updatedPhotos); // Log the updated photos
+    const updatedPhotos = state.formData.photos.filter((photo) => photo !== file);
     dispatch({ type: 'REMOVE_PHOTO', payload: updatedPhotos });
   };
 
@@ -86,11 +85,11 @@ function PhotoForm() {
     document.getElementById('fileInput').click();
   };
 
-    // Style for the displayed image
-    const imageStyle = {
-      width: '150px', // Adjust the width to your desired size
-      height: '150px', // Adjust the height to your desired size
-    };
+  // Style for the displayed image
+  const imageStyle = {
+    width: '150px', // Adjust the width to your desired size
+    height: '150px', // Adjust the height to your desired size
+  };
 
 
   return (
@@ -103,75 +102,50 @@ function PhotoForm() {
             <section>
               <div>
                 <h2>Photo Upload</h2>
-              <div> 
-      
-            {/* <div>
-            {Array.isArray(state.formData.photo) && state.formData.photo.map((photo, index) => (
-              
-                <div key={index}>
-                  <img src={photo} 
-                  alt={`Selected Image ${index + 1}`} 
-                  style={imageStyle} />
-                  <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                <p>Seems like we can't use local storage here!</p>
+                <div>
+
+                  <div>
+                    {Array.isArray(state.formData.photos)
+                      && state.formData.photos.length < 4 && (
+                        <div>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            id="fileInput"
+                            style={{ display: 'none' }}
+                            onChange={handleFileChange}
+                            multiple // Allow multiple file selection
+                          />
+                          <button onClick={openFileInput}>Upload Photo</button>
+                        </div>
+                      )}
+                    {Array.isArray(state.formData.photos)
+                      && state.formData.photos.map((photo, index) => (
+                        <div key={index}>
+                          <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
+                          <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                        </div>
+                      ))}
+                  </div>
                 </div>
-                
-                
-            ))}
-            </div>
+                <div>
+                  <button onClick={handleBack}>Back</button>
+                  <button type="submit" onClick={handleNext}>Next</button>
+                </div>
+              </div>
+            </section>
+          ) : (
             <div>
-            <input
-                type="file"
-                accept="image/*"
-                id="fileInput"
-                style={{ display: 'none' }}
-                onChange={handleFileChange}
-                multiple // Allow multiple file selection
-            />
-              <button onClick={openFileInput}>Upload Photo</button>
-            
-            </div> */}
-
-<div>
-
-
-  {Array.isArray(state.formData.photo) && state.formData.photo.length < 4 && (
-    <div>
-      <input
-        type="file"
-        accept="image/*"
-        id="fileInput"
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-        multiple // Allow multiple file selection
-      />
-      <button onClick={openFileInput}>Upload Photo</button>
+              <p>Please complete your order details before proceeding.</p>
+              <button onClick={redirectToOrderDetails}>Complete Order Details</button>
+            </div>
+          )}
+        </>
+      )}
     </div>
-  )}
-    {Array.isArray(state.formData.photo) && state.formData.photo.map((photo, index) => (
-    <div key={index}>
-      <img src={photo} alt={`Selected Image ${index + 1}`} style={imageStyle} />
-      <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
-    </div>
-  ))}
-</div>
-            </div>
-            <div>
-              <button onClick={handleBack}>Back</button>
-              <button type="submit" onClick={handleNext}>Next</button>
-            </div>
-            </div>
-          </section>
-        ) : (
-          <div>
-            <p>Please complete your order details before proceeding.</p>
-            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
-          </div>
-        )}
-      </>
-    )}
-  </div>
 
   );
 }
 
-  export default PhotoForm;
+export default PhotoForm;

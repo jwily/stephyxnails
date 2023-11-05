@@ -124,3 +124,4 @@ class ExampleImageAdmin(ExtraButtonsMixin, admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Tier, TierAdmin)
 admin.site.register(ExampleImage, ExampleImageAdmin)
+admin.site.register(SetImage)

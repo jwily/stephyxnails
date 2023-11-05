@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useOrderContext } from "../../context/OrderContext";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useOrderContext } from '../../context/OrderContext';
+import { useHistory } from 'react-router-dom';
 
 function SubmissionSetForm() {
   // Initialize the history object and retrieve state and dispatch from the order context
@@ -20,8 +20,8 @@ function SubmissionSetForm() {
 
   const redirectToOrderDetails = () => {
     // Redirect the user to the '/order' page
-    window.location.href = "/order";
-  };
+    window.location.href = '/order'
+  }
 
   const handleSubmit = () => {
     // Ensure setCount is within bounds
@@ -43,13 +43,13 @@ function SubmissionSetForm() {
 
   const handleAddAnotherSet = () => {
     // Dispatch actions to add the current set's data, clear the form, and navigate to '/order-set/tier'
-    dispatch({ type: "ADD_SET", payload: formData });
-    dispatch({ type: "CLEAR_FORM" });
+    dispatch({ type: 'ADD_SET', payload: formData });
+    dispatch({ type: 'CLEAR_FORM' });
 
     // Clear the local storage
     localStorage.clear();
 
-    history.push("/order-set/tier");
+    history.push('/order-set/tier');
   };
 
   const handleBack = () => {
@@ -58,7 +58,7 @@ function SubmissionSetForm() {
   };
 
   return (
-    <div className="p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5">
+    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
       {isLoading ? ( // Display loading indicator while isLoading is true
         <div>Loading...</div>
       ) : (
@@ -72,8 +72,17 @@ function SubmissionSetForm() {
                     <h2 className="card-header">Number of sets made: {setCount + 1}</h2>
                     <p className="text-black font-semibold">Tier: {formData.tier}</p>
                     <p className="text-black font-semibold">Shape: {formData.shape}</p>
-                    <p className="text-black font-semibold">Left Display: {formData.leftDisplay}</p>
-                    <p className="text-black font-semibold">Right Display: {formData.rightDisplay}</p>
+                    <p className="text-black font-semibold">Left Display: {formData.leftDisplay.join(', ')}</p>
+                    <p className="text-black font-semibold">Right Display: {formData.rightDisplay.join(', ')}</p>
+                    {/* <p>photo: {formData.photos}</p>*/}
+                    <div>
+                      <p>Photos:</p>
+                      {formData.photos.map((photo, index) => (
+                        <div key={index}>
+                          <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                        </div>
+                      ))}
+                    </div>
                     <p className="text-black font-semibold">Description: {formData.description}</p>
                     <p className="text-black font-semibold">Charm(s): {!formData.extra ? 'None': formData.extra}</p>
                     <p className="text-black font-semibold">Character(s): {!formData.extra2 ? 'None': formData.extra2}</p>
