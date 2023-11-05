@@ -37,7 +37,7 @@ export default function GalleryPage() {
             <Carousel
                 swipeable={true}
                 draggable={true}
-                showDots={true}
+                showDots={false}
                 responsive={responsive}
                 ssr={true}
                 infinite={true}

@@ -6,8 +6,8 @@ function SubmissionSetForm() {
   // Initialize the history object and retrieve state and dispatch from the order context
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
-  const { formData, setCount } = state;  // Destructure values from the state
-  const isOrderDetailsComplete = state.name && state.email// Check if order details are complete
+  const { formData, setCount } = state; // Destructure values from the state
+  const isOrderDetailsComplete = state.name && state.email; // Check if order details are complete
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
   useEffect(() => {
@@ -31,15 +31,14 @@ function SubmissionSetForm() {
     const updatedSets = [...state.sets];
     updatedSets[newSetCount] = formData;
 
-
     // Dispatch an action to update the sets array in the state
-    dispatch({ type: 'UPDATE_SETS', payload: updatedSets });
+    dispatch({ type: "UPDATE_SETS", payload: updatedSets });
 
     // Dispatch an action to save the form data
-    dispatch({ type: 'SAVE_FORM_DATA' });
+    dispatch({ type: "SAVE_FORM_DATA" });
 
     // Dispatch an action to save the form data
-    history.push('/review-order');
+    history.push("/review-order");
   };
 
   const handleAddAnotherSet = () => {
@@ -55,7 +54,7 @@ function SubmissionSetForm() {
 
   const handleBack = () => {
     // Navigate back to the previous step, in this case, '/order-set/extra'
-    history.push('/order-set/extra');
+    history.push("/order-set/extra");
   };
 
   return (
@@ -67,46 +66,40 @@ function SubmissionSetForm() {
           {isOrderDetailsComplete ? (
             <>
               <div>
-
-                <h2>Sets</h2>
-                <p>Number of sets made: {setCount + 1}</p> {/* Display the set count */}
-
-                <div>
-                  <p> your current set</p>
-                  <p>Tier: {formData.tier}</p>
-                  <p>shape: {formData.shape}</p>
-                  <p>Left Display: {formData.leftDisplay.join(', ')}</p>
-                  <p>Right Display: {formData.rightDisplay.join(', ')}</p>
-                  {/* <p>photo: {formData.photos}</p>*/}
-                  <div>
-                    <p>Photos:</p>
-                    {formData.photos.map((photo, index) => (
-                      <div key={index}>
-                        <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
-                      </div>
-                    ))}
+                <div className="card card-image-cover bg-primary">
+                  <div className="card-body bg-primary">
+                    <h1 className="card-header">Sets</h1>
+                    <h2 className="card-header">Number of sets made: {setCount + 1}</h2>
+                    <p className="text-black font-semibold">Tier: {formData.tier}</p>
+                    <p className="text-black font-semibold">Shape: {formData.shape}</p>
+                    <p className="text-black font-semibold">Left Display: {formData.leftDisplay.join(', ')}</p>
+                    <p className="text-black font-semibold">Right Display: {formData.rightDisplay.join(', ')}</p>
+                    {/* <p>photo: {formData.photos}</p>*/}
+                    <div>
+                      <p>Photos:</p>
+                      {formData.photos.map((photo, index) => (
+                        <div key={index}>
+                          <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-black font-semibold">Description: {formData.description}</p>
+                    <p className="text-black font-semibold">Charm(s): {!formData.extra ? 'None': formData.extra}</p>
+                    <p className="text-black font-semibold">Character(s): {!formData.extra2 ? 'None': formData.extra2}</p>
+                    <div className="card-footer flex gap-3 mt-7">
+                      <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>
+                      ←
+                      </button>
+                      <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleAddAnotherSet}>
+                        Add Set
+                      </button>
+                    </div>
+                    <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleSubmit}>
+                      Submit Set
+                    </button>
                   </div>
+                  <img src={formData.photo} alt="" />
                 </div>
-
-                <div>
-                  <p>description: {formData.description}</p>
-                  <p>charm: {formData.extra}</p>
-                  <p>character: {formData.extra2}</p>
-
-                </div>
-
-                <div>
-                  <div>
-                    <button onClick={handleBack}>Back</button>
-                  </div>
-                  <div>
-                    <button type="submit" onClick={handleAddAnotherSet}>Add Another Set  </button>
-                  </div>
-                  <div>
-                    <button type="submit" onClick={handleSubmit}>Submit</button>
-                  </div>
-                </div>
-
               </div>
             </>
           ) : (
@@ -116,8 +109,7 @@ function SubmissionSetForm() {
             </div>
           )}
         </>
-      )
-      }
+      )}
     </div>
   );
 }

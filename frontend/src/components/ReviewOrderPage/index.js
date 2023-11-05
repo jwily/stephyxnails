@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useOrderContext } from "../../context/OrderContext";
+<<<<<<< HEAD
+import ReCAPTCHA from "react-google-recaptcha";
+import Cookie from "js-cookie";
+=======
 import ReCAPTCHA from "react-google-recaptcha"
 import Cookies from 'js-cookie'
+>>>>>>> staging
 
 const ReviewOrderPage = () => {
   // Access the history object for navigation, order state, and dispatch function from the order context
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
   const { name, email, instagram, sets } = state;
-  const isOrderDetailsComplete = state.name && state.email
+  const isOrderDetailsComplete = state.name && state.email;
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
   // Define state variables for edited user information
@@ -24,8 +29,8 @@ const ReviewOrderPage = () => {
 
   // Function to redirect to the order details page
   const redirectToOrderDetails = () => {
-    window.location.href = '/order'
-  }
+    window.location.href = "/order";
+  };
 
   // Function to save edited user information
   const handleSaveUserInformation = () => {
@@ -36,7 +41,7 @@ const ReviewOrderPage = () => {
       instagram: editedInstagram,
     };
     // Update the user information in your state
-    dispatch({ type: 'UPDATE_USER_INFORMATION', payload: updatedUserInformation });
+    dispatch({ type: "UPDATE_USER_INFORMATION", payload: updatedUserInformation });
     // When isEditingName is true, an input field is displayed for editing the name.
     // The onChange event handler captures the input changes and updates the editedName stat
     // When isEditingName is false, the name is displayed as plain text, and a "Edit" button allows users to switch to edit mode.
@@ -51,11 +56,16 @@ const ReviewOrderPage = () => {
     history.push(`/order-set/edit/${index}`, { set: setToEdit });
   };
 
+<<<<<<< HEAD
+  const csrfToken = Cookie.get("csrftoken");
+  console.log(csrfToken, "<====== csrf token");
+=======
   const csrfToken = Cookies.get('csrftoken');
+>>>>>>> staging
 
   const handleBack = () => {
     // Navigate back to the previous step
-    history.push('/order-set/currentset');
+    history.push("/order-set/currentset");
   };
 
   // Function to handle deleting a set, but prevent deleting the first set
@@ -63,7 +73,7 @@ const ReviewOrderPage = () => {
     // Edgecase
     if (index > 0) {
       // Dispatch an action to delete the set at the specified index
-      dispatch({ type: 'DELETE_SET', payload: index });
+      dispatch({ type: "DELETE_SET", payload: index });
     } else {
       // Display a message or provide some feedback that the first set cannot be deleted
       alert("The first set cannot be deleted only edited");
@@ -72,13 +82,11 @@ const ReviewOrderPage = () => {
 
   // Function to handle submitting the order
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // const recaptchaValue = recaptchaRef.current.getValue();
     // this.props.handleSubmit(recaptchaValue);
 
     const formData = prepareState(state);
-
-    console.log(csrfToken);
 
     const res = await fetch('/api/orders/',
       {
@@ -90,19 +98,18 @@ const ReviewOrderPage = () => {
       })
 
     if (res.ok) {
-      console.log('it worked')
+
     } else {
-      console.log('it borke')
+
     }
-  }
+  };
 
   const prepareState = (state) => {
-
-    const newState = {}
+    const newState = {};
     newState.name = state.name;
     newState.email = state.email;
     newState.instagram = state.instagram;
-    newState.sets = []
+    newState.sets = [];
 
     const imageSets = []
 
@@ -114,8 +121,8 @@ const ReviewOrderPage = () => {
       newSet.description = set.description;
       newSet.charms = set.extra;
       newSet.characters = set.extra2;
-      newSet.left_sizes = set.leftDisplay.join(', ');
-      newSet.right_sizes = set.rightDisplay.join(', ');
+      newSet.left_sizes = set.leftDisplay.join(", ");
+      newSet.right_sizes = set.rightDisplay.join(", ");
       newSet.shape = set.shape;
       newSet.tier = set.tier;
       newSet.images = [];
@@ -152,124 +159,122 @@ const ReviewOrderPage = () => {
       {isOrderDetailsComplete ? (
         <>
           <div>
-            <h2>Review Your Entire Order</h2>
+            <h2 className="font-extrabold text-xl text-center mb-4">Review Your Entire Order</h2>
           </div>
-          <div>
-            <h3>User Information</h3>
+          <div className="card-body p-8 shadow-lg rounded-2xl bg-primary m-4">
+            <h3 className="text-center font-bold">User Information</h3>
             <section>
               {isEditingName ? (
                 <div>
-                  <label>Name: </label>
+                  <label className="font-bold">Name: </label>
                   <input
+                    className="bg-white"
                     type="text"
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)} // Handle input change
                   />
-                  <div>
-                    <div>
-                      <button onClick={() => setIsEditingName(false)}>Cancel</button>
-                    </div>
-                    <div>
-                      <button onClick={handleSaveUserInformation}>Save</button>
-                    </div>
+                  <div className="flex gap-3 mt-3 ">
+                      <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingName(false)}>Cancel</button>
+                      <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleSaveUserInformation}>Save</button>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <p>Name: {state.name}</p>
-                  <button onClick={() => setIsEditingName(true)}>Edit</button>
+                  <p className="font-bold">Name: <span className="font-normal">{state.name}</span></p>
+                  <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingName(true)}>Edit</button>
                 </div>
               )}
             </section>
             <section>
               {isEditingEmail ? (
                 <div>
-                  <label>Email: </label>
+                  <label className="font-bold">Email: </label>
                   <input
+                    className="bg-white"
                     type="text"
                     value={editedEmail}
                     onChange={(e) => setEditedEmail(e.target.value)} // Handle input change
                   />
-                  <div>
-                    <div>
-                      <button onClick={() => setIsEditingEmail(false)}>Cancel</button>
-                    </div>
-                    <div>
-                      <button onClick={handleSaveUserInformation}>Save</button>
-                    </div>
+                  <div className="flex gap-3 mt-3">
+                      <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={() => setIsEditingEmail(false)}>Cancel</button>
+                      <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleSaveUserInformation}>Save</button>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <p>Email: {state.email}</p>
-                  <button onClick={() => setIsEditingEmail(true)}>Edit</button>
+                  <p className="font-bold">Email: <span className="font-normal">{state.email}</span></p>
+                  <button  className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingEmail(true)}>Edit</button>
                 </div>
               )}
             </section>
             <section>
               {isEditingInstagram ? (
                 <div>
-                  <label>Instagram: </label>
+                  <label className="font-bold">Instagram: </label>
                   <input
+                    className="bg-white"
                     type="text"
                     value={editedInstagram}
                     onChange={(e) => setEditedInstagram(e.target.value)} // Handle input change
                   />
-                  <div>
-                    <button onClick={() => setIsEditingInstagram(false)}>Cancel</button>
-                    <div></div>
-                    <button onClick={handleSaveUserInformation}>Save</button>
+                  <div className="flex gap-3 mt-3">
+                    <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={() => setIsEditingInstagram(false)}>Cancel</button>
+                    <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleSaveUserInformation}>Save</button>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <p>Instagram: {state.instagram}</p>
-                  <button onClick={() => setIsEditingInstagram(true)}>Edit</button>
+                  <p className="font-bold">Instagram: <span className="font-normal">{state.instagram}</span></p>
+                  <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingInstagram(true)}>Edit</button>
                 </div>
               )}
             </section>
           </div>
 
           <div>
-            <section>
-              {sets.map((formData, index) => {
-                return (
-                  <li key={index}>
-                    <h4>Set {index + 1}</h4>
-                    <p>Tier: {formData.tier}</p>
-                    <p>Shape: {formData.shape}</p>
-                    <p>Left Display: {formData.leftDisplay}</p>
-                    <p>Right Display: {formData.rightDisplay}</p>
-                    {/* <p>photo: {formData.photos}</p> */}
-                    <div>
-                      <p>Photos:</p>
-                      {formData.photos.map((photo, index) => (
-                        <div key={index}>
-                          <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
-                        </div>
-                      ))}
-                    </div>
-                    <p>Description: {formData.description}</p>
-                    <p>charm: {formData.extra}</p>
-                    <p>character: {formData.extra2}</p>
-                    <button onClick={() => handleDeleteSet(index)}>Delete Set</button>
-                    <div></div>
-                    <button onClick={() => handleEditSet(index)}>Edit Set</button>
+  <section className="accordion-group">
+    {sets.map((formData, index) => (
+      <li className="accordion" key={index}>
+        <input type="checkbox" id={`accordion-${index}`} className="accordion-toggle" />
+        <label htmlFor={`accordion-${index}`} className="accordion-title bg-inherit">Set {index + 1}</label>
+        <div className="accordion-content">
+          <div className="min-h-0 flex flex-col gap-8 pl-2">
+            <div className='flex justify-between mr-12'>
+                <p className="font-bold">Tier: <span className="font-normal">{formData.tier}</span></p>
+                <p className="font-bold">Shape: <span className="font-normal">{formData.shape}</span></p>
+            </div>
+            <div className="flex justify-between mr-6">
+                <p className="font-bold">Left Display: <span className="font-normal">{formData.leftDisplay}</span></p>
+                <p className="font-bold">Right Display: <span className="font-normal">{formData.rightDisplay}</span></p>
+            </div>
+            <div>
+              <p className="font-bold">Photos:</p>
+              {formData.photos.map((photo, index) => (
+                <div key={index}>
+                  <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                </div>
+              ))}
+            </div>
+            <p className="font-bold">Description: <span className="font-normal">{formData.description}</span></p>
+            <div className="flex justify-between mr-12">
+                <p className="font-bold">Charm(s): <span className="font-normal">{formData.extra}</span></p>
+                <p className="font-bold">Character(s): <span className="font-normal">{formData.extra2}</span></p>
+            </div>
+            <div className='flex gap-3'>
+              <button className='rounded-lg btn btn-primary btn-block bg-red-300 text-black' onClick={() => handleDeleteSet(index)}>Delete Set</button>
+              <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={() => handleEditSet(index)}>Edit Set</button>
+            </div>
+          </div>
+        </div>
+      </li>
+    ))}
+  </section>
+</div>
+<div className="flex gap-3 mt-7">
+  <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleBack}>←</button>
+  <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit}>Submit Order</button>
+</div>
 
-                  </li>
-                )
-              }
-              )}
-            </section>
-          </div>
-          <div>
-            <div>
-              <button onClick={handleBack}>Back</button>
-            </div>
-            <div>
-              <button onClick={handleSubmit}>Submit Order</button>
-            </div>
-          </div>
         </>
       ) : (
         <div>
@@ -296,7 +301,6 @@ const ReviewOrderPage = () => {
     //     </div>)} */}
 
     //     {/* <button onClick={handleSubmit}>Submit</button> */}
-
   );
   // return (
   //     <div>
@@ -320,7 +324,6 @@ const ReviewOrderPage = () => {
   //         <button onClick={handleSubmit}>Submit</button>
   //     </div>
   // )
-}
+};
 
-
-export default ReviewOrderPage
+export default ReviewOrderPage;

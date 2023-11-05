@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useOrderContext } from "../../context/OrderContext";
+import LoadingPage from "../LoadingPage";
 
 function TierForm() {
   // Initialize the history object and retrieve state, dispatch, and dataResult from the order context
@@ -14,6 +15,8 @@ function TierForm() {
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
   const isOrderDetailsComplete = state.name && state.email;
 
+
+
   useEffect(() => {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
     setTimeout(() => {
@@ -21,6 +24,7 @@ function TierForm() {
     }, 100);
     // Add dependencies as needed
   }, []);
+
 
   const redirectToOrderDetails = () => {
     window.location.href = "/order";
@@ -52,15 +56,15 @@ function TierForm() {
 
   if (dataResult === null) {
     // Display a loading indicator while data is being fetched
-    return <div>Loading...</div>;
+    return <LoadingPage />
   }
 
   return (
     <div className="p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5">
       {isLoading ? (
         <div>Loading...</div>
-      ) : (
-        <>
+        ) : (
+          <>
           {isOrderDetailsComplete ? (
             <section>
               <h1 className="font-extrabold text-xl text-center mb-4">1. Choose a Nail Tier</h1>
