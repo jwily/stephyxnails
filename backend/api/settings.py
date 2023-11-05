@@ -74,9 +74,6 @@ MIDDLEWARE = [
 
 # Added stuff rom here...
 STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'mysite/static'),
-# ]
 
 STORAGES = {
     # Allows WhiteNoise to do its job of compressing and hashing
@@ -96,6 +93,7 @@ WHITENOISE_ROOT = FRONTEND_DIR / 'build' / 'root'
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:3000",
+#     "http://localhost:8000",
 # ]
 
 # Don't know what this is for. - John
@@ -208,3 +206,11 @@ DRF_RECAPTCHA_SECRET_KEY = os.environ.get("DRF_RECAPTCHA_SECRET_KEY")
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 S3_BUCKET = os.environ.get('S3_BUCKET')
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/']
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha"
-import Cookie from 'js-cookie'
+import Cookies from 'js-cookie'
 
 const ReviewOrderPage = () => {
   // Access the history object for navigation, order state, and dispatch function from the order context
@@ -51,7 +51,7 @@ const ReviewOrderPage = () => {
     history.push(`/order-set/edit/${index}`, { set: setToEdit });
   };
 
-  const csrfToken = Cookie.get('csrftoken');
+  const csrfToken = Cookies.get('csrftoken');
 
   const handleBack = () => {
     // Navigate back to the previous step
@@ -77,6 +77,8 @@ const ReviewOrderPage = () => {
     // this.props.handleSubmit(recaptchaValue);
 
     const formData = prepareState(state);
+
+    console.log(csrfToken);
 
     const res = await fetch('/api/orders/',
       {
