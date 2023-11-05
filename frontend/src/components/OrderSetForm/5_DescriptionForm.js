@@ -67,15 +67,15 @@ function DescriptionFrom() {
               <div className="p-8 shadow-lg">
                 <form className="space-y-4">
                   <div className="w-full">
-                    <div className='text-xl'>Nail Description</div>
+                    <div className='font-extrabold text-xl text-center mb-4'>5. Nail Description</div>
                     <label className="sr-only" htmlFor="message">Message</label>
-                    <textarea className="textarea textarea-solid max-w-full bg-white text-black" placeholder="" rows="8" id="message" value={description} onChange={ (e) => setDescription(e.target.value )} maxLength={5000} ></textarea>
+                    <textarea style={{resize:"none"}} className="textarea textarea-solid max-w-full bg-white text-black" placeholder="" rows="8" id="message" value={description} onChange={ (e) => setDescription(e.target.value )} maxLength={5000} ></textarea>
                     <div ref={errorRef} style={{ color: 'red' }}></div>
                   </div>
 
-                  <div className="mt-4 flex justify-around">
-                    <button type="button" className="rounded-lg btn btn-primary" onClick={handleBack}>Back</button>
-                    <button className="rounded-lg btn btn-primary" type="submit" onClick={handleNext}>Next</button>
+                  <div className="flex gap-3 mt-7">
+                    <button type="button" className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>←</button>
+                    <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleNext}>→</button>
                   </div>
                 </form>
               </div>
