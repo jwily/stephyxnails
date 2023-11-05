@@ -75,9 +75,9 @@ function TierForm() {
                               className="radio-solid-error radio mr-2 mt-1"
                               type="radio"
                               name="tier"
-                              value={tierOption.name}
-                              checked={tier === tierOption.name}
-                              onChange={() => setTier(tierOption.name)}
+                              value={tierOption.id}
+                              checked={tier === tierOption.id}
+                              onChange={() => setTier(tierOption.id)}
                               required
                             />
                             <span className="font-bold text-xl">{tierOption.name}:</span>
