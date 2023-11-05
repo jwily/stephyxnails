@@ -154,7 +154,7 @@ function ExtraForm() {
               <div className="p-8 shadow-lg">
                 <form className="space-y-4">
                   <div className="w-full">
-                    <h1 className="font-extrabold text-xl text-center mb-4">6. Choose Charm/Character Add Ons</h1>
+                    <h1 className="font-extrabold text-xl text-center mb-4">6. Choose charm/character add ons</h1>
                     <div>Charms</div>
                     <label className="sr-only" htmlFor="name">
                       Name
