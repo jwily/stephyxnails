@@ -5,7 +5,7 @@ export default function AboutPage() {
 
   return (
     <div className="rounded-2xl m-4 bg-primary p-4" ref={scrollToAbout}>
-      <h1 className="text-center mb-3">About Me</h1>
+      <h1 className="text-center mb-3 font-bold">About Me</h1>
       <div className="flex">
         <div></div>
         <div>
