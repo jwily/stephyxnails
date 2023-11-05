@@ -47,14 +47,6 @@ const NavBar = () => {
                                 <label
                                     htmlFor="drawer-left"
                                     className="text-2xl btn btn-sm btn-circlze btn-ghost"
-                                    onClick={() => scrollToSection(scrollToAbout)}
-                                >
-                                    ABOUT</label>
-                            </div>
-                            <div className="p-4">
-                                <label
-                                    htmlFor="drawer-left"
-                                    className="text-2xl btn btn-sm btn-circlze btn-ghost"
                                     onClick={() => scrollToVeryTop()}>
                                     ORDERING
                                 </label>
@@ -66,6 +58,14 @@ const NavBar = () => {
                                     onClick={() => scrollToSection(scrollToFAQ)}>
                                     FAQ
                                 </label>
+                            </div>
+                            <div className="p-4">
+                                <label
+                                    htmlFor="drawer-left"
+                                    className="text-2xl btn btn-sm btn-circlze btn-ghost"
+                                    onClick={() => scrollToSection(scrollToAbout)}
+                                >
+                                    ABOUT</label>
                             </div>
                             <div className="p-4">
                                 <label

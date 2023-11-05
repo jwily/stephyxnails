@@ -18,6 +18,7 @@ import Submissions from './components/OrderSetForm/7_SubmissionForm';
 import EditSetForm from './components/OrderSetForm/EditSetForm'
 
 import DummyComponent from './components/Dummy';
+import LoadingPage from './components/LoadingPage';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/order-set/start" component={StartForm} />
         <Route path="/order-set/tier" component={TierForm} />
         <Route path="/order-set/shape" component={ShapeForm} />
+        <Route exact path='/loading' component={LoadingPage} />
         {/* Testing */}
         <Route path="/order-set/sizes" component={SizesForm} />
         <Route path="/order-set/photo" component={PhotoForm} />

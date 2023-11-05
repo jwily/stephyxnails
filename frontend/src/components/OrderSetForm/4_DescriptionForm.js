@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 
-function DescriptionFrom() {
+function DescriptionFrom2() {
 
   const history = useHistory()
   const { state, dispatch } = useOrderContext();
@@ -62,4 +62,4 @@ function DescriptionFrom() {
   );
 }
 
-export default DescriptionFrom;
+export default DescriptionFrom2;
