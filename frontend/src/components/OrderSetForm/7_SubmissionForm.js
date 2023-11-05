@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useOrderContext } from '../../context/OrderContext';
 import { useHistory } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ function SubmissionSetForm() {
 
   const redirectToOrderDetails = () => {
     // Redirect the user to the '/order' page
-    window.location.href ='/order'
+    window.location.href = '/order'
   }
 
   const handleSubmit = () => {
@@ -43,14 +43,14 @@ function SubmissionSetForm() {
   };
 
   const handleAddAnotherSet = () => {
-      // Dispatch actions to add the current set's data, clear the form, and navigate to '/order-set/tier'
-      dispatch({ type: 'ADD_SET', payload: formData });
-      dispatch({ type: 'CLEAR_FORM' });
+    // Dispatch actions to add the current set's data, clear the form, and navigate to '/order-set/tier'
+    dispatch({ type: 'ADD_SET', payload: formData });
+    dispatch({ type: 'CLEAR_FORM' });
 
-      // Clear the local storage
-      localStorage.clear();
+    // Clear the local storage
+    localStorage.clear();
 
-      history.push('/order-set/tier');
+    history.push('/order-set/tier');
   };
 
   const handleBack = () => {
@@ -60,65 +60,64 @@ function SubmissionSetForm() {
 
   return (
     <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
-    {isLoading ? ( // Display loading indicator while isLoading is true
-       <div>Loading...</div>
-    ) : (
-       <>
-      {isOrderDetailsComplete ? (
+      {isLoading ? ( // Display loading indicator while isLoading is true
+        <div>Loading...</div>
+      ) : (
         <>
-        <div>
+          {isOrderDetailsComplete ? (
+            <>
+              <div>
 
-          <h2>Sets</h2>
-          <p>Number of sets made: {setCount + 1}</p> {/* Display the set count */}
+                <h2>Sets</h2>
+                <p>Number of sets made: {setCount + 1}</p> {/* Display the set count */}
 
-          <div>
-            <p> your current set</p>
-            <p>Tier: {formData.tier}</p>
-            <p>shape: {formData.shape}</p>
-            <p>Left Display: {formData.leftDisplay.join(', ')}</p>
-            <p>Right Display: {formData.rightDisplay.join(', ')}</p>
-            {/* <p>photo: {formData.photo}</p>
-         */}
-       <div>
-          <p>Photos:</p>
-          {formData.photo.map((photo, index) => (
-            <div key={index}>
-              <img src={photo} alt={`Photo ${index + 1}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
-            </div>
-          ))}
-        </div>
-      </div>
-      
-      <div>
-             <p>description: {formData.description}</p>
-            <p>charm: {formData.extra}</p>
-            <p>character: {formData.extra2}</p>
+                <div>
+                  <p> your current set</p>
+                  <p>Tier: {formData.tier}</p>
+                  <p>shape: {formData.shape}</p>
+                  <p>Left Display: {formData.leftDisplay.join(', ')}</p>
+                  <p>Right Display: {formData.rightDisplay.join(', ')}</p>
+                  {/* <p>photo: {formData.photos}</p>*/}
+                  <div>
+                    <p>Photos:</p>
+                    {formData.photos.map((photo, index) => (
+                      <div key={index}>
+                        <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-          </div>
+                <div>
+                  <p>description: {formData.description}</p>
+                  <p>charm: {formData.extra}</p>
+                  <p>character: {formData.extra2}</p>
 
-          <div>
+                </div>
+
+                <div>
+                  <div>
+                    <button onClick={handleBack}>Back</button>
+                  </div>
+                  <div>
+                    <button type="submit" onClick={handleAddAnotherSet}>Add Another Set  </button>
+                  </div>
+                  <div>
+                    <button type="submit" onClick={handleSubmit}>Submit</button>
+                  </div>
+                </div>
+
+              </div>
+            </>
+          ) : (
             <div>
-              <button onClick={handleBack}>Back</button>
+              <p>Please complete your order details before proceeding.</p>
+              <button onClick={redirectToOrderDetails}>Complete Order Details</button>
             </div>
-            <div>
-              <button type="submit" onClick={handleAddAnotherSet}>Add Another Set  </button>
-            </div>
-            <div>
-              <button type="submit" onClick={handleSubmit}>Submit</button>
-            </div>
-          </div>
-
-        </div>
+          )}
         </>
-       ) : (
-        <div>
-            <p>Please complete your order details before proceeding.</p>
-            <button onClick={redirectToOrderDetails}>Complete Order Details</button>
-        </div>
-      )}
-      </>
-    )
-    }
+      )
+      }
     </div>
   );
 }
