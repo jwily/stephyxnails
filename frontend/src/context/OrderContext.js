@@ -42,15 +42,24 @@ const reducer = (state = initialState, action) => {
       console.log("Updating form data with:", action.payload);
       return { ...state, formData: { ...state.formData, ...action.payload } };
 
+    // case 'SAVE_FORM_DATA':
+    //   const newState = { ...state };
+    //   newState.sets = [...newState.sets, newState.formData];
+    //   newState.formData = {
+    //     tier: '',
+    //     shape: '',
+    //     photos: [],
+    //     description: '',
+    //     extra: ''
+    //   }
+    //   return newState;
+
     case 'SAVE_FORM_DATA':
       const newState = { ...state };
-      newState.sets = [...newState.sets, newState.formData];
-      newState.formData = {
-        tier: '',
-        shape: '',
-        photos: [],
-        description: '',
-        extra: ''
+      // Add the current set to the sets array only if it hasn't been added
+      if (!state.isCurrentSetAdded) {
+        newState.sets = [...newState.sets, newState.formData];
+        newState.isCurrentSetAdded = true; // Mark the current set as added
       }
       return newState;
 

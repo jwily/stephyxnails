@@ -174,11 +174,13 @@ const EditSetForm = () => {
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <label>Photo:</label>
-                        <input
+                        {/* <input
                           type="text"
                           value={editedPhoto}
                           onChange={(e) => setEditedPhoto(e.target.value)}
-                        />
+                        /> */}
+                        
+
                       </div>
                     </div>
                   </div>

@@ -144,6 +144,8 @@ const ReviewOrderPage = () => {
 
   const recaptchaRef = React.createRef();
 
+  console.log(sets, 'left hand')
+
   return (
     <>
       {isOrderDetailsComplete ? (
@@ -234,8 +236,8 @@ const ReviewOrderPage = () => {
                 <p className="font-bold">Shape: <span className="font-normal">{formData.shape}</span></p>
             </div>
             <div className="flex justify-between mr-6">
-                <p className="font-bold">Left Display: <span className="font-normal">{formData.leftDisplay}</span></p>
-                <p className="font-bold">Right Display: <span className="font-normal">{formData.rightDisplay}</span></p>
+                <p className="font-bold">Left Display: <span className="font-normal">{formData.leftDisplay.join(', ')}</span></p>
+                <p className="font-bold">Right Display: <span className="font-normal">{formData.rightDisplay.join(', ')}</span></p>
             </div>
             <div>
               <p className="font-bold">Photos:</p>

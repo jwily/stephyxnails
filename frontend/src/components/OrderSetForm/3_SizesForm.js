@@ -34,6 +34,9 @@ function SizesForm() {
     e.preventDefault();
     if (!validateDisplays()) return;
 
+    console.log(leftDisplay, 'size form left display paylod')
+    console.log(rightDisplay, 'size form right display paylod')
+
     dispatch({ type: 'UPDATE_FORM_DATA', payload: { leftDisplay, rightDisplay } });
     history.push('/order-set/photo'); // Navigate to the next form question
   }
@@ -60,6 +63,7 @@ function SizesForm() {
     // Allows input to function correctly
     setError('');
     setText(value);
+    
 
     const string = value + '_';
     const allowed = '0123456789.';
