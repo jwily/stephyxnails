@@ -86,7 +86,7 @@ function SubmissionSetForm() {
                       </button>
                     </div>
                     <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleSubmit}>
-                      Submit
+                      Submit Set
                     </button>
                   </div>
                   <img src={formData.photo} alt="" />
