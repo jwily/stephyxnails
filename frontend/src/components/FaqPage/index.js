@@ -4,7 +4,7 @@ export default function FaqPage() {
   const { scrollToFAQ } = useOrderContext()
   return (
     <div className="rounded-ex m-4 bg-primary p-4" ref={scrollToFAQ}>
-      <h1 style={{ textAlign: "center" }}>Frequently Asked Questions</h1>
+      <h1 className="text-center font-bold">General Info</h1>
       <div className="accordion-group">
         <div className="accordion">
           <input type="checkbox" id="accordion-1" className="accordion-toggle" />
