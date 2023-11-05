@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useOrderContext } from "../../context/OrderContext";
-<<<<<<< HEAD
-import ReCAPTCHA from "react-google-recaptcha";
-import Cookie from "js-cookie";
-=======
 import ReCAPTCHA from "react-google-recaptcha"
 import Cookies from 'js-cookie'
->>>>>>> staging
 
 const ReviewOrderPage = () => {
   // Access the history object for navigation, order state, and dispatch function from the order context
@@ -56,12 +51,7 @@ const ReviewOrderPage = () => {
     history.push(`/order-set/edit/${index}`, { set: setToEdit });
   };
 
-<<<<<<< HEAD
-  const csrfToken = Cookie.get("csrftoken");
-  console.log(csrfToken, "<====== csrf token");
-=======
   const csrfToken = Cookies.get('csrftoken');
->>>>>>> staging
 
   const handleBack = () => {
     // Navigate back to the previous step
