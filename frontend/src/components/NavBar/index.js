@@ -14,12 +14,15 @@ const NavBar = () => {
         if (pathname !== '/') {
             history.push('/')
             setTimeout(() => {
-                scrollTo?.current?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+                const currentScrollPosition = window.scrollY;
+                const targetScrollPosition = scrollTo?.current?.getBoundingClientRect().top + currentScrollPosition - (window.innerHeight * scrollOffsetPercentage);
+                window.scrollTo({ top: targetScrollPosition, behavior: "smooth" });
             }, 10);
         }
         const currentScrollPosition = window.scrollY;
         const targetScrollPosition = scrollTo?.current?.getBoundingClientRect().top + currentScrollPosition - (window.innerHeight * scrollOffsetPercentage);
-        window.scrollTo({ top: targetScrollPosition, behavior: "smooth" });    };
+        window.scrollTo({ top: targetScrollPosition, behavior: "smooth" });
+    };
 
     const scrollToVeryTop = () => {
         if (pathname !== '/') {
@@ -73,7 +76,7 @@ const NavBar = () => {
                                 <label
                                     htmlFor="drawer-left"
                                     className="text-2xl btn btn-sm btn-circlze btn-ghost"
-                                    onClick={(e) => scrollToGallery.current.scrollIntoView({ behavior: 'smooth' })}>
+                                    onClick={(e) => scrollToSection(scrollToGallery)}>
                                     GALLERY
                                 </label>
                             </div>
