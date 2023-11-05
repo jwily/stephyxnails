@@ -53,14 +53,17 @@ const reducer = (state = initialState, action) => {
         extra: ''
       }
       return newState;
+
     case 'INITIALIZE_STATE':
       // Load initial state from localStorage if it exists
       const savedState = localStorage.getItem('orderState');
       return savedState ? JSON.parse(savedState) : initialState;
+
     case 'SAVE_STATE':
       // Save the state to localStorage
       localStorage.setItem('orderState', JSON.stringify(state));
       return state;
+
     case 'CLEAR_LOCAL_STORAGE':
       // Clear the localStorage
       localStorage.clear();
@@ -99,43 +102,42 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'CLEAR_FORM':
-      return { ...state, formData: { tier: '', shape: '',  leftDisplay: '', rightDisplay: '', photo: [], description: '', extra: '', extra2: ''} };
-    
-      case 'INCREMENT_SET_COUNT':
-        return {
-          ...state,
-          setCount: state.setCount + 1,
-        };
-      case 'DECREMENT_SET_COUNT':
-        return {
-          ...state,
-          setCount: state.setCount - 1,
-        };
-      case 'RESET_SET_COUNT':
-        return {
-          ...state,
-          setCount: 0,
-        };
-        case 'ADD_PHOTO':
-          const newPhotos = [...state.formData.photo, action.payload];
-          return {
-            ...state,
-            formData: {
-              ...state.formData,
-              photo: newPhotos,
-            },
-          };
-        
-          case 'REMOVE_PHOTO':
-            return {
-              ...state,
-              formData: {
-                ...state.formData,
-                photo: action.payload,
-              },
-            };
-          
-        
+      return { ...state, formData: { tier: '', shape: '', leftDisplay: '', rightDisplay: '', photo: [], description: '', extra: '', extra2: '' } };
+
+    case 'INCREMENT_SET_COUNT':
+      return {
+        ...state,
+        setCount: state.setCount + 1,
+      };
+    case 'DECREMENT_SET_COUNT':
+      return {
+        ...state,
+        setCount: state.setCount - 1,
+      };
+    case 'RESET_SET_COUNT':
+      return {
+        ...state,
+        setCount: 0,
+      };
+    case 'ADD_PHOTO':
+      const newPhotos = [...state.formData.photo, action.payload];
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          photo: newPhotos,
+        },
+      };
+
+    case 'REMOVE_PHOTO':
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          photo: action.payload,
+        },
+      };
+
     default:
       return state;
   }
@@ -144,10 +146,11 @@ const reducer = (state = initialState, action) => {
 // Create an OrderProvider component to provide the order context to the application
 export const OrderProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [dataResult, setDataResult] = useState(null)
   const [image, setImage] = useState([])
+  const [dataResult, setDataResult] = useState(null)
 
   useEffect(() => {
+
     async function fetchData() {
       try {
         const response = await fetch('/api/tiers/');
@@ -162,6 +165,7 @@ export const OrderProvider = ({ children }) => {
         console.error(error);
       }
     }
+
     const grabImage = async () => {
       const res = await fetch('/api/exampleimages/')
 
@@ -176,8 +180,9 @@ export const OrderProvider = ({ children }) => {
       }
     }
 
-    grabImage()
+    grabImage();
     fetchData();
+
   }, []);
 
   // Dispatch the 'INITIALIZE_STATE' action to load the state from localStorage

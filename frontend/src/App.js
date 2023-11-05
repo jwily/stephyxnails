@@ -42,6 +42,8 @@ function App() {
         <Route exact path='/gallery' component={GalleryPage} />
         <Route exact path='/about' component={AboutPage} />
         <Route exact path='/faq' component={FaqPage} />
+
+        <Route exact path='/dummy' component={DummyComponent} />
       </Switch>
       <Route exact path={['/']} component={GalleryPage} />
     </Router>
