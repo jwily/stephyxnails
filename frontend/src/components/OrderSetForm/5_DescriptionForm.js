@@ -67,7 +67,8 @@ function DescriptionFrom() {
               <div className="p-8 shadow-lg">
                 <form className="space-y-4">
                   <div className="w-full">
-                    <div className='font-extrabold text-xl text-center mb-4'>5. Nail Description</div>
+                    <div className='font-extrabold text-xl text-center mb-4'>5. Provide a description of your desired set</div>
+                    <p className='mb-4'>It's important to be as detailed as you can! The more details/description, the smoother the process will be. Or request a surprise design!</p>
                     <label className="sr-only" htmlFor="message">Message</label>
                     <textarea style={{resize:"none"}} className="textarea textarea-solid max-w-full bg-white text-black" placeholder="" rows="8" id="message" value={description} onChange={ (e) => setDescription(e.target.value )} maxLength={5000} ></textarea>
                     <div ref={errorRef} style={{ color: 'red' }}></div>
