@@ -241,8 +241,8 @@ const ReviewOrderPage = () => {
                 <p className="font-bold">Shape: <span className="font-normal">{formData.shape}</span></p>
             </div>
             <div className="flex justify-between mr-6">
-                <p className="font-bold">Left Display: <span className="font-normal">{formData.leftDisplay.join(', ')}</span></p>
-                <p className="font-bold">Right Display: <span className="font-normal">{formData.rightDisplay.join(', ')}</span></p>
+                <p className="font-bold">Left Sizes: <span className="font-normal">{formData.leftDisplay.join(', ')}</span></p>
+                <p className="font-bold">Right Sizes: <span className="font-normal">{formData.rightDisplay.join(', ')}</span></p>
             </div>
             <div>
               <p className="font-bold">Photos:</p>
