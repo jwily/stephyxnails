@@ -54,15 +54,14 @@ function ShapeForm() {
         <>
         {isOrderDetailsComplete ? (
            <section>
-           <h2 className="font-extrabold text-xl text-center mb-4">2. Choose your perferred nail shape and length</h2>
+           <h2 className="font-extrabold text-xl text-center mb-4">2. Choose your preferred nail shape and length</h2>
                  <div>
                    <select
                      value={shape}
                      onChange={(e) => setShape(e.target.value )}
                      ref={selectRef} // Assign the ref to the select element
                      required
-                     className='bg-white select select-error'
-                     style={{color: '#F385AA'}}
+                     className='bg-white select text-black'
                    >
                    <option value="" disabled>
                            Select A Nail Shape

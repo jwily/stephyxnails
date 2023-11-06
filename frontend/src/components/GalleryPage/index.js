@@ -29,7 +29,7 @@ export default function GalleryPage() {
     ))
 
     return (
-        <div className="p-4" ref={scrollToGallery}>
+        <div className="p-4 mb-10" ref={scrollToGallery}>
             <Carousel
                 swipeable={true}
                 draggable={true}
