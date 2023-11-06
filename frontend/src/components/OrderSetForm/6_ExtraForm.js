@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useOrderContext } from "../../context/OrderContext";
+import LoadingPage from "../LoadingPage";
 
 function ExtraForm() {
   const history = useHistory();
@@ -145,7 +146,7 @@ function ExtraForm() {
   return (
     <>
       {isLoading ? (
-        <div>Loading...</div>
+       <LoadingPage />
       ) : (
         <>
 

@@ -5,10 +5,11 @@ export default function AboutPage() {
   const { scrollToAbout } = useOrderContext();
 
   return (
-      <div class="card card-image-cover bg-primary" ref={scrollToAbout}>
+    <div>
+      <div className="card card-image-cover bg-primary" ref={scrollToAbout}>
         <img src={aboutMe} alt="steph-avatar" />
-        <div class="card-body">
-          <h2 class="card-header">About Me</h2>
+        <div className="card-body">
+          <h2 className="card-header">About Me</h2>
           <div className="flex flex-col gap-5">
             <p>
               Hi!! I’m your press-on nail artist Stephanie, or Stephy, or Steph °˖✧◝(⁰▿⁰)◜✧˖° and I’ve been
@@ -23,10 +24,11 @@ export default function AboutPage() {
             </p>
             <p>I would be honored to create something for you! (°◡°♡)</p>
           </div>
-          {/* <div class="card-footer">
-            <button class="btn-secondary btn">Learn More</button>
+          {/* <div className="card-footer">
+            <button className="btn-secondary btn">Learn More</button>
           </div> */}
         </div>
       </div>
+    </div>
   );
 }
