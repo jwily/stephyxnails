@@ -58,10 +58,15 @@ function PhotoForm() {
           const file = files[i];
           // Create a URL for the selected file
           uploadedPhotos.push(file);
+               // Create a new FileReader instance
+   
+      
         }
 
         // Update the local state to trigger re-render
         // setLocalPhotos(uploadedPhotos);
+
+
 
         // Dispatch an action to add the uploaded photos to the state
         dispatch({ type: 'ADD_PHOTO', payload: uploadedPhotos });

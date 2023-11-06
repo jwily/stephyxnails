@@ -54,7 +54,7 @@ const EditSetForm = () => {
 
   const handleSaveSet = () => {
     if(!validateDisplays()) return;
-    
+
     const updatedSet = {
       tier: editedTier,
       shape: editedShape,
@@ -135,6 +135,11 @@ const EditSetForm = () => {
   };
 
   const validateDisplays = () => {
+    if([...editedLeftDisplay, ...editedRightDisplay].length !== 10) {
+      setSizesError('Each finger needs a valid size from 00 to 9.')
+      return false;
+    }
+
     for (let val of [...editedLeftDisplay, ...editedRightDisplay]) {
 
       if (val === '' || parseInt(val) < 0 || parseInt(val) > 9) {
@@ -171,6 +176,18 @@ const EditSetForm = () => {
 
     setDisplay(newDisplay);
   }
+
+  const numericalOptions = (max) => {
+    const options = [];
+    for (let i = 0; i <= max; i++) {
+      options.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
+    }
+    return options;
+  };
 
   return (
     <>
@@ -381,7 +398,7 @@ const EditSetForm = () => {
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <label>Charm count: </label>
-                        <input
+                        {/* <input
                           type="number"
                           value={editedExtra}
                           onChange={(e) => {
@@ -392,7 +409,17 @@ const EditSetForm = () => {
                           className="input bg-white text-black"
                           max='25'
                           min='0'
-                        />
+                        /> */}
+                        <select
+                          className="input input-solid max-w-full bg-white text-black"
+                          placeholder=""
+                          type="number"
+                          id="number"
+                          value={editedExtra}
+                          onChange={(e) => setEditedExtra(e.target.value)}
+                        >
+                          {numericalOptions(20)}
+                        </select>                        
                       </div>
                     </div>
                   </div>
@@ -404,18 +431,17 @@ const EditSetForm = () => {
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <label>Character count: </label>
-                        <input
+                        <select
+                          className="input input-solid bg-white text-black"
+                          placeholder=""
                           type="number"
+                          id="number"
                           value={editedExtra2}
-                          onChange={(e) => {
-                            if (e.target.value <= 25 && e.target.value >= 0) {
-                              setEditedExtra2(e.target.value);
-                            }
-                          }}
-                          className="input bg-white text-black"
-                          max='25'
-                          min='0'
-                        />
+                          onChange={(e) => setEditedExtra2(e.target.value)}
+                        >
+                          {numericalOptions(10)}
+                        </select>
+
                       </div>
                     </div>
                   </div>

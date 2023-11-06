@@ -82,8 +82,11 @@ function SizesForm() {
   }
 
   const validateDisplays = () => {
+    if([...leftDisplay, ...rightDisplay].length !== 10) {
+      setError('Each finger needs a valid size from 00 to 9.')
+      return false;
+    }
     for (let val of [...leftDisplay, ...rightDisplay]) {
-
       if (val === '' || parseInt(val) < 0 || parseInt(val) > 9) {
         setError('Each finger needs a valid size from 00 to 9.')
         return false;
