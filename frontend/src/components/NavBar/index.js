@@ -51,8 +51,8 @@ const NavBar = () => {
                                 <label
                                     htmlFor="drawer-left"
                                     className="text-2xl btn btn-sm btn-circlze btn-ghost"
-                                    onClick={() => scrollToVeryTop()}>
-                                    ORDERING
+                                    onClick={() => history.push('/order')}>
+                                    ORDER
                                 </label>
                             </div>
                             <div className="p-4">
