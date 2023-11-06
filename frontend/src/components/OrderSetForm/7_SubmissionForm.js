@@ -61,6 +61,17 @@ function SubmissionSetForm() {
     history.push("/order-set/extra");
   };
 
+  const imageStyle = {
+    // maxWidth: '200px', // Maximum width
+    // maxHeight: '200px', // Maximum height
+    // width: 'auto',      // Maintain aspect ratio
+    // height: 'auto',     // Maintain aspect ratio
+    width: '200px',    // Fixed width
+    height: '200px',   // Fixed height
+    objectFit: 'cover', // Maintain aspect ratio and cover the container
+
+  };
+
   return (
     <div className="p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5">
       {isLoading ? ( // Display loading indicator while isLoading is true
@@ -97,7 +108,7 @@ function SubmissionSetForm() {
                           <img
                             src={URL.createObjectURL(photo)}
                             alt={`Inspiration ${index}`}
-                            style={{ maxWidth: "100px", maxHeight: "100px" }}
+                            style={imageStyle}
                           />
                         </div>
                       ))}
@@ -127,6 +138,7 @@ function SubmissionSetForm() {
                     >
                       Submit Set
                     </button>
+                    <p>you will be able to edit sets on the next page before finalizing your order.</p>
                   </div>
                   <img src={formData.photo} alt="" />
                 </div>
