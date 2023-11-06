@@ -155,40 +155,38 @@ function SizesForm() {
                 )}
               </div>
               <div>
-                <div className="p-8 shadow-lg">
-                  <form className="space-y-4">
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <div>
-                        {/* <p>Please list your nail sizes from thumb to pinky for each hand.</p> */}
-                        <p className='font-extrabold text-xl text-center mb-4'>If you are unsure of your nail sizes, please reach out to me!</p>
-                        <label className="sr-only" htmlFor="email">Left Hand</label>
-                        <input
-                          className="input input-solid"
-                          placeholder='ex. 2, 7, 6, 7, 9'
-                          onChange={(e) => textToDisplay(e, setLeftText, leftDisplay, setLeftDisplay)}
-                          type="text"
-                          value={leftText}
+                <form className="space-y-4 pt-10">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                      {/* <p>Please list your nail sizes from thumb to pinky for each hand.</p> */}
+                      <p className='font-extrabold text-3xl text-center mb-4'>If you are unsure of your nail sizes, please reach out!</p>
+                      <label className="sr-only" htmlFor="email">Left Hand</label>
+                      <input
+                        className="input input-solid"
+                        placeholder='ex. 2, 7, 6, 7, 9'
+                        onChange={(e) => textToDisplay(e, setLeftText, leftDisplay, setLeftDisplay)}
+                        type="text"
+                        value={leftText}
 
-                          id="email" />
-                      </div>
-                      <div>
-                        <label className="sr-only" htmlFor="phone">Right Hand</label>
-                        <input
-                          className="input input-solid"
-                          placeholder='ex. 2, 7, 6, 7, 9'
-                          type="text"
-                          value={rightText}
-                          onChange={(e) => textToDisplay(e, setRightText, rightDisplay, setRightDisplay)}
+                        id="email" />
+                    </div>
+                    <div>
+                      <label className="sr-only" htmlFor="phone">Right Hand</label>
+                      <input
+                        className="input input-solid"
+                        placeholder='ex. 2, 7, 6, 7, 9'
+                        type="text"
+                        value={rightText}
+                        onChange={(e) => textToDisplay(e, setRightText, rightDisplay, setRightDisplay)}
 
-                          id="phone" />
-                      </div>
+                        id="phone" />
                     </div>
-                    <div className="mt-4">
-                      <button type="button" className="rounded-lg btn btn-primary w-6/12 bg-primary_blue text-black" onClick={handleBack}>←</button>
-                      <button className="rounded-lg btn btn-primary w-6/12 bg-primary_blue text-black" type="submit" onClick={handleNext}>→</button>
-                    </div>
-                  </form>
-                </div>
+                  </div>
+                  <div className="mt-4 flex justify-between">
+                    <button type="button" className="rounded-lg btn btn-primary w-5/12 bg-primary_blue text-black" onClick={handleBack}>←</button>
+                    <button className="rounded-lg btn btn-primary w-5/12 bg-primary_blue text-black" type="submit" onClick={handleNext}>→</button>
+                  </div>
+                </form>
                 {/* <p>
                   {errorRightHand && <div className="error-message">{errorRightHand}</div>}
                   {errorRightHand2 && <div className="error-message">{errorRightHand2}</div>}
