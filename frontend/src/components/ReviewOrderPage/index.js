@@ -83,52 +83,39 @@ const ReviewOrderPage = () => {
   const handleDeleteSet = (index) => {
 
 
-      dispatch({ type: "DELETE_SET", payload: index });
+    dispatch({ type: "DELETE_SET", payload: index });
 
   };
 
-<<<<<<< HEAD
-    console.log(state);
+  // Function to handle submitting the order
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const formData = prepareState(state);
-=======
-// Function to handle submitting the order
-const handleSubmit = async (e) => {
-  e.preventDefault();
->>>>>>> staging
+    // Check if there are sets in the state
+    if (state && state.sets && state.sets.length > 0) {
+      setError(null);
 
-  // Check if there are sets in the state
-  if (state && state.sets && state.sets.length > 0) {
-    setError(null);
+      const formData = prepareState(state);
+      const res = await fetch('/api/orders/', {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken
+        },
+        body: formData
+      });
 
-<<<<<<< HEAD
-=======
-    const formData = prepareState(state);
-    const res = await fetch('/api/orders/', {
-      method: 'POST',
-      headers: {
-        'X-CSRFToken': csrfToken
-      },
-      body: formData
-    });
+      if (res.ok) {
+        // Successfully submitted the order, navigate to the confirmation page
+        history.push('/orderconfirmation');
+      } else {
 
->>>>>>> staging
-    if (res.ok) {
-      // Successfully submitted the order, navigate to the confirmation page
-      history.push('/orderconfirmation');
+      }
     } else {
 
-<<<<<<< HEAD
-      history.push("/orderconfirmation");
-=======
+      setError("You can't submit without a set");
+
+
     }
-  } else {
->>>>>>> staging
-
-    setError("You can't submit without a set");
-
-
-  }
 
   };
 
@@ -146,8 +133,8 @@ const handleSubmit = async (e) => {
 
       const newSet = {};
       newSet.description = set.description;
-      newSet.charms = set.extra;
-      newSet.characters = set.extra2;
+      newSet.charms = set.extra ? parseInt(set.extra) : 0;
+      newSet.characters = set.extra2 ? parseInt(set.extra2) : 0;
       newSet.left_sizes = set.leftDisplay.join(", ");
       newSet.right_sizes = set.rightDisplay.join(", ");
       newSet.shape = set.shape;
@@ -342,7 +329,7 @@ const handleSubmit = async (e) => {
                       </div>
                       <div>
                         <p className="font-bold">Photos:</p>
-                        <div style={{display: 'grid', gridTemplateColumns:"repeat(2,1fr)", gap: '10px', margin:'10px 0 0 30px'}}>
+                        <div style={{ display: 'grid', gridTemplateColumns: "repeat(2,1fr)", gap: '10px', margin: '10px 0 0 30px' }}>
                           {formData.photos.map((photo, index) => (
                             <div key={index}>
                               <img
@@ -381,18 +368,18 @@ const handleSubmit = async (e) => {
                       </div>
                     </div>
 
-        </div>
-      </li>
-    ))}
-      </section>
-    </div>
-    <div className="flex gap-3 mt-7">
-      <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add Set</button>
-      <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>Submit Order</button>
+                  </div>
+                </li>
+              ))}
+            </section>
+          </div>
+          <div className="flex gap-3 mt-7">
+            <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add Set</button>
+            <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>Submit Order</button>
 
-    </div>
+          </div>
 
-            </>
+        </>
       ) : (
         <div>
           <p>Please complete your order details before proceeding.</p>

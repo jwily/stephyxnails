@@ -50,11 +50,6 @@ const EditSetForm = () => {
     setEditedRightText(sets[setIndex]?.rightDisplay.join(","));
   }, [setIndex, sets]);
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> staging
   const handleSaveSet = () => {
     if (!validateDisplays()) return;
 
@@ -124,11 +119,7 @@ const EditSetForm = () => {
   const openFileInput = () => {
     document.getElementById("fileInput").click();
   };
-<<<<<<< HEAD
-  console.log(sets, 'set state')
-=======
   console.log(sets, "set state");
->>>>>>> staging
 
   const FingerDisplay = ({ hand, name, value }) => {
     return (
@@ -150,11 +141,7 @@ const EditSetForm = () => {
 
   const validateDisplays = () => {
     if ([...editedLeftDisplay, ...editedRightDisplay].length !== 10) {
-<<<<<<< HEAD
-      setSizesError('Each finger needs a valid size from 00 to 9.')
-=======
       setSizesError("Each finger needs a valid size from 00 to 9.");
->>>>>>> staging
       return false;
     }
 
@@ -168,10 +155,6 @@ const EditSetForm = () => {
   };
 
   const textToDisplay = (e, setText, display, setDisplay) => {
-<<<<<<< HEAD
-
-=======
->>>>>>> staging
     const value = e.target.value;
     // Check if the input contains invalid characters
     // Allows input to function correctly
@@ -325,32 +308,6 @@ const EditSetForm = () => {
                             <FingerDisplayRight hand="Right" name="Pinky" value={editedRightDisplay[4]} />
                           </div>
                         </div>
-<<<<<<< HEAD
-                        <div>
-                          <p>Please list your nail sizes from thumb to pinky for each hand.</p>
-                          <p>If you are unsure of your nail sizes, please reach out to me!</p>
-                          {!!sizesError && (
-                            <p className='text-error'>{sizesError}</p>
-                          )}
-                        </div>
-                        <div>
-                          <p>Left Hand</p>
-                          <input
-                            type='text'
-                            value={editedLeftText}
-                            placeholder='ex. 2, 7, 6, 7, 9'
-                            onChange={(e) => textToDisplay(e, setEditedLeftText, editedLeftDisplay, setEditedLeftDisplay)}
-                          />
-
-                          <p>Right Hand</p>
-                          <input
-                            type='text'
-                            value={editedRightText}
-                            placeholder='ex. 2, 7, 6, 7, 9'
-                            onChange={(e) => textToDisplay(e, setEditedRightText, editedRightDisplay, setEditedRightDisplay)}
-                          />
-
-=======
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mx-3">
                           <div>
                             <p className="font-extrabold text-xl text-center mb-4">
@@ -396,7 +353,6 @@ const EditSetForm = () => {
                               id="phone"
                             />
                           </div>
->>>>>>> staging
                         </div>
                       </div>
                     </div>
@@ -413,44 +369,6 @@ const EditSetForm = () => {
                     </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
-<<<<<<< HEAD
-                        <label>Photos:</label>
-
-                        {/* <input
-                          type="file"
-                          accept="image/*"
-                          id="fileInput"
-                          style={{ display: 'none' }}
-                          value={editedPhotos}
-                          onChange={(e) => setEditedPhotos(e.target.value)}
-                          multiple
-                        /> */}
-
-                        <div>
-                          {Array.isArray(editedPhotos)
-                            && editedPhotos.length < 4 && (
-                              <div>
-                                <input
-                                  type="file"
-                                  accept="image/*"
-                                  id="fileInput"
-                                  style={{ display: 'none' }}
-                                  onChange={handleFileChange}
-                                  multiple // Allow multiple file selection
-                                />
-                                <button onClick={openFileInput}>Upload Photo</button>
-                              </div>
-                            )}
-                          {Array.isArray(editedPhotos)
-                            && editedPhotos.map((photo, index) => (
-                              <div key={index}>
-                                <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
-                                <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
-                              </div>
-                            ))}
-                        </div>
-
-=======
                         <h1 className=" mb-4 ml-3">My current photos:</h1>
                         <div
                           style={{
@@ -499,7 +417,6 @@ const EditSetForm = () => {
                             </div>
                           </div>
                         )}
->>>>>>> staging
                       </div>
                     </div>
                   </div>
