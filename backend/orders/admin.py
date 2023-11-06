@@ -19,15 +19,30 @@ class SetInline(admin.StackedInline):
   extra = 0
 
   def images_display(self, obj):
-        images_html = ''
-        for image in obj.images.all():
-            if image.url:
-                images_html +="""
-                <a>
-                  <img src="{0}" width="150" height="auto" />
-                </a>
-                              """.format(image.url)
-        return format_html(images_html)
+    images_html = '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">'
+
+    styling = [
+      'filter: blur(8px);',
+      '-webkit-filter: blur(8px);',
+      'max-width: 15rem;',
+      'max-height: 15rem;',
+      'height: auto;',
+      'width: auto;',
+      # 'display: block;',
+      # 'margin-bottom: 2rem',
+    ]
+
+    for image in obj.images.all():
+        if image.url:
+            images_html += (
+            '<a href="{0}" target="_blank" rel="noopener noreferrer">'
+            '<img src="{0}" alt="Blurred Preview" style="{1}" />'
+            '</a>'
+            ).format(image.url, ' '.join(styling))
+
+    images_html += '</div>'
+
+    return format_html(images_html)
 
   images_display.short_description = 'Inspiration Images'
 
