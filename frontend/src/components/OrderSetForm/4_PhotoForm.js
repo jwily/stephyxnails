@@ -93,8 +93,14 @@ function PhotoForm() {
 
   // Style for the displayed image
   const imageStyle = {
-    width: '150px', // Adjust the width to your desired size
-    height: '150px', // Adjust the height to your desired size
+    // maxWidth: '200px', // Maximum width
+    // maxHeight: '200px', // Maximum height
+    // width: 'auto',      // Maintain aspect ratio
+    // height: 'auto',     // Maintain aspect ratio
+    width: '200px',    // Fixed width
+    height: '200px',   // Fixed height
+    objectFit: 'cover', // Maintain aspect ratio and cover the container
+
   };
 
 
