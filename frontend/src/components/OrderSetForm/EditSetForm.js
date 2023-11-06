@@ -330,7 +330,7 @@ const EditSetForm = () => {
                             <label className="sr-only" htmlFor="email">Left Hand</label>
                             <div>Left</div>
                             <input
-                              className="input input-solid bg-white"
+                              className="input input-solid bg-white text-black"
                               placeholder='ex. 2, 7, 6, 7, 9'
                               onChange={(e) => textToDisplay(e, setEditedLeftText, editedLeftDisplay, setEditedLeftDisplay)}
                               type="text"
@@ -341,7 +341,7 @@ const EditSetForm = () => {
                             <label className="sr-only" htmlFor="phone">Right Hand</label>
                             <div>Right</div>
                             <input
-                              className="input input-solid bg-white"
+                              className="input input-solid bg-white text-black"
                               placeholder='ex. 2, 7, 6, 7, 9'
                               type="text"
                               value={editedRightText}

@@ -31,7 +31,7 @@ function SizesForm() {
     window.location.href = '/order'
   }
 
-  console.log('state--->',state)
+  console.log('state--->', state)
 
   const handleNext = (e) => {
     e.preventDefault();
@@ -103,7 +103,7 @@ function SizesForm() {
   }
 
   const validateDisplays = () => {
-    if([...leftDisplay, ...rightDisplay].length !== 10) {
+    if ([...leftDisplay, ...rightDisplay].length !== 10) {
       setError('Each finger needs a valid size from 00 to 9.')
       return false;
     }
@@ -167,7 +167,7 @@ function SizesForm() {
                       <label className="sr-only" htmlFor="email">Left Hand</label>
                       <div>Left</div>
                       <input
-                        className="input text-black input-solid bg-white"
+                        className="input input-solid bg-white text-black"
                         placeholder='ex. 2, 7, 6, 7, 9'
                         onChange={(e) => textToDisplay(e, setLeftText, leftDisplay, setLeftDisplay)}
                         type="text"
@@ -178,7 +178,7 @@ function SizesForm() {
                       <label className="sr-only" htmlFor="phone">Right Hand</label>
                       <div>Right</div>
                       <input
-                        className="input input-solid bg-white"
+                        className="input input-solid bg-white text-black"
                         placeholder='ex. 2, 7, 6, 7, 9'
                         type="text"
                         value={rightText}
