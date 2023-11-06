@@ -92,11 +92,11 @@ class OrderCreate(generics.CreateAPIView):
             'subject': "New order request received!",
             'message': f'New order for {data["name"]}!',
             'from_email': settings.EMAIL_HOST_USER,
-            'recipient_list': ['johnlee1120@gmail.com']
+            'recipient_list': [settings.EMAIL_HOST_USER]
         }
 
-        # send_mail(**customer_email)
-        # send_mail(**owner_email)
+        send_mail(**customer_email)
+        send_mail(**owner_email)
 
     def create(self, request, *args, **kwargs):
 
