@@ -11,19 +11,33 @@ function TierForm() {
   // Reference for the tier input and local state to manage the selected tier
   const tierInputRef = useRef(null);
   // Initialize tier state with the value from local storage (if available)
-  const [tier, setTier] = useState(() => localStorage.getItem("selectedTier") || "");
+  const [tier, setTier] = useState('');
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
   const isOrderDetailsComplete = state.name && state.email;
 
-
-
-  useEffect(() => {
-    // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
-    setTimeout(() => {
-      setIsLoading(false); // Set loading to false after the delay
-    }, 100);
-    // Add dependencies as needed
-  }, []);
+    // Define a function to save data to local storage
+    const saveToLocalStorage = (key, value) => {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+  
+    // Define a function to get data from local storage
+    const getFromLocalStorage = (key) => {
+      const storedValue = localStorage.getItem(key);
+      return storedValue ? JSON.parse(storedValue) : null;
+    }
+  
+    useEffect(() => {
+      // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 100);
+  
+      // Get data from local storage for any previously persisted data
+      const storedTier = getFromLocalStorage("selectedTier");
+      if (storedTier) {
+        setTier(storedTier);
+      }
+    }, []);
 
 
   const redirectToOrderDetails = () => {
@@ -36,9 +50,8 @@ function TierForm() {
     if (tier) {
       // Dispatch an action to update the tier in the context state
       dispatch({ type: "UPDATE_FORM_DATA", payload: { tier } });
-
       // Save the selected 'tier' to local storage
-      localStorage.setItem("selectedTier", tier);
+      saveToLocalStorage("selectedTier", tier);
 
       history.push("/order-set/shape");
     } else {
