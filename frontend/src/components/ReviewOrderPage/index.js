@@ -25,7 +25,14 @@ const ReviewOrderPage = () => {
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isEditingInstagram, setIsEditingInstagram] = useState(false);
   const [error, setError] = useState(null);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+  const recaptchaRef = React.createRef();
+  // const csrfToken = Cookie.get('csrftoken');
+  // console.log('CSRF TOKEN ----->',csrfToken);
 
+  const handleCaptchaChange = () => {
+    setIsCaptchaVerified(true);
+  }
   // Function to redirect to the order details page
   const redirectToOrderDetails = () => {
     window.location.href = "/order";
@@ -87,33 +94,36 @@ const ReviewOrderPage = () => {
   // Function to handle submitting the order
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if(isCaptchaVerified) {
+    const recaptchaValue = recaptchaRef.current.getValue()
     // Check if there are sets in the state
-    if (state && state.sets && state.sets.length > 0) {
-      setError(null);
+      if (state && state.sets && state.sets.length > 0) {
+        setError(null);
 
-      const formData = prepareState(state);
-      const res = await fetch('/api/orders/', {
-        method: 'POST',
-        headers: {
-          'X-CSRFToken': csrfToken
-        },
-        body: formData
-      });
+        const formData = prepareState(state, recaptchaValue);
+        const res = await fetch('/api/orders/', {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': csrfToken
+          },
+          body: formData
+        });
 
-      if (res.ok) {
-        // Successfully submitted the order, navigate to the confirmation page
-        history.push('/orderconfirmation');
+        if (res.ok) {
+          // Successfully submitted the order, navigate to the confirmation page
+          history.push('/orderconfirmation');
+        } else {
+
+        }
+
       } else {
-
+        setError("You can't submit without a set");
       }
-
     } else {
-      setError("You can't submit without a set");
+      alert('Please complete the ReCAPTCHA verification to submit your order.')
     }
   };
 
-  const recaptchaRef = React.createRef();
 
   return (
     <>
@@ -320,6 +330,9 @@ const ReviewOrderPage = () => {
               ))}
             </section>
           </div>
+          {/* <div className="flex gap-3 mt-7 justify-center w-screen"> */}
+          <ReCAPTCHA className="flex gap-3 mt-7 justify-center w-screen" ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleCaptchaChange} />
+          {/* </div> */}
           <div className="flex gap-3 mt-7">
             <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add Set</button>
             <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>Submit Order</button>
@@ -370,8 +383,8 @@ const ReviewOrderPage = () => {
   //                     {set.tier}
   //                 </div>
   //             </div>)} */}
-  //         {/* <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div> */}
-  //         <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleSubmit} />
+          {/* <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div> */}
+          // <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleSubmit} />
   //         <button onClick={handleSubmit}>Submit</button>
   //     </div>
   // )
