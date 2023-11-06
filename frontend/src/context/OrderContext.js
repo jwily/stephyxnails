@@ -27,19 +27,15 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_NAME':
-      console.log("Setting name to:", action.payload);
       return { ...state, name: action.payload };
 
     case 'SET_EMAIL':
-      console.log("Setting email to:", action.payload);
       return { ...state, email: action.payload };
 
     case 'SET_INSTAGRAM':
-      console.log("Setting Instagram to:", action.payload);
       return { ...state, instagram: action.payload };
 
     case 'UPDATE_FORM_DATA':
-      console.log("Updating form data with:", action.payload);
       return { ...state, formData: { ...state.formData, ...action.payload } };
 
     // case 'SAVE_FORM_DATA':

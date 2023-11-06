@@ -128,7 +128,6 @@ const EditSetForm = () => {
   const openFileInput = () => {
     document.getElementById("fileInput").click();
   };
-  console.log(sets, "set state");
 
   const FingerDisplay = ({ hand, name, value }) => {
     return (
