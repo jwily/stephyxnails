@@ -20,6 +20,9 @@ const EditSetForm = () => {
   const [editedDescription, setEditedDescription] = useState("");
   const [editedExtra, setEditedExtra] = useState(0);
   const [editedExtra2, setEditedExtra2] = useState(0);
+  const [editedLeftText, setEditedLeftText] = useState('');
+  const [editedRightText, setEditedRightText] = useState('');
+  const [sizesError, setSizesError] = useState('')
 
   const redirectToOrderDetails = () => {
     window.location.href = "/order";
@@ -43,9 +46,15 @@ const EditSetForm = () => {
     setEditedDescription(sets[setIndex]?.description);
     setEditedExtra(sets[setIndex]?.extra);
     setEditedExtra2(sets[setIndex]?.extra2);
+    setEditedLeftText(sets[setIndex]?.leftDisplay.join(','));
+    setEditedRightText(sets[setIndex]?.rightDisplay.join(','));
   }, [setIndex, sets]);
 
+  
+
   const handleSaveSet = () => {
+    if(!validateDisplays()) return;
+    
     const updatedSet = {
       tier: editedTier,
       shape: editedShape,
@@ -77,6 +86,8 @@ const EditSetForm = () => {
     width: '150px', // Adjust the width to your desired size
     height: '150px', // Adjust the height to your desired size
   };
+
+
 
 
   const handleFileChange = (e) => {
@@ -114,6 +125,53 @@ const EditSetForm = () => {
     document.getElementById('fileInput').click();
   };
   console.log( sets, 'set state')
+
+  const FingerDisplay = ({ hand, name, value }) => {
+    return (
+      <div>
+        {`${hand}-${name}: ${value ? value : ''}`}
+      </div>
+    );
+  };
+
+  const validateDisplays = () => {
+    for (let val of [...editedLeftDisplay, ...editedRightDisplay]) {
+
+      if (val === '' || parseInt(val) < 0 || parseInt(val) > 9) {
+        setSizesError('Each finger needs a valid size from 00 to 9.')
+        return false;
+      }
+    }
+    return true;
+  }
+
+  const textToDisplay = (e, setText, display, setDisplay) => {
+    
+    const value = e.target.value;
+    // Check if the input contains invalid characters
+    // Allows input to function correctly
+    setSizesError('');
+    setText(value);
+
+    const string = value + '_';
+    const allowed = '0123456789.';
+    let stack = []
+    const newDisplay = []
+
+    for (let char of string) {
+      if (allowed.includes(char)) {
+        stack.push(char)
+      } else {
+        if (stack.length > 0) {
+          newDisplay.push(stack.join(''));
+          stack = [];
+        }
+      }
+    }
+
+    setDisplay(newDisplay);
+  }
+
   return (
     <>
       {isLoading ? (
@@ -172,7 +230,7 @@ const EditSetForm = () => {
                           <option value="Short Round">Short Round</option>
                           <option value="Medium Round">Medium Round</option>
                           <option value="Short Almond">Short Almond</option>
-                          <option value="Medium Almond">'Medium Almond</option>
+                          <option value="Medium Almond">Medium Almond</option>
                           <option value="Medium Stiletto">Medium Stiletto</option>
                         </select>
                       </div>
@@ -181,21 +239,62 @@ const EditSetForm = () => {
                   <div className="accordion">
                     <input type="checkbox" id="accordion-3" className="accordion-toggle" />
                     <label htmlFor="accordion-3" className="accordion-title bg-red-100">
-                      Left Display
+                      Sizes
                     </label>
                     <div className="accordion-content">
                       <div className="min-h-0">
-                        <input
+                        {/* <input
                           type="text"
                           value={editedLeftDisplay}
                           onChange={(e) => setEditedLeftDisplay(e.target.value)}
                           className="bg-white input text-black"
                           placeholder="Ex. 2,6,7,9,6"
-                        />
+                        /> */}
+                        <div>
+                          <div className='flex flex-row space-x-5'>
+                            <FingerDisplay hand='L' name='Thumb' value={editedLeftDisplay[0]} />
+                            <FingerDisplay hand='L' name='Index' value={editedLeftDisplay[1]} />
+                            <FingerDisplay hand='L' name='Middle' value={editedLeftDisplay[2]} />
+                            <FingerDisplay hand='L' name='Ring' value={editedLeftDisplay[3]} />
+                            <FingerDisplay hand='L' name='Pinky' value={editedLeftDisplay[4]} />
+                          </div>
+                          <div className='flex flex-row space-x-5'>
+                            <FingerDisplay hand='R' name='Thumb' value={editedRightDisplay[0]} />
+                            <FingerDisplay hand='R' name='Index' value={editedRightDisplay[1]} />
+                            <FingerDisplay hand='R' name='Middle' value={editedRightDisplay[2]} />
+                            <FingerDisplay hand='R' name='Ring' value={editedRightDisplay[3]} />
+                            <FingerDisplay hand='R' name='Pinky' value={editedRightDisplay[4]} />
+                          </div>
+                        </div>
+                        <div>
+                          <p>Please list your nail sizes from thumb to pinky for each hand.</p>
+                          <p>If you are unsure of your nail sizes, please reach out to me!</p>
+                          {!!sizesError&& (
+                            <p className='text-error'>{sizesError}</p>
+                          )}
+                        </div>
+                        <div>
+                          <p>Left Hand</p>
+                          <input
+                            type='text'
+                            value={editedLeftText}
+                            placeholder='ex. 2, 7, 6, 7, 9'
+                            onChange={(e) => textToDisplay(e, setEditedLeftText, editedLeftDisplay, setEditedLeftDisplay)}
+                          />
+
+                          <p>Right Hand</p>
+                          <input
+                            type='text'
+                            value={editedRightText}
+                            placeholder='ex. 2, 7, 6, 7, 9'
+                            onChange={(e) => textToDisplay(e, setEditedRightText, editedRightDisplay, setEditedRightDisplay)}
+                          />
+
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="accordion">
+                  {/* <div className="accordion">
                     <input type="checkbox" id="accordion-4" className="accordion-toggle" />
                     <label htmlFor="accordion-4" className="accordion-title bg-red-100">
                       Right Display
@@ -211,7 +310,7 @@ const EditSetForm = () => {
                         />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="accordion">
                     <input type="checkbox" id="accordion-5" className="accordion-toggle" />
                     <label htmlFor="accordion-5" className="accordion-title bg-red-100">

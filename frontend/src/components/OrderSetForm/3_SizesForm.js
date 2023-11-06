@@ -35,7 +35,6 @@ function SizesForm() {
     if (!validateDisplays()) return;
 
 
-
     dispatch({ type: 'UPDATE_FORM_DATA', payload: { leftDisplay, rightDisplay } });
     history.push('/order-set/photo'); // Navigate to the next form question
   }
@@ -48,21 +47,18 @@ function SizesForm() {
   const FingerDisplay = ({ hand, name, value }) => {
     return (
       <div>
-        {`${hand} ${name}: ${value ? value : ''}`}
+        {`${hand}-${name}: ${value ? value : ''}`}
       </div>
     );
   };
 
   const textToDisplay = (e, setText, display, setDisplay) => {
-
+    
     const value = e.target.value;
-
     // Check if the input contains invalid characters
-
     // Allows input to function correctly
     setError('');
     setText(value);
-    
 
     const string = value + '_';
     const allowed = '0123456789.';
@@ -111,18 +107,18 @@ function SizesForm() {
               <p>disclaimer insert</p>
               <div>
                 <div className='flex flex-row space-x-5'>
-                  <FingerDisplay hand='Left' name='Pinky' value={leftDisplay[4]} />
-                  <FingerDisplay hand='Left' name='Ring' value={leftDisplay[3]} />
-                  <FingerDisplay hand='Left' name='Middle' value={leftDisplay[2]} />
-                  <FingerDisplay hand='Left' name='Index' value={leftDisplay[1]} />
-                  <FingerDisplay hand='Left' name='Thumb' value={leftDisplay[0]} />
+                  <FingerDisplay hand='L' name='Thumb' value={leftDisplay[0]} />
+                  <FingerDisplay hand='L' name='Index' value={leftDisplay[1]} />
+                  <FingerDisplay hand='L' name='Middle' value={leftDisplay[2]} />
+                  <FingerDisplay hand='L' name='Ring' value={leftDisplay[3]} />
+                  <FingerDisplay hand='L' name='Pinky' value={leftDisplay[4]} />
                 </div>
                 <div className='flex flex-row space-x-5'>
-                  <FingerDisplay hand='Right' name='Thumb' value={rightDisplay[0]} />
-                  <FingerDisplay hand='Right' name='Index' value={rightDisplay[1]} />
-                  <FingerDisplay hand='Right' name='Middle' value={rightDisplay[2]} />
-                  <FingerDisplay hand='Right' name='Ring' value={rightDisplay[3]} />
-                  <FingerDisplay hand='Right' name='Pinky' value={rightDisplay[4]} />
+                  <FingerDisplay hand='R' name='Thumb' value={rightDisplay[0]} />
+                  <FingerDisplay hand='R' name='Index' value={rightDisplay[1]} />
+                  <FingerDisplay hand='R' name='Middle' value={rightDisplay[2]} />
+                  <FingerDisplay hand='R' name='Ring' value={rightDisplay[3]} />
+                  <FingerDisplay hand='R' name='Pinky' value={rightDisplay[4]} />
                 </div>
               </div>
               <div>
@@ -140,10 +136,7 @@ function SizesForm() {
                   placeholder='ex. 2, 7, 6, 7, 9'
                   onChange={(e) => textToDisplay(e, setLeftText, leftDisplay, setLeftDisplay)}
                 />
-                {/* <p>
-                  {errorLeftHand && <div className="error-message">{errorLeftHand}</div>}
-                  {errorLeftHand2 && <div className="error-message">{errorLeftHand2}</div>}
-                </p> */}
+
 
                 <p>Right Hand</p>
                 <input
@@ -152,10 +145,7 @@ function SizesForm() {
                   placeholder='ex. 2, 7, 6, 7, 9'
                   onChange={(e) => textToDisplay(e, setRightText, rightDisplay, setRightDisplay)}
                 />
-                {/* <p>
-                  {errorRightHand && <div className="error-message">{errorRightHand}</div>}
-                  {errorRightHand2 && <div className="error-message">{errorRightHand2}</div>}
-                </p> */}
+
               </div>
               <div>
                 <button onClick={handleBack}>Back</button>
