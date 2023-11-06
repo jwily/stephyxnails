@@ -63,11 +63,11 @@ function SizesForm() {
   const FingerDisplayRight = ({ hand, name, value }) => {
     return (
       <div>
-        <span>
-          {`${value ? value : ''} : `}
-        </span>
         <span className='font-extrabold font-xl' >
-          {`${hand} ${name}`}
+          {`${hand} ${name}: `}
+        </span>
+        <span>
+          {`${value ? value : ''}`}
         </span>
       </div>
     );
@@ -87,7 +87,7 @@ function SizesForm() {
       setText(value);
       return; // Stop processing the input
     }
-  
+
     setText(value);
 
     const string = value + '_';
@@ -138,28 +138,23 @@ function SizesForm() {
             <section className="bg-primary rounded-xl m-4">
               <h2 className="font-extrabold text-xl text-center mb-4">3. Choose your nail sizes</h2>
               {/* <p>disclaimer insert????</p> */}
-              <div>
-                <div className='flex flex-row justify-between'>
+              <div className='flex justify-between'>
+                <div className='flex flex-col items-end w-1/2'>
                   <FingerDisplay hand='Left' name='Thumb' value={leftDisplay[0]} />
-                  <FingerDisplayRight hand='Right' name='Thumb' value={rightDisplay[0]} />
-                </div>
-                <div className='flex flex-row justify-between'>
                   <FingerDisplay hand='Left' name='Index' value={leftDisplay[1]} />
-                  <FingerDisplayRight hand='Right' name='Index' value={rightDisplay[1]} />
-                </div>
-                <div className='flex flex-row justify-between'>
                   <FingerDisplay hand='Left' name='Middle' value={leftDisplay[2]} />
-                  <FingerDisplayRight hand='Right' name='Middle' value={rightDisplay[2]} />
-                </div>
-                <div className='flex flex-row justify-between'>
                   <FingerDisplay hand='Left' name='Ring' value={leftDisplay[3]} />
-                  <FingerDisplayRight hand='Right' name='Ring' value={rightDisplay[3]} />
-                </div>
-                <div className='flex flex-row justify-between'>
                   <FingerDisplay hand='Left' name='Pinky' value={leftDisplay[4]} />
+                </div>
+                <div className='flex flex-col items-end w-1/2'>
+                  <FingerDisplayRight hand='Right' name='Thumb' value={rightDisplay[0]} />
+                  <FingerDisplayRight hand='Right' name='Index' value={rightDisplay[1]} />
+                  <FingerDisplayRight hand='Right' name='Middle' value={rightDisplay[2]} />
+                  <FingerDisplayRight hand='Right' name='Ring' value={rightDisplay[3]} />
                   <FingerDisplayRight hand='Right' name='Pinky' value={rightDisplay[4]} />
                 </div>
               </div>
+
               <div>
                 {!!error && (
                   <p className='text-error'>{error}</p>
