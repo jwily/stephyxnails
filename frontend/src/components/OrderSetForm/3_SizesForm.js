@@ -60,6 +60,13 @@ function SizesForm() {
     // Check if the input contains invalid characters
     // Allows input to function correctly
     setError('');
+
+    if (/[^0-9,.\s]/.test(value)) {
+      setError('Input can only contain numeric characters (0-9), commas, and periods.');
+      setText(value);
+      return; // Stop processing the input
+    }
+  
     setText(value);
 
     const string = value + '_';
