@@ -129,24 +129,24 @@ function SizesForm() {
               {/* <p>disclaimer insert????</p> */}
               <div>
                 <div className='flex flex-row justify-between'>
-                  <FingerDisplay hand='Left' name='Pinky' value={leftDisplay[4]} />
-                  <FingerDisplayRight hand='Right' name='Pinky' value={rightDisplay[4]} />
-                </div>
-                <div className='flex flex-row justify-between'>
-                  <FingerDisplay hand='Left' name='Ring' value={leftDisplay[3]} />
-                  <FingerDisplayRight hand='Right' name='Ring' value={rightDisplay[3]} />
-                </div>
-                <div className='flex flex-row justify-between'>
-                  <FingerDisplay hand='Left' name='Middle' value={leftDisplay[2]} />
-                  <FingerDisplayRight hand='Right' name='Middle' value={rightDisplay[2]} />
+                  <FingerDisplay hand='Left' name='Thumb' value={leftDisplay[0]} />
+                  <FingerDisplayRight hand='Right' name='Thumb' value={rightDisplay[0]} />
                 </div>
                 <div className='flex flex-row justify-between'>
                   <FingerDisplay hand='Left' name='Index' value={leftDisplay[1]} />
                   <FingerDisplayRight hand='Right' name='Index' value={rightDisplay[1]} />
                 </div>
                 <div className='flex flex-row justify-between'>
-                  <FingerDisplay hand='Left' name='Thumb' value={leftDisplay[0]} />
-                  <FingerDisplayRight hand='Right' name='Thumb' value={rightDisplay[0]} />
+                  <FingerDisplay hand='Left' name='Middle' value={leftDisplay[2]} />
+                  <FingerDisplayRight hand='Right' name='Middle' value={rightDisplay[2]} />
+                </div>
+                <div className='flex flex-row justify-between'>
+                  <FingerDisplay hand='Left' name='Ring' value={leftDisplay[3]} />
+                  <FingerDisplayRight hand='Right' name='Ring' value={rightDisplay[3]} />
+                </div>
+                <div className='flex flex-row justify-between'>
+                  <FingerDisplay hand='Left' name='Pinky' value={leftDisplay[4]} />
+                  <FingerDisplayRight hand='Right' name='Pinky' value={rightDisplay[4]} />
                 </div>
               </div>
               <div>
@@ -158,9 +158,10 @@ function SizesForm() {
                 <form className="space-y-4 pt-10">
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      {/* <p>Please list your nail sizes from thumb to pinky for each hand.</p> */}
-                      <p className='font-extrabold text-3xl text-center mb-4'>If you are unsure of your nail sizes, please reach out!</p>
+                      <p className='font-extrabold text-xl text-center mb-4'>Please list your nail sizes from thumb to pinky.</p>
+                      <p className='font-extrabold text-xl text-center mb-4'>If you are unsure of your nail sizes, please reach out!</p>
                       <label className="sr-only" htmlFor="email">Left Hand</label>
+                      <div>Left</div>
                       <input
                         className="input input-solid bg-white"
                         placeholder='ex. 2, 7, 6, 7, 9'
@@ -172,6 +173,7 @@ function SizesForm() {
                     </div>
                     <div>
                       <label className="sr-only" htmlFor="phone">Right Hand</label>
+                      <div>Right</div>
                       <input
                         className="input input-solid bg-white"
                         placeholder='ex. 2, 7, 6, 7, 9'
