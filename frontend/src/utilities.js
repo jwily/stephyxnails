@@ -32,7 +32,7 @@ export const prepareState = (state, recaptchaValue) => {
   newState.email = state.email;
   newState.instagram = state.instagram;
   newState.sets = [];
-  // newState.recaptcha = recaptchaValue;
+  newState.recaptcha = recaptchaValue;
 
   const imageSets = [];
 
