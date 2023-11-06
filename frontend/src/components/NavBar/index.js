@@ -16,13 +16,12 @@ const NavBar = () => {
             setTimeout(() => {
                 const currentScrollPosition = window.scrollY;
                 const targetScrollPosition = scrollTo?.current?.getBoundingClientRect().top + currentScrollPosition - (window.innerHeight * scrollOffsetPercentage);
-                window.scrollTo({ top: targetScrollPosition, behavior: "smooth" });
-            }, 10);
+                window.scrollTo({ top: targetScrollPosition, behavior: "smooth" });            }, 10);
         }
         const currentScrollPosition = window.scrollY;
         const targetScrollPosition = scrollTo?.current?.getBoundingClientRect().top + currentScrollPosition - (window.innerHeight * scrollOffsetPercentage);
         window.scrollTo({ top: targetScrollPosition, behavior: "smooth" });
-    };
+        };
 
     const scrollToVeryTop = () => {
         if (pathname !== '/') {

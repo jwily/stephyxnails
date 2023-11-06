@@ -16,10 +16,13 @@ const EditSetForm = () => {
   const [editedShape, setEditedShape] = useState("");
   const [editedLeftDisplay, setEditedLeftDisplay] = useState("");
   const [editedRightDisplay, setEditedRightDisplay] = useState("");
-  const [editedPhoto, setEditedPhoto] = useState("");
+  const [editedPhotos, setEditedPhotos] = useState("");
   const [editedDescription, setEditedDescription] = useState("");
   const [editedExtra, setEditedExtra] = useState(0);
   const [editedExtra2, setEditedExtra2] = useState(0);
+  const [editedLeftText, setEditedLeftText] = useState('');
+  const [editedRightText, setEditedRightText] = useState('');
+  const [sizesError, setSizesError] = useState('')
 
   const redirectToOrderDetails = () => {
     window.location.href = "/order";
@@ -39,19 +42,25 @@ const EditSetForm = () => {
     setEditedShape(sets[setIndex]?.shape);
     setEditedLeftDisplay(sets[setIndex]?.leftDisplay);
     setEditedRightDisplay(sets[setIndex]?.rightDisplay);
-    setEditedPhoto(sets[setIndex]?.photo);
+    setEditedPhotos(sets[setIndex]?.photos);
     setEditedDescription(sets[setIndex]?.description);
     setEditedExtra(sets[setIndex]?.extra);
     setEditedExtra2(sets[setIndex]?.extra2);
+    setEditedLeftText(sets[setIndex]?.leftDisplay.join(','));
+    setEditedRightText(sets[setIndex]?.rightDisplay.join(','));
   }, [setIndex, sets]);
 
+  
+
   const handleSaveSet = () => {
+    if(!validateDisplays()) return;
+
     const updatedSet = {
       tier: editedTier,
       shape: editedShape,
       leftDisplay: editedLeftDisplay,
       rightDisplay: editedRightDisplay,
-      photo: editedPhoto,
+      photos: editedPhotos,
       description: editedDescription,
       extra: editedExtra,
       extra2: editedExtra2,
@@ -68,6 +77,118 @@ const EditSetForm = () => {
   if (!dataResult) {
     return <LoadingPage />;
   }
+  const handleRemovePhoto = (file) => {
+    // Filter out the selected photo URL from the array
+    const updatedPhotos = editedPhotos.filter((photo) => photo !== file);
+    setEditedPhotos(updatedPhotos)
+  };
+  const imageStyle = {
+    width: '150px', // Adjust the width to your desired size
+    height: '150px', // Adjust the height to your desired size
+  };
+
+
+
+
+  const handleFileChange = (e) => {
+    const files = e.target.files;
+    const uploadedPhotos = []; 
+
+    if (files.length > 0) {
+      // Check the current count of photos and the limit (adjust the limit as needed)
+      const photoCount = editedPhotos.length;
+      const photoLimit = 4;
+
+      if ( photoCount + files.length <= photoLimit) {
+        // Loop through the selected files and add them to the uploadedPhotos array
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          // Create a URL for the selected file
+          uploadedPhotos.push(file);
+        }
+
+        // Update the local state to trigger re-render
+        // setLocalPhotos(uploadedPhotos);
+
+        const combinedPhotos = [...editedPhotos, ...uploadedPhotos];
+        setEditedPhotos(combinedPhotos);
+
+        // Dispatch an action to add the uploaded photos to the state
+        // dispatch({ type: 'ADD_PHOTO', payload: uploadedPhotos });
+      } else {
+        alert("You can only upload 4 photos");
+      }
+    }
+  };
+
+  const openFileInput = () => {
+    document.getElementById('fileInput').click();
+  };
+  console.log( sets, 'set state')
+
+  const FingerDisplay = ({ hand, name, value }) => {
+    return (
+      <div>
+        {`${hand}-${name}: ${value ? value : ''}`}
+      </div>
+    );
+  };
+
+  const validateDisplays = () => {
+    if([...editedLeftDisplay, ...editedRightDisplay].length !== 10) {
+      setSizesError('Each finger needs a valid size from 00 to 9.')
+      return false;
+    }
+
+    for (let val of [...editedLeftDisplay, ...editedRightDisplay]) {
+
+      if (val === '' || parseInt(val) < 0 || parseInt(val) > 9) {
+        setSizesError('Each finger needs a valid size from 00 to 9.')
+        return false;
+      }
+    }
+    return true;
+  }
+
+  const textToDisplay = (e, setText, display, setDisplay) => {
+    
+    const value = e.target.value;
+    // Check if the input contains invalid characters
+    // Allows input to function correctly
+    setSizesError('');
+    setText(value);
+
+    const string = value + '_';
+    const allowed = '0123456789.';
+    let stack = []
+    const newDisplay = []
+
+    for (let char of string) {
+      if (allowed.includes(char)) {
+        stack.push(char)
+      } else {
+        if (stack.length > 0) {
+          newDisplay.push(stack.join(''));
+          stack = [];
+        }
+      }
+    }
+
+    setDisplay(newDisplay);
+  }
+
+  const numericalOptions = (max) => {
+    const options = [];
+    for (let i = 0; i <= max; i++) {
+      options.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
+    }
+    return options;
+  };
+
   return (
     <>
       {isLoading ? (
@@ -82,6 +203,9 @@ const EditSetForm = () => {
                   <label htmlFor="accordion-2" className="accordion-title bg-red-100">
                     Tier
                   </label>
+                  <span class="accordion-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                  </span>
                   <div className="accordion-content">
                     <div className="min-h-0">
                       {dataResult.map((tierOption) => (
@@ -109,6 +233,9 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-1" className="accordion-title bg-red-100">
                       Shape
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <select
@@ -126,7 +253,7 @@ const EditSetForm = () => {
                           <option value="Short Round">Short Round</option>
                           <option value="Medium Round">Medium Round</option>
                           <option value="Short Almond">Short Almond</option>
-                          <option value="Medium Almond">'Medium Almond</option>
+                          <option value="Medium Almond">Medium Almond</option>
                           <option value="Medium Stiletto">Medium Stiletto</option>
                         </select>
                       </div>
@@ -135,25 +262,72 @@ const EditSetForm = () => {
                   <div className="accordion">
                     <input type="checkbox" id="accordion-3" className="accordion-toggle" />
                     <label htmlFor="accordion-3" className="accordion-title bg-red-100">
-                      Left Display
+                      Sizes
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
-                        <input
+                        {/* <input
                           type="text"
                           value={editedLeftDisplay}
                           onChange={(e) => setEditedLeftDisplay(e.target.value)}
                           className="bg-white input text-black"
                           placeholder="Ex. 2,6,7,9,6"
-                        />
+                        /> */}
+                        <div>
+                          <div className='flex flex-row space-x-5'>
+                            <FingerDisplay hand='L' name='Thumb' value={editedLeftDisplay[0]} />
+                            <FingerDisplay hand='L' name='Index' value={editedLeftDisplay[1]} />
+                            <FingerDisplay hand='L' name='Middle' value={editedLeftDisplay[2]} />
+                            <FingerDisplay hand='L' name='Ring' value={editedLeftDisplay[3]} />
+                            <FingerDisplay hand='L' name='Pinky' value={editedLeftDisplay[4]} />
+                          </div>
+                          <div className='flex flex-row space-x-5'>
+                            <FingerDisplay hand='R' name='Thumb' value={editedRightDisplay[0]} />
+                            <FingerDisplay hand='R' name='Index' value={editedRightDisplay[1]} />
+                            <FingerDisplay hand='R' name='Middle' value={editedRightDisplay[2]} />
+                            <FingerDisplay hand='R' name='Ring' value={editedRightDisplay[3]} />
+                            <FingerDisplay hand='R' name='Pinky' value={editedRightDisplay[4]} />
+                          </div>
+                        </div>
+                        <div>
+                          <p>Please list your nail sizes from thumb to pinky for each hand.</p>
+                          <p>If you are unsure of your nail sizes, please reach out to me!</p>
+                          {!!sizesError&& (
+                            <p className='text-error'>{sizesError}</p>
+                          )}
+                        </div>
+                        <div>
+                          <p>Left Hand</p>
+                          <input
+                            type='text'
+                            value={editedLeftText}
+                            placeholder='ex. 2, 7, 6, 7, 9'
+                            onChange={(e) => textToDisplay(e, setEditedLeftText, editedLeftDisplay, setEditedLeftDisplay)}
+                          />
+
+                          <p>Right Hand</p>
+                          <input
+                            type='text'
+                            value={editedRightText}
+                            placeholder='ex. 2, 7, 6, 7, 9'
+                            onChange={(e) => textToDisplay(e, setEditedRightText, editedRightDisplay, setEditedRightDisplay)}
+                          />
+
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="accordion">
+                  {/* <div className="accordion">
                     <input type="checkbox" id="accordion-4" className="accordion-toggle" />
                     <label htmlFor="accordion-4" className="accordion-title bg-red-100">
                       Right Display
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <input
@@ -165,20 +339,53 @@ const EditSetForm = () => {
                         />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="accordion">
                     <input type="checkbox" id="accordion-5" className="accordion-toggle" />
                     <label htmlFor="accordion-5" className="accordion-title bg-red-100">
                       Photo
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
-                        <label>Photo:</label>
-                        <input
-                          type="text"
-                          value={editedPhoto}
-                          onChange={(e) => setEditedPhoto(e.target.value)}
-                        />
+                        <label>Photos:</label>
+                  
+                        {/* <input
+                          type="file"
+                          accept="image/*"
+                          id="fileInput"
+                          style={{ display: 'none' }}
+                          value={editedPhotos}
+                          onChange={(e) => setEditedPhotos(e.target.value)}
+                          multiple
+                        /> */}
+
+                      <div>
+                        {Array.isArray(editedPhotos)
+                          && editedPhotos.length < 4 && (
+                            <div>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                id="fileInput"
+                                style={{ display: 'none' }}
+                                onChange={handleFileChange}
+                                multiple // Allow multiple file selection
+                              />
+                              <button onClick={openFileInput}>Upload Photo</button>
+                            </div>
+                          )}
+                        {Array.isArray(editedPhotos)
+                          && editedPhotos.map((photo, index) => (
+                            <div key={index}>
+                              <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
+                              <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                            </div>
+                          ))}
+                      </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -187,6 +394,9 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-6" className="accordion-title bg-red-100">
                       Description
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <textarea
@@ -203,10 +413,13 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-7" className="accordion-title bg-red-100">
                       Charm(s)
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <label>Charm count: </label>
-                        <input
+                        {/* <input
                           type="number"
                           value={editedExtra}
                           onChange={(e) => {
@@ -217,7 +430,17 @@ const EditSetForm = () => {
                           className="input bg-white text-black"
                           max='25'
                           min='0'
-                        />
+                        /> */}
+                        <select
+                          className="input input-solid max-w-full bg-white text-black"
+                          placeholder=""
+                          type="number"
+                          id="number"
+                          value={editedExtra}
+                          onChange={(e) => setEditedExtra(e.target.value)}
+                        >
+                          {numericalOptions(20)}
+                        </select>                        
                       </div>
                     </div>
                   </div>
@@ -226,21 +449,23 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-8" className="accordion-title bg-red-100">
                       Character(s)
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <label>Character count: </label>
-                        <input
+                        <select
+                          className="input input-solid bg-white text-black"
+                          placeholder=""
                           type="number"
+                          id="number"
                           value={editedExtra2}
-                          onChange={(e) => {
-                            if (e.target.value <= 25 && e.target.value >= 0) {
-                              setEditedExtra2(e.target.value);
-                            }
-                          }}
-                          className="input bg-white text-black"
-                          max='25'
-                          min='0'
-                        />
+                          onChange={(e) => setEditedExtra2(e.target.value)}
+                        >
+                          {numericalOptions(10)}
+                        </select>
+
                       </div>
                     </div>
                   </div>

@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
+import LoadingPage from '../LoadingPage';
 
 function PhotoForm() {
 
@@ -39,6 +40,7 @@ function PhotoForm() {
     e.preventDefault();
     // Dispatch an action to update the photos in the context state
     // dispatch({ type: 'UPDATE_FORM_DATA', payload: { photo } });
+
     history.push('/order-set/description');
   };
 
@@ -57,10 +59,15 @@ function PhotoForm() {
           const file = files[i];
           // Create a URL for the selected file
           uploadedPhotos.push(file);
+               // Create a new FileReader instance
+   
+      
         }
 
         // Update the local state to trigger re-render
         // setLocalPhotos(uploadedPhotos);
+
+
 
         // Dispatch an action to add the uploaded photos to the state
         dispatch({ type: 'ADD_PHOTO', payload: uploadedPhotos });
@@ -95,14 +102,14 @@ function PhotoForm() {
   return (
     <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
       {isLoading ? (
-        <div>Loading...</div>
+        <LoadingPage />
       ) : (
         <>
           {isOrderDetailsComplete ? (
             <section>
               <div>
-                <h2>Photo Upload</h2>
-                <p>Seems like we can't use local storage here!</p>
+                <h2 className="font-extrabold text-xl text-center mb-4">4. Upload Photos</h2>
+                <p className='mb-5'>Feel free to add up to 4 inspo/reference photos!</p>
                 <div>
 
                   <div>
@@ -117,21 +124,25 @@ function PhotoForm() {
                             onChange={handleFileChange}
                             multiple // Allow multiple file selection
                           />
-                          <button onClick={openFileInput}>Upload Photo</button>
+                          <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={openFileInput}>Upload Photo</button>
                         </div>
                       )}
-                    {Array.isArray(state.formData.photos)
-                      && state.formData.photos.map((photo, index) => (
+                    <div style={{display: 'grid', gridTemplateColumns:"repeat(2,1fr)", gap: '10px', marginTop:'10px'}}>
+                        {Array.isArray(state.formData.photos)
+                        && state.formData.photos.map((photo, index) => (
                         <div key={index}>
                           <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
-                          <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                          <div className='flex justify-center'>
+                            <button className="rounded-lg btn btn-primary bg-red-300 text-black mt-2" onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                          </div>
                         </div>
-                      ))}
+                        ))}
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <button onClick={handleBack}>Back</button>
-                  <button type="submit" onClick={handleNext}>Next</button>
+                <div className="flex gap-3 mt-3">
+                  <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>←</button>
+                  <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleNext}>→</button>
                 </div>
               </div>
             </section>

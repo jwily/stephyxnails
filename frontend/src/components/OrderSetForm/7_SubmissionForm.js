@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useOrderContext } from '../../context/OrderContext';
 import { useHistory } from 'react-router-dom';
+import LoadingPage from '../LoadingPage';
 
 function SubmissionSetForm() {
   // Initialize the history object and retrieve state and dispatch from the order context
@@ -43,6 +44,7 @@ function SubmissionSetForm() {
 
   const handleAddAnotherSet = () => {
     // Dispatch actions to add the current set's data, clear the form, and navigate to '/order-set/tier'
+
     dispatch({ type: 'ADD_SET', payload: formData });
     dispatch({ type: 'CLEAR_FORM' });
 
@@ -60,7 +62,7 @@ function SubmissionSetForm() {
   return (
     <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
       {isLoading ? ( // Display loading indicator while isLoading is true
-        <div>Loading...</div>
+        <LoadingPage />
       ) : (
         <>
           {isOrderDetailsComplete ? (
@@ -72,8 +74,8 @@ function SubmissionSetForm() {
                     <h2 className="card-header">Number of sets made: {setCount + 1}</h2>
                     <p className="text-black font-semibold">Tier: {formData.tier}</p>
                     <p className="text-black font-semibold">Shape: {formData.shape}</p>
-                    <p className="text-black font-semibold">Left Display: {formData.leftDisplay.join(', ')}</p>
-                    <p className="text-black font-semibold">Right Display: {formData.rightDisplay.join(', ')}</p>
+                    <p className="text-black font-semibold">Left Sizes: {formData.leftDisplay.join(', ')}</p>
+                    <p className="text-black font-semibold">Right Sizes: {formData.rightDisplay.join(', ')}</p>
                     {/* <p>photo: {formData.photos}</p>*/}
                     <div>
                       <p>Photos:</p>
