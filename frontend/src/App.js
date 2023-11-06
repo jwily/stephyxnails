@@ -43,7 +43,7 @@ function App() {
         {/* <Route exact path="/ordersss" component={OrderDetails}/> */}
         <Route exact path='/review-order' component={ReviewOrderPage} />
         <Route path="/order-set/edit/:index" component={EditSetForm} />
-        <Route exact path='./orderconfirmation' component={OrderConfirm}/>
+        <Route exact path='/orderconfirmation' component={OrderConfirm}/>
         <Route exact path='/gallery' component={GalleryPage} />
         <Route exact path='/about' component={AboutPage} />
         <Route exact path='/faq' component={FaqPage} />
