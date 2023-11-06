@@ -5,17 +5,17 @@ const Footer = () => {
             <div className="flex justify-around">
                 <div>
                     <a href="https://www.instagram.com/stephyxnails/">
-                        <i class="fa-brands fa-instagram"></i>
+                        <i className="fa-brands fa-instagram"></i>
                     </a>
                 </div>
                 <div>
                     <a href="mailto:stephyxnails@gmail.com">
-                        <i class="fa-regular fa-envelope"></i>
+                        <i className="fa-regular fa-envelope"></i>
                     </a>
                 </div>
                 <div>
                     <a href="https://www.tiktok.com/@stephyxnails">
-                        <i class="fa-brands fa-tiktok"></i>
+                        <i className="fa-brands fa-tiktok"></i>
                     </a>
                 </div>
             </div>
