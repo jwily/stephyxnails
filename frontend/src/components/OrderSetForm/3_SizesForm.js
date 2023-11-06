@@ -162,7 +162,7 @@ function SizesForm() {
                       <p className='font-extrabold text-3xl text-center mb-4'>If you are unsure of your nail sizes, please reach out!</p>
                       <label className="sr-only" htmlFor="email">Left Hand</label>
                       <input
-                        className="input input-solid"
+                        className="input input-solid bg-white"
                         placeholder='ex. 2, 7, 6, 7, 9'
                         onChange={(e) => textToDisplay(e, setLeftText, leftDisplay, setLeftDisplay)}
                         type="text"
@@ -173,7 +173,7 @@ function SizesForm() {
                     <div>
                       <label className="sr-only" htmlFor="phone">Right Hand</label>
                       <input
-                        className="input input-solid"
+                        className="input input-solid bg-white"
                         placeholder='ex. 2, 7, 6, 7, 9'
                         type="text"
                         value={rightText}
