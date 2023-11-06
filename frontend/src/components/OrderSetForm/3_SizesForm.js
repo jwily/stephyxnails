@@ -129,7 +129,7 @@ function SizesForm() {
         <>
           {isOrderDetailsComplete ? (
             <section className="bg-primary rounded-xl m-4">
-              <h2 className="font-extrabold text-xl text-center mb-4">3. Sizes</h2>
+              <h2 className="font-extrabold text-xl text-center mb-4">3. Choose your nail sizes</h2>
               {/* <p>disclaimer insert????</p> */}
               <div>
                 <div className='flex flex-row justify-between'>
@@ -165,7 +165,7 @@ function SizesForm() {
                       <p className='font-extrabold text-xl text-center mb-4'>Please list your nail sizes from thumb to pinky.</p>
                       <p className='font-extrabold text-xl text-center mb-4'>If you are unsure of your nail sizes, please reach out!</p>
                       <label className="sr-only" htmlFor="email">Left Hand</label>
-                      <div>Left</div>
+                      <div>Left Hand:</div>
                       <input
                         className="input input-solid bg-white text-black"
                         placeholder='ex. 2, 7, 6, 7, 9'
@@ -176,7 +176,7 @@ function SizesForm() {
                     </div>
                     <div>
                       <label className="sr-only" htmlFor="phone">Right Hand</label>
-                      <div>Right</div>
+                      <div>Right Hand:</div>
                       <input
                         className="input input-solid bg-white text-black"
                         placeholder='ex. 2, 7, 6, 7, 9'
