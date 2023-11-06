@@ -26,8 +26,6 @@ const ReviewOrderPage = () => {
   const [isEditingInstagram, setIsEditingInstagram] = useState(false);
   const [error, setError] = useState(null);
 
-  console.log("DATA RESULT", dataResult)
-
   // Function to redirect to the order details page
   const redirectToOrderDetails = () => {
     window.location.href = "/order";
@@ -116,8 +114,6 @@ const ReviewOrderPage = () => {
   };
 
   const recaptchaRef = React.createRef();
-
-  console.log(sets, "sets state");
 
   return (
     <>

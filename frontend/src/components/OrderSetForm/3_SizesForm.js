@@ -31,8 +31,6 @@ function SizesForm() {
     window.location.href = '/order'
   }
 
-  console.log('state--->', state)
-
   const handleNext = (e) => {
     e.preventDefault();
     if (!validateDisplays()) return;

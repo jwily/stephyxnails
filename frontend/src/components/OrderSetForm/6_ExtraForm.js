@@ -15,8 +15,6 @@ function ExtraForm() {
   const [error, setError] = useState(""); // State to hold error message
   const [error2, setError2] = useState(""); // State to hold error message
 
-  console.log("EXTRA: ", parseInt(extra));
-
   const redirectToOrderDetails = () => {
     window.location.href = "/order";
   };

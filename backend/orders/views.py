@@ -54,8 +54,6 @@ class OrderCreate(generics.CreateAPIView):
     @staticmethod
     def parse_data(request_data):
 
-        print('Raw request data:', request_data)
-
         json_data = request_data['json'].read().decode('utf-8')
         data = json.loads(json_data)
 
@@ -66,9 +64,6 @@ class OrderCreate(generics.CreateAPIView):
                 set_number = int(split_key[2])
 
                 image_files = request_data.getlist(key)
-
-                # print(set_number, type(image_files))
-                # print(image_files)
 
                 for image in image_files:
                     url = upload_file_to_s3(image)
