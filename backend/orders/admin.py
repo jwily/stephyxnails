@@ -14,20 +14,40 @@ from .aws import remove_file_from_s3
 
 # Register your models here.
 
-class SetImageInline(admin.TabularInline):
-  model = SetImage
-  extra = 0
-
-class SetInline(admin.TabularInline):
+class SetInline(admin.StackedInline):
   model = Set
   extra = 0
-  formfield_overrides = {
-        models.TextField: {'widget': Textarea(attrs={'rows':5, 'cols':60})},
-    }
+
+  def images_display(self, obj):
+    images_html = '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">'
+
+    styling = [
+      'filter: blur(8px);',
+      '-webkit-filter: blur(8px);',
+      'max-width: 15rem;',
+      'max-height: 15rem;',
+      'height: auto;',
+      'width: auto;',
+    ]
+
+    for image in obj.images.all():
+        if image.url:
+            images_html += (
+            '<a href="{0}" target="_blank" rel="noopener noreferrer">'
+            '<img src="{0}" alt="Blurred Preview" style="{1}" />'
+            '</a>'
+            ).format(image.url, ' '.join(styling))
+
+    images_html += '</div>'
+
+    return format_html(images_html)
+
+  images_display.short_description = 'Inspiration Images'
+
+  readonly_fields = ('estimated_price', 'images_display',)
 
 class SetAdmin(admin.ModelAdmin):
   list_display = ['order', 'short_description', 'shape', 'left_sizes', 'right_sizes', 'tier', 'created', 'updated']
-
 
 class OrderAdmin(admin.ModelAdmin):
   inlines = [SetInline]
@@ -124,4 +144,3 @@ class ExampleImageAdmin(ExtraButtonsMixin, admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Tier, TierAdmin)
 admin.site.register(ExampleImage, ExampleImageAdmin)
-admin.site.register(SetImage)
