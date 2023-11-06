@@ -14,6 +14,12 @@ function OrderDetails() {
   const [name, setName] = useState(state.name);
   const [email, setEmail] = useState(state.email);
   const [instagram, setInstagram] = useState(state.instagram);
+  const [emailError, setEmailError] = useState('');
+
+  function isEmailValid(email) {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    return emailRegex.test(email);
+  }
 
   useEffect(() => {
     // Dispatch the 'CLEAR_LOCAL_STORAGE' action when the component is loaded
@@ -22,6 +28,12 @@ function OrderDetails() {
 
   const formSubmit = async (e) => {
     e.preventDefault();
+
+      // Email validation
+    if (!isEmailValid(email)) {
+      setEmailError('Invalid email address. Please provide a valid email.');
+      return; // Prevent form submission
+    }
 
     // Update the context state with the entered name, email, and Instagram
     dispatch({ type: 'SET_NAME', payload: name }); // Update name in the context
@@ -60,8 +72,9 @@ function OrderDetails() {
                   placeholder="Email address"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {  setEmail(e.target.value); }}
                   id="email" />
+                  {emailError && <p className="text-red-500">{emailError}</p>}
               </div>
 
               <div>
