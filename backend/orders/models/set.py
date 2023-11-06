@@ -26,6 +26,8 @@ class Set(models.Model):
   shape = models.CharField(max_length=254, choices=SHAPE_CHOICES)
   left_sizes = models.CharField(max_length=254)
   right_sizes = models.CharField(max_length=254)
+  charms = models.IntegerField()
+  characters = models.IntegerField()
 
   order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='sets')
   tier = models.ForeignKey('Tier', on_delete=models.CASCADE, related_name='sets')
@@ -41,3 +43,7 @@ class Set(models.Model):
     if len(self.description) <= 50:
       return self.description
     return truncatechars(self.description, 50)
+
+  @property
+  def estimated_price(self):
+    return '$' + str(self.tier.price + (self.charms * 5) + (self.characters * 10)) + '.00'

@@ -28,8 +28,6 @@ class SetInline(admin.StackedInline):
       'max-height: 15rem;',
       'height: auto;',
       'width: auto;',
-      # 'display: block;',
-      # 'margin-bottom: 2rem',
     ]
 
     for image in obj.images.all():
@@ -46,7 +44,7 @@ class SetInline(admin.StackedInline):
 
   images_display.short_description = 'Inspiration Images'
 
-  readonly_fields = ('images_display',)
+  readonly_fields = ('estimated_price', 'images_display',)
 
 class SetAdmin(admin.ModelAdmin):
   list_display = ['order', 'short_description', 'shape', 'left_sizes', 'right_sizes', 'tier', 'created', 'updated']
