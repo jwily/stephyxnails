@@ -50,10 +50,10 @@ const EditSetForm = () => {
     setEditedRightText(sets[setIndex]?.rightDisplay.join(','));
   }, [setIndex, sets]);
 
-  
+
 
   const handleSaveSet = () => {
-    if(!validateDisplays()) return;
+    if (!validateDisplays()) return;
 
     const updatedSet = {
       tier: editedTier,
@@ -92,14 +92,14 @@ const EditSetForm = () => {
 
   const handleFileChange = (e) => {
     const files = e.target.files;
-    const uploadedPhotos = []; 
+    const uploadedPhotos = [];
 
     if (files.length > 0) {
       // Check the current count of photos and the limit (adjust the limit as needed)
       const photoCount = editedPhotos.length;
       const photoLimit = 4;
 
-      if ( photoCount + files.length <= photoLimit) {
+      if (photoCount + files.length <= photoLimit) {
         // Loop through the selected files and add them to the uploadedPhotos array
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
@@ -124,18 +124,36 @@ const EditSetForm = () => {
   const openFileInput = () => {
     document.getElementById('fileInput').click();
   };
-  console.log( sets, 'set state')
+  console.log(sets, 'set state')
 
   const FingerDisplay = ({ hand, name, value }) => {
     return (
       <div>
-        {`${hand}-${name}: ${value ? value : ''}`}
+        <span className='font-extrabold font-xl' >
+          {`${hand} ${name}: `}
+        </span>
+        <span>
+          {`${value ? value : ''}`}
+        </span>
+      </div>
+    );
+  };
+
+  const FingerDisplayRight = ({ hand, name, value }) => {
+    return (
+      <div>
+        <span>
+          {`${value ? value : ''} : `}
+        </span>
+        <span className='font-extrabold font-xl' >
+          {`${hand} ${name}`}
+        </span>
       </div>
     );
   };
 
   const validateDisplays = () => {
-    if([...editedLeftDisplay, ...editedRightDisplay].length !== 10) {
+    if ([...editedLeftDisplay, ...editedRightDisplay].length !== 10) {
       setSizesError('Each finger needs a valid size from 00 to 9.')
       return false;
     }
@@ -151,7 +169,7 @@ const EditSetForm = () => {
   }
 
   const textToDisplay = (e, setText, display, setDisplay) => {
-    
+
     const value = e.target.value;
     // Check if the input contains invalid characters
     // Allows input to function correctly
@@ -277,45 +295,60 @@ const EditSetForm = () => {
                           placeholder="Ex. 2,6,7,9,6"
                         /> */}
                         <div>
-                          <div className='flex flex-row space-x-5'>
-                            <FingerDisplay hand='L' name='Thumb' value={editedLeftDisplay[0]} />
-                            <FingerDisplay hand='L' name='Index' value={editedLeftDisplay[1]} />
-                            <FingerDisplay hand='L' name='Middle' value={editedLeftDisplay[2]} />
-                            <FingerDisplay hand='L' name='Ring' value={editedLeftDisplay[3]} />
-                            <FingerDisplay hand='L' name='Pinky' value={editedLeftDisplay[4]} />
+                          <div className='flex flex-row justify-between'>
+                            <FingerDisplay hand='Left' name='Thumb' value={editedLeftDisplay[0]} />
+                            <FingerDisplayRight hand='Right' name='Thumb' value={editedRightDisplay[0]} />
                           </div>
-                          <div className='flex flex-row space-x-5'>
-                            <FingerDisplay hand='R' name='Thumb' value={editedRightDisplay[0]} />
-                            <FingerDisplay hand='R' name='Index' value={editedRightDisplay[1]} />
-                            <FingerDisplay hand='R' name='Middle' value={editedRightDisplay[2]} />
-                            <FingerDisplay hand='R' name='Ring' value={editedRightDisplay[3]} />
-                            <FingerDisplay hand='R' name='Pinky' value={editedRightDisplay[4]} />
+                          <div className='flex flex-row justify-between'>
+                            <FingerDisplay hand='Left' name='Index' value={editedLeftDisplay[1]} />
+                            <FingerDisplayRight hand='Right' name='Index' value={editedRightDisplay[1]} />
+                          </div>
+                          <div className='flex flex-row justify-between'>
+                            <FingerDisplay hand='Left' name='Middle' value={editedLeftDisplay[2]} />
+                            <FingerDisplayRight hand='Right' name='Middle' value={editedRightDisplay[2]} />
+                          </div>
+                          <div className='flex flex-row justify-between'>
+                            <FingerDisplay hand='Left' name='Ring' value={editedLeftDisplay[3]} />
+                            <FingerDisplayRight hand='Right' name='Ring' value={editedRightDisplay[3]} />
+                          </div>
+                          <div className='flex flex-row justify-between'>
+                            <FingerDisplay hand='Left' name='Pinky' value={editedLeftDisplay[4]} />
+                            <FingerDisplayRight hand='Right' name='Pinky' value={editedRightDisplay[4]} />
                           </div>
                         </div>
                         <div>
                           <p>Please list your nail sizes from thumb to pinky for each hand.</p>
                           <p>If you are unsure of your nail sizes, please reach out to me!</p>
-                          {!!sizesError&& (
+                          {!!sizesError && (
                             <p className='text-error'>{sizesError}</p>
                           )}
                         </div>
-                        <div>
-                          <p>Left Hand</p>
-                          <input
-                            type='text'
-                            value={editedLeftText}
-                            placeholder='ex. 2, 7, 6, 7, 9'
-                            onChange={(e) => textToDisplay(e, setEditedLeftText, editedLeftDisplay, setEditedLeftDisplay)}
-                          />
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                          <div>
+                            <p className='font-extrabold text-xl text-center mb-4'>Please list your nail sizes from thumb to pinky.</p>
+                            <p className='font-extrabold text-xl text-center mb-4'>If you are unsure of your nail sizes, please reach out!</p>
+                            <label className="sr-only" htmlFor="email">Left Hand</label>
+                            <div>Left</div>
+                            <input
+                              className="input input-solid bg-white"
+                              placeholder='ex. 2, 7, 6, 7, 9'
+                              onChange={(e) => textToDisplay(e, setEditedLeftText, editedLeftDisplay, setEditedLeftDisplay)}
+                              type="text"
+                              value={editedLeftText}
+                              id="email" />
+                          </div>
+                          <div>
+                            <label className="sr-only" htmlFor="phone">Right Hand</label>
+                            <div>Right</div>
+                            <input
+                              className="input input-solid bg-white"
+                              placeholder='ex. 2, 7, 6, 7, 9'
+                              type="text"
+                              value={editedRightText}
+                              onChange={(e) => textToDisplay(e, setEditedRightText, editedRightDisplay, setEditedRightDisplay)}
 
-                          <p>Right Hand</p>
-                          <input
-                            type='text'
-                            value={editedRightText}
-                            placeholder='ex. 2, 7, 6, 7, 9'
-                            onChange={(e) => textToDisplay(e, setEditedRightText, editedRightDisplay, setEditedRightDisplay)}
-                          />
-
+                              id="phone" />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -351,7 +384,7 @@ const EditSetForm = () => {
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <label>Photos:</label>
-                  
+
                         {/* <input
                           type="file"
                           accept="image/*"
@@ -362,30 +395,30 @@ const EditSetForm = () => {
                           multiple
                         /> */}
 
-                      <div>
-                        {Array.isArray(editedPhotos)
-                          && editedPhotos.length < 4 && (
-                            <div>
-                              <input
-                                type="file"
-                                accept="image/*"
-                                id="fileInput"
-                                style={{ display: 'none' }}
-                                onChange={handleFileChange}
-                                multiple // Allow multiple file selection
-                              />
-                              <button onClick={openFileInput}>Upload Photo</button>
-                            </div>
-                          )}
-                        {Array.isArray(editedPhotos)
-                          && editedPhotos.map((photo, index) => (
-                            <div key={index}>
-                              <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
-                              <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
-                            </div>
-                          ))}
-                      </div>
-                        
+                        <div>
+                          {Array.isArray(editedPhotos)
+                            && editedPhotos.length < 4 && (
+                              <div>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  id="fileInput"
+                                  style={{ display: 'none' }}
+                                  onChange={handleFileChange}
+                                  multiple // Allow multiple file selection
+                                />
+                                <button onClick={openFileInput}>Upload Photo</button>
+                              </div>
+                            )}
+                          {Array.isArray(editedPhotos)
+                            && editedPhotos.map((photo, index) => (
+                              <div key={index}>
+                                <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
+                                <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                              </div>
+                            ))}
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -440,7 +473,7 @@ const EditSetForm = () => {
                           onChange={(e) => setEditedExtra(e.target.value)}
                         >
                           {numericalOptions(20)}
-                        </select>                        
+                        </select>
                       </div>
                     </div>
                   </div>

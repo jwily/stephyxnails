@@ -167,12 +167,11 @@ function SizesForm() {
                       <label className="sr-only" htmlFor="email">Left Hand</label>
                       <div>Left</div>
                       <input
-                        className="input input-solid bg-white"
+                        className="input text-black input-solid bg-white"
                         placeholder='ex. 2, 7, 6, 7, 9'
                         onChange={(e) => textToDisplay(e, setLeftText, leftDisplay, setLeftDisplay)}
                         type="text"
                         value={leftText}
-
                         id="email" />
                     </div>
                     <div>
