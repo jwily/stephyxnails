@@ -48,7 +48,7 @@ const ReviewOrderPage = () => {
   // Function to handle editing a set
   const handleEditSet = (index) => {
     const setToEdit = sets[index]; // Get the set data to pass
-    history.push(`/order-set/edit/${index}`, { set: setToEdit });
+    history.push(`/order-set/edit/${index}`, { set: setToEdit } );
   };
 
   const csrfToken = Cookies.get('csrftoken');
@@ -57,6 +57,7 @@ const ReviewOrderPage = () => {
     // Navigate back to the previous step
     history.push("/order-set/currentset");
   };
+
 
   // Function to handle deleting a set, but prevent deleting the first set
   const handleDeleteSet = (index) => {
@@ -144,7 +145,7 @@ const ReviewOrderPage = () => {
 
   const recaptchaRef = React.createRef();
 
-  console.log(sets, 'left hand')
+  console.log(sets, 'sets state')
 
   return (
     <>

@@ -11,8 +11,8 @@ const initialState = {
   formData: {
     tier: '',
     shape: '',
-    leftDisplay: '',
-    rightDisplay: '',
+    leftDisplay: [],
+    rightDisplay: [],
     photos: [],
     description: '',
     extra: '',
@@ -95,7 +95,11 @@ const reducer = (state = initialState, action) => {
     case 'ADD_SET':
       // Add a new set and increment setCount
       const newSets = [...state.sets, action.payload];
-      return { ...state, sets: newSets, setCount: state.setCount + 1 };
+      return { 
+        ...state, 
+        sets: newSets, 
+        setCount: state.setCount + 1 
+      };
 
     case 'DELETE_SET':
       // Remove a set at the specified index
@@ -119,7 +123,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'CLEAR_FORM':
-      return { ...state, formData: { tier: '', shape: '', leftDisplay: '', rightDisplay: '', photos: [], description: '', extra: '', extra2: '' } };
+      return { ...state, formData: { tier: '', shape: '', leftDisplay: [], rightDisplay: [], photos: [], description: '', extra: '', extra2: '' } };
 
     case 'INCREMENT_SET_COUNT':
       return {

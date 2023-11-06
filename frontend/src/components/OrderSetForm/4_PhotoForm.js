@@ -39,6 +39,7 @@ function PhotoForm() {
     e.preventDefault();
     // Dispatch an action to update the photos in the context state
     // dispatch({ type: 'UPDATE_FORM_DATA', payload: { photo } });
+
     history.push('/order-set/description');
   };
 

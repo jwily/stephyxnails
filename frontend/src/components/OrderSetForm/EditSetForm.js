@@ -16,7 +16,7 @@ const EditSetForm = () => {
   const [editedShape, setEditedShape] = useState("");
   const [editedLeftDisplay, setEditedLeftDisplay] = useState("");
   const [editedRightDisplay, setEditedRightDisplay] = useState("");
-  const [editedPhoto, setEditedPhoto] = useState("");
+  const [editedPhotos, setEditedPhotos] = useState("");
   const [editedDescription, setEditedDescription] = useState("");
   const [editedExtra, setEditedExtra] = useState(0);
   const [editedExtra2, setEditedExtra2] = useState(0);
@@ -39,7 +39,7 @@ const EditSetForm = () => {
     setEditedShape(sets[setIndex]?.shape);
     setEditedLeftDisplay(sets[setIndex]?.leftDisplay);
     setEditedRightDisplay(sets[setIndex]?.rightDisplay);
-    setEditedPhoto(sets[setIndex]?.photo);
+    setEditedPhotos(sets[setIndex]?.photos);
     setEditedDescription(sets[setIndex]?.description);
     setEditedExtra(sets[setIndex]?.extra);
     setEditedExtra2(sets[setIndex]?.extra2);
@@ -51,7 +51,7 @@ const EditSetForm = () => {
       shape: editedShape,
       leftDisplay: editedLeftDisplay,
       rightDisplay: editedRightDisplay,
-      photo: editedPhoto,
+      photos: editedPhotos,
       description: editedDescription,
       extra: editedExtra,
       extra2: editedExtra2,
@@ -68,6 +68,52 @@ const EditSetForm = () => {
   if (!dataResult) {
     return <LoadingPage />;
   }
+  const handleRemovePhoto = (file) => {
+    // Filter out the selected photo URL from the array
+    const updatedPhotos = editedPhotos.filter((photo) => photo !== file);
+    setEditedPhotos(updatedPhotos)
+  };
+  const imageStyle = {
+    width: '150px', // Adjust the width to your desired size
+    height: '150px', // Adjust the height to your desired size
+  };
+
+
+  const handleFileChange = (e) => {
+    const files = e.target.files;
+    const uploadedPhotos = []; 
+
+    if (files.length > 0) {
+      // Check the current count of photos and the limit (adjust the limit as needed)
+      const photoCount = editedPhotos.length;
+      const photoLimit = 4;
+
+      if ( photoCount + files.length <= photoLimit) {
+        // Loop through the selected files and add them to the uploadedPhotos array
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          // Create a URL for the selected file
+          uploadedPhotos.push(file);
+        }
+
+        // Update the local state to trigger re-render
+        // setLocalPhotos(uploadedPhotos);
+
+        const combinedPhotos = [...editedPhotos, ...uploadedPhotos];
+        setEditedPhotos(combinedPhotos);
+
+        // Dispatch an action to add the uploaded photos to the state
+        // dispatch({ type: 'ADD_PHOTO', payload: uploadedPhotos });
+      } else {
+        alert("You can only upload 4 photos");
+      }
+    }
+  };
+
+  const openFileInput = () => {
+    document.getElementById('fileInput').click();
+  };
+  console.log( sets, 'set state')
   return (
     <>
       {isLoading ? (
@@ -173,14 +219,42 @@ const EditSetForm = () => {
                     </label>
                     <div className="accordion-content">
                       <div className="min-h-0">
-                        <label>Photo:</label>
+                        <label>Photos:</label>
+                  
                         {/* <input
-                          type="text"
-                          value={editedPhoto}
-                          onChange={(e) => setEditedPhoto(e.target.value)}
+                          type="file"
+                          accept="image/*"
+                          id="fileInput"
+                          style={{ display: 'none' }}
+                          value={editedPhotos}
+                          onChange={(e) => setEditedPhotos(e.target.value)}
+                          multiple
                         /> */}
-                        
 
+                      <div>
+                        {Array.isArray(editedPhotos)
+                          && editedPhotos.length < 4 && (
+                            <div>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                id="fileInput"
+                                style={{ display: 'none' }}
+                                onChange={handleFileChange}
+                                multiple // Allow multiple file selection
+                              />
+                              <button onClick={openFileInput}>Upload Photo</button>
+                            </div>
+                          )}
+                        {Array.isArray(editedPhotos)
+                          && editedPhotos.map((photo, index) => (
+                            <div key={index}>
+                              <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
+                              <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                            </div>
+                          ))}
+                      </div>
+                        
                       </div>
                     </div>
                   </div>
