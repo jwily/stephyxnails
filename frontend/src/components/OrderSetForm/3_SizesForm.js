@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
+import LoadingPage from '../LoadingPage';
 
 function SizesForm() {
 
@@ -46,10 +47,30 @@ function SizesForm() {
   const FingerDisplay = ({ hand, name, value }) => {
     return (
       <div>
-        {`${hand} ${name}: ${value ? value : ''}`}
+        <span className='font-extrabold font-xl' >
+          {`${hand} ${name}: `}
+        </span>
+        <span>
+          {`${value ? value : ''}`}
+        </span>
       </div>
     );
   };
+
+  const FingerDisplayRight = ({ hand, name, value }) => {
+    return (
+      <div>
+        <span>
+          {`${value ? value : ''} : `}
+        </span>
+        <span className='font-extrabold font-xl' >
+          {`${hand} ${name}`}
+        </span>
+      </div>
+    );
+  };
+
+
 
   const textToDisplay = (e, setText, display, setDisplay) => {
 
@@ -99,64 +120,79 @@ function SizesForm() {
     <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
 
       {isLoading ? (
-        <div>Loading...</div>
+        <LoadingPage />
       ) : (
         <>
           {isOrderDetailsComplete ? (
-            <section>
-              <h2>X. Sizes</h2>
-              <p>disclaimer insert</p>
+            <section className="bg-primary rounded-xl m-4">
+              <h2 className="font-extrabold text-xl text-center mb-4">3. Sizes</h2>
+              {/* <p>disclaimer insert????</p> */}
               <div>
-                <div className='flex flex-row space-x-5'>
+                <div className='flex flex-row justify-between'>
                   <FingerDisplay hand='Left' name='Pinky' value={leftDisplay[4]} />
-                  <FingerDisplay hand='Left' name='Ring' value={leftDisplay[3]} />
-                  <FingerDisplay hand='Left' name='Middle' value={leftDisplay[2]} />
-                  <FingerDisplay hand='Left' name='Index' value={leftDisplay[1]} />
-                  <FingerDisplay hand='Left' name='Thumb' value={leftDisplay[0]} />
+                  <FingerDisplayRight hand='Right' name='Pinky' value={rightDisplay[4]} />
                 </div>
-                <div className='flex flex-row space-x-5'>
-                  <FingerDisplay hand='Right' name='Thumb' value={rightDisplay[0]} />
-                  <FingerDisplay hand='Right' name='Index' value={rightDisplay[1]} />
-                  <FingerDisplay hand='Right' name='Middle' value={rightDisplay[2]} />
-                  <FingerDisplay hand='Right' name='Ring' value={rightDisplay[3]} />
-                  <FingerDisplay hand='Right' name='Pinky' value={rightDisplay[4]} />
+                <div className='flex flex-row justify-between'>
+                  <FingerDisplay hand='Left' name='Ring' value={leftDisplay[3]} />
+                  <FingerDisplayRight hand='Right' name='Ring' value={rightDisplay[3]} />
+                </div>
+                <div className='flex flex-row justify-between'>
+                  <FingerDisplay hand='Left' name='Middle' value={leftDisplay[2]} />
+                  <FingerDisplayRight hand='Right' name='Middle' value={rightDisplay[2]} />
+                </div>
+                <div className='flex flex-row justify-between'>
+                  <FingerDisplay hand='Left' name='Index' value={leftDisplay[1]} />
+                  <FingerDisplayRight hand='Right' name='Index' value={rightDisplay[1]} />
+                </div>
+                <div className='flex flex-row justify-between'>
+                  <FingerDisplay hand='Left' name='Thumb' value={leftDisplay[0]} />
+                  <FingerDisplayRight hand='Right' name='Thumb' value={rightDisplay[0]} />
                 </div>
               </div>
               <div>
-                <p>Please list your nail sizes from thumb to pinky for each hand.</p>
-                <p>If you are unsure of your nail sizes, please reach out to me!</p>
                 {!!error && (
                   <p className='text-error'>{error}</p>
                 )}
               </div>
               <div>
-                <p>Left Hand</p>
-                <input
-                  type='text'
-                  value={leftText}
-                  placeholder='ex. 2, 7, 6, 7, 9'
-                  onChange={(e) => textToDisplay(e, setLeftText, leftDisplay, setLeftDisplay)}
-                />
-                {/* <p>
-                  {errorLeftHand && <div className="error-message">{errorLeftHand}</div>}
-                  {errorLeftHand2 && <div className="error-message">{errorLeftHand2}</div>}
-                </p> */}
+                <div className="p-8 shadow-lg">
+                  <form className="space-y-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div>
+                        {/* <p>Please list your nail sizes from thumb to pinky for each hand.</p> */}
+                        <p className='font-extrabold text-xl text-center mb-4'>If you are unsure of your nail sizes, please reach out to me!</p>
+                        <label className="sr-only" htmlFor="email">Left Hand</label>
+                        <input
+                          className="input input-solid"
+                          placeholder='ex. 2, 7, 6, 7, 9'
+                          onChange={(e) => textToDisplay(e, setLeftText, leftDisplay, setLeftDisplay)}
+                          type="text"
+                          value={leftText}
 
-                <p>Right Hand</p>
-                <input
-                  type='text'
-                  value={rightText}
-                  placeholder='ex. 2, 7, 6, 7, 9'
-                  onChange={(e) => textToDisplay(e, setRightText, rightDisplay, setRightDisplay)}
-                />
+                          id="email" />
+                      </div>
+                      <div>
+                        <label className="sr-only" htmlFor="phone">Right Hand</label>
+                        <input
+                          className="input input-solid"
+                          placeholder='ex. 2, 7, 6, 7, 9'
+                          type="text"
+                          value={rightText}
+                          onChange={(e) => textToDisplay(e, setRightText, rightDisplay, setRightDisplay)}
+
+                          id="phone" />
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <button type="button" className="rounded-lg btn btn-primary w-6/12 bg-primary_blue text-black" onClick={handleBack}>←</button>
+                      <button className="rounded-lg btn btn-primary w-6/12 bg-primary_blue text-black" type="submit" onClick={handleNext}>→</button>
+                    </div>
+                  </form>
+                </div>
                 {/* <p>
                   {errorRightHand && <div className="error-message">{errorRightHand}</div>}
                   {errorRightHand2 && <div className="error-message">{errorRightHand2}</div>}
                 </p> */}
-              </div>
-              <div>
-                <button onClick={handleBack}>Back</button>
-                <button type="submit" onClick={handleNext}>Next</button>
               </div>
             </section>
           ) : (
