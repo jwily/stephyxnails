@@ -166,6 +166,7 @@ const EditSetForm = () => {
       return; // Stop processing the input
     }
 
+
     setText(value);
 
     const string = value + "_";

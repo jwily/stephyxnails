@@ -77,8 +77,11 @@ const ReviewOrderPage = () => {
 
 
 
+
+
   // Function to handle deleting a set, but prevent deleting the first set
   const handleDeleteSet = (index) => {
+
 
       dispatch({ type: "DELETE_SET", payload: index });
 
