@@ -375,8 +375,9 @@ const handleSubmit = async (e) => {
     </div>
     <div className="flex gap-3 mt-7">
       <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add Set</button>
-      <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>Submit Order</button>
-
+      <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>
+            {state.sets && state.sets.length === 0 ? "Order cannot be submitted until at least one set is created." : "Submit Order"}
+        </button>
     </div>
 
             </>
