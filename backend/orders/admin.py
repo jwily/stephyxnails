@@ -14,20 +14,27 @@ from .aws import remove_file_from_s3
 
 # Register your models here.
 
-class SetImageInline(admin.TabularInline):
-  model = SetImage
-  extra = 0
-
-class SetInline(admin.TabularInline):
+class SetInline(admin.StackedInline):
   model = Set
   extra = 0
-  formfield_overrides = {
-        models.TextField: {'widget': Textarea(attrs={'rows':5, 'cols':60})},
-    }
+
+  def images_display(self, obj):
+        images_html = ''
+        for image in obj.images.all():
+            if image.url:
+                images_html +="""
+                <a>
+                  <img src="{0}" width="150" height="auto" />
+                </a>
+                              """.format(image.url)
+        return format_html(images_html)
+
+  images_display.short_description = 'Inspiration Images'
+
+  readonly_fields = ('images_display',)
 
 class SetAdmin(admin.ModelAdmin):
   list_display = ['order', 'short_description', 'shape', 'left_sizes', 'right_sizes', 'tier', 'created', 'updated']
-
 
 class OrderAdmin(admin.ModelAdmin):
   inlines = [SetInline]
@@ -124,4 +131,3 @@ class ExampleImageAdmin(ExtraButtonsMixin, admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Tier, TierAdmin)
 admin.site.register(ExampleImage, ExampleImageAdmin)
-admin.site.register(SetImage)

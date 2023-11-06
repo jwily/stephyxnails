@@ -34,7 +34,7 @@ class Set(models.Model):
     ordering = ['-created']
 
   def __str__(self):
-    return f"{shape_name(self.shape)} {self.tier.name}"
+    return f"{self.id} - {shape_name(self.shape)}"
 
   @property
   def short_description(self):
