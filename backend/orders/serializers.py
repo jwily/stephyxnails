@@ -31,7 +31,9 @@ class SetSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Set
-    fields = ['id', 'created', 'updated', 'description', 'shape', 'left_sizes', 'right_sizes', 'tier', 'order', 'images']
+    fields = ['id', 'created', 'updated', 'description',
+              'shape', 'left_sizes', 'right_sizes', 'tier',
+              'order', 'images', 'charms', 'characters']
 
 class OrderSerializer(serializers.ModelSerializer):
   sets = SetSerializer(many=True)

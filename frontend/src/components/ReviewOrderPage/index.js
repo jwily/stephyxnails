@@ -4,10 +4,12 @@ import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha";
 import Cookies from "js-cookie";
 
+import { prepareState, shapeValToLabel, tierLabel } from "../../utilities";
+
 const ReviewOrderPage = () => {
   // Access the history object for navigation, order state, and dispatch function from the order context
   const history = useHistory();
-  const { state, dispatch } = useOrderContext();
+  const { state, dispatch, dataResult } = useOrderContext();
   const { formData } = state; // Destructure values from the state
   const { name, email, instagram, sets } = state;
   const isOrderDetailsComplete = state.name && state.email;
@@ -24,6 +26,7 @@ const ReviewOrderPage = () => {
   const [isEditingInstagram, setIsEditingInstagram] = useState(false);
   const [error, setError] = useState(null);
 
+  console.log("DATA RESULT", dataResult)
 
   // Function to redirect to the order details page
   const redirectToOrderDetails = () => {
@@ -75,93 +78,41 @@ const ReviewOrderPage = () => {
   };
 
 
-
-
-
-
   // Function to handle deleting a set, but prevent deleting the first set
   const handleDeleteSet = (index) => {
 
 
-      dispatch({ type: "DELETE_SET", payload: index });
+    dispatch({ type: "DELETE_SET", payload: index });
 
   };
 
-// Function to handle submitting the order
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  // Function to handle submitting the order
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Check if there are sets in the state
-  if (state && state.sets && state.sets.length > 0) {
-    setError(null);
+    // Check if there are sets in the state
+    if (state && state.sets && state.sets.length > 0) {
+      setError(null);
 
-    const formData = prepareState(state);
-    const res = await fetch('/api/orders/', {
-      method: 'POST',
-      headers: {
-        'X-CSRFToken': csrfToken
-      },
-      body: formData
-    });
+      const formData = prepareState(state);
+      const res = await fetch('/api/orders/', {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken
+        },
+        body: formData
+      });
 
-    if (res.ok) {
-      // Successfully submitted the order, navigate to the confirmation page
-      history.push('/orderconfirmation');
+      if (res.ok) {
+        // Successfully submitted the order, navigate to the confirmation page
+        history.push('/orderconfirmation');
+      } else {
+
+      }
+
     } else {
-
+      setError("You can't submit without a set");
     }
-  } else {
-
-    setError("You can't submit without a set");
-
-
-  }
-
-  };
-
-  const prepareState = (state) => {
-    const newState = {};
-    newState.name = state.name;
-    newState.email = state.email;
-    newState.instagram = state.instagram;
-    newState.sets = [];
-
-    const imageSets = [];
-
-    for (let index in state.sets) {
-      const set = state.sets[index];
-
-      const newSet = {};
-      newSet.description = set.description;
-      newSet.charms = set.extra;
-      newSet.characters = set.extra2;
-      newSet.left_sizes = set.leftDisplay.join(", ");
-      newSet.right_sizes = set.rightDisplay.join(", ");
-      newSet.shape = set.shape;
-      newSet.tier = set.tier;
-      newSet.images = [];
-
-      newState.sets.push(newSet);
-
-      imageSets[index] = [];
-
-      for (let photo of set.photos) {
-        imageSets[index].push(photo);
-      }
-    }
-
-    const formData = new FormData();
-
-    formData.append("json", new Blob([JSON.stringify(newState)], { type: "application/json" }));
-
-    for (let index in imageSets) {
-      const images = imageSets[index];
-      for (let photo of images) {
-        formData.append(`files_set_${index}`, photo);
-      }
-    }
-
-    return formData;
   };
 
   const recaptchaRef = React.createRef();
@@ -313,10 +264,10 @@ const handleSubmit = async (e) => {
                     <div className="min-h-0 flex flex-col gap-8 pl-2">
                       <div className="flex justify-between mr-12">
                         <p className="font-bold">
-                          Tier: <span className="font-normal">{formData.tier}</span>
+                          Tier: <span className="font-normal">{tierLabel(formData.tier, dataResult)}</span>
                         </p>
                         <p className="font-bold">
-                          Shape: <span className="font-normal">{formData.shape}</span>
+                          Shape: <span className="font-normal">{shapeValToLabel[formData.shape]}</span>
                         </p>
                       </div>
                       <div className="flex justify-between mr-6">
@@ -329,7 +280,7 @@ const handleSubmit = async (e) => {
                       </div>
                       <div>
                         <p className="font-bold">Photos:</p>
-                        <div style={{display: 'grid', gridTemplateColumns:"repeat(2,1fr)", gap: '10px', margin:'10px 0 0 30px'}}>
+                        <div style={{ display: 'grid', gridTemplateColumns: "repeat(2,1fr)", gap: '10px', margin: '10px 0 0 30px' }}>
                           {formData.photos.map((photo, index) => (
                             <div key={index}>
                               <img
@@ -368,19 +319,18 @@ const handleSubmit = async (e) => {
                       </div>
                     </div>
 
-        </div>
-      </li>
-    ))}
-      </section>
-    </div>
-    <div className="flex gap-3 mt-7">
-      <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add Set</button>
-      <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>
-            {state.sets && state.sets.length === 0 ? "Order cannot be submitted until at least one set is created." : "Submit Order"}
-        </button>
-    </div>
+                  </div>
+                </li>
+              ))}
+            </section>
+          </div>
+          <div className="flex gap-3 mt-7">
+            <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add Set</button>
+            <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>Submit Order</button>
 
-            </>
+          </div>
+
+        </>
       ) : (
         <div>
           <p>Please complete your order details before proceeding.</p>

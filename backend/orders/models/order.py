@@ -19,4 +19,4 @@ class Order(models.Model):
   #   ordering = ['-created']
 
   def __str__(self):
-    return self.name + ' ' + self.created.strftime("%b '%y")
+    return f'{self.id} - {self.name}'

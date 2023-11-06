@@ -3,10 +3,12 @@ import { useOrderContext } from "../../context/OrderContext";
 import { useHistory } from "react-router-dom";
 import LoadingPage from "../LoadingPage";
 
+import { tierLabel, shapeValToLabel } from "../../utilities";
+
 function SubmissionSetForm() {
   // Initialize the history object and retrieve state and dispatch from the order context
   const history = useHistory();
-  const { state, dispatch } = useOrderContext();
+  const { state, dispatch, dataResult } = useOrderContext();
   const { formData } = state; // Destructure values from the state
   const isOrderDetailsComplete = state.name && state.email; // Check if order details are complete
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
@@ -85,8 +87,8 @@ function SubmissionSetForm() {
                       <h1 className="font-extrabold text-xl mb-4 card-header">My Set</h1>
                     </div>
                     {/* <h2 className="card-header">Number of sets made: {setCount + 1}</h2> */}
-                    <p className="text-black font-semibold">Tier: {formData.tier}</p>
-                    <p className="text-black font-semibold">Shape: {formData.shape}</p>
+                    <p className="text-black font-semibold">Tier: {tierLabel(formData.tier, dataResult)}</p>
+                    <p className="text-black font-semibold">Shape: {shapeValToLabel(formData.shape)}</p>
                     <p className="text-black font-semibold">Left Sizes: {formData.leftDisplay.join(", ")}</p>
                     <p className="text-black font-semibold">
                       Right Sizes: {formData.rightDisplay.join(", ")}
