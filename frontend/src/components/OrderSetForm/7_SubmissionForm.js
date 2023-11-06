@@ -77,7 +77,7 @@ function SubmissionSetForm() {
                     </div>
                     {/* <h2 className="card-header">Number of sets made: {setCount + 1}</h2> */}
                     <p className="text-black font-semibold">Tier: {tierLabel(formData.tier, dataResult)}</p>
-                    <p className="text-black font-semibold">Shape: {shapeValToLabel(formData.shape)}</p>
+                    <p className="text-black font-semibold">Shape: {shapeValToLabel[formData.shape]}</p>
                     <p className="text-black font-semibold">Left Sizes: {formData.leftDisplay.join(", ")}</p>
                     <p className="text-black font-semibold">
                       Right Sizes: {formData.rightDisplay.join(", ")}
