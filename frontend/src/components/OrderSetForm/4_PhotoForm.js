@@ -133,7 +133,7 @@ function PhotoForm() {
                     </div>
                   </div>
                 </div>
-                <div className="flex gap-3 mt-7">
+                <div className="flex gap-3 mt-3">
                   <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>←</button>
                   <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleNext}>→</button>
                 </div>
