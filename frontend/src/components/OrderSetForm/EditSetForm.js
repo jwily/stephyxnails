@@ -50,10 +50,10 @@ const EditSetForm = () => {
     setEditedRightText(sets[setIndex]?.rightDisplay.join(','));
   }, [setIndex, sets]);
 
-  
+
 
   const handleSaveSet = () => {
-    if(!validateDisplays()) return;
+    if (!validateDisplays()) return;
 
     const updatedSet = {
       tier: editedTier,
@@ -92,14 +92,14 @@ const EditSetForm = () => {
 
   const handleFileChange = (e) => {
     const files = e.target.files;
-    const uploadedPhotos = []; 
+    const uploadedPhotos = [];
 
     if (files.length > 0) {
       // Check the current count of photos and the limit (adjust the limit as needed)
       const photoCount = editedPhotos.length;
       const photoLimit = 4;
 
-      if ( photoCount + files.length <= photoLimit) {
+      if (photoCount + files.length <= photoLimit) {
         // Loop through the selected files and add them to the uploadedPhotos array
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
@@ -124,7 +124,7 @@ const EditSetForm = () => {
   const openFileInput = () => {
     document.getElementById('fileInput').click();
   };
-  console.log( sets, 'set state')
+  console.log(sets, 'set state')
 
   const FingerDisplay = ({ hand, name, value }) => {
     return (
@@ -135,7 +135,7 @@ const EditSetForm = () => {
   };
 
   const validateDisplays = () => {
-    if([...editedLeftDisplay, ...editedRightDisplay].length !== 10) {
+    if ([...editedLeftDisplay, ...editedRightDisplay].length !== 10) {
       setSizesError('Each finger needs a valid size from 00 to 9.')
       return false;
     }
@@ -151,7 +151,7 @@ const EditSetForm = () => {
   }
 
   const textToDisplay = (e, setText, display, setDisplay) => {
-    
+
     const value = e.target.value;
     // Check if the input contains invalid characters
     // Allows input to function correctly
@@ -215,9 +215,9 @@ const EditSetForm = () => {
                               className="radio-solid-error radio mr-2 mt-1"
                               type="radio"
                               name="tier"
-                              value={tierOption.name}
-                              checked={editedTier === tierOption.name} // Use editedTier for checked state
-                              onChange={() => setEditedTier(tierOption.name)} // Set editedTier on change
+                              value={tierOption.id}
+                              checked={editedTier === tierOption.id} // Use editedTier for checked state
+                              onChange={() => setEditedTier(tierOption.id)} // Set editedTier on change
                               required
                             />
                             <span className="font-bold text-lg ml-1">{tierOption.name}: </span>
@@ -243,18 +243,18 @@ const EditSetForm = () => {
                           value={editedShape}
                           onChange={(e) => setEditedShape(e.target.value)}
                         >
-                          <option value="Extra-Short Square">Extra-Short Square</option>
-                          <option value="Short Square">Short Square</option>
-                          <option value="Medium Square">Medium Square</option>
-                          <option value="Short Coffin">Short Coffin</option>
-                          <option value="Medium Coffin">Medium Coffin</option>
-                          <option value="Short Almond">Short Almond</option>
-                          <option value="Medium Round">Medium Round</option>
-                          <option value="Short Round">Short Round</option>
-                          <option value="Medium Round">Medium Round</option>
-                          <option value="Short Almond">Short Almond</option>
-                          <option value="Medium Almond">Medium Almond</option>
-                          <option value="Medium Stiletto">Medium Stiletto</option>
+                          <option value="xs-square">Extra-Short Square</option>
+                          <option value="s-square">Short Square</option>
+                          <option value="m-square">Medium Square</option>
+                          <option value="s-coffin">Short Coffin</option>
+                          <option value="m-coffin">Medium Coffin</option>
+                          <option value="s-almond">Short Almond</option>
+                          <option value="m-round">Medium Round</option>
+                          <option value="s-round">Short Round</option>
+                          <option value="m-round">Medium Round</option>
+                          <option value="s-almond">Short Almond</option>
+                          <option value="m-almond">Medium Almond</option>
+                          <option value="m-stiletto">Medium Stiletto</option>
                         </select>
                       </div>
                     </div>
@@ -295,7 +295,7 @@ const EditSetForm = () => {
                         <div>
                           <p>Please list your nail sizes from thumb to pinky for each hand.</p>
                           <p>If you are unsure of your nail sizes, please reach out to me!</p>
-                          {!!sizesError&& (
+                          {!!sizesError && (
                             <p className='text-error'>{sizesError}</p>
                           )}
                         </div>
@@ -351,7 +351,7 @@ const EditSetForm = () => {
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <label>Photos:</label>
-                  
+
                         {/* <input
                           type="file"
                           accept="image/*"
@@ -362,30 +362,30 @@ const EditSetForm = () => {
                           multiple
                         /> */}
 
-                      <div>
-                        {Array.isArray(editedPhotos)
-                          && editedPhotos.length < 4 && (
-                            <div>
-                              <input
-                                type="file"
-                                accept="image/*"
-                                id="fileInput"
-                                style={{ display: 'none' }}
-                                onChange={handleFileChange}
-                                multiple // Allow multiple file selection
-                              />
-                              <button onClick={openFileInput}>Upload Photo</button>
-                            </div>
-                          )}
-                        {Array.isArray(editedPhotos)
-                          && editedPhotos.map((photo, index) => (
-                            <div key={index}>
-                              <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
-                              <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
-                            </div>
-                          ))}
-                      </div>
-                        
+                        <div>
+                          {Array.isArray(editedPhotos)
+                            && editedPhotos.length < 4 && (
+                              <div>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  id="fileInput"
+                                  style={{ display: 'none' }}
+                                  onChange={handleFileChange}
+                                  multiple // Allow multiple file selection
+                                />
+                                <button onClick={openFileInput}>Upload Photo</button>
+                              </div>
+                            )}
+                          {Array.isArray(editedPhotos)
+                            && editedPhotos.map((photo, index) => (
+                              <div key={index}>
+                                <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
+                                <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                              </div>
+                            ))}
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -440,7 +440,7 @@ const EditSetForm = () => {
                           onChange={(e) => setEditedExtra(e.target.value)}
                         >
                           {numericalOptions(20)}
-                        </select>                        
+                        </select>
                       </div>
                     </div>
                   </div>

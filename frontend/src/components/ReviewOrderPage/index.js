@@ -48,7 +48,7 @@ const ReviewOrderPage = () => {
   // Function to handle editing a set
   const handleEditSet = (index) => {
     const setToEdit = sets[index]; // Get the set data to pass
-    history.push(`/order-set/edit/${index}`, { set: setToEdit } );
+    history.push(`/order-set/edit/${index}`, { set: setToEdit });
   };
 
   const csrfToken = Cookies.get('csrftoken');
@@ -77,6 +77,8 @@ const ReviewOrderPage = () => {
     // const recaptchaValue = recaptchaRef.current.getValue();
     // this.props.handleSubmit(recaptchaValue);
 
+    console.log(state);
+
     const formData = prepareState(state);
 
     const res = await fetch('/api/orders/',
@@ -88,10 +90,9 @@ const ReviewOrderPage = () => {
         body: formData
       })
 
-      history.push("/orderconfirmation");
-
     if (res.ok) {
 
+      history.push("/orderconfirmation");
 
 
     } else {
