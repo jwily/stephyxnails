@@ -132,7 +132,7 @@ function ExtraForm() {
 
   const numericalOptions = () => {
     const options = [];
-    for (let i = 0; i < 26; i++) {
+    for (let i = 0; i < 11; i++) {
       options.push(
         <option key={i} value={i}>
           {i}

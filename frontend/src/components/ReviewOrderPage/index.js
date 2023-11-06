@@ -88,6 +88,8 @@ const ReviewOrderPage = () => {
         body: formData
       })
 
+      history.push("/orderconfirmation");
+
     if (res.ok) {
 
       

@@ -16,7 +16,7 @@ import DescriptionForm from './components/OrderSetForm/5_DescriptionForm'
 import ExtraForm from './components/OrderSetForm/6_ExtraForm'
 import Submissions from './components/OrderSetForm/7_SubmissionForm';
 import EditSetForm from './components/OrderSetForm/EditSetForm'
-// import OrderConfirm from
+import OrderConfirm from './components/ReviewOrderPage/OrderConfirm'
 
 import DummyComponent from './components/Dummy';
 import LoadingPage from './components/LoadingPage';
@@ -43,10 +43,10 @@ function App() {
         {/* <Route exact path="/ordersss" component={OrderDetails}/> */}
         <Route exact path='/review-order' component={ReviewOrderPage} />
         <Route path="/order-set/edit/:index" component={EditSetForm} />
+        <Route exact path='./orderconfirmation' component={OrderConfirm}/>
         <Route exact path='/gallery' component={GalleryPage} />
         <Route exact path='/about' component={AboutPage} />
         <Route exact path='/faq' component={FaqPage} />
-
         <Route exact path='/dummy' component={DummyComponent} />
         <Route component={NotFoundPage}/>
       </Switch>
