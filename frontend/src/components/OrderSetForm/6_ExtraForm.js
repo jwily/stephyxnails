@@ -131,9 +131,9 @@ function ExtraForm() {
   //   }
   // };
 
-  const numericalOptions = () => {
+  const numericalOptions = (max) => {
     const options = [];
-    for (let i = 0; i < 26; i++) {
+    for (let i = 0; i <= max; i++) {
       options.push(
         <option key={i} value={i}>
           {i}
@@ -168,7 +168,7 @@ function ExtraForm() {
                       value={extra}
                       onChange={(e) => setExtra(e.target.value)}
                     >
-                      {numericalOptions()}
+                      {numericalOptions(20)}
                     </select>
                     {error && <p style={{ color: "red" }}>{error}</p>}
                     <div>$5 per Charm = ${calculatedValue}</div>
@@ -188,7 +188,7 @@ function ExtraForm() {
                         value={extra2}
                         onChange={(e) => setExtra2(e.target.value)}
                       >
-                        {numericalOptions()}
+                        {numericalOptions(10)}
                       </select>
                       {error2 && <p style={{ color: "red" }}>{error2}</p>}
                       <div>$10 per Character = ${calculatedValue2}</div>

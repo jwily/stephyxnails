@@ -7,10 +7,10 @@ function SizesForm() {
 
   const history = useHistory()
   const { state, dispatch } = useOrderContext();
-  const [leftDisplay, setLeftDisplay] = useState(['', '', '', '', '']);
-  const [rightDisplay, setRightDisplay] = useState(['', '', '', '', '']);
-  const [leftText, setLeftText] = useState('');
-  const [rightText, setRightText] = useState('');
+  const [leftDisplay, setLeftDisplay] = useState(state.formData.leftDisplay ? state.formData.leftDisplay : ['', '', '', '', '']);
+  const [rightDisplay, setRightDisplay] = useState(state.formData.rightDisplay ? state.formData.rightDisplay : ['', '', '', '', '']);
+  const [leftText, setLeftText] = useState(state.formData.leftDisplay ? state.formData.leftDisplay.join(', ') : '');
+  const [rightText, setRightText] = useState(state.formData.rightDisplay ? state.formData.rightDisplay.join(', ') : '');
   const [error, setError] = useState('');
   // const [errorRightHand, setErrorRightHand] = useState('');
   // const [errorLeftHand2, setErrorLeftHand2] = useState('');
@@ -31,9 +31,12 @@ function SizesForm() {
     window.location.href = '/order'
   }
 
+  console.log('state--->',state)
+
   const handleNext = (e) => {
     e.preventDefault();
     if (!validateDisplays()) return;
+
 
     dispatch({ type: 'UPDATE_FORM_DATA', payload: { leftDisplay, rightDisplay } });
     history.push('/order-set/photo'); // Navigate to the next form question
@@ -75,9 +78,7 @@ function SizesForm() {
   const textToDisplay = (e, setText, display, setDisplay) => {
 
     const value = e.target.value;
-
     // Check if the input contains invalid characters
-
     // Allows input to function correctly
     setError('');
     setText(value);
@@ -102,8 +103,11 @@ function SizesForm() {
   }
 
   const validateDisplays = () => {
+    if([...leftDisplay, ...rightDisplay].length !== 10) {
+      setError('Each finger needs a valid size from 00 to 9.')
+      return false;
+    }
     for (let val of [...leftDisplay, ...rightDisplay]) {
-
       if (val === '' || parseInt(val) < 0 || parseInt(val) > 9) {
         setError('Each finger needs a valid size from 00 to 9.')
         return false;

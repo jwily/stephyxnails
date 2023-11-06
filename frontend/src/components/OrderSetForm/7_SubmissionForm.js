@@ -44,6 +44,7 @@ function SubmissionSetForm() {
 
   const handleAddAnotherSet = () => {
     // Dispatch actions to add the current set's data, clear the form, and navigate to '/order-set/tier'
+
     dispatch({ type: 'ADD_SET', payload: formData });
     dispatch({ type: 'CLEAR_FORM' });
 
@@ -73,8 +74,8 @@ function SubmissionSetForm() {
                     <h2 className="card-header">Number of sets made: {setCount + 1}</h2>
                     <p className="text-black font-semibold">Tier: {formData.tier}</p>
                     <p className="text-black font-semibold">Shape: {formData.shape}</p>
-                    <p className="text-black font-semibold">Left Display: {formData.leftDisplay.join(', ')}</p>
-                    <p className="text-black font-semibold">Right Display: {formData.rightDisplay.join(', ')}</p>
+                    <p className="text-black font-semibold">Left Sizes: {formData.leftDisplay.join(', ')}</p>
+                    <p className="text-black font-semibold">Right Sizes: {formData.rightDisplay.join(', ')}</p>
                     {/* <p>photo: {formData.photos}</p>*/}
                     <div>
                       <p>Photos:</p>

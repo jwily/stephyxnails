@@ -77,7 +77,7 @@ function ShapeForm() {
                     <option value="s-round">Short Round</option>
                     <option value="m-round">Medium Round</option>
                     <option value="s-almond">Short Almond</option>
-                    <option value="m-almond">'Medium Almond</option>
+                    <option value="m-almond">Medium Almond</option>
                     <option value="m-stiletto">Medium Stiletto</option>
                    </select>
                  </div>

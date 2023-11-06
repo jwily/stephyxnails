@@ -48,7 +48,7 @@ const ReviewOrderPage = () => {
   // Function to handle editing a set
   const handleEditSet = (index) => {
     const setToEdit = sets[index]; // Get the set data to pass
-    history.push(`/order-set/edit/${index}`, { set: setToEdit });
+    history.push(`/order-set/edit/${index}`, { set: setToEdit } );
   };
 
   const csrfToken = Cookies.get('csrftoken');
@@ -57,6 +57,7 @@ const ReviewOrderPage = () => {
     // Navigate back to the previous step
     history.push("/order-set/currentset");
   };
+
 
   // Function to handle deleting a set, but prevent deleting the first set
   const handleDeleteSet = (index) => {
@@ -87,7 +88,11 @@ const ReviewOrderPage = () => {
         body: formData
       })
 
+      history.push("/orderconfirmation");
+
     if (res.ok) {
+
+
 
     } else {
 
@@ -143,6 +148,8 @@ const ReviewOrderPage = () => {
   }
 
   const recaptchaRef = React.createRef();
+
+  console.log(sets, 'sets state')
 
   return (
     <>
@@ -237,8 +244,8 @@ const ReviewOrderPage = () => {
                         <p className="font-bold">Shape: <span className="font-normal">{formData.shape}</span></p>
                       </div>
                       <div className="flex justify-between mr-6">
-                        <p className="font-bold">Left Display: <span className="font-normal">{formData.leftDisplay}</span></p>
-                        <p className="font-bold">Right Display: <span className="font-normal">{formData.rightDisplay}</span></p>
+                        <p className="font-bold">Left Sizes: <span className="font-normal">{formData.leftDisplay.join(', ')}</span></p>
+                        <p className="font-bold">Right Sizes: <span className="font-normal">{formData.rightDisplay.join(', ')}</span></p>
                       </div>
                       <div>
                         <p className="font-bold">Photos:</p>
