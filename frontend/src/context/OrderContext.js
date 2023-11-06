@@ -54,6 +54,10 @@ const reducer = (state = initialState, action) => {
     //   }
     //   return newState;
 
+    
+
+    
+
     case 'SAVE_FORM_DATA':
       const newState = { ...state };
       // Add the current set to the sets array only if it hasn't been added
