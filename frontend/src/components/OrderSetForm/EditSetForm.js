@@ -20,9 +20,9 @@ const EditSetForm = () => {
   const [editedDescription, setEditedDescription] = useState("");
   const [editedExtra, setEditedExtra] = useState(0);
   const [editedExtra2, setEditedExtra2] = useState(0);
-  const [editedLeftText, setEditedLeftText] = useState('');
-  const [editedRightText, setEditedRightText] = useState('');
-  const [sizesError, setSizesError] = useState('')
+  const [editedLeftText, setEditedLeftText] = useState("");
+  const [editedRightText, setEditedRightText] = useState("");
+  const [sizesError, setSizesError] = useState("");
 
   const redirectToOrderDetails = () => {
     window.location.href = "/order";
@@ -46,11 +46,9 @@ const EditSetForm = () => {
     setEditedDescription(sets[setIndex]?.description);
     setEditedExtra(sets[setIndex]?.extra);
     setEditedExtra2(sets[setIndex]?.extra2);
-    setEditedLeftText(sets[setIndex]?.leftDisplay.join(','));
-    setEditedRightText(sets[setIndex]?.rightDisplay.join(','));
+    setEditedLeftText(sets[setIndex]?.leftDisplay.join(","));
+    setEditedRightText(sets[setIndex]?.rightDisplay.join(","));
   }, [setIndex, sets]);
-
-
 
   const handleSaveSet = () => {
     if (!validateDisplays()) return;
@@ -80,15 +78,12 @@ const EditSetForm = () => {
   const handleRemovePhoto = (file) => {
     // Filter out the selected photo URL from the array
     const updatedPhotos = editedPhotos.filter((photo) => photo !== file);
-    setEditedPhotos(updatedPhotos)
+    setEditedPhotos(updatedPhotos);
   };
   const imageStyle = {
-    width: '150px', // Adjust the width to your desired size
-    height: '150px', // Adjust the height to your desired size
+    width: "150px", // Adjust the width to your desired size
+    height: "150px", // Adjust the height to your desired size
   };
-
-
-
 
   const handleFileChange = (e) => {
     const files = e.target.files;
@@ -122,19 +117,15 @@ const EditSetForm = () => {
   };
 
   const openFileInput = () => {
-    document.getElementById('fileInput').click();
+    document.getElementById("fileInput").click();
   };
-  console.log(sets, 'set state')
+  console.log(sets, "set state");
 
   const FingerDisplay = ({ hand, name, value }) => {
     return (
       <div>
-        <span className='font-extrabold font-xl' >
-          {`${hand} ${name}: `}
-        </span>
-        <span>
-          {`${value ? value : ''}`}
-        </span>
+        <span className="font-extrabold font-xl">{`${hand} ${name}: `}</span>
+        <span>{`${value ? value : ""}`}</span>
       </div>
     );
   };
@@ -142,58 +133,52 @@ const EditSetForm = () => {
   const FingerDisplayRight = ({ hand, name, value }) => {
     return (
       <div>
-        <span>
-          {`${value ? value : ''} : `}
-        </span>
-        <span className='font-extrabold font-xl' >
-          {`${hand} ${name}`}
-        </span>
+        <span>{`${value ? value : ""} : `}</span>
+        <span className="font-extrabold font-xl">{`${hand} ${name}`}</span>
       </div>
     );
   };
 
   const validateDisplays = () => {
     if ([...editedLeftDisplay, ...editedRightDisplay].length !== 10) {
-      setSizesError('Each finger needs a valid size from 00 to 9.')
+      setSizesError("Each finger needs a valid size from 00 to 9.");
       return false;
     }
 
     for (let val of [...editedLeftDisplay, ...editedRightDisplay]) {
-
-      if (val === '' || parseInt(val) < 0 || parseInt(val) > 9) {
-        setSizesError('Each finger needs a valid size from 00 to 9.')
+      if (val === "" || parseInt(val) < 0 || parseInt(val) > 9) {
+        setSizesError("Each finger needs a valid size from 00 to 9.");
         return false;
       }
     }
     return true;
-  }
+  };
 
   const textToDisplay = (e, setText, display, setDisplay) => {
-
     const value = e.target.value;
     // Check if the input contains invalid characters
     // Allows input to function correctly
-    setSizesError('');
+    setSizesError("");
     setText(value);
 
-    const string = value + '_';
-    const allowed = '0123456789.';
-    let stack = []
-    const newDisplay = []
+    const string = value + "_";
+    const allowed = "0123456789.";
+    let stack = [];
+    const newDisplay = [];
 
     for (let char of string) {
       if (allowed.includes(char)) {
-        stack.push(char)
+        stack.push(char);
       } else {
         if (stack.length > 0) {
-          newDisplay.push(stack.join(''));
+          newDisplay.push(stack.join(""));
           stack = [];
         }
       }
     }
 
     setDisplay(newDisplay);
-  }
+  };
 
   const numericalOptions = (max) => {
     const options = [];
@@ -222,9 +207,11 @@ const EditSetForm = () => {
                     Tier
                   </label>
                   <span class="accordion-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                      <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                    </svg>
                   </span>
-                  <div className="accordion-content">
+                  <div className="accordion-content ml-3">
                     <div className="min-h-0">
                       {dataResult.map((tierOption) => (
                         <div key={tierOption.id}>
@@ -252,10 +239,12 @@ const EditSetForm = () => {
                       Shape
                     </label>
                     <span class="accordion-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                      </svg>
                     </span>
-                    <div className="accordion-content">
-                      <div className="min-h-0">
+                    <div className="accordion-content ">
+                      <div className="min-h-0 flex justify-center">
                         <select
                           className="bg-white select text-black"
                           value={editedShape}
@@ -283,142 +272,143 @@ const EditSetForm = () => {
                       Sizes
                     </label>
                     <span class="accordion-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                      </svg>
                     </span>
-                    <div className="accordion-content">
+                    <div className="accordion-content mx-3">
                       <div className="min-h-0">
-                        {/* <input
-                          type="text"
-                          value={editedLeftDisplay}
-                          onChange={(e) => setEditedLeftDisplay(e.target.value)}
-                          className="bg-white input text-black"
-                          placeholder="Ex. 2,6,7,9,6"
-                        /> */}
                         <div>
-                          <div className='flex flex-row justify-between'>
-                            <FingerDisplay hand='Left' name='Thumb' value={editedLeftDisplay[0]} />
-                            <FingerDisplayRight hand='Right' name='Thumb' value={editedRightDisplay[0]} />
+                          <div className="flex flex-row justify-between">
+                            <FingerDisplay hand="Left" name="Thumb" value={editedLeftDisplay[0]} />
+                            <FingerDisplayRight hand="Right" name="Thumb" value={editedRightDisplay[0]} />
                           </div>
-                          <div className='flex flex-row justify-between'>
-                            <FingerDisplay hand='Left' name='Index' value={editedLeftDisplay[1]} />
-                            <FingerDisplayRight hand='Right' name='Index' value={editedRightDisplay[1]} />
+                          <div className="flex flex-row justify-between">
+                            <FingerDisplay hand="Left" name="Index" value={editedLeftDisplay[1]} />
+                            <FingerDisplayRight hand="Right" name="Index" value={editedRightDisplay[1]} />
                           </div>
-                          <div className='flex flex-row justify-between'>
-                            <FingerDisplay hand='Left' name='Middle' value={editedLeftDisplay[2]} />
-                            <FingerDisplayRight hand='Right' name='Middle' value={editedRightDisplay[2]} />
+                          <div className="flex flex-row justify-between">
+                            <FingerDisplay hand="Left" name="Middle" value={editedLeftDisplay[2]} />
+                            <FingerDisplayRight hand="Right" name="Middle" value={editedRightDisplay[2]} />
                           </div>
-                          <div className='flex flex-row justify-between'>
-                            <FingerDisplay hand='Left' name='Ring' value={editedLeftDisplay[3]} />
-                            <FingerDisplayRight hand='Right' name='Ring' value={editedRightDisplay[3]} />
+                          <div className="flex flex-row justify-between">
+                            <FingerDisplay hand="Left" name="Ring" value={editedLeftDisplay[3]} />
+                            <FingerDisplayRight hand="Right" name="Ring" value={editedRightDisplay[3]} />
                           </div>
-                          <div className='flex flex-row justify-between'>
-                            <FingerDisplay hand='Left' name='Pinky' value={editedLeftDisplay[4]} />
-                            <FingerDisplayRight hand='Right' name='Pinky' value={editedRightDisplay[4]} />
+                          <div className="flex flex-row justify-between">
+                            <FingerDisplay hand="Left" name="Pinky" value={editedLeftDisplay[4]} />
+                            <FingerDisplayRight hand="Right" name="Pinky" value={editedRightDisplay[4]} />
                           </div>
                         </div>
-                        <div>
-                          <p>Please list your nail sizes from thumb to pinky for each hand.</p>
-                          <p>If you are unsure of your nail sizes, please reach out to me!</p>
-                          {!!sizesError && (
-                            <p className='text-error'>{sizesError}</p>
-                          )}
-                        </div>
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mx-3">
                           <div>
-                            <p className='font-extrabold text-xl text-center mb-4'>Please list your nail sizes from thumb to pinky.</p>
-                            <p className='font-extrabold text-xl text-center mb-4'>If you are unsure of your nail sizes, please reach out!</p>
-                            <label className="sr-only" htmlFor="email">Left Hand</label>
-                            <div>Left</div>
+                            <p className="font-extrabold text-xl text-center mb-4">
+                              Please list your nail sizes from thumb to pinky.
+                            </p>
+                            <p className="font-extrabold text-xl text-center mb-4">
+                              If you are unsure of your nail sizes, please reach out!
+                            </p>
+                            {!!sizesError && <p className="text-error">{sizesError}</p>}
+                            <label className="sr-only" htmlFor="email">
+                              Left Hand
+                            </label>
+                            <div>Left Hand:</div>
                             <input
                               className="input input-solid bg-white text-black"
-                              placeholder='ex. 2, 7, 6, 7, 9'
-                              onChange={(e) => textToDisplay(e, setEditedLeftText, editedLeftDisplay, setEditedLeftDisplay)}
+                              placeholder="ex. 2, 7, 6, 7, 9"
+                              onChange={(e) =>
+                                textToDisplay(e, setEditedLeftText, editedLeftDisplay, setEditedLeftDisplay)
+                              }
                               type="text"
                               value={editedLeftText}
-                              id="email" />
+                              id="email"
+                            />
                           </div>
                           <div>
-                            <label className="sr-only" htmlFor="phone">Right Hand</label>
-                            <div>Right</div>
+                            <label className="sr-only" htmlFor="phone">
+                              Right Hand
+                            </label>
+                            <div>Right Hand:</div>
                             <input
                               className="input input-solid bg-white text-black"
-                              placeholder='ex. 2, 7, 6, 7, 9'
+                              placeholder="ex. 2, 7, 6, 7, 9"
                               type="text"
                               value={editedRightText}
-                              onChange={(e) => textToDisplay(e, setEditedRightText, editedRightDisplay, setEditedRightDisplay)}
-
-                              id="phone" />
+                              onChange={(e) =>
+                                textToDisplay(
+                                  e,
+                                  setEditedRightText,
+                                  editedRightDisplay,
+                                  setEditedRightDisplay
+                                )
+                              }
+                              id="phone"
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  {/* <div className="accordion">
-                    <input type="checkbox" id="accordion-4" className="accordion-toggle" />
-                    <label htmlFor="accordion-4" className="accordion-title bg-red-100">
-                      Right Display
-                    </label>
-                    <span class="accordion-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
-                    </span>
-                    <div className="accordion-content">
-                      <div className="min-h-0">
-                        <input
-                          type="text"
-                          value={editedRightDisplay}
-                          onChange={(e) => setEditedRightDisplay(e.target.value)}
-                          className="bg-white input text-black"
-                          placeholder="Ex. 2,6,7,9,6"
-                        />
-                      </div>
-                    </div>
-                  </div> */}
                   <div className="accordion">
                     <input type="checkbox" id="accordion-5" className="accordion-toggle" />
                     <label htmlFor="accordion-5" className="accordion-title bg-red-100">
-                      Photo
+                      Photo(s)
                     </label>
                     <span class="accordion-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                      </svg>
                     </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
-                        <label>Photos:</label>
-
-                        {/* <input
-                          type="file"
-                          accept="image/*"
-                          id="fileInput"
-                          style={{ display: 'none' }}
-                          value={editedPhotos}
-                          onChange={(e) => setEditedPhotos(e.target.value)}
-                          multiple
-                        /> */}
-
-                        <div>
-                          {Array.isArray(editedPhotos)
-                            && editedPhotos.length < 4 && (
-                              <div>
-                                <input
-                                  type="file"
-                                  accept="image/*"
-                                  id="fileInput"
-                                  style={{ display: 'none' }}
-                                  onChange={handleFileChange}
-                                  multiple // Allow multiple file selection
-                                />
-                                <button onClick={openFileInput}>Upload Photo</button>
-                              </div>
-                            )}
-                          {Array.isArray(editedPhotos)
-                            && editedPhotos.map((photo, index) => (
+                        <h1 className=" mb-4 ml-3">My current photos:</h1>
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(2,1fr)",
+                            gap: "10px",
+                            margin: "10px 0 0 25px",
+                          }}
+                        >
+                          {Array.isArray(editedPhotos) &&
+                            editedPhotos.map((photo, index) => (
                               <div key={index}>
-                                <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
-                                <button onClick={() => handleRemovePhoto(photo)}>Remove</button>
+                                <img
+                                  src={URL.createObjectURL(photo)}
+                                  alt={`Inspiration ${index}`}
+                                  style={imageStyle}
+                                />
+                                <div className="flex justify-center">
+                                  <button
+                                    className="rounded-lg btn btn-primary bg-red-300 text-black mt-2"
+                                    onClick={() => handleRemovePhoto(photo)}
+                                  >
+                                    Remove
+                                  </button>
+                                </div>
                               </div>
                             ))}
                         </div>
-
+                        {Array.isArray(editedPhotos) && editedPhotos.length < 4 && (
+                          <div>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              id="fileInput"
+                              style={{ display: "none" }}
+                              onChange={handleFileChange}
+                              multiple // Allow multiple file selection
+                            />
+                            <div className="flex justify-center">
+                              <button
+                                className="rounded-lg btn btn-primary bg-primary_blue text-black mt-4"
+                                onClick={openFileInput}
+                              >
+                                Upload Photo
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -428,10 +418,12 @@ const EditSetForm = () => {
                       Description
                     </label>
                     <span class="accordion-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                      </svg>
                     </span>
                     <div className="accordion-content">
-                      <div className="min-h-0">
+                      <div className="min-h-0 mx-3">
                         <textarea
                           value={editedDescription}
                           onChange={(e) => setEditedDescription(e.target.value)}
@@ -447,23 +439,13 @@ const EditSetForm = () => {
                       Charm(s)
                     </label>
                     <span class="accordion-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                      </svg>
                     </span>
                     <div className="accordion-content">
-                      <div className="min-h-0">
+                      <div className="min-h-0 mx-3">
                         <label>Charm count: </label>
-                        {/* <input
-                          type="number"
-                          value={editedExtra}
-                          onChange={(e) => {
-                            if (e.target.value <= 25 && e.target.value >= 0) {
-                              setEditedExtra(e.target.value);
-                            }
-                          }}
-                          className="input bg-white text-black"
-                          max='25'
-                          min='0'
-                        /> */}
                         <select
                           className="input input-solid max-w-full bg-white text-black"
                           placeholder=""
@@ -483,13 +465,15 @@ const EditSetForm = () => {
                       Character(s)
                     </label>
                     <span class="accordion-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                      </svg>
                     </span>
                     <div className="accordion-content">
-                      <div className="min-h-0">
+                      <div className="min-h-0 mx-3">
                         <label>Character count: </label>
                         <select
-                          className="input input-solid bg-white text-black"
+                          className="input input-solid max-w-full bg-white text-black"
                           placeholder=""
                           type="number"
                           id="number"
@@ -498,15 +482,24 @@ const EditSetForm = () => {
                         >
                           {numericalOptions(10)}
                         </select>
-
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="flex gap-3 m-7">
-                <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => history.push("/review-order")}>Cancel</button>
-                <button className='mb-7 rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleSaveSet}>Save</button>
+                <button
+                  className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                  onClick={() => history.push("/review-order")}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="mb-7 rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                  onClick={handleSaveSet}
+                >
+                  Save
+                </button>
               </div>
             </div>
           ) : (
