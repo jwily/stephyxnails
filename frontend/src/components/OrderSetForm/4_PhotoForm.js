@@ -60,7 +60,7 @@ function PhotoForm() {
           // Create a URL for the selected file
           uploadedPhotos.push(file);
                // Create a new FileReader instance
-  
+
         }
 
         // Update the local state to trigger re-render
@@ -123,7 +123,7 @@ function PhotoForm() {
                         <div>
                           <input
                             type="file"
-                            accept="image/*"
+                            accept="image/jpeg, image/jpg, image/png, image/gif"
                             id="fileInput"
                             style={{ display: 'none' }}
                             onChange={handleFileChange}
