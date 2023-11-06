@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useOrderContext } from "../../context/OrderContext";
-import ReCAPTCHA from "react-google-recaptcha"
-import Cookies from 'js-cookie'
+import ReCAPTCHA from "react-google-recaptcha";
+import Cookies from "js-cookie";
 
 const ReviewOrderPage = () => {
   // Access the history object for navigation, order state, and dispatch function from the order context
@@ -51,10 +51,10 @@ const ReviewOrderPage = () => {
   // Function to handle editing a set
   const handleEditSet = (index) => {
     const setToEdit = sets[index]; // Get the set data to pass
-    history.push(`/order-set/edit/${index}`, { set: setToEdit } );
+    history.push(`/order-set/edit/${index}`, { set: setToEdit });
   };
 
-  const csrfToken = Cookies.get('csrftoken');
+  const csrfToken = Cookies.get("csrftoken");
 
   // const handleBack = () => {
   //   // Navigate back to the previous step
@@ -74,12 +74,15 @@ const ReviewOrderPage = () => {
     history.push('/order-set/tier');
   };
 
-  
+
+
+
 
 
   // Function to handle deleting a set, but prevent deleting the first set
   const handleDeleteSet = (index) => {
-  
+
+
       dispatch({ type: "DELETE_SET", payload: index });
 
   };
@@ -105,7 +108,7 @@ const handleSubmit = async (e) => {
       // Successfully submitted the order, navigate to the confirmation page
       history.push('/orderconfirmation');
     } else {
-    
+
     }
   } else {
 
@@ -123,13 +126,12 @@ const handleSubmit = async (e) => {
     newState.instagram = state.instagram;
     newState.sets = [];
 
-    const imageSets = []
+    const imageSets = [];
 
     for (let index in state.sets) {
-
       const set = state.sets[index];
 
-      const newSet = {}
+      const newSet = {};
       newSet.description = set.description;
       newSet.charms = set.extra;
       newSet.characters = set.extra2;
@@ -150,9 +152,7 @@ const handleSubmit = async (e) => {
 
     const formData = new FormData();
 
-    formData.append('json',
-      new Blob([JSON.stringify(newState)],
-        { type: 'application/json' }))
+    formData.append("json", new Blob([JSON.stringify(newState)], { type: "application/json" }));
 
     for (let index in imageSets) {
       const images = imageSets[index];
@@ -162,11 +162,11 @@ const handleSubmit = async (e) => {
     }
 
     return formData;
-  }
+  };
 
   const recaptchaRef = React.createRef();
 
-  console.log(sets, 'sets state')
+  console.log(sets, "sets state");
 
   return (
     <>
@@ -188,14 +188,31 @@ const handleSubmit = async (e) => {
                     onChange={(e) => setEditedName(e.target.value)} // Handle input change
                   />
                   <div className="flex gap-3 mt-3 ">
-                    <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingName(false)}>Cancel</button>
-                    <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleSaveUserInformation}>Save</button>
+                    <button
+                      className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                      onClick={() => setIsEditingName(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                      onClick={handleSaveUserInformation}
+                    >
+                      Save
+                    </button>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <p className="font-bold">Name: <span className="font-normal">{state.name}</span></p>
-                  <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingName(true)}>Edit</button>
+                  <p className="font-bold">
+                    Name: <span className="font-normal">{state.name}</span>
+                  </p>
+                  <button
+                    className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                    onClick={() => setIsEditingName(true)}
+                  >
+                    Edit
+                  </button>
                 </div>
               )}
             </section>
@@ -210,14 +227,31 @@ const handleSubmit = async (e) => {
                     onChange={(e) => setEditedEmail(e.target.value)} // Handle input change
                   />
                   <div className="flex gap-3 mt-3">
-                    <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={() => setIsEditingEmail(false)}>Cancel</button>
-                    <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleSaveUserInformation}>Save</button>
+                    <button
+                      className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                      onClick={() => setIsEditingEmail(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                      onClick={handleSaveUserInformation}
+                    >
+                      Save
+                    </button>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <p className="font-bold">Email: <span className="font-normal">{state.email}</span></p>
-                  <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingEmail(true)}>Edit</button>
+                  <p className="font-bold">
+                    Email: <span className="font-normal">{state.email}</span>
+                  </p>
+                  <button
+                    className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                    onClick={() => setIsEditingEmail(true)}
+                  >
+                    Edit
+                  </button>
                 </div>
               )}
             </section>
@@ -232,14 +266,31 @@ const handleSubmit = async (e) => {
                     onChange={(e) => setEditedInstagram(e.target.value)} // Handle input change
                   />
                   <div className="flex gap-3 mt-3">
-                    <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={() => setIsEditingInstagram(false)}>Cancel</button>
-                    <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleSaveUserInformation}>Save</button>
+                    <button
+                      className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                      onClick={() => setIsEditingInstagram(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                      onClick={handleSaveUserInformation}
+                    >
+                      Save
+                    </button>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <p className="font-bold">Instagram: <span className="font-normal">{state.instagram}</span></p>
-                  <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingInstagram(true)}>Edit</button>
+                  <p className="font-bold">
+                    Instagram: <span className="font-normal">{state.instagram}</span>
+                  </p>
+                  <button
+                    className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                    onClick={() => setIsEditingInstagram(true)}
+                  >
+                    Edit
+                  </button>
                 </div>
               )}
             </section>
@@ -250,46 +301,80 @@ const handleSubmit = async (e) => {
               {sets.map((formData, index) => (
                 <li className="accordion" key={index}>
                   <input type="checkbox" id={`accordion-${index}`} className="accordion-toggle" />
-                  <label htmlFor={`accordion-${index}`} className="accordion-title bg-inherit">Set {index + 1}</label>
+                  <label htmlFor={`accordion-${index}`} className="accordion-title bg-inherit">
+                    Set {index + 1}
+                  </label>
                   <span class="accordion-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                      <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                    </svg>
                   </span>
                   <div className="accordion-content">
                     <div className="min-h-0 flex flex-col gap-8 pl-2">
-                      <div className='flex justify-between mr-12'>
-                        <p className="font-bold">Tier: <span className="font-normal">{formData.tier}</span></p>
-                        <p className="font-bold">Shape: <span className="font-normal">{formData.shape}</span></p>
+                      <div className="flex justify-between mr-12">
+                        <p className="font-bold">
+                          Tier: <span className="font-normal">{formData.tier}</span>
+                        </p>
+                        <p className="font-bold">
+                          Shape: <span className="font-normal">{formData.shape}</span>
+                        </p>
                       </div>
                       <div className="flex justify-between mr-6">
-                        <p className="font-bold">Left Sizes: <span className="font-normal">{formData.leftDisplay.join(', ')}</span></p>
-                        <p className="font-bold">Right Sizes: <span className="font-normal">{formData.rightDisplay.join(', ')}</span></p>
+                        <p className="font-bold">
+                          Left Sizes: <span className="font-normal">{formData.leftDisplay.join(", ")}</span>
+                        </p>
+                        <p className="font-bold">
+                          Right Sizes: <span className="font-normal">{formData.rightDisplay.join(", ")}</span>
+                        </p>
                       </div>
                       <div>
                         <p className="font-bold">Photos:</p>
-                        {formData.photos.map((photo, index) => (
-                          <div key={index}>
-                            <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
-                          </div>
-                        ))}
+                        <div style={{display: 'grid', gridTemplateColumns:"repeat(2,1fr)", gap: '10px', margin:'10px 0 0 30px'}}>
+                          {formData.photos.map((photo, index) => (
+                            <div key={index}>
+                              <img
+                                src={URL.createObjectURL(photo)}
+                                alt={`Inspiration ${index}`}
+                                style={{ maxWidth: "100px", maxHeight: "100px" }}
+                              />
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                      <p className="font-bold">Description: <span className="font-normal">{formData.description}</span></p>
+                      <p className="font-bold">
+                        Description: <span className="font-normal">{formData.description}</span>
+                      </p>
                       <div className="flex justify-between mr-12">
-                        <p className="font-bold">Charm(s): <span className="font-normal">{formData.extra}</span></p>
-                        <p className="font-bold">Character(s): <span className="font-normal">{formData.extra2}</span></p>
+                        <p className="font-bold">
+                          Charm(s): <span className="font-normal">{formData.extra}</span>
+                        </p>
+                        <p className="font-bold">
+                          Character(s): <span className="font-normal">{formData.extra2}</span>
+                        </p>
                       </div>
-                      <div className='flex gap-3'>
-                        <button className='rounded-lg btn btn-primary btn-block bg-red-300 text-black' onClick={() => handleDeleteSet(index)}>Delete Set</button>
-                        <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={() => handleEditSet(index)}>Edit Set</button>
+                      <div className="flex gap-3">
+                        <button
+                          className="rounded-lg btn btn-primary btn-block bg-red-300 text-black"
+                          onClick={() => handleDeleteSet(index)}
+                        >
+                          Delete Set
+                        </button>
+                        <button
+                          className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                          onClick={() => handleEditSet(index)}
+                        >
+                          Edit Set
+                        </button>
                       </div>
                     </div>
-                
+
         </div>
       </li>
     ))}
       </section>
     </div>
     <div className="flex gap-3 mt-7">
-      <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add a Set</button>
+      <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add Set</button>
       <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>Submit Order</button>
 
     </div>

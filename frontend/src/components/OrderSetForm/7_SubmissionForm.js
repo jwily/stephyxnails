@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useOrderContext } from '../../context/OrderContext';
-import { useHistory } from 'react-router-dom';
-import LoadingPage from '../LoadingPage';
+import React, { useState, useEffect } from "react";
+import { useOrderContext } from "../../context/OrderContext";
+import { useHistory } from "react-router-dom";
+import LoadingPage from "../LoadingPage";
 
 function SubmissionSetForm() {
   // Initialize the history object and retrieve state and dispatch from the order context
@@ -21,8 +21,8 @@ function SubmissionSetForm() {
 
   const redirectToOrderDetails = () => {
     // Redirect the user to the '/order' page
-    window.location.href = '/order'
-  }
+    window.location.href = "/order";
+  };
 
   const handleSubmit = () => {
     // Ensure setCount is within bounds
@@ -60,7 +60,7 @@ function SubmissionSetForm() {
   };
 
   return (
-    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
+    <div className="p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5">
       {isLoading ? ( // Display loading indicator while isLoading is true
         <LoadingPage />
       ) : (
@@ -70,33 +70,59 @@ function SubmissionSetForm() {
               <div>
                 <div className="card card-image-cover bg-primary">
                   <div className="card-body bg-primary">
-                    <h1 className="card-header">Sets</h1>
+                    <div className="flex justify-center">
+                      <h1 className="font-extrabold text-xl mb-4 card-header">My Set</h1>
+                    </div>
                     {/* <h2 className="card-header">Number of sets made: {setCount + 1}</h2> */}
                     <p className="text-black font-semibold">Tier: {formData.tier}</p>
                     <p className="text-black font-semibold">Shape: {formData.shape}</p>
-                    <p className="text-black font-semibold">Left Sizes: {formData.leftDisplay.join(', ')}</p>
-                    <p className="text-black font-semibold">Right Sizes: {formData.rightDisplay.join(', ')}</p>
+                    <p className="text-black font-semibold">Left Sizes: {formData.leftDisplay.join(", ")}</p>
+                    <p className="text-black font-semibold">
+                      Right Sizes: {formData.rightDisplay.join(", ")}
+                    </p>
                     {/* <p>photo: {formData.photos}</p>*/}
-                    <div>
-                      <p>Photos:</p>
+                    <p className="text-black font-semibold">Photos:</p>
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(2,1fr)",
+                        gap: "10px",
+                        marginTop: "10px",
+                      }}
+                    >
                       {formData.photos.map((photo, index) => (
                         <div key={index}>
-                          <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                          <img
+                            src={URL.createObjectURL(photo)}
+                            alt={`Inspiration ${index}`}
+                            style={{ maxWidth: "100px", maxHeight: "100px" }}
+                          />
                         </div>
                       ))}
                     </div>
                     <p className="text-black font-semibold">Description: {formData.description}</p>
-                    <p className="text-black font-semibold">Charm(s): {!formData.extra ? 'None': formData.extra}</p>
-                    <p className="text-black font-semibold">Character(s): {!formData.extra2 ? 'None': formData.extra2}</p>
+                    <p className="text-black font-semibold">
+                      Charm(s): {!formData.extra ? "None" : formData.extra}
+                    </p>
+                    <p className="text-black font-semibold">
+                      Character(s): {!formData.extra2 ? "None" : formData.extra2}
+                    </p>
                     <div className="card-footer flex gap-3 mt-7">
-                      <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>
-                      ←
+                      <button
+                        className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                        onClick={handleBack}
+                      >
+                        ←
                       </button>
                       {/* <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleAddAnotherSet}>
                         Add Set
                       </button> */}
                     </div>
-                    <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleSubmit}>
+                    <button
+                      className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                      type="submit"
+                      onClick={handleSubmit}
+                    >
                       Submit Set
                     </button>
                   </div>
