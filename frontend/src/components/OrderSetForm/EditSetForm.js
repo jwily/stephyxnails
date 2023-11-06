@@ -409,7 +409,7 @@ const EditSetForm = () => {
                           <div>
                             <input
                               type="file"
-                              accept="image/*"
+                              accept="image/jpeg, image/jpg, image/png, image/gif"
                               id="fileInput"
                               style={{ display: "none" }}
                               onChange={handleFileChange}

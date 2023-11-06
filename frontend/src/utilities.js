@@ -26,12 +26,13 @@ export const tierLabel = (id, tierData) => {
   return `${choice.name} $${choice.price}`;
 }
 
-export const prepareState = (state) => {
+export const prepareState = (state, recaptchaValue) => {
   const newState = {};
   newState.name = state.name;
   newState.email = state.email;
   newState.instagram = state.instagram;
   newState.sets = [];
+  newState.recaptcha = recaptchaValue;
 
   const imageSets = [];
 

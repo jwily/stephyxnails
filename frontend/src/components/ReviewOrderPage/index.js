@@ -95,11 +95,12 @@ const ReviewOrderPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(isCaptchaVerified) {
+    const recaptchaValue = recaptchaRef.current.getValue()
     // Check if there are sets in the state
       if (state && state.sets && state.sets.length > 0) {
         setError(null);
 
-        const formData = prepareState(state);
+        const formData = prepareState(state, recaptchaValue);
         const res = await fetch('/api/orders/', {
           method: 'POST',
           headers: {

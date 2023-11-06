@@ -37,7 +37,7 @@ class SetSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
   sets = SetSerializer(many=True)
-  # recaptcha = ReCaptchaV2Field()
+  recaptcha = ReCaptchaV2Field()
 
   class Meta:
     model = Order
