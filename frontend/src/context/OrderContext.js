@@ -54,9 +54,9 @@ const reducer = (state = initialState, action) => {
     //   }
     //   return newState;
 
-    
 
-    
+
+
 
     case 'SAVE_FORM_DATA':
       const newState = { ...state };
@@ -99,10 +99,10 @@ const reducer = (state = initialState, action) => {
     case 'ADD_SET':
       // Add a new set and increment setCount
       const newSets = [...state.sets, action.payload];
-      return { 
-        ...state, 
-        sets: newSets, 
-        setCount: state.setCount + 1 
+      return {
+        ...state,
+        sets: newSets,
+        setCount: state.setCount + 1
       };
 
     case 'DELETE_SET':
@@ -182,7 +182,6 @@ export const OrderProvider = ({ children }) => {
         if (response.ok) {
           const result = await response.json();
           setDataResult(result)
-          console.log(result);
         } else {
           throw new Error('Failed to fetch data');
         }
@@ -197,11 +196,11 @@ export const OrderProvider = ({ children }) => {
       if (res.ok) {
         const pic = await res.json()
         setImage(pic)
-        console.log('it worked');
-        console.log('from the fetch', pic);
+        // console.log('it worked');
+        // console.log('from the fetch', pic);
       }
       else {
-        console.log('it didnt work');
+        // console.log('it didnt work');
       }
     }
 

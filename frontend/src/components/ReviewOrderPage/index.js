@@ -4,10 +4,12 @@ import { useOrderContext } from "../../context/OrderContext";
 import ReCAPTCHA from "react-google-recaptcha";
 import Cookies from "js-cookie";
 
+import { prepareState, shapeValToLabel, tierLabel } from "../../utilities";
+
 const ReviewOrderPage = () => {
   // Access the history object for navigation, order state, and dispatch function from the order context
   const history = useHistory();
-  const { state, dispatch } = useOrderContext();
+  const { state, dispatch, dataResult } = useOrderContext();
   const { formData } = state; // Destructure values from the state
   const { name, email, instagram, sets } = state;
   const isOrderDetailsComplete = state.name && state.email;
@@ -24,6 +26,7 @@ const ReviewOrderPage = () => {
   const [isEditingInstagram, setIsEditingInstagram] = useState(false);
   const [error, setError] = useState(null);
 
+  console.log("DATA RESULT", dataResult)
 
   // Function to redirect to the order details page
   const redirectToOrderDetails = () => {
@@ -75,10 +78,6 @@ const ReviewOrderPage = () => {
   };
 
 
-
-
-
-
   // Function to handle deleting a set, but prevent deleting the first set
   const handleDeleteSet = (index) => {
 
@@ -110,58 +109,10 @@ const ReviewOrderPage = () => {
       } else {
 
       }
+
     } else {
-
       setError("You can't submit without a set");
-
-
     }
-
-  };
-
-  const prepareState = (state) => {
-    const newState = {};
-    newState.name = state.name;
-    newState.email = state.email;
-    newState.instagram = state.instagram;
-    newState.sets = [];
-
-    const imageSets = [];
-
-    for (let index in state.sets) {
-      const set = state.sets[index];
-
-      const newSet = {};
-      newSet.description = set.description;
-      newSet.charms = set.extra ? parseInt(set.extra) : 0;
-      newSet.characters = set.extra2 ? parseInt(set.extra2) : 0;
-      newSet.left_sizes = set.leftDisplay.join(", ");
-      newSet.right_sizes = set.rightDisplay.join(", ");
-      newSet.shape = set.shape;
-      newSet.tier = set.tier;
-      newSet.images = [];
-
-      newState.sets.push(newSet);
-
-      imageSets[index] = [];
-
-      for (let photo of set.photos) {
-        imageSets[index].push(photo);
-      }
-    }
-
-    const formData = new FormData();
-
-    formData.append("json", new Blob([JSON.stringify(newState)], { type: "application/json" }));
-
-    for (let index in imageSets) {
-      const images = imageSets[index];
-      for (let photo of images) {
-        formData.append(`files_set_${index}`, photo);
-      }
-    }
-
-    return formData;
   };
 
   const recaptchaRef = React.createRef();
@@ -313,10 +264,10 @@ const ReviewOrderPage = () => {
                     <div className="min-h-0 flex flex-col gap-8 pl-2">
                       <div className="flex justify-between mr-12">
                         <p className="font-bold">
-                          Tier: <span className="font-normal">{formData.tier}</span>
+                          Tier: <span className="font-normal">{tierLabel(formData.tier, dataResult)}</span>
                         </p>
                         <p className="font-bold">
-                          Shape: <span className="font-normal">{formData.shape}</span>
+                          Shape: <span className="font-normal">{shapeValToLabel[formData.shape]}</span>
                         </p>
                       </div>
                       <div className="flex justify-between mr-6">
