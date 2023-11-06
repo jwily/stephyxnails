@@ -20,7 +20,7 @@ const initialState = {
   },
   sets: [],
   setCount: 0, // Initialize setCount to 0
-  isCurrentSetAdded: false,  // Flag to track whether the current set has been added
+  // isCurrentSetAdded: false,  // Flag to track whether the current set has been added
 };
 
 // Define a reducer function to manage state changes
@@ -38,30 +38,30 @@ const reducer = (state = initialState, action) => {
     case 'UPDATE_FORM_DATA':
       return { ...state, formData: { ...state.formData, ...action.payload } };
 
-    // case 'SAVE_FORM_DATA':
-    //   const newState = { ...state };
-    //   newState.sets = [...newState.sets, newState.formData];
-    //   newState.formData = {
-    //     tier: '',
-    //     shape: '',
-    //     photos: [],
-    //     description: '',
-    //     extra: ''
-    //   }
-    //   return newState;
-
-
-
-
-
     case 'SAVE_FORM_DATA':
       const newState = { ...state };
-      // Add the current set to the sets array only if it hasn't been added
-      if (!state.isCurrentSetAdded) {
-        newState.sets = [...newState.sets, newState.formData];
-        newState.isCurrentSetAdded = true; // Mark the current set as added
-      }
+      newState.sets = [...newState.sets, newState.formData];
+      // newState.formData = {
+      //   tier: '',
+      //   shape: '',
+      //   photos: [],
+      //   description: '',
+      //   extra: ''
+      // }
       return newState;
+
+
+
+
+
+    // case 'SAVE_FORM_DATA':
+    //   const newState = { ...state };
+    //   // Add the current set to the sets array only if it hasn't been added
+    //   if (!state.isCurrentSetAdded) {
+    //     newState.sets = [...newState.sets, newState.formData];
+    //     newState.isCurrentSetAdded = true; // Mark the current set as added
+    //   }
+    //   return newState;
 
     case 'INITIALIZE_STATE':
       // Load initial state from localStorage if it exists
@@ -92,14 +92,14 @@ const reducer = (state = initialState, action) => {
         isCurrentSetAdded: true,  // Mark the current set as added
       };
 
-    case 'ADD_SET':
-      // Add a new set and increment setCount
-      const newSets = [...state.sets, action.payload];
-      return {
-        ...state,
-        sets: newSets,
-        setCount: state.setCount + 1
-      };
+    // case 'ADD_SET':
+    //   // Add a new set and increment setCount
+    //   const newSets = [...state.sets, action.payload];
+    //   return {
+    //     ...state,
+    //     sets: newSets,
+    //     // setCount: state.setCount + 1
+    //   };
 
     case 'DELETE_SET':
       // Remove a set at the specified index
