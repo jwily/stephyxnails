@@ -4,8 +4,8 @@ import { useOrderContext } from "../../context/OrderContext";
 import Image from "./image";
 
 export default function GalleryPage() {
-    const {scrollToGallery, image} = useOrderContext()
-    console.log(image,'what is bring brought in');
+    const { scrollToGallery, image } = useOrderContext()
+    console.log(image, 'what is bring brought in');
     const responsive = {
         superLargeDesktop: {
             // the naming can be any, depends on you.
@@ -16,12 +16,8 @@ export default function GalleryPage() {
             breakpoint: { max: 3000, min: 1024 },
             items: 3
         },
-        tablet: {
-            breakpoint: { max: 1024, min: 464 },
-            items: 2
-        },
         mobile: {
-            breakpoint: { max: 464, min: 0 },
+            breakpoint: { max: 949, min: 0 },
             items: 1
         }
     };

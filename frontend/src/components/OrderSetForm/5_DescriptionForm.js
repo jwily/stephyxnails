@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
+import LoadingPage from '../LoadingPage';
 
 function DescriptionFrom() {
 
@@ -59,7 +60,7 @@ function DescriptionFrom() {
   return (
     <>
       {isLoading ? (
-        <div>Loading...</div>
+        <LoadingPage />
       ) : (
         <>
           {isOrderDetailsComplete ? (

@@ -203,6 +203,9 @@ const EditSetForm = () => {
                   <label htmlFor="accordion-2" className="accordion-title bg-red-100">
                     Tier
                   </label>
+                  <span class="accordion-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                  </span>
                   <div className="accordion-content">
                     <div className="min-h-0">
                       {dataResult.map((tierOption) => (
@@ -230,6 +233,9 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-1" className="accordion-title bg-red-100">
                       Shape
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <select
@@ -258,6 +264,9 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-3" className="accordion-title bg-red-100">
                       Sizes
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         {/* <input
@@ -316,6 +325,9 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-4" className="accordion-title bg-red-100">
                       Right Display
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <input
@@ -333,6 +345,9 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-5" className="accordion-title bg-red-100">
                       Photo
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <label>Photos:</label>
@@ -379,6 +394,9 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-6" className="accordion-title bg-red-100">
                       Description
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <textarea
@@ -395,6 +413,9 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-7" className="accordion-title bg-red-100">
                       Charm(s)
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <label>Charm count: </label>
@@ -428,6 +449,9 @@ const EditSetForm = () => {
                     <label htmlFor="accordion-8" className="accordion-title bg-red-100">
                       Character(s)
                     </label>
+                    <span class="accordion-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                    </span>
                     <div className="accordion-content">
                       <div className="min-h-0">
                         <label>Character count: </label>

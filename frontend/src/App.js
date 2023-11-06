@@ -21,6 +21,7 @@ import OrderConfirm from './components/ReviewOrderPage/OrderConfirm'
 import DummyComponent from './components/Dummy';
 import LoadingPage from './components/LoadingPage';
 import NotFoundPage from './components/NotFoundPage';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
         <Route component={NotFoundPage}/>
       </Switch>
       <Route exact path={['/']} component={GalleryPage} />
+      <Route component={Footer}/>
     </Router>
   );
 }

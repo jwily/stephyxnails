@@ -92,7 +92,7 @@ const ReviewOrderPage = () => {
 
     if (res.ok) {
 
-      
+
 
     } else {
 
@@ -171,8 +171,8 @@ const ReviewOrderPage = () => {
                     onChange={(e) => setEditedName(e.target.value)} // Handle input change
                   />
                   <div className="flex gap-3 mt-3 ">
-                      <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingName(false)}>Cancel</button>
-                      <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleSaveUserInformation}>Save</button>
+                    <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingName(false)}>Cancel</button>
+                    <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleSaveUserInformation}>Save</button>
                   </div>
                 </div>
               ) : (
@@ -193,14 +193,14 @@ const ReviewOrderPage = () => {
                     onChange={(e) => setEditedEmail(e.target.value)} // Handle input change
                   />
                   <div className="flex gap-3 mt-3">
-                      <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={() => setIsEditingEmail(false)}>Cancel</button>
-                      <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleSaveUserInformation}>Save</button>
+                    <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={() => setIsEditingEmail(false)}>Cancel</button>
+                    <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleSaveUserInformation}>Save</button>
                   </div>
                 </div>
               ) : (
                 <div>
                   <p className="font-bold">Email: <span className="font-normal">{state.email}</span></p>
-                  <button  className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingEmail(true)}>Edit</button>
+                  <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={() => setIsEditingEmail(true)}>Edit</button>
                 </div>
               )}
             </section>
@@ -229,48 +229,51 @@ const ReviewOrderPage = () => {
           </div>
 
           <div>
-  <section className="accordion-group">
-    {sets.map((formData, index) => (
-      <li className="accordion" key={index}>
-        <input type="checkbox" id={`accordion-${index}`} className="accordion-toggle" />
-        <label htmlFor={`accordion-${index}`} className="accordion-title bg-inherit">Set {index + 1}</label>
-        <div className="accordion-content">
-          <div className="min-h-0 flex flex-col gap-8 pl-2">
-            <div className='flex justify-between mr-12'>
-                <p className="font-bold">Tier: <span className="font-normal">{formData.tier}</span></p>
-                <p className="font-bold">Shape: <span className="font-normal">{formData.shape}</span></p>
-            </div>
-            <div className="flex justify-between mr-6">
-                <p className="font-bold">Left Sizes: <span className="font-normal">{formData.leftDisplay.join(', ')}</span></p>
-                <p className="font-bold">Right Sizes: <span className="font-normal">{formData.rightDisplay.join(', ')}</span></p>
-            </div>
-            <div>
-              <p className="font-bold">Photos:</p>
-              {formData.photos.map((photo, index) => (
-                <div key={index}>
-                  <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
-                </div>
+            <section className="accordion-group">
+              {sets.map((formData, index) => (
+                <li className="accordion" key={index}>
+                  <input type="checkbox" id={`accordion-${index}`} className="accordion-toggle" />
+                  <label htmlFor={`accordion-${index}`} className="accordion-title bg-inherit">Set {index + 1}</label>
+                  <span class="accordion-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                  </span>
+                  <div className="accordion-content">
+                    <div className="min-h-0 flex flex-col gap-8 pl-2">
+                      <div className='flex justify-between mr-12'>
+                        <p className="font-bold">Tier: <span className="font-normal">{formData.tier}</span></p>
+                        <p className="font-bold">Shape: <span className="font-normal">{formData.shape}</span></p>
+                      </div>
+                      <div className="flex justify-between mr-6">
+                        <p className="font-bold">Left Sizes: <span className="font-normal">{formData.leftDisplay.join(', ')}</span></p>
+                        <p className="font-bold">Right Sizes: <span className="font-normal">{formData.rightDisplay.join(', ')}</span></p>
+                      </div>
+                      <div>
+                        <p className="font-bold">Photos:</p>
+                        {formData.photos.map((photo, index) => (
+                          <div key={index}>
+                            <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                          </div>
+                        ))}
+                      </div>
+                      <p className="font-bold">Description: <span className="font-normal">{formData.description}</span></p>
+                      <div className="flex justify-between mr-12">
+                        <p className="font-bold">Charm(s): <span className="font-normal">{formData.extra}</span></p>
+                        <p className="font-bold">Character(s): <span className="font-normal">{formData.extra2}</span></p>
+                      </div>
+                      <div className='flex gap-3'>
+                        <button className='rounded-lg btn btn-primary btn-block bg-red-300 text-black' onClick={() => handleDeleteSet(index)}>Delete Set</button>
+                        <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={() => handleEditSet(index)}>Edit Set</button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
               ))}
-            </div>
-            <p className="font-bold">Description: <span className="font-normal">{formData.description}</span></p>
-            <div className="flex justify-between mr-12">
-                <p className="font-bold">Charm(s): <span className="font-normal">{formData.extra}</span></p>
-                <p className="font-bold">Character(s): <span className="font-normal">{formData.extra2}</span></p>
-            </div>
-            <div className='flex gap-3'>
-              <button className='rounded-lg btn btn-primary btn-block bg-red-300 text-black' onClick={() => handleDeleteSet(index)}>Delete Set</button>
-              <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={() => handleEditSet(index)}>Edit Set</button>
-            </div>
+            </section>
           </div>
-        </div>
-      </li>
-    ))}
-  </section>
-</div>
-<div className="flex gap-3 mt-7">
-  <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleBack}>←</button>
-  <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit}>Submit Order</button>
-</div>
+          <div className="flex gap-3 mt-7">
+            <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleBack}>←</button>
+            <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit}>Submit Order</button>
+          </div>
 
         </>
       ) : (

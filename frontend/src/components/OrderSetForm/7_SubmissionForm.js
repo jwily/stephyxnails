@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useOrderContext } from '../../context/OrderContext';
 import { useHistory } from 'react-router-dom';
+import LoadingPage from '../LoadingPage';
 
 function SubmissionSetForm() {
   // Initialize the history object and retrieve state and dispatch from the order context
@@ -61,7 +62,7 @@ function SubmissionSetForm() {
   return (
     <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
       {isLoading ? ( // Display loading indicator while isLoading is true
-        <div>Loading...</div>
+        <LoadingPage />
       ) : (
         <>
           {isOrderDetailsComplete ? (
