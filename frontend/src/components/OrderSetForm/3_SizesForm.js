@@ -6,10 +6,10 @@ function SizesForm() {
 
   const history = useHistory()
   const { state, dispatch } = useOrderContext();
-  const [leftDisplay, setLeftDisplay] = useState(['', '', '', '', '']);
-  const [rightDisplay, setRightDisplay] = useState(['', '', '', '', '']);
-  const [leftText, setLeftText] = useState('');
-  const [rightText, setRightText] = useState('');
+  const [leftDisplay, setLeftDisplay] = useState(state.formData.leftDisplay ? state.formData.leftDisplay : ['', '', '', '', '']);
+  const [rightDisplay, setRightDisplay] = useState(state.formData.rightDisplay ? state.formData.rightDisplay : ['', '', '', '', '']);
+  const [leftText, setLeftText] = useState(state.formData.leftDisplay ? state.formData.leftDisplay.join(', ') : '');
+  const [rightText, setRightText] = useState(state.formData.rightDisplay ? state.formData.rightDisplay.join(', ') : '');
   const [error, setError] = useState('');
   // const [errorRightHand, setErrorRightHand] = useState('');
   // const [errorLeftHand2, setErrorLeftHand2] = useState('');
@@ -29,6 +29,8 @@ function SizesForm() {
   const redirectToOrderDetails = () => {
     window.location.href = '/order'
   }
+
+  console.log('state--->',state)
 
   const handleNext = (e) => {
     e.preventDefault();
