@@ -8,6 +8,7 @@ const ReviewOrderPage = () => {
   // Access the history object for navigation, order state, and dispatch function from the order context
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
+  const { formData } = state; // Destructure values from the state
   const { name, email, instagram, sets } = state;
   const isOrderDetailsComplete = state.name && state.email;
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
@@ -55,9 +56,22 @@ const ReviewOrderPage = () => {
 
   const csrfToken = Cookies.get('csrftoken');
 
-  const handleBack = () => {
-    // Navigate back to the previous step
-    history.push("/order-set/currentset");
+  // const handleBack = () => {
+  //   // Navigate back to the previous step
+  //   history.push("/order-set/currentset");
+  // };
+
+
+  const handleAddAnotherSet = () => {
+    // Dispatch actions to add the current set's data, clear the form, and navigate to '/order-set/tier'
+
+    dispatch({ type: 'ADD_SET', payload: formData });
+    dispatch({ type: 'CLEAR_FORM' });
+
+    // Clear the local storage
+    localStorage.clear();
+
+    history.push('/order-set/tier');
   };
 
   
@@ -271,7 +285,7 @@ const handleSubmit = async (e) => {
   </section>
 </div>
 <div className="flex gap-3 mt-7">
-  <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleBack}>←</button>
+  <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add a Set</button>
   <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>Submit Order</button>
 
 </div>

@@ -6,7 +6,7 @@ function SubmissionSetForm() {
   // Initialize the history object and retrieve state and dispatch from the order context
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
-  const { formData, setCount } = state; // Destructure values from the state
+  const { formData } = state; // Destructure values from the state
   const isOrderDetailsComplete = state.name && state.email; // Check if order details are complete
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
 
@@ -25,11 +25,11 @@ function SubmissionSetForm() {
 
   const handleSubmit = () => {
     // Ensure setCount is within bounds
-    const newSetCount = Math.min(setCount, state.sets.length - 1);
+    // const newSetCount = Math.min(setCount, state.sets.length - 1);
 
     // Create a copy of the current sets array in the state
     const updatedSets = [...state.sets];
-    updatedSets[newSetCount] = formData;
+    // updatedSets[newSetCount] = formData;
 
     // Dispatch an action to update the sets array in the state
     dispatch({ type: "UPDATE_SETS", payload: updatedSets });
@@ -41,17 +41,17 @@ function SubmissionSetForm() {
     history.push("/review-order");
   };
 
-  const handleAddAnotherSet = () => {
-    // Dispatch actions to add the current set's data, clear the form, and navigate to '/order-set/tier'
+  // const handleAddAnotherSet = () => {
+  //   // Dispatch actions to add the current set's data, clear the form, and navigate to '/order-set/tier'
 
-    dispatch({ type: 'ADD_SET', payload: formData });
-    dispatch({ type: 'CLEAR_FORM' });
+  //   dispatch({ type: 'ADD_SET', payload: formData });
+  //   dispatch({ type: 'CLEAR_FORM' });
 
-    // Clear the local storage
-    localStorage.clear();
+  //   // Clear the local storage
+  //   localStorage.clear();
 
-    history.push('/order-set/tier');
-  };
+  //   history.push('/order-set/tier');
+  // };
 
   const handleBack = () => {
     // Navigate back to the previous step, in this case, '/order-set/extra'
@@ -70,7 +70,7 @@ function SubmissionSetForm() {
                 <div className="card card-image-cover bg-primary">
                   <div className="card-body bg-primary">
                     <h1 className="card-header">Sets</h1>
-                    <h2 className="card-header">Number of sets made: {setCount + 1}</h2>
+                    {/* <h2 className="card-header">Number of sets made: {setCount + 1}</h2> */}
                     <p className="text-black font-semibold">Tier: {formData.tier}</p>
                     <p className="text-black font-semibold">Shape: {formData.shape}</p>
                     <p className="text-black font-semibold">Left Sizes: {formData.leftDisplay.join(', ')}</p>
@@ -91,9 +91,9 @@ function SubmissionSetForm() {
                       <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>
                       ←
                       </button>
-                      <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleAddAnotherSet}>
+                      {/* <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleAddAnotherSet}>
                         Add Set
-                      </button>
+                      </button> */}
                     </div>
                     <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleSubmit}>
                       Submit Set
