@@ -41,15 +41,20 @@ class OrderSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Order
-    fields = ['id', 'name', 'email', 'instagram', 'created', 'updated', 'status', 'sets']
+    fields = ['id', 'name', 'email', 'instagram', 'created', 'updated', 'status', 'sets', 'recaptcha']
 
   def create(self, validated_data):
-    sets_data = validated_data.pop('sets')
-    order = Order.objects.create(**validated_data)
+    try:
+      print('RECAPTCHA FROM BODY', validated_data['recaptcha'])
+      sets_data = validated_data.pop('sets')
+      validated_data.pop('recaptcha')
+      order = Order.objects.create(**validated_data)
 
-    for set_data in sets_data:
-        images_data = set_data.pop('images')
-        new_set = Set.objects.create(order=order, **set_data)
-        for image_data in images_data:
-          SetImage.objects.create(set=new_set, **image_data)
-    return order
+      for set_data in sets_data:
+          images_data = set_data.pop('images')
+          new_set = Set.objects.create(order=order, **set_data)
+          for image_data in images_data:
+            SetImage.objects.create(set=new_set, **image_data)
+      return order
+    except Exception as e:
+      print('CREATE EXCEPTION ---->', e)

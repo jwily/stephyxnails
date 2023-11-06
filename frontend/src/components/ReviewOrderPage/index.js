@@ -330,9 +330,9 @@ const ReviewOrderPage = () => {
               ))}
             </section>
           </div>
-          <div className="flex gap-3 mt-7 justify-center">
-            <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleCaptchaChange} />
-          </div>
+          {/* <div className="flex gap-3 mt-7 justify-center w-screen"> */}
+          <ReCAPTCHA className="flex gap-3 mt-7 justify-center w-screen" ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleCaptchaChange} />
+          {/* </div> */}
           <div className="flex gap-3 mt-7">
             <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add Set</button>
             <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>Submit Order</button>
