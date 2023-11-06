@@ -3,14 +3,17 @@ import { useOrderContext } from "../../context/OrderContext";
 export default function FaqPage() {
   const { scrollToFAQ } = useOrderContext()
   return (
-    <div className="rounded-ex m-4 bg-primary p-4" ref={scrollToFAQ}>
-      <h1 style={{ textAlign: "center" }}>Frequently Asked Questions</h1>
+    <div className="rounded-xl m-4 bg-primary p-4" ref={scrollToFAQ}>
+      <h1 className="text-center font-bold">General Info</h1>
       <div className="accordion-group">
         <div className="accordion">
           <input type="checkbox" id="accordion-1" className="accordion-toggle" />
           <label htmlFor="accordion-1" className="accordion-title bg-inherit pl-2">
             F.A.Q.
           </label>
+          <span className="accordion-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+          </span>
           <div className="accordion-content">
             <div className="min-h-0 flex flex-col gap-8 pl-2">
               <div>
@@ -75,6 +78,9 @@ export default function FaqPage() {
           <label htmlFor="accordion-2" className="accordion-title bg-inherit pl-2">
             Shipping
           </label>
+          <span className="accordion-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+          </span>
           <div className="accordion-content">
             <div className="min-h-0 flex flex-col gap-y-2 pl-2">
               Standard shipping (1-3 business days) is $5 through USPS Mail.
@@ -87,6 +93,9 @@ export default function FaqPage() {
           <label htmlFor="accordion-3" className="accordion-title bg-inherit pl-2">
             Returns
           </label>
+          <span className="accordion-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+          </span>
           <div className="accordion-content">
             <div className="min-h-0 flex flex-col gap-y-2 pl-2">
               Since each order is custom made for you, I am unable to accept refunds or exchanges of any kind.

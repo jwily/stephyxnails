@@ -1,47 +1,37 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 import logo from "./nav_logo/logo.png"
 import { useOrderContext } from "../../context/OrderContext";
 
 const NavBar = () => {
 
+    const history = useHistory();
     const { scrollToOrder, scrollToAbout, scrollToGallery, scrollToFAQ } = useOrderContext()
+    const { pathname } = useLocation()
 
-
-    const scrollToAboutClick = () => {
-        if (scrollToAbout.current) {
-            const navbarHeight = 140;
-            const offset = scrollToAbout.current.offsetTop - navbarHeight;
-            window.scrollTo({
-                top: offset,
-                behavior: 'smooth',
-            });
+    const scrollToSection = (scrollTo) => {
+        const scrollOffsetPercentage = 0.2;
+        if (pathname !== '/') {
+            history.push('/')
+            setTimeout(() => {
+                const currentScrollPosition = window.scrollY;
+                const targetScrollPosition = scrollTo?.current?.getBoundingClientRect().top + currentScrollPosition - (window.innerHeight * scrollOffsetPercentage);
+                window.scrollTo({ top: targetScrollPosition, behavior: "smooth" });            }, 10);
         }
-    };
+        const currentScrollPosition = window.scrollY;
+        const targetScrollPosition = scrollTo?.current?.getBoundingClientRect().top + currentScrollPosition - (window.innerHeight * scrollOffsetPercentage);
+        window.scrollTo({ top: targetScrollPosition, behavior: "smooth" });
+        };
 
-    const scrollToOrderClick = () => {
-        if (scrollToAbout.current) {
-            const navbarHeight = 90;
-            const offset = scrollToAbout.current.offsetTop - navbarHeight;
-            window.scrollTo({
-                top: offset,
-                behavior: 'smooth',
-            });
+    const scrollToVeryTop = () => {
+        if (pathname !== '/') {
+            history.push('/')
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }, 10);
         }
-    };
-
-    const scrollToFAQClick = () => {
-        if (scrollToAbout.current) {
-            const navbarHeight = -150;
-            const offset = scrollToAbout.current.offsetTop - navbarHeight;
-            window.scrollTo({
-                top: offset,
-                behavior: 'smooth',
-            });
-        }
-    };
-
-
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
     return (
         <div className="navbar bg-primary" style={{ position: "sticky", top: 0, zIndex: 1000 }}>
@@ -61,23 +51,15 @@ const NavBar = () => {
                                 <label
                                     htmlFor="drawer-left"
                                     className="text-2xl btn btn-sm btn-circlze btn-ghost"
-                                    onClick={scrollToAboutClick}
-                                >
-                                    ABOUT</label>
-                            </div>
-                            <div className="p-4">
-                                <label
-                                    htmlFor="drawer-left"
-                                    className="text-2xl btn btn-sm btn-circlze btn-ghost"
-                                    onClick={scrollToOrderClick}>
-                                    ORDERING
+                                    onClick={() => history.push('/order')}>
+                                    ORDER
                                 </label>
                             </div>
                             <div className="p-4">
                                 <label
                                     htmlFor="drawer-left"
                                     className="text-2xl btn btn-sm btn-circlze btn-ghost"
-                                    onClick={scrollToFAQClick}>
+                                    onClick={() => scrollToSection(scrollToFAQ)}>
                                     FAQ
                                 </label>
                             </div>
@@ -85,7 +67,15 @@ const NavBar = () => {
                                 <label
                                     htmlFor="drawer-left"
                                     className="text-2xl btn btn-sm btn-circlze btn-ghost"
-                                    onClick={(e) => scrollToGallery.current.scrollIntoView({ behavior: 'smooth' })}>
+                                    onClick={() => scrollToSection(scrollToAbout)}
+                                >
+                                    ABOUT</label>
+                            </div>
+                            <div className="p-4">
+                                <label
+                                    htmlFor="drawer-left"
+                                    className="text-2xl btn btn-sm btn-circlze btn-ghost"
+                                    onClick={(e) => scrollToSection(scrollToGallery)}>
                                     GALLERY
                                 </label>
                             </div>
@@ -99,7 +89,7 @@ const NavBar = () => {
                 </NavLink>
             </div>
             <div className="navbar-end">
-                <a className="navbar-item">
+                <a href='/order' className="navbar-item">
                     <i className="fa-solid fa-bag-shopping" style={{ color: "black" }}></i>
                 </a>
             </div>

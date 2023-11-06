@@ -35,7 +35,13 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='set',
-            name='sizes',
+            name='left_sizes',
+            field=models.CharField(default=1, max_length=254),
+            preserve_default=False,
+        ),
+        migrations.AddField(
+            model_name='set',
+            name='right_sizes',
             field=models.CharField(default=1, max_length=254),
             preserve_default=False,
         ),

@@ -24,7 +24,10 @@ class Set(models.Model):
   updated = models.DateTimeField(auto_now=True)
   description = models.TextField()
   shape = models.CharField(max_length=254, choices=SHAPE_CHOICES)
-  sizes = models.CharField(max_length=254)
+  left_sizes = models.CharField(max_length=254)
+  right_sizes = models.CharField(max_length=254)
+  charms = models.IntegerField()
+  characters = models.IntegerField()
 
   order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='sets')
   tier = models.ForeignKey('Tier', on_delete=models.CASCADE, related_name='sets')
@@ -33,10 +36,14 @@ class Set(models.Model):
     ordering = ['-created']
 
   def __str__(self):
-    return f"{shape_name(self.shape)} {self.tier.name}"
+    return f"{self.id} - {shape_name(self.shape)}"
 
   @property
   def short_description(self):
     if len(self.description) <= 50:
       return self.description
     return truncatechars(self.description, 50)
+
+  @property
+  def estimated_price(self):
+    return '$' + str(self.tier.price + (self.charms * 5) + (self.characters * 10)) + '.00'

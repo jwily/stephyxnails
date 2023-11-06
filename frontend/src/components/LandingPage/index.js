@@ -9,8 +9,7 @@ export default function LandingPage() {
     const {scrollToOrder} = useOrderContext()
     return (
         <div className="flex flex-col justify-center items-center">
-            <AboutPage />
-            <div className="rounded-ex m-4 bg-primary p-4" ref={scrollToOrder}>
+            <div className="rounded-xl m-4 bg-primary p-4" ref={scrollToOrder}>
                 <div className="text-center font-bold text-lg pb-4">
                     CUSTOM ORDERING
                 </div>
@@ -24,6 +23,7 @@ export default function LandingPage() {
                 </NavLink>
             </div>
             <FaqPage />
+            <AboutPage />
         </div>
     );
 }

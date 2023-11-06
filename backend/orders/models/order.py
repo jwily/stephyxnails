@@ -15,8 +15,8 @@ class Order(models.Model):
   instagram = models.CharField(max_length=100, blank=True, default='')
   status = models.CharField(choices=STATUS_CHOICES, default='pending', max_length=15)
 
-  class Meta:
-    ordering = ['-created']
+  # class Meta:
+  #   ordering = ['-created']
 
   def __str__(self):
-    return self.name + ' ' + self.created.strftime("%b '%y")
+    return f'{self.id} - {self.name}'

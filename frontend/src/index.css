@@ -10,8 +10,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  background-image: linear-gradient(#FFF7e6 , #fcd3d3);
+  background-image: url('./../public/images/flowers.png'), linear-gradient(#FFF7e6, #fcd3d3);
+  background-size: contain;
   color: black;
+  padding-bottom: 2.25rem;
 }
 
 .hidden {
@@ -23,7 +25,7 @@ code {
     monospace;
 }
 
-html{
+html {
   height: 100%;
 
 }
