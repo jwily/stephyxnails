@@ -222,7 +222,13 @@ def instagram_callback(request):
     access_response_data = access_response.json()
     access_token = access_response_data['access_token']
 
-    media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={access_token}"
+    long_token_url = f"https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret={settings.INSTAGRAM_APP_SECRET}&access_token={access_token}"
+    long_access_response = requests.get(long_token_url)
+    long_access_response_data = long_access_response.json()
+    long_access_token = long_access_response_data['access_token']
+
+
+    media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={long_access_token}"
     post_images = []
 
     while media_request_url:
