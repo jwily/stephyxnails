@@ -228,7 +228,7 @@ def instagram_callback(request):
     long_access_token = long_access_response_data['access_token']
 
 
-    media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,username,timestamp&access_token={long_access_token}"
+    media_request_url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,username,timestamp&access_token={long_access_token}"
     post_images = []
 
     while media_request_url:
@@ -252,7 +252,7 @@ def instagram_callback(request):
     for post in post_images:
         if (post['media_type'] == 'IMAGE' or post['media_type'] == 'CAROUSEL_ALBUM') and post['id'] not in all_ids:
             try:
-                ExampleImage.objects.create(url=post['permalink'], instagram_id=post['id'])
+                ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
             except Exception as e:
                 print(e)
 
