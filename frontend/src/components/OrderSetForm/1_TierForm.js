@@ -19,19 +19,19 @@ function TierForm() {
     const saveToLocalStorage = (key, value) => {
       localStorage.setItem(key, JSON.stringify(value));
     }
-  
+
     // Define a function to get data from local storage
     const getFromLocalStorage = (key) => {
       const storedValue = localStorage.getItem(key);
       return storedValue ? JSON.parse(storedValue) : null;
     }
-  
+
     useEffect(() => {
       // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
       setTimeout(() => {
         setIsLoading(false);
       }, 100);
-  
+
       // Get data from local storage for any previously persisted data
       const storedTier = getFromLocalStorage("selectedTier");
       if (storedTier) {
@@ -73,7 +73,9 @@ function TierForm() {
   }
 
   return (
-    <div className="p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5">
+    <div className="flex justify-center">
+
+    <div className="p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5 md:w-1/2">
       {isLoading ? (
         <LoadingPage />
         ) : (
@@ -131,6 +133,7 @@ function TierForm() {
           )}
         </>
       )}
+    </div>
     </div>
   );
 }
