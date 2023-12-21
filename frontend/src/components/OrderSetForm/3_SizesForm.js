@@ -126,7 +126,9 @@ function SizesForm() {
   // wanted to text out functionality
 
   return (
-    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
+    <div className='flex justify-center'>
+
+    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5 md:w-1/2'>
 
       {isLoading ? (
         <LoadingPage />
@@ -160,10 +162,10 @@ function SizesForm() {
               </div>
               <div>
                 <form className="space-y-4 pt-10">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
                       <p className='font-extrabold text-xl text-center mb-4'>Please list your nail sizes from thumb to pinky.</p>
                       <p className='font-extrabold text-xl text-center mb-4'>If you are unsure of your nail sizes, please reach out!</p>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
                       <label className="sr-only" htmlFor="email">Left Hand</label>
                       <div>Left Hand:</div>
                       <input
@@ -206,6 +208,7 @@ function SizesForm() {
           )}
         </>
       )}
+    </div>
     </div>
   );
 }
