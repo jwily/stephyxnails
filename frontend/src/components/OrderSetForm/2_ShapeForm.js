@@ -47,7 +47,9 @@ function ShapeForm() {
   };
 
   return (
-      <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
+    <div className='flex justify-center'>
+
+      <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5 md:w-1/2'>
        {isLoading ? (
         <LoadingPage />
       ) : (
@@ -55,7 +57,7 @@ function ShapeForm() {
         {isOrderDetailsComplete ? (
            <section>
            <h2 className="font-extrabold text-xl text-center mb-4">2. Choose your preferred nail shape and length</h2>
-                 <div>
+                 <div className='text-center'>
                    <select
                      value={shape}
                      onChange={(e) => setShape(e.target.value )}
@@ -96,6 +98,7 @@ function ShapeForm() {
     </>
   )}
 </div>
+    </div>
     );
 }
 
