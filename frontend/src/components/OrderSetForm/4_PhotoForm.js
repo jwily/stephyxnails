@@ -105,7 +105,9 @@ function PhotoForm() {
 
 
   return (
-    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5'>
+    <div className='flex justify-center'>
+
+    <div className='p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5 md:w-1/2'>
       {isLoading ? (
         <LoadingPage />
       ) : (
@@ -136,7 +138,9 @@ function PhotoForm() {
                         {Array.isArray(state.formData.photos)
                         && state.formData.photos.map((photo, index) => (
                         <div key={index}>
-                          <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
+                          <div className='flex justify-center'>
+                            <img src={URL.createObjectURL(photo)} alt={`Inspiration ${index}`} style={imageStyle} />
+                          </div>
                           <div className='flex justify-center'>
                             <button className="rounded-lg btn btn-primary bg-red-300 text-black mt-2" onClick={() => handleRemovePhoto(photo)}>Remove</button>
                           </div>
@@ -159,6 +163,7 @@ function PhotoForm() {
           )}
         </>
       )}
+    </div>
     </div>
 
   );
