@@ -1,7 +1,6 @@
 import { useOrderContext } from "../../context/OrderContext";
 import AboutPage from "../AboutPage"
 import FaqPage from "../FaqPage"
-import GalleryPage from "../GalleryPage"
 import { NavLink } from "react-router-dom";
 
 
