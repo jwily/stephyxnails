@@ -81,18 +81,15 @@ const EditSetForm = () => {
     setEditedPhotos(updatedPhotos);
   };
 
-
   const imageStyle = {
     // maxWidth: '200px', // Maximum width
     // maxHeight: '200px', // Maximum height
     // width: 'auto',      // Maintain aspect ratio
     // height: 'auto',     // Maintain aspect ratio
-    width: '200px',    // Fixed width
-    height: '200px',   // Fixed height
-    objectFit: 'cover', // Maintain aspect ratio and cover the container
-
+    width: "200px", // Fixed width
+    height: "200px", // Fixed height
+    objectFit: "cover", // Maintain aspect ratio and cover the container
   };
-
 
   const handleFileChange = (e) => {
     const files = e.target.files;
@@ -141,8 +138,8 @@ const EditSetForm = () => {
   const FingerDisplayRight = ({ hand, name, value }) => {
     return (
       <div>
-        <span>{`${value ? value : ""} : `}</span>
-        <span className="font-extrabold font-xl">{`${hand} ${name}`}</span>
+        <span className="font-extrabold font-xl">{`${hand} ${name}: `}</span>
+        <span>{value ? value : ""}</span>
       </div>
     );
   };
@@ -166,14 +163,13 @@ const EditSetForm = () => {
     const value = e.target.value;
     // Check if the input contains invalid characters
     // Allows input to function correctly
-    setSizesError('');
+    setSizesError("");
 
     if (/[^0-9,.\s]/.test(value)) {
-      setSizesError('Input can only contain numeric characters (0-9), commas, and periods.');
+      setSizesError("Input can only contain numeric characters (0-9), commas, and periods.");
       setText(value);
       return; // Stop processing the input
     }
-
 
     setText(value);
 
@@ -215,7 +211,7 @@ const EditSetForm = () => {
       ) : (
         <>
           {isOrderDetailsComplete ? (
-            <div>
+            <div className="mx-2">
               <div className="accordion-group">
                 <div className="accordion">
                   <input type="checkbox" id="accordion-2" className="accordion-toggle" />
@@ -262,7 +258,7 @@ const EditSetForm = () => {
                     <div className="accordion-content ">
                       <div className="min-h-0 flex justify-center">
                         <select
-                          className="bg-white select text-black"
+                          className="bg-white select text-black max-w-full mx-3"
                           value={editedShape}
                           onChange={(e) => setEditedShape(e.target.value)}
                         >
@@ -294,36 +290,31 @@ const EditSetForm = () => {
                     </span>
                     <div className="accordion-content mx-3">
                       <div className="min-h-0">
-                        <div>
-                          <div className="flex flex-row justify-between">
+                        <div className="flex justify-between mb-4 sm:mr-4">
+                          <div className="flex flex-col items-end w-1/2">
                             <FingerDisplay hand="Left" name="Thumb" value={editedLeftDisplay[0]} />
-                            <FingerDisplayRight hand="Right" name="Thumb" value={editedRightDisplay[0]} />
-                          </div>
-                          <div className="flex flex-row justify-between">
                             <FingerDisplay hand="Left" name="Index" value={editedLeftDisplay[1]} />
-                            <FingerDisplayRight hand="Right" name="Index" value={editedRightDisplay[1]} />
-                          </div>
-                          <div className="flex flex-row justify-between">
                             <FingerDisplay hand="Left" name="Middle" value={editedLeftDisplay[2]} />
-                            <FingerDisplayRight hand="Right" name="Middle" value={editedRightDisplay[2]} />
-                          </div>
-                          <div className="flex flex-row justify-between">
                             <FingerDisplay hand="Left" name="Ring" value={editedLeftDisplay[3]} />
-                            <FingerDisplayRight hand="Right" name="Ring" value={editedRightDisplay[3]} />
-                          </div>
-                          <div className="flex flex-row justify-between">
                             <FingerDisplay hand="Left" name="Pinky" value={editedLeftDisplay[4]} />
+                          </div>
+                          <div className="flex flex-col items-end w-1/2 mr-20">
+                            <FingerDisplayRight hand="Right" name="Thumb" value={editedRightDisplay[0]} />
+                            <FingerDisplayRight hand="Right" name="Index" value={editedRightDisplay[1]} />
+                            <FingerDisplayRight hand="Right" name="Middle" value={editedRightDisplay[2]} />
+                            <FingerDisplayRight hand="Right" name="Ring" value={editedRightDisplay[3]} />
                             <FingerDisplayRight hand="Right" name="Pinky" value={editedRightDisplay[4]} />
+
                           </div>
                         </div>
+                        <p className="font-extrabold text-xl text-center mb-4">
+                          Please list your nail sizes from thumb to pinky.
+                        </p>
+                        <p className="font-extrabold text-xl text-center mb-4">
+                          If you are unsure of your nail sizes, please reach out!
+                        </p>
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mx-3">
                           <div>
-                            <p className="font-extrabold text-xl text-center mb-4">
-                              Please list your nail sizes from thumb to pinky.
-                            </p>
-                            <p className="font-extrabold text-xl text-center mb-4">
-                              If you are unsure of your nail sizes, please reach out!
-                            </p>
                             {!!sizesError && <p className="text-error">{sizesError}</p>}
                             <label className="sr-only" htmlFor="email">
                               Left Hand
@@ -389,11 +380,13 @@ const EditSetForm = () => {
                           {Array.isArray(editedPhotos) &&
                             editedPhotos.map((photo, index) => (
                               <div key={index}>
-                                <img
-                                  src={URL.createObjectURL(photo)}
-                                  alt={`Inspiration ${index}`}
-                                  style={imageStyle}
-                                />
+                                <div className="flex justify-center">
+                                  <img
+                                    src={URL.createObjectURL(photo)}
+                                    alt={`Inspiration ${index}`}
+                                    style={imageStyle}
+                                  />
+                                </div>
                                 <div className="flex justify-center">
                                   <button
                                     className="rounded-lg btn btn-primary bg-red-300 text-black mt-2"

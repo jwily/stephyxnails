@@ -138,7 +138,7 @@ function SizesForm() {
             <section className="bg-primary rounded-xl m-4">
               <h2 className="font-extrabold text-xl text-center mb-4">3. Choose your nail sizes</h2>
               {/* <p>disclaimer insert????</p> */}
-              <div className='flex justify-between'>
+              <div className='flex justify-between sm:mr-4'>
                 <div className='flex flex-col items-end w-1/2'>
                   <FingerDisplay hand='Left' name='Thumb' value={leftDisplay[0]} />
                   <FingerDisplay hand='Left' name='Index' value={leftDisplay[1]} />
