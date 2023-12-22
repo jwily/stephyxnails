@@ -32,7 +32,7 @@ const ReviewOrderPage = () => {
 
   const handleCaptchaChange = () => {
     setIsCaptchaVerified(true);
-  }
+  };
   // Function to redirect to the order details page
   const redirectToOrderDetails = () => {
     window.location.href = "/order";
@@ -69,192 +69,184 @@ const ReviewOrderPage = () => {
   //   history.push("/order-set/currentset");
   // };
 
-
   const handleAddAnotherSet = () => {
     // Dispatch actions to add the current set's data, clear the form, and navigate to '/order-set/tier'
 
     // dispatch({ type: 'SAVE_FORM_DATA' });
-    dispatch({ type: 'CLEAR_FORM' });
+    dispatch({ type: "CLEAR_FORM" });
 
     // Clear the local storage
     localStorage.clear();
 
-    history.push('/order-set/tier');
+    history.push("/order-set/tier");
   };
-
 
   // Function to handle deleting a set, but prevent deleting the first set
   const handleDeleteSet = (index) => {
-
-
     dispatch({ type: "DELETE_SET", payload: index });
-
   };
 
   // Function to handle submitting the order
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(isCaptchaVerified) {
-    const recaptchaValue = recaptchaRef.current.getValue()
-    // Check if there are sets in the state
+    if (isCaptchaVerified) {
+      const recaptchaValue = recaptchaRef.current.getValue();
+      // Check if there are sets in the state
       if (state && state.sets && state.sets.length > 0) {
         setError(null);
 
         const formData = prepareState(state, recaptchaValue);
-        const res = await fetch('/api/orders/', {
-          method: 'POST',
+        const res = await fetch("/api/orders/", {
+          method: "POST",
           headers: {
-            'X-CSRFToken': csrfToken
+            "X-CSRFToken": csrfToken,
           },
-          body: formData
+          body: formData,
         });
 
         if (res.ok) {
           // Successfully submitted the order, navigate to the confirmation page
-          history.push('/orderconfirmation');
+          history.push("/orderconfirmation");
         } else {
-
         }
-
       } else {
         setError("You can't submit without a set");
       }
     } else {
-      alert('Please complete the ReCAPTCHA verification to submit your order.')
+      alert("Please complete the ReCAPTCHA verification to submit your order.");
     }
   };
 
-
   return (
-    <>
+    <div>
       {isOrderDetailsComplete ? (
-        <>
-          <div>
-            <h2 className="font-extrabold text-xl text-center mb-4">Review Your Entire Order</h2>
-          </div>
-          <div className="card-body p-8 shadow-lg rounded-2xl bg-primary m-4">
-            <h3 className="text-center font-bold">User Information</h3>
-            <section>
-              {isEditingName ? (
-                <div>
-                  <label className="font-bold">Name: </label>
-                  <input
-                    className="bg-white"
-                    type="text"
-                    value={editedName}
-                    onChange={(e) => setEditedName(e.target.value)} // Handle input change
-                  />
-                  <div className="flex gap-3 mt-3 ">
+        <div>
+          <h2 className="font-extrabold text-xl text-center mb-4 mt-4">Review Your Entire Order</h2>
+          <div className="flex justify-center">
+            <div className="card-body p-8 shadow-lg rounded-2xl bg-primary m-4 w-3/4">
+              <h3 className="text-center font-bold">User Information</h3>
+              <section>
+                {isEditingName ? (
+                  <div>
+                    <label className="font-bold">Name: </label>
+                    <input
+                      className="bg-white"
+                      type="text"
+                      value={editedName}
+                      onChange={(e) => setEditedName(e.target.value)} // Handle input change
+                    />
+                    <div className="flex gap-3 mt-3 ">
+                      <button
+                        className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                        onClick={() => setIsEditingName(false)}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                        onClick={handleSaveUserInformation}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="font-bold">
+                      Name: <span className="font-normal">{state.name}</span>
+                    </p>
                     <button
                       className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
-                      onClick={() => setIsEditingName(false)}
+                      onClick={() => setIsEditingName(true)}
                     >
-                      Cancel
-                    </button>
-                    <button
-                      className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
-                      onClick={handleSaveUserInformation}
-                    >
-                      Save
+                      Edit
                     </button>
                   </div>
-                </div>
-              ) : (
-                <div>
-                  <p className="font-bold">
-                    Name: <span className="font-normal">{state.name}</span>
-                  </p>
-                  <button
-                    className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
-                    onClick={() => setIsEditingName(true)}
-                  >
-                    Edit
-                  </button>
-                </div>
-              )}
-            </section>
-            <section>
-              {isEditingEmail ? (
-                <div>
-                  <label className="font-bold">Email: </label>
-                  <input
-                    className="bg-white"
-                    type="text"
-                    value={editedEmail}
-                    onChange={(e) => setEditedEmail(e.target.value)} // Handle input change
-                  />
-                  <div className="flex gap-3 mt-3">
+                )}
+              </section>
+              <section>
+                {isEditingEmail ? (
+                  <div>
+                    <label className="font-bold">Email: </label>
+                    <input
+                      className="bg-white"
+                      type="text"
+                      value={editedEmail}
+                      onChange={(e) => setEditedEmail(e.target.value)} // Handle input change
+                    />
+                    <div className="flex gap-3 mt-3">
+                      <button
+                        className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                        onClick={() => setIsEditingEmail(false)}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                        onClick={handleSaveUserInformation}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="font-bold">
+                      Email: <span className="font-normal">{state.email}</span>
+                    </p>
                     <button
                       className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
-                      onClick={() => setIsEditingEmail(false)}
+                      onClick={() => setIsEditingEmail(true)}
                     >
-                      Cancel
-                    </button>
-                    <button
-                      className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
-                      onClick={handleSaveUserInformation}
-                    >
-                      Save
+                      Edit
                     </button>
                   </div>
-                </div>
-              ) : (
-                <div>
-                  <p className="font-bold">
-                    Email: <span className="font-normal">{state.email}</span>
-                  </p>
-                  <button
-                    className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
-                    onClick={() => setIsEditingEmail(true)}
-                  >
-                    Edit
-                  </button>
-                </div>
-              )}
-            </section>
-            <section>
-              {isEditingInstagram ? (
-                <div>
-                  <label className="font-bold">Instagram: </label>
-                  <input
-                    className="bg-white"
-                    type="text"
-                    value={editedInstagram}
-                    onChange={(e) => setEditedInstagram(e.target.value)} // Handle input change
-                  />
-                  <div className="flex gap-3 mt-3">
+                )}
+              </section>
+              <section>
+                {isEditingInstagram ? (
+                  <div>
+                    <label className="font-bold">Instagram: </label>
+                    <input
+                      className="bg-white"
+                      type="text"
+                      value={editedInstagram}
+                      onChange={(e) => setEditedInstagram(e.target.value)} // Handle input change
+                    />
+                    <div className="flex gap-3 mt-3">
+                      <button
+                        className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                        onClick={() => setIsEditingInstagram(false)}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+                        onClick={handleSaveUserInformation}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="font-bold">
+                      Instagram: <span className="font-normal">{state.instagram}</span>
+                    </p>
                     <button
                       className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
-                      onClick={() => setIsEditingInstagram(false)}
+                      onClick={() => setIsEditingInstagram(true)}
                     >
-                      Cancel
-                    </button>
-                    <button
-                      className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
-                      onClick={handleSaveUserInformation}
-                    >
-                      Save
+                      Edit
                     </button>
                   </div>
-                </div>
-              ) : (
-                <div>
-                  <p className="font-bold">
-                    Instagram: <span className="font-normal">{state.instagram}</span>
-                  </p>
-                  <button
-                    className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
-                    onClick={() => setIsEditingInstagram(true)}
-                  >
-                    Edit
-                  </button>
-                </div>
-              )}
-            </section>
+                )}
+              </section>
+            </div>
           </div>
 
           <div>
-            <section className="accordion-group">
+            <section className="accordion-group mx-2">
               {sets.map((formData, index) => (
                 <li className="accordion" key={index}>
                   <input type="checkbox" id={`accordion-${index}`} className="accordion-toggle" />
@@ -286,7 +278,14 @@ const ReviewOrderPage = () => {
                       </div>
                       <div>
                         <p className="font-bold">Photos:</p>
-                        <div style={{ display: 'grid', gridTemplateColumns: "repeat(2,1fr)", gap: '10px', margin: '10px 0 0 30px' }}>
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(2,1fr)",
+                            gap: "10px",
+                            margin: "10px 0 0 30px",
+                          }}
+                        >
                           {formData.photos.map((photo, index) => (
                             <div key={index}>
                               <img
@@ -324,29 +323,42 @@ const ReviewOrderPage = () => {
                         </button>
                       </div>
                     </div>
-
                   </div>
                 </li>
               ))}
             </section>
           </div>
           {/* <div className="flex gap-3 mt-7 justify-center w-screen"> */}
-          <ReCAPTCHA className="flex gap-3 mt-7 justify-center w-screen" ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleCaptchaChange} />
+          <ReCAPTCHA
+            className="flex gap-3 mt-7 justify-center w-screen"
+            ref={recaptchaRef}
+            sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"
+            onChange={handleCaptchaChange}
+          />
           {/* </div> */}
-          <div className="flex gap-3 mt-7">
-            <button className='rounded-lg btn btn-primary btn-block bg-primary_blue text-black' onClick={handleAddAnotherSet}>Add Set</button>
-            <button className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black" onClick={handleSubmit} disabled={!state.sets || state.sets.length === 0}>Submit Order</button>
-
+          <div className="flex gap-3 my-7 mx-4">
+            <button
+              className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
+              onClick={handleAddAnotherSet}
+            >
+              Add Set
+            </button>
+            <button
+              className="rounded-lg btn btn-primary btn-block bg-sky-300 text-black"
+              onClick={handleSubmit}
+              disabled={!state.sets || state.sets.length === 0}
+            >
+              Submit Order
+            </button>
           </div>
-
-        </>
+        </div>
       ) : (
         <div>
           <p>Please complete your order details before proceeding.</p>
           <button onClick={redirectToOrderDetails}>Complete Order Details</button>
         </div>
       )}
-    </>
+    </div>
 
     // {/* {info.sets.map(set =>
     //     <div key={set.description.length}>
@@ -383,8 +395,10 @@ const ReviewOrderPage = () => {
   //                     {set.tier}
   //                 </div>
   //             </div>)} */}
-          {/* <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div> */}
-          // <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleSubmit} />
+  {
+    /* <div className="g-recaptcha" data-sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW"></div> */
+  }
+  // <ReCAPTCHA ref={recaptchaRef} sitekey="6Ld2fOEoAAAAABOW9mr23wNIcTakNByHf5ArjqdW" onChange={handleSubmit} />
   //         <button onClick={handleSubmit}>Submit</button>
   //     </div>
   // )
