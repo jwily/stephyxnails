@@ -146,18 +146,15 @@ function ExtraForm() {
       {isLoading ? (
         <LoadingPage />
       ) : (
-        <>
+        <div className="flex justify-center">
 
           {isOrderDetailsComplete ? (
-            <section className="bg-primary rounded-xl m-4">
+            <section className="bg-primary rounded-xl m-4 md:w-1/2">
               <div className="p-8 shadow-lg">
                 <form className="space-y-4">
                   <div className="w-full">
                     <h1 className="font-extrabold text-xl text-center mb-4">6. Choose charm/character add ons</h1>
                     <div>Charms</div>
-                    <label className="sr-only" htmlFor="name">
-                      Name
-                    </label>
                     <select
                       className="input input-solid max-w-full bg-white text-black"
                       placeholder=""
@@ -172,14 +169,10 @@ function ExtraForm() {
                     <div>$5 per Charm = ${calculatedValue}</div>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                       <div>Characters</div>
-                      <label className="sr-only" htmlFor="email">
-                        Email
-                      </label>
                       <select
-                        className="input input-solid bg-white text-black"
+                        className="input input-solid max-w-full bg-white text-black"
                         placeholder=""
                         type="number"
                         id="number"
@@ -191,7 +184,6 @@ function ExtraForm() {
                       {error2 && <p style={{ color: "red" }}>{error2}</p>}
                       <div>$10 per Character = ${calculatedValue2}</div>
                     </div>
-                  </div>
 
                   <div className="flex gap-3 mt-7">
                     <button type="button" className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>
@@ -246,7 +238,7 @@ function ExtraForm() {
               <button onClick={redirectToOrderDetails}>Complete Order Details</button>
             </div>
           )}
-        </>
+        </div>
       )}
     </>
   );
