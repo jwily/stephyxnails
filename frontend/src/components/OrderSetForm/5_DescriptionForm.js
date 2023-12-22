@@ -62,9 +62,9 @@ function DescriptionFrom() {
       {isLoading ? (
         <LoadingPage />
       ) : (
-        <>
+        <div className='flex justify-center'>
           {isOrderDetailsComplete ? (
-            <section className="bg-primary rounded-xl m-4">
+            <section className="bg-primary rounded-xl m-4 md:w-1/2">
               <div className="p-8 shadow-lg">
                 <form className="space-y-4">
                   <div className="w-full">
@@ -111,7 +111,7 @@ function DescriptionFrom() {
               <button onClick={redirectToOrderDetails}>Complete Order Details</button>
             </div>
           )}
-        </>
+        </div>
       )}
     </>
   );
