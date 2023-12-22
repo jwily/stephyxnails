@@ -73,7 +73,9 @@ function SubmissionSetForm() {
   };
 
   return (
-    <div className="p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5">
+    <div className="flex justify-center">
+
+    <div className="p-8 shadow-lg rounded-2xl bg-primary m-4 flex flex-col gap-5 md:w-1/2">
       {isLoading ? ( // Display loading indicator while isLoading is true
         <LoadingPage />
       ) : (
@@ -81,7 +83,7 @@ function SubmissionSetForm() {
           {isOrderDetailsComplete ? (
             <>
               <div>
-                <div className="card card-image-cover bg-primary">
+                <div className="card card-image-cover bg-primary max-w-full">
                   <div className="card-body bg-primary">
                     <div className="flex justify-center">
                       <h1 className="font-extrabold text-xl mb-4 card-header">My Set</h1>
@@ -130,7 +132,6 @@ function SubmissionSetForm() {
                       {/* <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleAddAnotherSet}>
                         Add Set
                       </button> */}
-                    </div>
                     <button
                       className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black"
                       type="submit"
@@ -138,7 +139,8 @@ function SubmissionSetForm() {
                     >
                       Submit Set
                     </button>
-                    <p>you will be able to edit sets on the next page before finalizing your order.</p>
+                    </div>
+                    <p>You will be able to edit sets on the next page before finalizing your order.</p>
                   </div>
                   <img src={formData.photo} alt="" />
                 </div>
@@ -152,6 +154,7 @@ function SubmissionSetForm() {
           )}
         </>
       )}
+    </div>
     </div>
   );
 }
