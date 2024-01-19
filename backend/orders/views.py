@@ -265,12 +265,12 @@ def instagram_callback(request):
     for post in post_images:
         if (post['media_type'] == 'IMAGE' or post['media_type'] == 'CAROUSEL_ALBUM') and post['id'] not in all_ids:
             try:
-                # ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
-                image_file = download_image(post['media_url'])
+                ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+                # image_file = download_image(post['media_url'])
 
-                if image_file:
-                    url = upload_file_to_s3(image_file)
-                    ExampleImage.objects.create(url=url, instagram_id=post['id'])
+                # if image_file:
+                #     url = upload_file_to_s3(image_file)
+                #     ExampleImage.objects.create(url=url, instagram_id=post['id'])
             except Exception as e:
                 print(e)
 
