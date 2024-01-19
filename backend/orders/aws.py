@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 
 BUCKET_NAME = settings.S3_BUCKET
 S3_LOCATION = f"https://{BUCKET_NAME}.s3.amazonaws.com/"
-ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
+ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif", "jpeg"}
 
 s3 = boto3.client(
    "s3",
