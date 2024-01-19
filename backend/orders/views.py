@@ -16,6 +16,10 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.renderers import JSONRenderer
 
+from io import BytesIO
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
+
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
 
@@ -195,6 +199,15 @@ catchall_prod = TemplateView.as_view(template_name='index.html')
 # Defines which catchall view will be used based on the environment.
 catchall = catchall_dev if settings.DEBUG else catchall_prod
 
+def download_image(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        img_temp = NamedTemporaryFile(delete=True)
+        img_temp.write(response.content)
+        img_temp.flush()
+        return File(img_temp)
+    return None
+
 def instagram_callback(request):
 
     state = request.GET.get('state')
@@ -252,7 +265,12 @@ def instagram_callback(request):
     for post in post_images:
         if (post['media_type'] == 'IMAGE' or post['media_type'] == 'CAROUSEL_ALBUM') and post['id'] not in all_ids:
             try:
-                ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+                # ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+                image_file = download_image(post['media_url'])
+
+                if image_file:
+                    url = upload_file_to_s3(image_file)
+                    ExampleImage.objects.create(url=url, instagram_id=post['id'])
             except Exception as e:
                 print(e)
 

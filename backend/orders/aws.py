@@ -3,6 +3,7 @@ import botocore
 import uuid
 from django.conf import settings
 
+
 BUCKET_NAME = settings.S3_BUCKET
 S3_LOCATION = f"https://{BUCKET_NAME}.s3.amazonaws.com/"
 ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
