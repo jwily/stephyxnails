@@ -290,15 +290,15 @@ const EditSetForm = () => {
                     </span>
                     <div className="accordion-content mx-3">
                       <div className="min-h-0">
-                        <div className="flex justify-between mb-4 sm:mr-4">
-                          <div className="flex flex-col items-end w-1/2">
+                        <div className="flex justify-around mb-4 sm:mr-4">
+                          <div className="flex flex-col items-end">
                             <FingerDisplay hand="Left" name="Thumb" value={editedLeftDisplay[0]} />
                             <FingerDisplay hand="Left" name="Index" value={editedLeftDisplay[1]} />
                             <FingerDisplay hand="Left" name="Middle" value={editedLeftDisplay[2]} />
                             <FingerDisplay hand="Left" name="Ring" value={editedLeftDisplay[3]} />
                             <FingerDisplay hand="Left" name="Pinky" value={editedLeftDisplay[4]} />
                           </div>
-                          <div className="flex flex-col items-end w-1/2 mr-20">
+                          <div className="flex flex-col items-end">
                             <FingerDisplayRight hand="Right" name="Thumb" value={editedRightDisplay[0]} />
                             <FingerDisplayRight hand="Right" name="Index" value={editedRightDisplay[1]} />
                             <FingerDisplayRight hand="Right" name="Middle" value={editedRightDisplay[2]} />
