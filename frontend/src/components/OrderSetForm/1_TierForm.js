@@ -7,6 +7,9 @@ function TierForm() {
   // Initialize the history object and retrieve state, dispatch, and dataResult from the order context
   const history = useHistory();
   const { state, dispatch, dataResult } = useOrderContext();
+  // Initialize the running total state
+  const [totalPrice, setTotalPrice] = useState(0);
+
 
   // Reference for the tier input and local state to manage the selected tier
   const tierInputRef = useRef(null);
@@ -38,6 +41,17 @@ function TierForm() {
         setTier(storedTier);
       }
     }, []);
+
+  // Update the running total whenever the selected tier changes
+  useEffect(() => {
+    // Find the selected tier based on the ID
+    const selectedTier = dataResult.find((tierOption) => tierOption.id === tier);
+
+    // Update the total price
+    if (selectedTier) {
+      setTotalPrice(selectedTier.price);
+    }
+  }, [tier, dataResult]);
 
 
   const redirectToOrderDetails = () => {
@@ -105,6 +119,10 @@ function TierForm() {
                       </div>
                     ))}
                   </div>
+
+                  <div className="mt-5">
+                      <p className="font-bold text-xl">Total Price: ${totalPrice}</p>
+                   </div>
 
                   <div className="flex gap-3 mt-7">
                     <button
