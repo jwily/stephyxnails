@@ -3,6 +3,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 import LoadingPage from '../LoadingPage';
+import { useTotalPrice } from './TotalPriceContext';
+
 
 function PhotoForm() {
 
@@ -13,6 +15,8 @@ function PhotoForm() {
   const isOrderDetailsComplete = state.name && state.email
   // const [localPhotos, setLocalPhotos] = useState([]); // Local state for photos
   const [photoURLs, setPhotoURLs] = useState([])
+  const { totalPrice } = useTotalPrice();
+
 
   useEffect(() => {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
@@ -145,6 +149,11 @@ function PhotoForm() {
                     </div>
                   </div>
                 </div>
+
+                <div className="flex gap-3 mt-7">
+                <p className="font-bold text-xl">Total Price: ${totalPrice}</p>
+              </div>
+
                 <div className="flex gap-3 mt-3">
                   <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>←</button>
                   <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" type="submit" onClick={handleNext}>→</button>

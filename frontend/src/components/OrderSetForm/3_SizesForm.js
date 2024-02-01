@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 import LoadingPage from '../LoadingPage';
+import { useTotalPrice } from './TotalPriceContext';
+
 
 function SizesForm() {
 
@@ -15,6 +17,8 @@ function SizesForm() {
   // const [errorRightHand, setErrorRightHand] = useState('');
   // const [errorLeftHand2, setErrorLeftHand2] = useState('');
   // const [errorRightHand2, setErrorRightHand2] = useState('');
+  const { totalPrice } = useTotalPrice();
+
 
   const isOrderDetailsComplete = state.name && state.email
   const [isLoading, setIsLoading] = useState(false); // Initialize the loading state
@@ -187,6 +191,12 @@ function SizesForm() {
                         id="phone" />
                     </div>
                   </div>
+
+                  <div className="flex gap-3 mt-7">
+                <p className="font-bold text-xl">Total Price: ${totalPrice}</p>
+              </div>
+
+
                   <div className="mt-4 flex justify-between">
                     <button type="button" className="rounded-lg btn btn-primary w-5/12 bg-primary_blue text-black" onClick={handleBack}>←</button>
                     <button className="rounded-lg btn btn-primary w-5/12 bg-primary_blue text-black" type="submit" onClick={handleNext}>→</button>

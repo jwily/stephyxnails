@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useOrderContext } from "../../context/OrderContext";
+import { useTotalPrice } from './TotalPriceContext';
 import LoadingPage from "../LoadingPage";
 
 function TierForm() {

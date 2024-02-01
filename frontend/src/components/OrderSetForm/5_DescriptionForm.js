@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 import LoadingPage from '../LoadingPage';
+import { useTotalPrice } from './TotalPriceContext';
+
 
 function DescriptionFrom() {
 
@@ -17,6 +19,8 @@ function DescriptionFrom() {
 
   // Check if order details are complete
   const isOrderDetailsComplete = state.name && state.email
+  const { totalPrice } = useTotalPrice();
+
 
   useEffect(() => {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
@@ -52,6 +56,8 @@ function DescriptionFrom() {
     }
   };
 
+
+
   const handleBack = () => {
     // Navigate back to the previous step
     history.push('/order-set/photo');
@@ -74,6 +80,10 @@ function DescriptionFrom() {
                     <textarea style={{resize:"none"}} className="textarea textarea-solid max-w-full bg-white text-black" placeholder="" rows="8" id="message" value={description} onChange={ (e) => setDescription(e.target.value )} maxLength={5000} ></textarea>
                     <div ref={errorRef} style={{ color: 'red' }}></div>
                   </div>
+
+                  <div className="flex gap-3 mt-7">
+                <p className="font-bold text-xl">Total Price: ${totalPrice}</p>
+              </div>
 
                   <div className="flex gap-3 mt-7">
                     <button type="button" className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>←</button>

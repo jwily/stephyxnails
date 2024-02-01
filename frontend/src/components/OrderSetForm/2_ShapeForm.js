@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
+import { useTotalPrice } from './TotalPriceContext';
 import LoadingPage from '../LoadingPage';
 
 function ShapeForm() {
@@ -14,6 +15,8 @@ function ShapeForm() {
   });
   const isOrderDetailsComplete = state.name && state.email
   const [isLoading, setIsLoading] = useState(true); // Initialize the loading state
+  const { totalPrice } = useTotalPrice();
+
 
   useEffect(() => {
     // Simulate loading for 100 milliseconds (0.1 seconds) and then set loading to false
@@ -80,6 +83,11 @@ function ShapeForm() {
                     <option value="m-stiletto">Medium Stiletto</option>
                    </select>
                  </div>
+
+                 <div className="flex gap-3 mt-7">
+                <p className="font-bold text-xl">Total Price: ${totalPrice}</p>
+              </div>
+
 
                  <div className="flex gap-3 mt-7">
                    <button className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>←</button>

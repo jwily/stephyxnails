@@ -21,6 +21,7 @@ import OrderConfirm from './components/ReviewOrderPage/OrderConfirm'
 import LoadingPage from './components/LoadingPage';
 import NotFoundPage from './components/NotFoundPage';
 import Footer from './components/Footer';
+import { TotalPriceProvider } from './components/OrderSetForm/TotalPriceContext';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         <Route exact path='/' component={LandingPage} />
         <Route exact path="/order" component={OrderPage} />
         <Route path="/order-set/start" component={StartForm} />
+        <TotalPriceProvider>
         <Route path="/order-set/tier" component={TierForm} />
         <Route path="/order-set/shape" component={ShapeForm} />
         <Route exact path='/loading' component={LoadingPage} />
@@ -40,6 +42,7 @@ function App() {
         <Route path="/order-set/description" component={DescriptionForm} />
         <Route path="/order-set/extra" component={ExtraForm} />
         <Route path="/order-set/currentset" component={Submissions} />
+        </TotalPriceProvider>
         {/* <Route exact path="/ordersss" component={OrderDetails}/> */}
         <Route exact path='/review-order' component={ReviewOrderPage} />
         <Route path="/order-set/edit/:index" component={EditSetForm} />
