@@ -1,12 +1,14 @@
 import json
 import requests
 import urllib.request
+import tempfile
 
 from django.urls import reverse
 from django.conf import settings
 from django.template import engines
 from django.shortcuts import redirect
 from django.http import HttpResponse, StreamingHttpResponse
+from django.core.files.storage import default_storage
 
 from django.core.mail import send_mail
 from django.views.generic import TemplateView
@@ -199,14 +201,20 @@ catchall_prod = TemplateView.as_view(template_name='index.html')
 # Defines which catchall view will be used based on the environment.
 catchall = catchall_dev if settings.DEBUG else catchall_prod
 
+# Download image from URL
 def download_image(url):
     response = requests.get(url)
-    if response.status_code == 200:
-        img_temp = NamedTemporaryFile(delete=True)
-        img_temp.write(response.content)
-        img_temp.flush()
-        return File(img_temp)
-    return None
+
+    # Checks HTTP response
+    response.raise_for_status()
+
+    with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+        temp_file.write(response.content)
+
+        # Upload to S3
+        s3_image_url = upload_file_to_s3(temp_file)
+
+    return s3_image_url
 
 def instagram_callback(request):
 
@@ -265,12 +273,9 @@ def instagram_callback(request):
     for post in post_images:
         if (post['media_type'] == 'IMAGE' or post['media_type'] == 'CAROUSEL_ALBUM') and post['id'] not in all_ids:
             try:
-                # ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
-                image_file = download_image(post['media_url'])
+                s3_image_url = download_image(post['media_url'])
+                ExampleImage.objects.create(url=s3_image_url, instagram_id=post['id'])
 
-                if image_file:
-                    url = upload_file_to_s3(image_file)
-                    ExampleImage.objects.create(url=url, instagram_id=post['id'])
             except Exception as e:
                 print(e)
 
