@@ -9,7 +9,7 @@ function TierForm() {
   const history = useHistory();
   const { state, dispatch, dataResult } = useOrderContext();
   // Initialize the running total state
-  const [totalPrice, setTotalPrice] = useState(0);
+  const { totalPrice, updateTotalPrice } = useTotalPrice();
 
 
   // Reference for the tier input and local state to manage the selected tier
@@ -43,17 +43,17 @@ function TierForm() {
       }
     }, []);
 
-  // Update the running total whenever the selected tier changes
-  useEffect(() => {
-    // Find the selected tier based on the ID
-    const selectedTier = dataResult.find((tierOption) => tierOption.id === tier);
 
-    // Update the total price
-    if (selectedTier) {
-      setTotalPrice(selectedTier.price);
-    }
-  }, [tier, dataResult]);
-
+    useEffect(() => {
+      // Find the selected tier based on the ID
+      const selectedTier = dataResult.find((tierOption) => tierOption.id === tier);
+  
+      // Update the total price
+      if (selectedTier) {
+        updateTotalPrice(selectedTier.price);
+      }
+    }, [tier, dataResult, updateTotalPrice]);
+  
 
   const redirectToOrderDetails = () => {
     window.location.href = "/order";
