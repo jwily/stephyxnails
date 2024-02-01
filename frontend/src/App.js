@@ -42,11 +42,11 @@ function App() {
         <Route path="/order-set/description" component={DescriptionForm} />
         <Route path="/order-set/extra" component={ExtraForm} />
         <Route path="/order-set/currentset" component={Submissions} />
-        </TotalPriceProvider>
         {/* <Route exact path="/ordersss" component={OrderDetails}/> */}
         <Route exact path='/review-order' component={ReviewOrderPage} />
         <Route path="/order-set/edit/:index" component={EditSetForm} />
         <Route exact path='/orderconfirmation' component={OrderConfirm} />
+        </TotalPriceProvider>
         <Route exact path='/gallery' component={GalleryPage} />
         <Route exact path='/about' component={AboutPage} />
         <Route exact path='/faq' component={FaqPage} />

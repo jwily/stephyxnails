@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { useOrderContext } from "../../context/OrderContext";
+import { useTotalPrice } from './TotalPriceContext';
 import LoadingPage from "../LoadingPage";
 
 function ExtraForm() {
   const history = useHistory();
   const { state, dispatch } = useOrderContext();
+  const { totalPrice, updateTotalPrice } = useTotalPrice();
+
   const [calculatedValue, setCalculatedValue] = useState(0);
   const [calculatedValue2, setCalculatedValue2] = useState(0);
   const [extra, setExtra] = useState(state.formData.extra || "");
@@ -14,6 +17,7 @@ function ExtraForm() {
   const isOrderDetailsComplete = state.name && state.email;
   const [error, setError] = useState(""); // State to hold error message
   const [error2, setError2] = useState(""); // State to hold error message
+  const isUpdatingTotalPrice = useRef(false); // Initialize a ref to track whether total price is being updated
 
   const redirectToOrderDetails = () => {
     window.location.href = "/order";
@@ -65,21 +69,33 @@ function ExtraForm() {
     }
   }, []);
 
-  // Calculate the new value and update 'calculatedValue'
   useEffect(() => {
-    setCalculatedValue(extra * 5);
+    const newCalculatedValue = extra * 5;
+    setCalculatedValue(newCalculatedValue);
 
-    // Save the updated 'calculatedValue' to localStorage whenever it changes
-    localStorage.setItem("calculatedValue", calculatedValue.toString());
-  }, [extra, calculatedValue]);
+    const storedValue = parseInt(localStorage.getItem("calculatedValue"), 10);
+    if (newCalculatedValue !== storedValue) {
+      isUpdatingTotalPrice.current = true;
+      const newTotalPrice = totalPrice - calculatedValue + newCalculatedValue; // Adjust the total price
+      updateTotalPrice(newTotalPrice);
+      localStorage.setItem("calculatedValue", newCalculatedValue.toString());
+    }
+  }, [extra, totalPrice, updateTotalPrice, calculatedValue]);
 
   useEffect(() => {
-    setCalculatedValue2(extra2 * 10);
+    const newCalculatedValue2 = extra2 * 10;
+    setCalculatedValue2(newCalculatedValue2);
 
-    // Save the updated 'calculatedValue' to localStorage whenever it changes
-    localStorage.setItem("calculatedValue", calculatedValue2.toString());
-  }, [extra2, calculatedValue2]);
+    const storedValue2 = parseInt(localStorage.getItem("calculatedValue2"), 10);
+    if (newCalculatedValue2 !== storedValue2) {
+      isUpdatingTotalPrice.current = true;
+      const newTotalPrice2 = totalPrice - calculatedValue2 + newCalculatedValue2; // Adjust the total price
+      updateTotalPrice(newTotalPrice2);
+      localStorage.setItem("calculatedValue2", newCalculatedValue2.toString());
+    }
+  }, [extra2, totalPrice, updateTotalPrice, calculatedValue2]);
 
+  
   const handleNext = (e) => {
     e.preventDefault();
     dispatch({ type: "UPDATE_FORM_DATA", payload: { extra, extra2 } });
@@ -192,6 +208,10 @@ function ExtraForm() {
                       <div>$10 per Character = ${calculatedValue2}</div>
                     </div>
                   </div>
+
+                  <div className="mt-5">
+                  <p className="font-bold text-xl">Total Price: ${totalPrice}</p>
+                </div>
 
                   <div className="flex gap-3 mt-7">
                     <button type="button" className="rounded-lg btn btn-primary btn-block bg-primary_blue text-black" onClick={handleBack}>

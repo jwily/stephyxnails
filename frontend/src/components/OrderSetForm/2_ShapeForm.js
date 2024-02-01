@@ -8,6 +8,7 @@ function ShapeForm() {
 
   const history = useHistory()
   const { state, dispatch } = useOrderContext();
+
   const selectRef = useRef(null); // Create a ref for the select element
   const [shape, setShape] = useState(() => {
     // Initialize 'shape' with the value from localStorage, or an empty string if not found.
