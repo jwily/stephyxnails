@@ -2,6 +2,7 @@ import json
 import requests
 import urllib.request
 import tempfile
+import imghdr
 
 from django.urls import reverse
 from django.conf import settings
@@ -211,7 +212,12 @@ def download_image(url):
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         temp_file.write(response.content)
 
+        file_type = imghdr.what(None, h =response.content)
+        print(f'file_type === {file_type}')
+
         # Upload to S3
+
+
         s3_image_url = upload_file_to_s3(temp_file)
 
     return s3_image_url
