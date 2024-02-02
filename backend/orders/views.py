@@ -26,7 +26,7 @@ from django.core.files.temp import NamedTemporaryFile
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
 
-from .aws import upload_file_to_s3
+from .aws import upload_file_to_s3, upload_temp_to_s3
 
 # The imports and method below
 # can be used to count database queries.
