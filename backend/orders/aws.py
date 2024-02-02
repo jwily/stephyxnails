@@ -1,6 +1,7 @@
 import boto3
 import botocore
 import uuid
+import imghdr
 from django.conf import settings
 from django.shortcuts import render, redirect
 
@@ -64,3 +65,28 @@ def remove_file_from_s3(image_url):
     except Exception as e:
         return { "errors": str(e) }
     return True
+
+def upload_temp_to_s3(file, acl="public-read"):
+
+    file_type = imghdr.what(None, h =file)
+
+    if not file_type in ALLOWED_EXTENSIONS:
+      return {"errors": 'File type not allowed.'}
+    filename = file.name
+    file.name = get_unique_filename(filename)
+
+    try:
+        s3.upload_fileobj(
+            file,
+            BUCKET_NAME,
+            file.name,
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": file.content_type
+            }
+        )
+    except Exception as e:
+        # in case the our s3 upload fails
+        return {"errors": str(e)}
+
+    return f"{S3_LOCATION}{file.name}"

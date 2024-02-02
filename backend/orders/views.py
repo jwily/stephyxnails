@@ -220,7 +220,7 @@ def download_image(url):
         # Upload to S3
 
 
-        s3_image_url = upload_file_to_s3(temp_file)
+        s3_image_url = upload_temp_to_s3(temp_file)
 
     return s3_image_url
 
