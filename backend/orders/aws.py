@@ -69,9 +69,10 @@ def remove_file_from_s3(image_url):
 def upload_temp_to_s3(file, acl="public-read"):
 
     file_type = imghdr.what(None, h =file)
+    print(f'file_type === {file_type}')
 
-    # if not file_type in ALLOWED_EXTENSIONS:
-    #   return {"errors": 'File type not allowed.'}
+    if not file_type in ALLOWED_EXTENSIONS:
+      return {"errors": 'File type not allowed.'}
     filename = file.name
     file.name = get_unique_filename(filename)
 
