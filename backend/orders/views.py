@@ -213,14 +213,16 @@ def download_image(url):
         temp_file.write(response.content)
 
         file_type = imghdr.what(None, h =response.content)
-        print(f'file_type === {file_type}')
+
+        print(f'temp_file file_type === {imghdr.what(None, h=temp_file)}')
+
+        print(f'response.content file_type === {file_type}')
         print(f'file name === {temp_file.name}')
         print(f'file --- {temp_file}')
 
         # Upload to S3
 
-
-        s3_image_url = upload_temp_to_s3(temp_file.read())
+        s3_image_url = upload_temp_to_s3(temp_file)
 
     return s3_image_url
 
