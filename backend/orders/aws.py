@@ -70,8 +70,8 @@ def upload_temp_to_s3(file, acl="public-read"):
 
     file_type = imghdr.what(None, h =file)
 
-    if not file_type in ALLOWED_EXTENSIONS:
-      return {"errors": 'File type not allowed.'}
+    # if not file_type in ALLOWED_EXTENSIONS:
+    #   return {"errors": 'File type not allowed.'}
     filename = file.name
     file.name = get_unique_filename(filename)
 
