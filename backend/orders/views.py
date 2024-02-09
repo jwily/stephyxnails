@@ -209,6 +209,9 @@ def download_image(url):
     # Checks HTTP response
     response.raise_for_status()
 
+    print(f'response.content === {response.content}')
+    print(f'response === {response}')
+
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         temp_file.write(response.content)
 
