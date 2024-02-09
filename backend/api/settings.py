@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='team5forever')
 DEBUG = 'RENDER' not in os.environ
 
 # For ease of use in development
-ALLOWED_HOSTS = ['localhost','happily-darling-pig.ngrok-free.app']
+ALLOWED_HOSTS = ['localhost']
 
 # Adds Render site name in production to allowed hosts
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -207,7 +207,7 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/', 'https://stephyxnails.onrender.com/', 'https://happily-darling-pig.ngrok-free.app/']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/', 'https://stephyxnails.onrender.com/']
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
