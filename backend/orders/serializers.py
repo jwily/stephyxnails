@@ -7,7 +7,7 @@ class ExampleImageSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = ExampleImage
-    fields = ['id', 'url', 'tier', 'created', 'instagram_id']
+    fields = ['id', 'url', 'tier', 'created', 'instagram_id', 'image']
 
 class TierSerializer(serializers.ModelSerializer):
 

@@ -208,6 +208,7 @@ def download_image(url):
     response = requests.get(url)
 
     if response.status_code == 200:
+        
 
     # Checks HTTP response
     # response.raise_for_status()
@@ -225,7 +226,7 @@ def download_image(url):
 
         # Upload to S3
 
-        s3_image_url = upload_temp_to_s3(temp_file.read())
+        # s3_image_url = upload_temp_to_s3(temp_file.read())
 
     return s3_image_url
 
