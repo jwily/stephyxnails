@@ -22,6 +22,7 @@ from rest_framework.renderers import JSONRenderer
 from io import BytesIO
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+from PIL import Image
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
@@ -206,19 +207,21 @@ catchall = catchall_dev if settings.DEBUG else catchall_prod
 def download_image(url):
     response = requests.get(url)
 
+    if response.status_code == 200:
+
     # Checks HTTP response
-    response.raise_for_status()
+    # response.raise_for_status()
 
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.jpeg') as temp_file:
-        temp_file.write(response.content)
+    # with tempfile.NamedTemporaryFile(delete=False, suffix='.jpeg') as temp_file:
+    #     temp_file.write(response.content)
 
-        file_type = imghdr.what(None, h =response.content)
+    #     file_type = imghdr.what(None, h =response.content)
 
-        print(f'temp_file file_type === {imghdr.what(None, h=temp_file.read())}')
+    #     print(f'temp_file file_type === {imghdr.what(None, h=temp_file.read())}')
 
-        print(f'response.content file_type === {file_type}')
-        print(f'file name === {temp_file.name}')
-        print(f'file --- {temp_file}')
+    #     print(f'response.content file_type === {file_type}')
+    #     print(f'file name === {temp_file.name}')
+    #     print(f'file --- {temp_file}')
 
         # Upload to S3
 

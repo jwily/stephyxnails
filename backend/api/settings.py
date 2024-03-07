@@ -214,3 +214,6 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     )
 }
+
+#Media
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')

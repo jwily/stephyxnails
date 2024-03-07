@@ -30,6 +30,7 @@ six = "==1.16.0"
 sqlparse = "==0.4.4"
 typing-extensions = "==4.8.0"
 urllib3 = "==1.26.18"
+pillow = "==10.2.0"
 
 [dev-packages]
 
