@@ -23,6 +23,7 @@ from io import BytesIO
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from PIL import Image
+from django.core.files.base import ContentFile
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
@@ -204,11 +205,11 @@ catchall_prod = TemplateView.as_view(template_name='index.html')
 catchall = catchall_dev if settings.DEBUG else catchall_prod
 
 # Download image from URL
-def download_image(url):
-    response = requests.get(url)
+# def download_image(post):
+#     response = requests.get(post)
 
-    if response.status_code == 200:
-        
+#     if response.status_code == 200:
+#         image = ExampleImage()
 
     # Checks HTTP response
     # response.raise_for_status()
@@ -228,7 +229,7 @@ def download_image(url):
 
         # s3_image_url = upload_temp_to_s3(temp_file.read())
 
-    return s3_image_url
+    # return s3_image_url
 
 def instagram_callback(request):
 
@@ -287,8 +288,10 @@ def instagram_callback(request):
     for post in post_images:
         if (post['media_type'] == 'IMAGE' or post['media_type'] == 'CAROUSEL_ALBUM') and post['id'] not in all_ids:
             try:
-                s3_image_url = download_image(post['media_url'])
-                ExampleImage.objects.create(url=s3_image_url, instagram_id=post['id'])
+                response = requests.get(post['media_url'])
+                if response.status_code == 200:
+                    new_image = ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+                    new_image.image.save(f'{post['id']}', ContentFile(response.content), save=True)
 
             except Exception as e:
                 print(e)
