@@ -290,9 +290,10 @@ def instagram_callback(request):
             try:
                 response = requests.get(post['media_url'])
                 if response.status_code == 200:
-                    new_image = ExampleImage.objects.create(url=post['media_url'], instagram_id=post['id'])
+                    new_image = ExampleImage.objects.create(instagram_id=post['id'])
                     new_image.image.save(f'{post['id']}', ContentFile(response.content), save=True)
-
+                    # s3_url = upload_file_to_s3(new_image.image)
+                    # new_image.url.save(s3_url)
             except Exception as e:
                 print(e)
 

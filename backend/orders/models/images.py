@@ -11,7 +11,7 @@ class SetImage(models.Model):
 
 class ExampleImage(models.Model):
   created = models.DateTimeField(auto_now_add=True)
-  url = models.URLField(max_length=3000)
+  url = models.URLField(max_length=3000, null=True, blank=True)
   instagram_id = models.CharField(unique=True, max_length=255)
   image = models.ImageField(upload_to='gallery/', null=True, blank=True)
 
