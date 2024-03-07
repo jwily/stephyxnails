@@ -80,6 +80,7 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
+    "default": "storages.backends.filebased.FileSystemStorage"
 }
 
 STATIC_ROOT = BACKEND_DIR / 'static'
