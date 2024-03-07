@@ -3,6 +3,7 @@ import requests
 import urllib.request
 import tempfile
 import imghdr
+import uuid
 
 from django.urls import reverse
 from django.conf import settings
@@ -24,6 +25,7 @@ from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from PIL import Image
 from django.core.files.base import ContentFile
+
 
 from orders.models import Order, Set, Tier, SetImage, ExampleImage
 from orders.serializers import OrderSerializer, SetSerializer, SetImageSerializer, ExampleImageSerializer, TierSerializer
@@ -291,7 +293,8 @@ def instagram_callback(request):
                 response = requests.get(post['media_url'])
                 if response.status_code == 200:
                     new_image = ExampleImage.objects.create(instagram_id=post['id'])
-                    new_image.image.save(f'{post['id']}', ContentFile(response.content), save=True)
+                    unique_filename = f'{uuid.uuid4()}.jpg'
+                    new_image.image.save(unique_filename, ContentFile(response.content), save=True)
                     # s3_url = upload_file_to_s3(new_image.image)
                     # new_image.url.save(s3_url)
             except Exception as e:
